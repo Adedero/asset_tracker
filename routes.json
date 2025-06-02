@@ -1,0 +1,170 @@
+{
+  "count": 33,
+  "routes": [
+    {
+      "group": "/auth",
+      "path": "/auth/login",
+      "method": "post"
+    },
+    {
+      "group": "/auth",
+      "path": "/auth/recovery/confirm-email",
+      "method": "post"
+    },
+    {
+      "group": "/auth",
+      "path": "/auth/recovery/reset-password",
+      "method": "post"
+    },
+    {
+      "group": "/auth",
+      "path": "/auth/refresh/:refreshToken",
+      "method": "get"
+    },
+    {
+      "group": "/auth",
+      "path": "/auth/register",
+      "method": "post"
+    },
+    {
+      "group": "/auth",
+      "path": "/auth/otp/send",
+      "method": "post"
+    },
+    {
+      "group": "/auth",
+      "path": "/auth/verification/send-email",
+      "method": "post"
+    },
+    {
+      "group": "/auth",
+      "path": "/auth/verification/verify-email",
+      "method": "post"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/currencies{/:currency_id}",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/currencies/:currency_id_or_symbol/rate",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/contact",
+      "method": "post"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/investments/count",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/investments",
+      "method": "post"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/investments{/:investment_id}",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/investments/initialize/:investment_plan_slug",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/investments/terminate/:investment_id",
+      "method": "post"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/faq{/:faq_id_slug}",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/investment-plans{/:investment_plan_id}",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/notifications{/:notification_id}",
+      "method": "delete"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/notifications{/:notification_id}",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/dashboard",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/wallet",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/account",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/account",
+      "method": "put"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/password/change",
+      "method": "put"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me",
+      "method": "put"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/transactions/deposit",
+      "method": "post"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/transactions/deposit/initialize",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/transactions{/:transaction_id}",
+      "method": "get"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/transactions/withdrawal",
+      "method": "post"
+    },
+    {
+      "group": "/users/me",
+      "path": "/users/me/transactions/withdrawal/initialize",
+      "method": "get"
+    },
+    {
+      "group": null,
+      "path": "/currencies",
+      "method": "post"
+    },
+    {
+      "group": null,
+      "path": "/investment-plans",
+      "method": "post"
+    }
+  ]
+}

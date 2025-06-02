@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-rubik: Rubik, Inter, 'Segoe UI, Verdana, sans-serif;
+
+  --color-primary: #285baa;
+  --color-primary-50: #eef3fb;
+  --color-primary-100: #d2dff4;
+  --color-primary-200: #9cbae8;
+  --color-primary-300: #6f9add;
+  --color-primary-400: #3974d0;
+  --color-primary-500: #285baa;
+  --color-primary-600: #204988;
+  --color-primary-700: #19396b;
+  --color-primary-800: #0e1f3a;
+  --color-primary-900: #091425;
+  --color-primary-950: #020408;
+
+  --color-secondary: #22b9d8;
+  --color-secondary-50: #edfafc;
+  --color-secondary-100: #c6eef6;
+  --color-secondary-200: #a2e3f0;
+  --color-secondary-300: #7bd7ea;
+  --color-secondary-400: #53cbe4;
+  --color-secondary-500: #22b9d8;
+  --color-secondary-600: #1ea2bd;
+  --color-secondary-700: #16798d;
+  --color-secondary-800: #115b6a;
+  --color-secondary-900: #082d35;
+  --color-secondary-950: #061e23;
+}
+
+:root {
+  
+  --color-gradient-lr: linear-gradient(to right, var(--color-primary-500), var(--color-secondary-500));
+  --color-gradient-tb: linear-gradient(to bottom, var(--color-primary-500), var(--color-secondary-500));
+
+  --color-gradient-lighter-lr: linear-gradient(to right, var(--color-primary-400), var(--color-secondary-400));
+  --color-gradient-lighter-tb: linear-gradient(to bottom, var(--color-primary-400), var(--color-secondary-400));
+
+  --color-gradient-darker-lr: linear-gradient(to right, var(--color-primary-600), var(--color-secondary-600));
+  --color-gradient-darker-tb: linear-gradient(to bottom, var(--color-primary-600), var(--color-secondary-600));
+}
+
+@layer components {
+  .v-card {
+    @apply bg-white dark:bg-slate-900 rounded-xl shadow-sm p-4;
+  }
+  
+  .bg-gradient-x {
+    background-color: var(--color-primary-500);
+    background: var(--color-gradient-lr);
+    color: #fff;
+  }
+  
+  .bg-gradient-y {
+    background-color: var(--color-primary-500);
+    background: var(--color-gradient-tb);
+    color: #fff;
+  }
+  .text-gradient-x {
+    background: var(--color-gradient-lr);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .text-gradient-y {
+    background: var(--color-gradient-tb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .border-gradient-x {
+    border: 1px solid var(--color-gradient-lr);
+  }
+  
+  .border-gradient-y {
+    border: 1px solid var(--color-gradient-tb);
+  }
+  
+  button.bg-gradient-x {
+    border: transparent;
+    transition: background 200ms;
+    &:hover {
+      background-color: var(--color-primary-500);
+      background: var(--color-gradient-darker-lr);
+    }
+  }
+  
+  button.bg-gradient-y {
+    border: transparent;
+    transition: background 200ms;
+    &:hover {
+      background-color: var(--color-primary-500);
+      background: var(--color-gradient-darker-tb);
+    }
+  }
+  
+  button.outlined {
+    @apply transition-all text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-800 hover:text-primary-500 dark:text-primary-100 border-primary-500;
+  }
+}
+
+@layer utilities {
+  
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flex-col-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flex-center-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+  }
+
+  .text-mute {
+    @apply text-slate-500 dark:text-slate-400;
+  }
+}
+
+
+body {
+  font-family: Rubik, Inter, 'Segoe UI', Roboto, Verdana, Geneva, Arial, Helvetica, sans-serif;
+  color: var(--p-text-color);
+}
+
+
+.r-triangle {
+  --r: 2px;
+
+  aspect-ratio: 1 / cos(30deg);
+  mask:
+    conic-gradient(from -30deg at 50% calc(200% - 3 * var(--r) / 2), #000 60deg, #0000 0) 0
+      100%/100% calc(100% - 3 * var(--r) / 2) no-repeat,
+    radial-gradient(var(--r) at 50% calc(2 * var(--r)), #000 98%, #0000 101%),
+    radial-gradient(var(--r), #000 98%, #0000 101%) space no-repeat 0 100% /
+      calc(2 * tan(60deg) * var(--r)) calc(2 * var(--r));
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.spin-cw {
+  animation: spin-clockwise 6s linear infinite;
+}
+
+.spin-acw {
+  animation: spin-anticlockwise 6s linear infinite;
+}
+
+@keyframes spin-clockwise {
+  0% {
+    transform: rotate(0deg);
+    transform-origin: center;
+  }
+  100% {
+    transform: rotate(360deg);
+    transform-origin: center;
+  }
+}
+
+@keyframes spin-anticlockwise {
+  0% {
+    transform: rotate(0deg);
+    transform-origin: center;
+  }
+  100% {
+    transform: rotate(-360deg);
+    transform-origin: center;
+  }
+}
+
+.hexagon {
+  clip-path: polygon(
+    50% 0%,
+    85% 25%,
+    85% 75%,
+    50% 100%,
+    15% 75%,
+    15% 25%
+  );
+  border-radius: 10px;
+}
+

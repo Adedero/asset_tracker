@@ -1,0 +1,262 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/prisma-gen"
+  moduleFormat = "esm"
+}
+
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model User {
+  id             String         @id @default(uuid())
+  name           String
+  email          String         @unique
+  password       String
+  verified       Boolean        @default(false)
+  role           UserRole       @default(USER)
+  account        Account?
+  accountGroup   AccountGroup?  @relation(fields: [accountGroupId], references: [id], onDelete: NoAction)
+  transactions   Transaction[]
+  investments    Investment[]
+  accountGroupId String?
+  image          String?
+  phoneNumber    String?
+  address        String?
+  country        String?
+  region         String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  Notification   Notification[]
+  /// [IpAddresses]
+  ipAddresses    Json?
+  devices        Json?
+  isBanned       Boolean?       @default(false)
+  ban            Ban?
+
+  @@index([email])
+}
+
+enum KycStatus {
+  UNVERIFIED
+  PENDING
+  VERIFIED
+}
+
+model Account {
+  id             String    @id @default(uuid())
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String    @unique
+  walletBalance  Float     @default(0)
+  kycIdType      String?
+  kycDocument    String?
+  kycDocumentExt String?
+  kycStatus      KycStatus @default(UNVERIFIED)
+  kycSubmittedAt DateTime?
+  kycVerifiedAt  DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+model AccountGroup {
+  id          String   @id @default(uuid())
+  users       User[]
+  name        String
+  /// [AccountGroupCurrencyData[]]
+  currencies  Json
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Token {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  value     String   @unique
+  expiresIn DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model InvestmentPlan {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  image     String?
+  /// [InvestmentTier[]]
+  tiers     Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum InvestmentStatus {
+  OPEN
+  PAUSED
+  CLOSED
+  TERMINATED
+}
+
+model Investment {
+  id                          String           @id @default(uuid())
+  user                        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                      String
+  profits                     Profit[]
+  autocompounded              Boolean
+  investmentStatus            InvestmentStatus @default(OPEN)
+  initialDeposit              Float
+  expectedReturnRate          Float
+  autocompoundedReturnRate    Float?
+  expectedTotalReturns        Float
+  currentTotalReturns         Float            @default(0)
+  currentCompoundedAmount     Float?
+  investmentName              String
+  investmentTier              String
+  minimumDeposit              Float
+  duration                    Int
+  terminationFee              Float            @default(0)
+  daysCompleted               Int              @default(0)
+  lastProfitDistributedAt     DateTime?
+  lastProfitAmount            Float?
+  hasTransferedProfitToWallet Boolean?
+  closedAt                    DateTime?
+  pausedAt                    DateTime?
+  pausedReason                String?
+  terminatedAt                DateTime?
+  terminator                  String?
+  terminationReason           String?
+  terminationFeeApplied       Boolean          @default(false)
+  createdAt                   DateTime         @default(now())
+  updatedAt                   DateTime         @updatedAt
+}
+
+enum ProfitStatus {
+  FROZEN
+  DISTRIBUTED
+  PENDING
+}
+
+model Profit {
+  id            String       @id @default(uuid())
+  userId        String
+  accountId     String?
+  Investment    Investment?  @relation(fields: [investmentId], references: [id], onDelete: Cascade)
+  investmentId  String?
+  amount        Float
+  status        ProfitStatus @default(FROZEN)
+  distributedAt DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  INVESTMENT
+  PROFIT
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESSFUL
+  FAILED
+}
+
+model Transaction {
+  id                             String            @id @default(uuid())
+  user                           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                         String
+  investmentId                   String?
+  transactionType                TransactionType
+  transactionStatus              TransactionStatus
+  amountInUSD                    Float
+  charge                         Float             @default(0)
+  actualAmountInUSD              Float
+  rate                           Float             @default(1)
+  currency                       String            @default("USD")
+  amountInCurrency               Float
+  isWireTransfer                 Boolean           @default(false)
+  isGiftCard                     Boolean?          @default(false)
+  /// [GiftCardData]
+  giftCardData                   Json?
+  wireTransferEmail              String?
+  depositWalletAddress           String?
+  depositWalletAddressNetwork    String?
+  withdrawalWalletAddress        String?
+  withdrawalWalletAddressNetwork String?
+  approvedAt                     DateTime?
+  failedAt                       DateTime?
+  failReason                     String?
+  description                    String?
+  createdAt                      DateTime          @default(now())
+  updatedAt                      DateTime          @updatedAt
+
+  @@index([transactionStatus, isWireTransfer])
+}
+
+model Currency {
+  id                       String    @id @default(uuid())
+  name                     String
+  symbol                   String
+  abbr                     String    @unique
+  image                    String?
+  rate                     Float
+  rateUpdatedAt            DateTime?
+  walletAddress            String
+  walletAddressNetwork     String?
+  isAvailableForWithdrawal Boolean   @default(true)
+  withdrawalCharge         Float     @default(0)
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  title       String
+  description String
+  isRead      Boolean  @default(false)
+  icon        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Faq {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Ban {
+  id                   String    @id @default(uuid())
+  user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId               String    @unique
+  reason               String?
+  bannedBy             String
+  areInvestmentsFrozen Boolean   @default(false)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  expiresAt            DateTime?
+  active               Boolean   @default(true)
+  /// [IpAddresses]
+  ipAddresses          Json?
+
+  @@index([userId])
+}

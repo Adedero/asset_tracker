@@ -1,0 +1,1 @@
+<template>KYC USER</template>

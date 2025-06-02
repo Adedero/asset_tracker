@@ -1,0 +1,34 @@
+# Build outputs
+output
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Temporary and generated directories
+tmp
+
+# Misc
+.DS_Store
+.fleet
+.idea
+.vscode
+.private
+dev
+*.rest
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+
+# SQLite Database
+database
+
+#Prisma
+src/lib/prisma
