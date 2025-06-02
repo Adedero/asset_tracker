@@ -164,7 +164,7 @@ const removeTier = (tier: NonNullable<InvestmentPlan['tiers']>[number]) => {
   if (!plan.value || !plan.value.tiers) return
   plan.value = {
     ...plan.value,
-    tiers: plan.value.tiers.filter((t) => t !== tier), // Create a new array without the tier
+    tiers: plan.value.tiers.filter((t) => t !== tier),
   }
 }
 
