@@ -29,6 +29,7 @@ dev
 
 # SQLite Database
 database
+prisma/migrations
 
 #Prisma
 src/lib/prisma
