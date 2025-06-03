@@ -53,7 +53,7 @@ export default api(
     return {
       statusCode: 201,
       success: true,
-      message: "Currency updated successfully",
+      message: "Currency created successfully",
       currency
     };
   })

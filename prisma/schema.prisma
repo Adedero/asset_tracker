@@ -73,7 +73,7 @@ model Account {
 model AccountGroup {
   id          String   @id @default(uuid())
   users       User[]
-  name        String
+  name        String   @unique
   /// [AccountGroupCurrencyData[]]
   currencies  Json
   description String?

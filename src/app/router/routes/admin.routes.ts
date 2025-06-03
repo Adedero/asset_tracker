@@ -67,7 +67,7 @@ const adminRoutes = [
   {
     path: "account-groups",
     name: "admin-account-groups",
-    component: () => import("@/app/pages/admin/account-groups.vue")
+    component: () => import("#src/app/pages/admin/account-groups/account-groups.vue")
   },
   {
     path: "email-service",
