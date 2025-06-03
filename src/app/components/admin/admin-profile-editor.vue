@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AccountGetApiResponse } from "@/modules/user/profile/account-get.api";
+import { AccountGetApiResponse } from "@/modules/admin/self/account-get.api";
 import useStore from "@/app/stores/store";
 import { ref } from "vue";
 import countries from "country-json/src/country-by-name.json";
@@ -51,7 +51,7 @@ const handleSelect = (files: IFile[]) => {
   data.value.image = files[0].dataUrl || "";
 };
 
-const { isFetching, error, execute } = useFetch(() => "/api/users/me", { immediate: false })
+const { isFetching, error, execute } = useFetch(() => "/api/admins/me", { immediate: false })
   .put(data)
   .json();
 

@@ -1,5 +1,6 @@
 import { api } from "#src/lib/api/api";
 import { defineHandler, defineValidator } from "#src/lib/api/handlers";
+import { HttpException } from "#src/lib/api/http";
 import prisma from "#src/lib/prisma/prisma";
 import { Currency } from "#src/prisma-gen";
 import { ApiResponse } from "#src/types/api-response";
@@ -41,9 +42,24 @@ export default api(
   },
   defineHandler<CurrencyCreateApiResponse>(async (req) => {
     const data = req.validatedBody as z.infer<typeof Schema>;
+
+    const existingCurrency = await prisma.currency.findFirst({
+      where: {
+        OR: [
+          { name: data.name },
+          { abbr: data.abbr }
+        ]
+      }
+    });
+
+    if (existingCurrency) {
+      throw HttpException.badRequest("A currency with this name or abbreviation already exists")
+    }
+
     const currency = await prisma.currency.create({
       data
     });
+    
     return {
       statusCode: 201,
       success: true,

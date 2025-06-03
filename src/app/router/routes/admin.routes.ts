@@ -20,7 +20,7 @@ const adminRoutes = [
     component: () => import("@/app/pages/admin/users/kyc-applications.vue")
   },
   {
-    path: "kyc/review/:user_id",
+    path: "kyc/review/:account_id",
     name: "admin-kyc-review",
     component: () => import("@/app/pages/admin/users/kyc-review.vue")
   },
@@ -80,14 +80,24 @@ const adminRoutes = [
     component: () => import("@/app/pages/admin/currencies.vue")
   },
   {
-    path: "faq",
+    path: "faqs",
     name: "admin-faq",
     component: () => import("@/app/pages/admin/faq/faq.vue")
+  },
+  {
+    path: "faqs/edit/:faq_id?",
+    name: "admin-faq-item",
+    component: () => import("@/app/pages/admin/faq/faq-item.vue")
   },
   {
     path: "account",
     name: "admin-account",
     component: () => import("@/app/pages/admin/account/account.vue")
+  },
+  {
+    path: "account/change-password",
+    name: "admin-change-password",
+    component: () => import("@/app/pages/admin/account/password-change.vue")
   }
 ];
 

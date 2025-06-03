@@ -1,30 +1,32 @@
 <script setup lang="ts">
 import type { IFile } from '@/app/components/ui/VFileUploader.vue'
-import { $fetch, useFetch } from '@/app/composables/use-fetch'
+import { useFetch } from '@/app/composables/use-fetch'
 import type { InvestmentPlan } from '@/prisma-gen'
 import { removeNullsRecursively, slugify } from '@/app/utils/helpers'
 import { useToast, type SelectChangeEvent } from 'primevue'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import tiers from '@/app/data/investment-tier'
-import useSWRV from 'swrv'
 import { InvestmentPlanGetApiResponse } from '@/modules/admin/investment-plans/investment-plans-get.api'
 
 const route = useRoute()
 const router = useRouter()
 const toast = useToast()
 
-const investment_plan_id = route.params.investment_plan_id.toString()
+const investment_plan_id = route.params.investment_plan_id ? 
+  route.params.investment_plan_id.toString() :
+  undefined
 
 const {
-  isLoading,
+  isFetching: isLoading,
   error,
-  data, 
-  mutate
-} = useSWRV<InvestmentPlanGetApiResponse>(
-  () => investment_plan_id ? `/api/admins/me/investment-plans/${investment_plan_id}` : null, 
-  $fetch
-);
+  data,
+  execute: getInvestmentPlan
+} = useFetch(
+  () => `/api/admins/me/investment-plans/${investment_plan_id}`,
+  { immediate: false }
+  ).get().json<InvestmentPlanGetApiResponse>()
+
 
 const plan = ref<Partial<InvestmentPlan>>({})
 
@@ -36,11 +38,12 @@ watch(
 )
 
 onMounted(async () => {
+  if (!investment_plan_id) return;
+  await getInvestmentPlan()
   if (data.value) {
     plan.value = data.value.investmentPlan;
     initialImage.value = plan.value.image || ''
     sortPlans()
-    return
   }
 })
 
@@ -132,16 +135,16 @@ const savePlan = async () => {
     life: 3000,
   });
 
-  await mutate(() => Promise.resolve({
+  data.value = {
     success: true,
     message: "Investment plan updated",
     investmentPlan: fetchData.value.investmentPlan
-  }));
+  }
 }
 
 const cancel = () => {
   if (!plan.value || !data.value?.investmentPlan) return
-  plan.value = structuredClone(data.value?.investmentPlan)
+  plan.value = JSON.parse(JSON.stringify(data.value?.investmentPlan))
 }
 
 const addTier = () => {
@@ -182,31 +185,31 @@ const removeTier = (tier: NonNullable<InvestmentPlan['tiers']>[number]) => {
 
         <template #right>
           <div class="flex items-center gap-2">
-            <Button @click="addTier" label="Add Tier" icon="pi pi-plus" outlined size="small" />
-            <Button @click="savePlan" label="Save" icon="pi pi-save" size="small" :loading="saving"
-              :disabled="saving || disabled" />
+            <Button @click="addTier" label="Add Tier" icon="pi pi-plus" outlined size="small" class="md:flex-shrink-0" />
+            <Button @click="savePlan" label="Save" icon="pi pi-save" size="small" :loading="isFetching"
+              :disabled="isFetching || disabled" />
             <Button label="Cancel" icon="pi pi-times" severity="secondary" size="small" @click="cancel" />
           </div>
         </template>
       </VNavbar>
 
       <div class="mt-2 md:h-[calc(100dvh-9rem)]">
-        <PageLoader v-if="loading" />
+        <VPageLoader v-if="isLoading" />
 
-        <ErrorMessage v-else-if="error" :error request="GET" @retry="getInvestmentPlan" closable />
+        <VErrorMessage v-else-if="error" :error should-retry @retry="getInvestmentPlan()" />
 
-        <div v-else-if="plan" class="h-full w-full">
+        <div v-else-if="(investment_plan_id && data?.investmentPlan) || (!investment_plan_id && plan)" class="h-full w-full">
           <div class="grid md:grid-cols-3 gap-4 h-full">
             <div class="md:col-span-1">
               <div class="grid gap-2">
                 <div class="bg-slate-200 dark:bg-slate-700 rounded-md h-60 overflow-hidden">
-                  <img :src="plan.image" class="w-full h-full object-cover" />
+                  <img :src="plan.image || ''" class="w-full h-full object-cover" />
                 </div>
 
                 <VFileUploader size="small" accept="image/*" :max-file-size="1 * 1024 * 1024"
                   @select="(files: IFile[]) => (plan.image = files[0].dataUrl ?? '')" @upload="savePlan"
-                  @cancel="plan.image = initialImage ?? ''" class="w-full" :loading="saving"
-                  :disabled="saving || disabled" />
+                  @cancel="plan.image = initialImage ?? ''" class="w-full" :loading="isFetching"
+                  :disabled="isFetching || disabled" />
               </div>
 
               <div class="mt-2">

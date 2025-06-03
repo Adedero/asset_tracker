@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AccountGetApiResponse } from "#src/modules/user/profile/account-get.api";
+import { AccountGetApiResponse } from "@/modules/user/profile/account-get.api";
 import { $fetch } from "@/app/composables/use-fetch";
 import useSWRV from "swrv";
 import { computed, ref, useTemplateRef } from "vue";

@@ -1,5 +1,6 @@
 import { api } from "#src/lib/api/api";
 import { defineHandler, defineValidator } from "#src/lib/api/handlers";
+import { HttpException } from "#src/lib/api/http";
 import prisma from "#src/lib/prisma/prisma";
 import { z } from "zod";
 
@@ -30,6 +31,23 @@ export default api(
   defineHandler(async (req) => {
     const data = req.validatedBody as z.infer<typeof Schema>;
     const { currency_id } = req.params;
+
+    const existingCurrency = await prisma.currency.findFirst({
+      where: {
+        AND: {
+          id: { not: currency_id },
+          OR: [
+            { name: data.name },
+            { abbr: data.abbr }
+          ]
+        }
+      }
+    });
+
+    if (existingCurrency) {
+      throw HttpException.badRequest("A currency with this name or abbreviation already exists")
+    }
+
     const currency = await prisma.currency.update({
       where: { id: currency_id },
       data
