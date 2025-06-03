@@ -23,25 +23,18 @@ export const dollar = new Intl.NumberFormat("en-US", {
   currency: "USD"
 });
 
-
 export const slugify = (text?: string) => {
-  return !text ? '' : text
-    .normalize("NFD") // Normalize Unicode (é → e, ñ → n)
-    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with '-'
-    .replace(/^-+|-+$/g, '') // Remove leading & trailing hyphens
-}
+  return !text
+    ? ""
+    : text
+        .normalize("NFD") // Normalize Unicode (é → e, ñ → n)
+        .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-") // Replace non-alphanumeric characters with '-'
+        .replace(/^-+|-+$/g, ""); // Remove leading & trailing hyphens
+};
 
-
-type JSONValue = 
-  | string 
-  | number 
-  | boolean 
-  | null 
-  | Date
-  | JSONObject 
-  | JSONArray;
+type JSONValue = string | number | boolean | null | Date | JSONObject | JSONArray;
 
 interface JSONObject {
   [key: string]: JSONValue;
@@ -56,12 +49,12 @@ export function removeNullsRecursively<T extends JSONValue>(input: T | Partial<T
 
   if (Array.isArray(input)) {
     const cleanedArray = input
-      .map(item => removeNullsRecursively(item))
-      .filter(item => item !== undefined);
+      .map((item) => removeNullsRecursively(item))
+      .filter((item) => item !== undefined);
     return cleanedArray as unknown as T;
   }
 
-  if (typeof input === 'object') {
+  if (typeof input === "object") {
     const cleanedObj: JSONObject = {};
     for (const [key, value] of Object.entries(input)) {
       const cleanedValue = removeNullsRecursively(value);

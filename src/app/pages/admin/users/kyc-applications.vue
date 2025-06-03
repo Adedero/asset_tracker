@@ -30,12 +30,12 @@ const { isLoading, data, error, mutate } = useSWRV<AccountsGetApiResponse>(
   $fetch
 );
 
-const showAdmins = ref<boolean>(false)
+const showAdmins = ref<boolean>(false);
 const filteredAccounts = computed(() => {
-  if (!data.value?.accounts) return null
-  if (showAdmins.value) return data.value.accounts
-  return data.value.accounts.filter((account) => account.user && account.user.role !== 'ADMIN')
-})
+  if (!data.value?.accounts) return null;
+  if (showAdmins.value) return data.value.accounts;
+  return data.value.accounts.filter((account) => account.user && account.user.role !== "ADMIN");
+});
 
 const dataLength = computed(() => data.value?.accounts.length || 0);
 
@@ -43,11 +43,10 @@ const allLoaded = computed(() => {
   return !!data.value?.accounts && data.value.accounts.length < LIMIT;
 });
 
-
 function getSeverity(status: KycStatus) {
-  if (status === 'VERIFIED') return 'success'
-  if (status === 'PENDING') return 'warn'
-  return 'danger'
+  if (status === "VERIFIED") return "success";
+  if (status === "PENDING") return "warn";
+  return "danger";
 }
 </script>
 
@@ -81,20 +80,42 @@ function getSeverity(status: KycStatus) {
         <div v-else-if="filteredAccounts">
           <div class="h-full w-full">
             <div class="w-full overflow-auto md:max-h-[calc(100dvh-15rem)]">
-              <DataTable :value="filteredAccounts" class="text-sm" selectionMode="single" dataKey="id"
-                :metaKeySelection="false" @row-click="
-                  (event) => $router.push({ name: 'admin-kyc-review', params: { account_id: event.data.id } })
-                ">
+              <DataTable
+                :value="filteredAccounts"
+                class="text-sm"
+                selectionMode="single"
+                dataKey="id"
+                :metaKeySelection="false"
+                @row-click="
+                  (event) =>
+                    $router.push({
+                      name: 'admin-kyc-review',
+                      params: { account_id: event.data.id }
+                    })
+                "
+              >
                 <Column header="S/N" style="min-width: 4rem">
                   <template #body="{ index }"> {{ index + 1 + skip }}&rpar; </template>
                 </Column>
 
                 <Column>
                   <template #body="{ data }">
-                    <div v-if="data.user?.image" class="w-8 aspect-square overflow-hidden rounded-full">
-                      <img :src="data.user.image" :alt="data.user?.name" class="w-full h-full object-cover" />
+                    <div
+                      v-if="data.user?.image"
+                      class="w-8 aspect-square overflow-hidden rounded-full"
+                    >
+                      <img
+                        :src="data.user.image"
+                        :alt="data.user?.name"
+                        class="w-full h-full object-cover"
+                      />
                     </div>
-                    <Icon v-else icon="ic:baseline-account-circle" style="font-size: 2rem" class="text-primary-500" />
+                    <Icon
+                      v-else
+                      icon="ic:baseline-account-circle"
+                      style="font-size: 2rem"
+                      class="text-primary-500"
+                    />
                   </template>
                 </Column>
 
@@ -102,7 +123,10 @@ function getSeverity(status: KycStatus) {
                   <template #body="{ data }">
                     <p>
                       {{ data.user.name }}
-                      <span class="text-xs font-semibold text-red-500" v-show="data.user.role === 'ADMIN'">
+                      <span
+                        class="text-xs font-semibold text-red-500"
+                        v-show="data.user.role === 'ADMIN'"
+                      >
                         admin
                       </span>
                     </p>
@@ -111,8 +135,11 @@ function getSeverity(status: KycStatus) {
 
                 <Column header="KYC Status">
                   <template #body="{ data }">
-                    <Tag class="text-xs font-semibold" :severity="getSeverity(data.kycStatus)"
-                      :value="toTitleCase(data.kycStatus)" />
+                    <Tag
+                      class="text-xs font-semibold"
+                      :severity="getSeverity(data.kycStatus)"
+                      :value="toTitleCase(data.kycStatus)"
+                    />
                   </template>
                 </Column>
 
@@ -121,7 +148,9 @@ function getSeverity(status: KycStatus) {
                 <Column header="Submitted On">
                   <template #body="{ data }">
                     <p v-if="data.kycSubmittedAt">
-                      {{ useDateFormat(new Date(data.kycSubmittedAt), 'ddd, DD MMM, YYYY hh:mm aa') }}
+                      {{
+                        useDateFormat(new Date(data.kycSubmittedAt), "ddd, DD MMM, YYYY hh:mm aa")
+                      }}
                     </p>
                     <p v-else>Not submitted</p>
                   </template>
@@ -131,7 +160,6 @@ function getSeverity(status: KycStatus) {
 
             <VPaginator :allLoaded :length="dataLength" :rows="LIMIT" v-model:page="page" />
           </div>
-
         </div>
       </div>
     </div>

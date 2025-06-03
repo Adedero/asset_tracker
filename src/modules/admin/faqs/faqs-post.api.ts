@@ -16,7 +16,6 @@ export interface FaqCreateApiResponse extends ApiResponse {
   faq: Faq;
 }
 
-
 export default api(
   {
     group: "/admins/me",
@@ -29,21 +28,18 @@ export default api(
 
     const existingFaq = await prisma.faq.findFirst({
       where: {
-        OR: [
-          { title: data.title },
-          { slug: data.slug }
-        ]
+        OR: [{ title: data.title }, { slug: data.slug }]
       }
     });
 
     if (existingFaq) {
-      throw HttpException.badRequest("A faq with this name or slug already exists")
+      throw HttpException.badRequest("A faq with this name or slug already exists");
     }
 
     const faq = await prisma.faq.create({
       data
     });
-    
+
     return {
       statusCode: 201,
       success: true,

@@ -16,4 +16,3 @@ export const GIFT_CARD_TYPES = [
 ];
 export const GIFT_CARD_COUNTRIES = ["Canada", "United Kingdom", "United States"];
 export const MAX_CURRENCY_IMG_SIZE = 1 * 1024 * 1024; //1MB
-

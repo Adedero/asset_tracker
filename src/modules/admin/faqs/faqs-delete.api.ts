@@ -1,4 +1,3 @@
-
 import { api } from "#src/lib/api/api";
 import { defineHandler } from "#src/lib/api/handlers";
 import prisma from "#src/lib/prisma/prisma";
@@ -20,7 +19,7 @@ export default api(
     const { faq_id } = req.params;
 
     const faq = await prisma.faq.delete({
-      where: { id: faq_id },
+      where: { id: faq_id }
     });
 
     if (!faq) {
@@ -35,4 +34,4 @@ export default api(
 
     return payload;
   })
-)
+);

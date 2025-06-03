@@ -16,7 +16,7 @@ const Schema = z.object({
         name: z.string({ message: "Tier name is required" }),
         minimumDeposit: z
           .number({ message: "Minimum deposit must be a number" })
-          .gt(0, { message: "Minimum deposit must be greater than 0"}),
+          .gt(0, { message: "Minimum deposit must be greater than 0" }),
         duration: z
           .number({ message: "Duration must be a number" })
           .int({ message: "Duration must be an integer" })
@@ -29,7 +29,8 @@ const Schema = z.object({
           .min(0, { message: "Termination fee must be 0 or greater" })
       }),
       { message: "Investment tiers must be an array" }
-    ).optional()
+    )
+    .optional()
 });
 
 export interface InvestmentPlanUpdateApiResponse extends ApiResponse {
@@ -51,18 +52,15 @@ export default api(
       where: {
         AND: {
           id: { not: investment_plan_id },
-          OR: [
-            { name: data.name },
-            { slug: data.slug },
-          ]
+          OR: [{ name: data.name }, { slug: data.slug }]
         }
       }
     });
 
     if (existingInvestmentPlan) {
-      throw HttpException.badRequest("And investment plan with this name or slug already exists")
+      throw HttpException.badRequest("And investment plan with this name or slug already exists");
     }
-    
+
     const investmentPlan = await prisma.investmentPlan.update({
       where: { id: investment_plan_id },
       data

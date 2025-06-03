@@ -6,12 +6,12 @@ export default api(
   {
     group: "/admins/me",
     path: "/currencies/:currency_id",
-    method: "delete",
+    method: "delete"
   },
   defineHandler(async (req) => {
     const { currency_id } = req.params;
     const currency = await prisma.currency.delete({
-      where: { id: currency_id },
+      where: { id: currency_id }
     });
     return {
       success: true,

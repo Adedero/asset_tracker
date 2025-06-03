@@ -1,4 +1,3 @@
-
 import { api } from "#src/lib/api/api";
 import { defineHandler } from "#src/lib/api/handlers";
 import prisma from "#src/lib/prisma/prisma";
@@ -20,7 +19,7 @@ export default api(
     const { investment_plan_id } = req.params;
 
     const investmentPlan = await prisma.investmentPlan.delete({
-      where: { id: investment_plan_id },
+      where: { id: investment_plan_id }
     });
 
     if (!investmentPlan) {
@@ -35,4 +34,4 @@ export default api(
 
     return payload;
   })
-)
+);

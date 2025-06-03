@@ -92,8 +92,13 @@ const handleEmailChange = () => {
             <VCard class="bg-gradient-y text-white">
               <template #header>
                 <div class="flex items-center justify-end gap-2">
-                  <Button @click="(event) => menu?.toggle(event)" size="small" label="Edit" icon="pi pi-user-edit"
-                    class="border-white bg-white text-primary-500" />
+                  <Button
+                    @click="(event) => menu?.toggle(event)"
+                    size="small"
+                    label="Edit"
+                    icon="pi pi-user-edit"
+                    class="border-white bg-white text-primary-500"
+                  />
                   <Menu ref="menu" :model="items" :popup="true" />
 
                   <Dialog v-model:visible="editEmail" header="Change Email" modal class="w-80">
@@ -102,25 +107,47 @@ const handleEmailChange = () => {
                         <label for="email" class="text-mute font-medium text-sm">
                           Enter your new email address
                         </label>
-                        <small class="text-primary-500">You will be asked to verify this email address.</small>
+                        <small class="text-primary-500"
+                          >You will be asked to verify this email address.</small
+                        >
                         <InputText v-model="email" fluid />
                         <small v-if="isEmailTheSame || errorMessage" class="text-red-500">
                           {{ errorMessage || "Your new email is the same as your current email." }}
                         </small>
                       </div>
 
-                      <Button @click="handleEmailChange" :disabled="!email || isEmailTheSame" label="Proceed"
-                        icon="pi pi-arrow-right" icon-pos="right" fluid class="mt-4" />
+                      <Button
+                        @click="handleEmailChange"
+                        :disabled="!email || isEmailTheSame"
+                        label="Proceed"
+                        icon="pi pi-arrow-right"
+                        icon-pos="right"
+                        fluid
+                        class="mt-4"
+                      />
                     </div>
                   </Dialog>
 
-                  <AdminProfileEditor v-model:visible="editProfile" :user="data.user" @update="handleUserUpdate" />
+                  <AdminProfileEditor
+                    v-model:visible="editProfile"
+                    :user="data.user"
+                    @update="handleUserUpdate"
+                  />
                 </div>
               </template>
 
-              <div class="mt-2 flex items-center flex-col md:flex-row justify-center md:justify-normal gap-5 flex-wrap">
-                <div v-if="data.user.image" class="bg-white rounded-full w-36 md:w-28 aspect-square overflow-hidden">
-                  <img :src="data.user.image" :alt="data.user.name" class="w-full h-full object-cover" />
+              <div
+                class="mt-2 flex items-center flex-col md:flex-row justify-center md:justify-normal gap-5 flex-wrap"
+              >
+                <div
+                  v-if="data.user.image"
+                  class="bg-white rounded-full w-36 md:w-28 aspect-square overflow-hidden"
+                >
+                  <img
+                    :src="data.user.image"
+                    :alt="data.user.name"
+                    class="w-full h-full object-cover"
+                  />
                 </div>
 
                 <Icon v-else icon="ic:baseline-account-circle" style="font-size: 120px" />
@@ -156,7 +183,10 @@ const handleEmailChange = () => {
 
                 <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                   <div class="flex items-center">
-                    <span class="pi pi-map-marker text-mute p-1 rounded-full" style="font-size: 12px" />
+                    <span
+                      class="pi pi-map-marker text-mute p-1 rounded-full"
+                      style="font-size: 12px"
+                    />
                     <p class="text-mute text-sm font-semibold">Location</p>
                   </div>
                   <p class="text-right font-semibold">
@@ -178,7 +208,13 @@ const handleEmailChange = () => {
           <div class="md:col-span-3 md:row-span-6 flex flex-col gap-2 *:flex-shrink-0">
             <VCard header="Log Out">
               <VLogout>
-                <Button fluid label="Log out" outlined icon="pi pi-sign-out outlined" severity="danger" />
+                <Button
+                  fluid
+                  label="Log out"
+                  outlined
+                  icon="pi pi-sign-out outlined"
+                  severity="danger"
+                />
               </VLogout>
             </VCard>
           </div>

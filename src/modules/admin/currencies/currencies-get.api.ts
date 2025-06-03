@@ -16,7 +16,7 @@ export interface CurrencyGetApiResponse extends ApiResponse {
 export default api(
   {
     group: "/admins/me",
-    path: "/currencies{/:currency_id}",
+    path: "/currencies{/:currency_id}"
   },
   defineHandler(async (req) => {
     const { currency_id } = req.params;
@@ -25,7 +25,7 @@ export default api(
 
     if (currency_id) {
       const currency = await prisma.currency.findUnique({
-        where: { id: currency_id },
+        where: { id: currency_id }
       });
 
       if (!currency) {
@@ -63,4 +63,4 @@ export default api(
 
     return payload;
   })
-)
+);

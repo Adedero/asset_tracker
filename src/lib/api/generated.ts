@@ -4,338 +4,338 @@ export type RouteGroups = "/auth" | "/admins/me" | "/users/me";
 //Number of routes = 67
 export const routes = [
   {
-    "group": "/auth",
-    "path": "/auth/login",
-    "method": "post"
+    group: "/auth",
+    path: "/auth/login",
+    method: "post"
   },
   {
-    "group": "/auth",
-    "path": "/auth/recovery/confirm-email",
-    "method": "post"
+    group: "/auth",
+    path: "/auth/recovery/confirm-email",
+    method: "post"
   },
   {
-    "group": "/auth",
-    "path": "/auth/recovery/reset-password",
-    "method": "post"
+    group: "/auth",
+    path: "/auth/recovery/reset-password",
+    method: "post"
   },
   {
-    "group": "/auth",
-    "path": "/auth/refresh/:refreshToken",
-    "method": "get"
+    group: "/auth",
+    path: "/auth/refresh/:refreshToken",
+    method: "get"
   },
   {
-    "group": "/auth",
-    "path": "/auth/register",
-    "method": "post"
+    group: "/auth",
+    path: "/auth/register",
+    method: "post"
   },
   {
-    "group": "/auth",
-    "path": "/auth/otp/send",
-    "method": "post"
+    group: "/auth",
+    path: "/auth/otp/send",
+    method: "post"
   },
   {
-    "group": "/auth",
-    "path": "/auth/verification/send-email",
-    "method": "post"
+    group: "/auth",
+    path: "/auth/verification/send-email",
+    method: "post"
   },
   {
-    "group": "/auth",
-    "path": "/auth/verification/verify-email",
-    "method": "post"
+    group: "/auth",
+    path: "/auth/verification/verify-email",
+    method: "post"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/currencies/:currency_id",
-    "method": "delete"
+    group: "/admins/me",
+    path: "/admins/me/currencies/:currency_id",
+    method: "delete"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/currencies{/:currency_id}",
-    "method": "get"
+    group: "/admins/me",
+    path: "/admins/me/currencies{/:currency_id}",
+    method: "get"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/currencies",
-    "method": "post"
+    group: "/admins/me",
+    path: "/admins/me/currencies",
+    method: "post"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/currencies/:currency_id",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/currencies/:currency_id",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/faqs{/:faq_id}",
-    "method": "delete"
+    group: "/admins/me",
+    path: "/admins/me/faqs{/:faq_id}",
+    method: "delete"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/faqs{/:faq_id}",
-    "method": "get"
+    group: "/admins/me",
+    path: "/admins/me/faqs{/:faq_id}",
+    method: "get"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/faqs",
-    "method": "post"
+    group: "/admins/me",
+    path: "/admins/me/faqs",
+    method: "post"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/faqs/:faq_id_or_slug",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/faqs/:faq_id_or_slug",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/investment-plans{/:investment_plan_id}",
-    "method": "delete"
+    group: "/admins/me",
+    path: "/admins/me/investment-plans{/:investment_plan_id}",
+    method: "delete"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/investment-plans{/:investment_plan_id}",
-    "method": "get"
+    group: "/admins/me",
+    path: "/admins/me/investment-plans{/:investment_plan_id}",
+    method: "get"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/investment-plans",
-    "method": "post"
+    group: "/admins/me",
+    path: "/admins/me/investment-plans",
+    method: "post"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/investment-plans/:investment_plan_id",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/investment-plans/:investment_plan_id",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/investments{/:investment_id}",
-    "method": "get"
+    group: "/admins/me",
+    path: "/admins/me/investments{/:investment_id}",
+    method: "get"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/investments/:investment_id",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/investments/:investment_id",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/investments/:investment_id/terminate",
-    "method": "post"
+    group: "/admins/me",
+    path: "/admins/me/investments/:investment_id/terminate",
+    method: "post"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/dashboard",
-    "method": "get"
+    group: "/admins/me",
+    path: "/admins/me/dashboard",
+    method: "get"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/account",
-    "method": "get"
+    group: "/admins/me",
+    path: "/admins/me/account",
+    method: "get"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/account",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/account",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/password/change",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/password/change",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/transactions/:transaction_id/approve",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/transactions/:transaction_id/approve",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/transactions/:transaction_id/fail",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/transactions/:transaction_id/fail",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/transactions{/:transaction_id}",
-    "method": "get"
+    group: "/admins/me",
+    path: "/admins/me/transactions{/:transaction_id}",
+    method: "get"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/accounts{/:account_id}",
-    "method": "get"
+    group: "/admins/me",
+    path: "/admins/me/accounts{/:account_id}",
+    method: "get"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/accounts/:account_id",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/accounts/:account_id",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/users/:user_id/ban",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/users/:user_id/ban",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/users/:user_id/change-email",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/users/:user_id/change-email",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/users/:user_id",
-    "method": "delete"
+    group: "/admins/me",
+    path: "/admins/me/users/:user_id",
+    method: "delete"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/users{/:user_id}",
-    "method": "get"
+    group: "/admins/me",
+    path: "/admins/me/users{/:user_id}",
+    method: "get"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/users",
-    "method": "post"
+    group: "/admins/me",
+    path: "/admins/me/users",
+    method: "post"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/users/:user_id",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/users/:user_id",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/users/:user_id/reset-password",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/users/:user_id/reset-password",
+    method: "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/users/:user_id/unban",
-    "method": "put"
+    group: "/admins/me",
+    path: "/admins/me/users/:user_id/unban",
+    method: "put"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/contact",
-    "method": "post"
+    group: "/users/me",
+    path: "/users/me/contact",
+    method: "post"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/currencies{/:currency_id}",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/currencies{/:currency_id}",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/currencies/:currency_id_or_symbol/rate",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/currencies/:currency_id_or_symbol/rate",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/faq{/:faq_id_slug}",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/faq{/:faq_id_slug}",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/investment-plans{/:investment_plan_id}",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/investment-plans{/:investment_plan_id}",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/notifications{/:notification_id}",
-    "method": "delete"
+    group: "/users/me",
+    path: "/users/me/notifications{/:notification_id}",
+    method: "delete"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/notifications{/:notification_id}",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/notifications{/:notification_id}",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/investments/count",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/investments/count",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/investments",
-    "method": "post"
+    group: "/users/me",
+    path: "/users/me/investments",
+    method: "post"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/investments{/:investment_id}",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/investments{/:investment_id}",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/investments/initialize/:investment_plan_slug",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/investments/initialize/:investment_plan_slug",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/investments/:investment_id/terminate",
-    "method": "post"
+    group: "/users/me",
+    path: "/users/me/investments/:investment_id/terminate",
+    method: "post"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/dashboard",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/dashboard",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/wallet",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/wallet",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/account",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/account",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/account",
-    "method": "put"
+    group: "/users/me",
+    path: "/users/me/account",
+    method: "put"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/password/change",
-    "method": "put"
+    group: "/users/me",
+    path: "/users/me/password/change",
+    method: "put"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me",
-    "method": "put"
+    group: "/users/me",
+    path: "/users/me",
+    method: "put"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/transactions/deposit",
-    "method": "post"
+    group: "/users/me",
+    path: "/users/me/transactions/deposit",
+    method: "post"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/transactions/deposit/giftcard/initialize",
-    "method": "post"
+    group: "/users/me",
+    path: "/users/me/transactions/deposit/giftcard/initialize",
+    method: "post"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/transactions/deposit/initialize",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/transactions/deposit/initialize",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/transactions{/:transaction_id}",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/transactions{/:transaction_id}",
+    method: "get"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/transactions/withdrawal",
-    "method": "post"
+    group: "/users/me",
+    path: "/users/me/transactions/withdrawal",
+    method: "post"
   },
   {
-    "group": "/users/me",
-    "path": "/users/me/transactions/withdrawal/initialize",
-    "method": "get"
+    group: "/users/me",
+    path: "/users/me/transactions/withdrawal/initialize",
+    method: "get"
   },
   {
-    "group": null,
-    "path": "/currencies",
-    "method": "post"
+    group: null,
+    path: "/currencies",
+    method: "post"
   },
   {
-    "group": null,
-    "path": "/investment-plans",
-    "method": "post"
+    group: null,
+    path: "/investment-plans",
+    method: "post"
   }
 ] as const;

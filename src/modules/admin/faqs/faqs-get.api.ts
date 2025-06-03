@@ -1,4 +1,3 @@
-
 import { api } from "#src/lib/api/api";
 import { defineHandler } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
@@ -18,7 +17,7 @@ export interface FaqGetApiResponse extends ApiResponse {
 export default api(
   {
     group: "/admins/me",
-    path: "/faqs{/:faq_id}",
+    path: "/faqs{/:faq_id}"
   },
   defineHandler(async (req) => {
     const { faq_id } = req.params;
@@ -65,4 +64,4 @@ export default api(
 
     return payload;
   })
-)
+);

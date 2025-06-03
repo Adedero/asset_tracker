@@ -1,4 +1,3 @@
-
 import { api } from "#src/lib/api/api";
 import { defineHandler } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
@@ -18,7 +17,7 @@ export interface InvestmentPlanGetApiResponse extends ApiResponse {
 export default api(
   {
     group: "/admins/me",
-    path: "/investment-plans{/:investment_plan_id}",
+    path: "/investment-plans{/:investment_plan_id}"
   },
   defineHandler(async (req) => {
     const { investment_plan_id } = req.params;
@@ -27,7 +26,7 @@ export default api(
 
     if (investment_plan_id) {
       const investmentPlan = await prisma.investmentPlan.findUnique({
-        where: { id: investment_plan_id },
+        where: { id: investment_plan_id }
       });
 
       if (!investmentPlan) {
@@ -65,4 +64,4 @@ export default api(
 
     return payload;
   })
-)
+);

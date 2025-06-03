@@ -1,4 +1,3 @@
-
 import { api } from "#src/lib/api/api";
 import { defineHandler } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
@@ -9,7 +8,7 @@ import { ApiResponse } from "#src/types/api-response";
 
 type AccountWithUser = Account & {
   user: User;
-}
+};
 
 export interface AccountsGetApiResponse extends ApiResponse {
   accounts: AccountWithUser[];
@@ -22,7 +21,7 @@ export interface AccountGetApiResponse extends ApiResponse {
 export default api(
   {
     group: "/admins/me",
-    path: "/accounts{/:account_id}",
+    path: "/accounts{/:account_id}"
   },
   defineHandler(async (req) => {
     const { account_id } = req.params;
@@ -65,4 +64,4 @@ export default api(
 
     return payload;
   })
-)
+);

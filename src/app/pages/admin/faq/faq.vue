@@ -1,23 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { $fetch, useFetch } from '@/app/composables/use-fetch'
-import useSWRV from 'swrv'
-import { FaqsGetApiResponse } from '@/modules/admin/faqs/faqs-get.api'
-import { useConfirm, useToast } from 'primevue'
-import { Faq } from '@/prisma-gen'
-import { FaqDeleteApiResponse } from '@/modules/admin/faqs/faqs-delete.api'
+import { ref } from "vue";
+import { $fetch, useFetch } from "@/app/composables/use-fetch";
+import useSWRV from "swrv";
+import { FaqsGetApiResponse } from "@/modules/admin/faqs/faqs-get.api";
+import { useConfirm, useToast } from "primevue";
+import { Faq } from "@/prisma-gen";
+import { FaqDeleteApiResponse } from "@/modules/admin/faqs/faqs-delete.api";
 
 const confirm = useConfirm();
 const toast = useToast();
 
 //Getting faqs
-const {
-  isLoading,
-  error,
-  data,
-  mutate
-} = useSWRV<FaqsGetApiResponse>("/api/admins/me/faqs",$fetch)
-
+const { isLoading, error, data, mutate } = useSWRV<FaqsGetApiResponse>(
+  "/api/admins/me/faqs",
+  $fetch
+);
 
 const selectedFaq = ref<Faq | null>(null);
 
@@ -26,38 +23,38 @@ const {
   error: deleteError,
   data: deleteData,
   execute: deleteFaq
-} = useFetch(
-  () => `/api/admins/me/faqs/${selectedFaq.value?.id}`,
-  { immediate: false }
-).delete().json<FaqDeleteApiResponse>()
-
+} = useFetch(() => `/api/admins/me/faqs/${selectedFaq.value?.id}`, { immediate: false })
+  .delete()
+  .json<FaqDeleteApiResponse>();
 
 async function deleteFaqItem() {
   if (!data.value?.faqs) return;
 
   if (!selectedFaq.value) {
-    toast.add({ severity: "error", summary: "Error", detail: "No FAQ selected" })
+    toast.add({ severity: "error", summary: "Error", detail: "No FAQ selected" });
     return;
   }
   await deleteFaq();
 
   if (deleteError.value || !deleteData.value?.faq) {
-    toast.add({ severity: "error", summary: "Error", detail: deleteError.value.message })
+    toast.add({ severity: "error", summary: "Error", detail: deleteError.value.message });
     return;
   }
 
   toast.add({
-    severity: 'success',
-    summary: 'Success',
-    detail: deleteData.value?.message || 'FAQ item deleted',
-    life: 3000,
+    severity: "success",
+    summary: "Success",
+    detail: deleteData.value?.message || "FAQ item deleted",
+    life: 3000
   });
 
-  await mutate(() => Promise.resolve({
-    success: true,
-    message: deleteData.value?.message || 'FAQ item deleted',
-    faqs: data.value!.faqs.filter((faq) => faq.id !== selectedFaq.value?.id)
-  }));
+  await mutate(() =>
+    Promise.resolve({
+      success: true,
+      message: deleteData.value?.message || "FAQ item deleted",
+      faqs: data.value!.faqs.filter((faq) => faq.id !== selectedFaq.value?.id)
+    })
+  );
 
   selectedFaq.value = null;
 }
@@ -67,28 +64,28 @@ const confirmDelete = () => {
   if (!selectedFaq.value) return;
 
   confirm.require({
-    message: 'Are you sure you want to proceed?',
-    header: 'Delete FAQ item',
-    icon: 'pi pi-exclamation-triangle',
+    message: "Are you sure you want to proceed?",
+    header: "Delete FAQ item",
+    icon: "pi pi-exclamation-triangle",
     rejectProps: {
-      label: 'Cancel',
-      severity: 'secondary',
-      outlined: true,
+      label: "Cancel",
+      severity: "secondary",
+      outlined: true
     },
     acceptProps: {
-      label: 'Delete',
-      severity: 'danger',
+      label: "Delete",
+      severity: "danger"
     },
     accept: () => {
-      deleteFaqItem()
-    },
-  })
-}
+      deleteFaqItem();
+    }
+  });
+};
 
 const onDeleteFaq = (faq: Faq) => {
   selectedFaq.value = faq;
   confirmDelete();
-}
+};
 </script>
 
 <template>
@@ -102,7 +99,12 @@ const onDeleteFaq = (faq: Faq) => {
         <template #right>
           <div class="flex items-center gap-2">
             <p class="text-primary-500 font-semibold">{{ data?.faqs.length }}</p>
-            <Button @click="$router.push({ name: 'admin-faq-item' })" label="New" icon="pi pi-plus" size="small" />
+            <Button
+              @click="$router.push({ name: 'admin-faq-item' })"
+              label="New"
+              icon="pi pi-plus"
+              size="small"
+            />
           </div>
         </template>
       </VNavbar>
@@ -121,11 +123,22 @@ const onDeleteFaq = (faq: Faq) => {
 
               <div class="mt-2">
                 <div class="flex items-center gap-2 justify-end">
-                  <Button @click="$router.push({ name: 'admin-faq-item', params: { faq_id: faq.id } })" label="Edit"
-                    icon="pi pi-file-edit" severity="secondary" size="small" />
+                  <Button
+                    @click="$router.push({ name: 'admin-faq-item', params: { faq_id: faq.id } })"
+                    label="Edit"
+                    icon="pi pi-file-edit"
+                    severity="secondary"
+                    size="small"
+                  />
 
-                  <Button @click="onDeleteFaq(faq)" :loading="isDeleting" label="Delete" icon="pi pi-trash" severity="danger"
-                    size="small" />
+                  <Button
+                    @click="onDeleteFaq(faq)"
+                    :loading="isDeleting"
+                    label="Delete"
+                    icon="pi pi-trash"
+                    severity="danger"
+                    size="small"
+                  />
                 </div>
               </div>
             </VCard>
