@@ -252,7 +252,7 @@ export async function distributeProfit() {
             });
           }
 
-          await prisma.investment.update({
+          await tx.investment.update({
             where: {
               id: investment.id
             },
@@ -270,7 +270,7 @@ export async function distributeProfit() {
             }
           });
 
-          await prisma.notification.create({
+          await tx.notification.create({
             data: {
               userId: user.id,
               title: "Daily Return Received",
