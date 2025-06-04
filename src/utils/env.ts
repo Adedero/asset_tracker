@@ -5,7 +5,7 @@ dotenv.config();
 export class Env {
   constructor() {}
 
-  get<T>(key: keyof NodeJS.ProcessEnv, defaultValue?: T): T {
+  get<T = string>(key: keyof NodeJS.ProcessEnv, defaultValue?: T): T {
     const value = process.env[key];
     if (value === undefined && defaultValue !== undefined) {
       return defaultValue;

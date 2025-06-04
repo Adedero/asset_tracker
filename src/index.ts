@@ -10,6 +10,7 @@ import { generateRoutes } from "#src/lib/api/route-gen";
 import errorHandler from "#src/middleware/error-handler";
 import auth from "#src/middleware/auth";
 import parseRequestQuery from "#src/middleware/parse-request-query";
+import { profitDistributionJob } from "#src/cron/profit-distribution.cron";
 
 const PORT = env.get("PORT", 8000);
 const app = express();
@@ -21,6 +22,8 @@ async function main() {
   app.use(express.urlencoded({ extended: true }));
   app.use(compression());
   app.use(express.static("public"));
+
+  profitDistributionJob.start();
 
   await generateRoutes(app, {
     globalPrefix: "/api",

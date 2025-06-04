@@ -10,7 +10,8 @@ const Schema = z.object({
   address: z.string().trim().optional(),
   country: z.string().trim().optional(),
   region: z.string().trim().optional(),
-  verified: z.boolean().optional()
+  verified: z.boolean().optional(),
+  accountGroupId: z.string().optional()
 });
 
 export default api(

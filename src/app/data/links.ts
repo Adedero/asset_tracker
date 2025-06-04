@@ -77,7 +77,7 @@ export const adminLinks = [
     route: { name: "admin-users" }
   },
   {
-    label: "User Groups",
+    label: "Account Groups",
     icon: "pi pi-users",
     route: { name: "admin-account-groups" }
   },
@@ -120,5 +120,10 @@ export const adminLinks = [
     label: "Account",
     icon: "pi pi-shield",
     route: { name: "admin-account" }
+  },
+  {
+    label: "Database",
+    icon: "pi pi-database",
+    route: { name: "admin-database" }
   }
 ];

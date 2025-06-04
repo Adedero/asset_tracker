@@ -200,8 +200,8 @@ const removeTier = (tier: NonNullable<InvestmentPlan["tiers"]>[number]) => {
               :disabled="isFetching || disabled"
             />
             <Button
-              label="Cancel"
-              icon="pi pi-times"
+              label="Revert"
+              icon="pi pi-refresh"
               severity="secondary"
               size="small"
               @click="cancel"

@@ -111,6 +111,18 @@ function getSeverity(status: TransactionStatus) {
                       This is a <span class="font-medium">Wire Transfer</span> deposit request. You
                       need to send the details of the transfer to the user's email.
                     </p>
+
+                    <RouterLink
+                      :to="{
+                        name: 'admin-email-service',
+                        query: {
+                          to_name: data.transaction.user.name,
+                          to_address: data.transaction.user.email
+                        }
+                      }"
+                    >
+                      <Button size="small" label="Send mail" icon="pi pi-envelope" />
+                    </RouterLink>
                   </div>
 
                   <div v-else class="mt-2">

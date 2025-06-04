@@ -193,19 +193,18 @@ const handleEmailChange = () => {
                     {{ data.user.region || "_____" }}, {{ data.user.country || "_____" }}
                   </p>
                 </div>
-
-                <Divider />
-
-                <div>
-                  <RouterLink :to="{ name: 'admin-change-password' }">
-                    <Button fluid label="Change Password" icon="pi pi-key" />
-                  </RouterLink>
-                </div>
               </div>
             </VCard>
           </div>
 
           <div class="md:col-span-3 md:row-span-6 flex flex-col gap-2 *:flex-shrink-0">
+            <VCard header="Change Password">
+              <div>
+                <RouterLink :to="{ name: 'admin-change-password' }">
+                  <Button fluid label="Change Password" icon="pi pi-key" />
+                </RouterLink>
+              </div>
+            </VCard>
             <VCard header="Log Out">
               <VLogout>
                 <Button

@@ -84,7 +84,22 @@ const onDeleteUser = () => {
       <VCard class="!py-2">
         <div class="flex items-center gap-1 justify-between flex-wrap whitespace-pre-wrap">
           <h1 class="text-lg font-semibold text-primary">{{ data?.user?.name || "User" }}</h1>
-          <UserManager v-if="data?.user" :user="data.user" @done="onDone" />
+
+          <div v-if="data?.user" class="flex items-center gap-1">
+            <RouterLink
+              :to="{
+                name: 'admin-email-service',
+                query: {
+                  to_name: data.user.name,
+                  to_address: data.user.email
+                }
+              }"
+            >
+              <Button size="small" severity="secondary" label="Send mail" icon="pi pi-envelope" />
+            </RouterLink>
+
+            <UserManager :user="data.user" @done="onDone" />
+          </div>
         </div>
       </VCard>
 
@@ -235,6 +250,37 @@ const onDeleteUser = () => {
 
             <VCard header="Account" class="mt-2">
               <div class="flex flex-col gap-2 *:flex-shrink-0">
+                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                  <div class="flex items-center">
+                    <span class="pi pi-users text-mute p-1 rounded-full" style="font-size: 12px" />
+                    <p class="text-mute text-sm font-semibold">Account Group</p>
+                  </div>
+
+                  <div class="text-sm mt-2 flex flex-wrap gap-2 justify-between">
+                    <p>Group Name</p>
+                    <p class="font-semibold">
+                      {{ data.user.accountGroup?.name || "No group" }}
+                    </p>
+                  </div>
+
+                  <Button
+                    v-if="data.user.accountGroup"
+                    @click="
+                      $router.push({
+                        name: 'admin-account-group-editor',
+                        params: { account_group_id: data.user.accountGroup.id }
+                      })
+                    "
+                    label="View Account Group"
+                    icon="pi pi-chevron-right"
+                    icon-pos="right"
+                    size="small"
+                    class="mt-2"
+                    fluid
+                    outlined
+                  />
+                </div>
+
                 <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                   <div class="flex items-center">
                     <span class="pi pi-shield text-mute p-1 rounded-full" style="font-size: 12px" />

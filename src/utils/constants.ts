@@ -18,3 +18,9 @@ export const DUPLICATE_TRANSACTION_CHECK_TIME = 3 * 60 * 1000; //3 minutes
 export const AVG_PROCESSING_TIME = "1 day";
 
 export const MIN_ACCOUNT_BALANCE = 25;
+
+export const APP_NAME = "Asset Tracker";
+
+export const AVAILABLE_EMAILS = {
+  Support: "andienathie@gmail.com"
+};

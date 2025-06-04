@@ -3,16 +3,17 @@ import { defineHandler } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
 import prisma from "#src/lib/prisma/prisma";
 import { ParsedQuery } from "#src/middleware/parse-request-query";
-import { Ban, Account, User } from "#src/prisma-gen/index";
+import { Ban, Account, User, AccountGroup } from "#src/prisma-gen/index";
 import { ApiResponse } from "#src/types/api-response";
 
 export interface UsersGetApiResponse extends ApiResponse {
-  users: User[];
+  users: Array<User & { accountGroup: { name: string; id: string } | null }>;
 }
 
 export interface UserWithAccountAndBan extends User {
   account: Account | null;
   ban: Ban | null;
+  accountGroup: AccountGroup | null;
 }
 
 export interface UserGetApiResponse extends ApiResponse {
@@ -33,7 +34,12 @@ export default api(
     if (user_id) {
       const user = await prisma.user.findUnique({
         where: { id: user_id },
-        include: { account: true, ban: true, ...(parsedQuery?.populate || {}) }
+        include: {
+          account: true,
+          ban: true,
+          accountGroup: true,
+          ...(parsedQuery?.populate || {})
+        }
       });
 
       if (!user) {
@@ -52,6 +58,11 @@ export default api(
     const users = await prisma.user.findMany({
       //@ts-ignore
       where: { ...(parsedQuery?.where || {}) },
+      include: {
+        accountGroup: {
+          select: { name: true, id: true }
+        }
+      },
       /*  //@ts-ignore
       select: {
         ...(parsedQuery?.select || {}),
@@ -66,6 +77,7 @@ export default api(
     const payload: UsersGetApiResponse = {
       success: true,
       message: "Successful",
+      //@ts-ignore
       users
     };
 

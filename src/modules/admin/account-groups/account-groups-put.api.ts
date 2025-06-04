@@ -31,7 +31,7 @@ export default api(
   {
     group: "/admins/me",
     path: "/account-groups/:account_group_id",
-    method: "post",
+    method: "put",
     middleware: defineValidator("body", Schema)
   },
   defineHandler<AccountGroupCreateApiResponse>(async (req) => {

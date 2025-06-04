@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken";
 import env from "#src/utils/env";
 import { JWT_ACCESS_TOKEN_EXPIRY, JWT_REFRESH_TOKEN_EXPIRY } from "#src/utils/constants";
 import { ApiResponse } from "#src/types/api-response";
+import { isUserBanned } from "#src/modules/auth/services/check-ban";
 
 export interface LoginApiRespone extends ApiResponse {
   user: {
@@ -40,7 +41,8 @@ export default api(
         email: true,
         verified: true,
         role: true,
-        password: true
+        password: true,
+        ban: true
       }
     });
 
@@ -49,6 +51,12 @@ export default api(
 
     if (!user || !isPasswordValid) {
       throw HttpException.badRequest("Invalid email or password");
+    }
+
+    if (isUserBanned(user)) {
+      throw HttpException.unauthorized(
+        "Your account has been banned. Please contact us if you think there has been a mistake."
+      );
     }
 
     const accessToken = jwt.sign({ id: user.id }, env.get("JWT_ACCESS_SECRET", "secret_1"), {

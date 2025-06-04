@@ -1,3 +1,4 @@
+
 import fs from "node:fs";
 import path from "node:path"
 import pluralize from "pluralize"
@@ -15,7 +16,7 @@ function main() {
 
 /**
  * @param {string} moduleName
- * @param {string} modelName 
+ * @param {string} modelName
  */
 function generateRoutes(moduleName, modelName) {
   const names = {
@@ -72,7 +73,7 @@ function generateRoutes(moduleName, modelName) {
       console.warn(`File ${filename} already exists. Skipping`)
       continue;
     }
-  
+
     let data = "";
 
     if (action === "get") {
@@ -97,7 +98,7 @@ function generateRoutes(moduleName, modelName) {
 }
 
 /**
- * 
+ *
  * @returns {string}
  */
 function generateGet(names, moduleName) {
@@ -176,9 +177,9 @@ export default api(
 
 /**
  * @param {object} names
- * @param {string} moduleName 
- * @param {Array<Array<string>>} modelBlock 
- * @param {string} Schema 
+ * @param {string} moduleName
+ * @param {Array<Array<string>>} modelBlock
+ * @param {string} Schema
  * @returns {string}
  */
 function generatePost(names, moduleName, modelBlock, Schema) {
@@ -258,7 +259,7 @@ export default api(
 
 
 /**
- * 
+ *
  * @returns {string}
  */
 function generateDelete(names, moduleName) {

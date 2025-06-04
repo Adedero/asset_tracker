@@ -1,11 +1,11 @@
-import { CronJob } from 'cron'
-import { distributeProfit } from '../domains/user/services/profit.service'
+import { CronJob } from "cron";
+import { distributeProfit } from "#src/modules/user/services/profit.service";
 
-export const job = new CronJob(
-  '*/30 * * * *',
+export const profitDistributionJob = new CronJob(
+  "* * * * *",
   async function () {
     await distributeProfit();
   },
   null, // onComplete
-  true, // start automatically
+  false // start automatically
 );

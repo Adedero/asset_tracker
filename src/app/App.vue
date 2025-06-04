@@ -6,8 +6,10 @@
     <RouterView v-slot="{ Component }">
       <template v-if="Component">
         <Suspense>
+          <template #default>
+            <component :is="Component"></component>
+          </template>
           <!-- main content -->
-          <component :is="Component"></component>
 
           <!-- loading state -->
           <template #fallback>
@@ -18,3 +20,4 @@
     </RouterView>
   </div>
 </template>
+<script setup></script>

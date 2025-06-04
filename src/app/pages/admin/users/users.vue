@@ -11,9 +11,9 @@ const page = ref(0);
 const LIMIT = GET_REQUEST_DATA_LIMIT;
 const skip = computed(() => page.value * LIMIT);
 
-const filters = ref(["All", "Admins", "Banned"]);
+const filters = ref(["All", "Users", "Admins", "Banned"]);
 
-const selectedFilter = ref("All");
+const selectedFilter = ref("Users");
 
 const searchParams = computed(() => {
   const params = new URLSearchParams();
@@ -21,6 +21,9 @@ const searchParams = computed(() => {
   params.set("skip", skip.value.toString());
   params.set("sort", "name,asc");
   if (selectedFilter.value && selectedFilter.value !== "All") {
+    if (selectedFilter.value === "Users") {
+      params.set("where", "role,USER");
+    }
     if (selectedFilter.value === "Admins") {
       params.set("where", "role,ADMIN");
     }
@@ -48,7 +51,10 @@ const onDone = async (payload: User) => {
 
   const index = data.value.users.findIndex((u) => u.id === payload.id);
   if (index === -1) {
-    updatedUsers.unshift(payload);
+    updatedUsers.unshift({
+      ...payload,
+      accountGroup: null
+    });
   } else {
     const updatedUser = { ...data.value.users[index], ...payload };
     updatedUsers.splice(index, 1, updatedUser);
@@ -135,6 +141,12 @@ const onDone = async (payload: User) => {
                       <span>, </span>
                       <span>{{ data.country }}</span>
                     </p>
+                  </template>
+                </Column>
+
+                <Column header="Account Group">
+                  <template #body="{ data }">
+                    {{ data.accountGroup?.name }}
                   </template>
                 </Column>
 

@@ -67,7 +67,12 @@ const adminRoutes = [
   {
     path: "account-groups",
     name: "admin-account-groups",
-    component: () => import("#src/app/pages/admin/account-groups/account-groups.vue")
+    component: () => import("@/app/pages/admin/account-groups/account-groups.vue")
+  },
+  {
+    path: "account-groups/edit/:account_group_id?",
+    name: "admin-account-group-editor",
+    component: () => import("@/app/pages/admin/account-groups/account-group-editor.vue")
   },
   {
     path: "email-service",
@@ -98,6 +103,11 @@ const adminRoutes = [
     path: "account/change-password",
     name: "admin-change-password",
     component: () => import("@/app/pages/admin/account/password-change.vue")
+  },
+  {
+    path: "database",
+    name: "admin-database",
+    component: () => import("@/app/pages/admin/database.vue")
   }
 ];
 

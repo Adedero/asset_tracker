@@ -1,6 +1,7 @@
 # Build outputs
 output
 dist
+build
 
 # Node dependencies
 node_modules

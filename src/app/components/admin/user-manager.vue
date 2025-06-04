@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useFetch } from "@/app/composables/use-fetch";
-import { computed, ref } from "vue";
-import type { User } from "@/prisma-gen";
+import { computed, ref, watch } from "vue";
+import { AccountGroup, type User } from "@/prisma-gen";
 import { useToast } from "primevue";
 import countries from "country-json/src/country-by-name.json";
 import { type SafeParseReturnType, z } from "zod";
@@ -9,6 +9,7 @@ import { IFile } from "../ui/VFileUploader.vue";
 import { Icon } from "@iconify/vue";
 import LoginSchema from "@/shared/schemas/login.schema";
 import { v4 as uuid } from "uuid";
+import { AccountGroupsGetApiResponse } from "@/modules/admin/account-groups/account-groups-get.api";
 
 const { user, role = "USER" } = defineProps<{
   user?: Partial<User>;
@@ -20,7 +21,6 @@ const emit = defineEmits<{
 }>();
 
 const visible = ref<boolean>(false);
-
 const toast = useToast();
 
 export type UserUpdateData = Pick<
@@ -36,6 +36,7 @@ export type UserUpdateData = Pick<
   | "address"
   | "country"
   | "region"
+  | "accountGroupId"
 >;
 
 const updatedUser = ref<UserUpdateData>({
@@ -49,7 +50,8 @@ const updatedUser = ref<UserUpdateData>({
   country: user?.country || "",
   region: user?.region || "",
   verified: user?.verified || false,
-  role: user?.role || role || "USER"
+  role: user?.role || role || "USER",
+  accountGroupId: user?.accountGroupId || null
 });
 
 const result =
@@ -135,7 +137,8 @@ const cancel = () => {
     country: user?.country || "",
     region: user?.region || "",
     verified: user?.verified || false,
-    role: user?.role || role || "USER"
+    role: user?.role || role || "USER",
+    accountGroupId: user?.accountGroupId || null
   };
 };
 
@@ -147,6 +150,36 @@ const verificationInfo = computed(() => {
   }
   return "If set as 'verified', the user will not receive an email to verify their account.";
 });
+
+const accountGroups = ref<AccountGroupsGetApiResponse["accountGroups"]>();
+const selectedGroup = ref<AccountGroupsGetApiResponse["accountGroups"][number]>();
+
+watch(selectedGroup, (value) => {
+  if (value) {
+    updatedUser.value.accountGroupId = value.id;
+  } else {
+    //@ts-expect-error assigning undefined
+    updatedUser.value.accountGroupId = undefined;
+  }
+});
+//Getting account groups
+const {
+  isFetching: loadingGroups,
+  data: groupData,
+  error: groupError,
+  execute: getGroups
+} = useFetch("/api/admins/me/account-groups", { immediate: false })
+  .get()
+  .json<AccountGroupsGetApiResponse>();
+
+const onShow = async () => {
+  await getGroups();
+  if (groupError.value || !groupData.value) return;
+  accountGroups.value = groupData.value.accountGroups;
+  selectedGroup.value = accountGroups.value.find(
+    (group) => user?.accountGroupId && user.accountGroupId === group.id
+  );
+};
 </script>
 
 <template>
@@ -163,6 +196,7 @@ const verificationInfo = computed(() => {
       :header="user ? 'Edit User' : 'New User'"
       class="w-80 md:w-96"
       @hide="cancel"
+      @show="onShow"
     >
       <div class="grid gap-4">
         <div class="flex flex-col items-center justify-center gap-1">
@@ -256,6 +290,21 @@ const verificationInfo = computed(() => {
           <p v-else class="text-xs text-mute">
             If set as 'verified', the user will not receive an email to verify their account.
           </p>
+        </div>
+
+        <div>
+          <label class="text-mute text-sm font-medium">
+            Account Group <span class="text-red-500">*</span>
+          </label>
+          <Select
+            :loading="loadingGroups"
+            v-model="selectedGroup"
+            :options="accountGroups"
+            option-label="name"
+            placeholder="Select a group"
+            class="w-full"
+          />
+          <p class="mt-1 text-mute text-xs">Assign this user to a defined group.</p>
         </div>
 
         <div>

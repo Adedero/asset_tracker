@@ -6,16 +6,16 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from "./models/User";
-export type * from "./models/Account";
-export type * from "./models/AccountGroup";
-export type * from "./models/Token";
-export type * from "./models/InvestmentPlan";
-export type * from "./models/Investment";
-export type * from "./models/Profit";
-export type * from "./models/Transaction";
-export type * from "./models/Currency";
-export type * from "./models/Notification";
-export type * from "./models/Faq";
-export type * from "./models/Ban";
-export type * from "./commonInputTypes";
+export type * from "./models/User.js";
+export type * from "./models/Account.js";
+export type * from "./models/AccountGroup.js";
+export type * from "./models/Token.js";
+export type * from "./models/InvestmentPlan.js";
+export type * from "./models/Investment.js";
+export type * from "./models/Profit.js";
+export type * from "./models/Transaction.js";
+export type * from "./models/Currency.js";
+export type * from "./models/Notification.js";
+export type * from "./models/Faq.js";
+export type * from "./models/Ban.js";
+export type * from "./commonInputTypes.js";

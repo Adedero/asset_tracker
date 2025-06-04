@@ -17,7 +17,9 @@ const supportTransportConfig: SMTPTransport.Options = {
   }
 };
 
-const mailTransporters = {
+export type MailTransporters = Record<string, TransporterObject>;
+
+const mailTransporters: MailTransporters = {
   support: {
     config: supportTransportConfig,
     transporter: () => createTransport(supportTransportConfig)
