@@ -15,8 +15,7 @@ const Schema = zod_1.z.object({
     image: zod_1.z.string().trim().optional(),
     rate: zod_1.z
         .number()
-        .min(0, { message: "Rate must be greater than 0" })
-        .positive({ message: "Rate must be positive" }),
+        .min(0, { message: "Rate must be greater than 0" }),
     rateUpdatedAt: zod_1.z.coerce.date().optional(),
     walletAddress: zod_1.z.string({ message: "Wallet address is required" }).trim(),
     walletAddressNetwork: zod_1.z.string().trim().optional(),
