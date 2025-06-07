@@ -1,0 +1,1 @@
+import{o as s,s as e}from"./types-CPE1WPKY.js";const r=s({email:e({message:"Email is required"}).email({message:"Please enter a valid email address"}).trim(),password:e({message:"Password is required"}).min(8,{message:"Password must be at least 8 characters long"}).trim()});export{r as L};
