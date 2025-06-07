@@ -35,7 +35,7 @@ export function render(data?: any): string {
 }
 
 export function formatMailHTMLContent(html: string, subject?: string) {
-  const appName = env.get("APP_NAME", "Asset Tracker");
+  const appName = env.get("APP_NAME", "App Assets Tracker");
 
   return `<html lang="en">
   <head>

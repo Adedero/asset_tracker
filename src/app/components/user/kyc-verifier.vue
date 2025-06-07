@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { IFile } from "../ui/VFileUploader.vue";
 import { useFetch } from "@/app/composables/use-fetch";
 import { Account } from "@/prisma-gen";
+import { APP_NAME } from "@/app/data/constants";
 
 const emit = defineEmits<{
   update: [data: Partial<Account>];
@@ -56,7 +57,7 @@ const handleUpload = async (files: IFile[]) => {
     <div class="grid gap-4">
       <Message size="small" class="mt-2">
         For a quicker verification process, please make sure the name on your ID matches your name
-        on Invest Tracker.
+        on {{ APP_NAME }}.
       </Message>
 
       <VErrorMessage :error="error" class="my-3" />

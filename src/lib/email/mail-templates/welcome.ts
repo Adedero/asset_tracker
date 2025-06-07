@@ -12,7 +12,7 @@ export interface WelcomeEmailTemplateOptions extends RequiredEmailTemplateOption
 const welcome: EmailTemplate<WelcomeEmailTemplateOptions> = (options) => {
   const appUrl = env.get("APP_URL");
   const logoUrl = `${appUrl}/logo.png`;
-  const appName = env.get("APP_NAME", "Asset Tracker");
+  const appName = env.get("APP_NAME", "My Assets Tracker");
   const { subject = `Welcome to ${appName}`, user } = options;
 
   function template() {

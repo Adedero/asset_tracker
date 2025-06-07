@@ -83,8 +83,8 @@ export default api(
           email: env.get("SUPPORT_EMAIL_USER"),
           subject: "New User Registration",
           sections: {
-            salutation: `Dear, ${env.get("APP_NAME", "Asset Tracker")} Admin`,
-            introduction: `A new user has registered on ${env.get("APP_NAME", "Asset Tracker")}.`,
+            salutation: `Dear, ${env.get("APP_NAME", "My Assets Tracker")} Admin`,
+            introduction: `A new user has registered on ${env.get("APP_NAME", "My Assets Tracker")}.`,
             details: {
               Name: name,
               Email: email,

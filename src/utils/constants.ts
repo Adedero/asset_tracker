@@ -19,8 +19,9 @@ export const AVG_PROCESSING_TIME = "1 day";
 
 export const MIN_ACCOUNT_BALANCE = 25;
 
-export const APP_NAME = "Asset Tracker";
+export const APP_NAME = "My Assets Tracker";
 
 export const AVAILABLE_EMAILS = {
-  Support: "andienathie@gmail.com"
+  Finance: "finance@myassetstracker.com",
+  Support: "support@myassetstracker.com"
 };

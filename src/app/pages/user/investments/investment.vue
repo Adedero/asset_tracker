@@ -9,6 +9,7 @@ import { useDateFormat } from "@vueuse/core";
 import InvestmentTerminator from "@/app/components/user/investment-terminator.vue";
 import { Investment } from "@/prisma-gen";
 import investment_img from "@/app/assets/img/investment.png";
+import { APP_NAME } from "@/app/data/constants";
 
 const route = useRoute();
 
@@ -292,7 +293,7 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                     <p>
                       Terminated By:
                       <span class="font-medium">
-                        {{ data.investment.terminator === "USER" ? "You" : "Invest Tracker Admin" }}
+                        {{ data.investment.terminator === "USER" ? "You" : `${APP_NAME} Admin` }}
                       </span>
                     </p>
                     <p>

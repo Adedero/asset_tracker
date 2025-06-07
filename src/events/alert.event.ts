@@ -4,7 +4,8 @@ import {
   onInvestmentCreate,
   onInvestmentTerminate,
   InvestmentAlertData,
-  onInvestmentPauseToggle
+  onInvestmentPauseToggle,
+  onInvestmentClose
 } from "./handlers/investment.alert.js";
 import { DepositAlertData, onDepositCreate } from "./handlers/deposit.alert.js";
 import { WithdrawalAlertData } from "./handlers/withdrawal.alert.js";
@@ -13,6 +14,7 @@ import { onTransactionStatusUpdate, TransactionAlertData } from "./handlers/tran
 
 interface AlertEvents {
   "investment:create": [data: InvestmentAlertData];
+  "investment:close": [data: InvestmentAlertData];
   "investment:terminate": [data: InvestmentAlertData];
   "investment:pause-toggle": [data: InvestmentAlertData];
 
@@ -58,6 +60,7 @@ alertEmitter.on("error", (err) => {
 });
 
 alertEmitter.on("investment:create", onInvestmentCreate);
+alertEmitter.on("investment:close", onInvestmentClose);
 alertEmitter.on("investment:terminate", onInvestmentTerminate);
 alertEmitter.on("investment:pause-toggle", onInvestmentPauseToggle);
 

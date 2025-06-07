@@ -9,6 +9,7 @@ import { TransactionStatus } from "@/prisma-gen";
 import { toPng } from "html-to-image";
 import { TransactionGetApiResponse } from "@/modules/user/transactions/transactions-get.api";
 import { useToast } from "primevue/usetoast";
+import { APP_NAME } from "@/app/data/constants";
 
 const route = useRoute();
 const toast = useToast();
@@ -274,10 +275,10 @@ async function saveTransactionReceipt() {
             <div v-else>
               <Divider />
 
-              <p class="font-semibold">Invest Tracker</p>
+              <p class="font-semibold">{{ APP_NAME }}</p>
 
               <p class="mt-2 grid gap-2 text-xs text-mute">
-                Track your investments like a pro with Invest Tracker! Our platform helps you
+                Track your investments like a pro with {{ APP_NAME }}! Our platform helps you
                 effortlessly manage portfolios, monitor growth, and stay informed with real-time
                 updates—all in one intuitive dashboard. Take control of your financial future today!
               </p>

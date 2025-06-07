@@ -7,6 +7,7 @@ import {
   TransactionStatus
 } from "#src/prisma-gen/index";
 import Decimal from "decimal.js";
+import { alertEmitter } from "#src/events/alert.event";
 
 export async function distributeProfit() {
   const { start, end, noInvestments, logError, userNotFound, closeInvestment, profitError } =
@@ -117,46 +118,47 @@ export async function distributeProfit() {
                 });
               }
 
-              await tx.investment.update({
+              const updatedInvestment = await tx.investment.update({
                 where: { id: investment.id },
                 data: {
                   currentTotalReturns: updatedCurrentTotalReturns,
                   currentCompoundedAmount: updatedCurrentCompoundedAmount,
                   investmentStatus: InvestmentStatus.CLOSED,
                   closedAt: new Date()
+                },
+                include: {
+                  user: true
                 }
               });
 
-              await tx.notification.create({
-                data: {
-                  userId: user.id,
-                  title: "Investment Closed (Shortfall Met)",
-                  description:
-                    `Your investment on ${investment.investmentName} (${investment.investmentTier}) is complete.`
-                    .concat(` Final returns adjusted: $${shortfallDecimal}.`)
-                }
+              alertEmitter.emit("investment:close", {
+                investment: updatedInvestment,
+                user: updatedInvestment.user
               });
             }); // End Transaction for Shortfall
           } else {
             // No shortfall, just close the investment
             closeInvestment(investment.id);
 
-            await prisma.$transaction([
-              prisma.investment.update({
-                where: { id: investment.id },
-                data: {
-                  investmentStatus: InvestmentStatus.CLOSED,
-                  closedAt: new Date()
-                }
-              }),
-              prisma.notification.create({
-                data: {
-                  userId: user.id,
-                  title: "Investment Closed",
-                  description: `Your investment on ${investment.investmentName} (${investment.investmentTier}) has completed its duration and is now closed.`
-                }
-              })
-            ]);
+            const updatedInvestment = await prisma.investment.update({
+              where: { id: investment.id },
+              data: {
+                investmentStatus: InvestmentStatus.CLOSED,
+                closedAt: new Date()
+              },
+              include: {
+                user: true
+              }
+            });
+
+            if (!updatedInvestment) {
+              continue;
+            }
+
+            alertEmitter.emit("investment:close", {
+              investment: updatedInvestment,
+              user: updatedInvestment.user
+            });
           }
           continue; // Move to the next investment
         } // End Duration Check

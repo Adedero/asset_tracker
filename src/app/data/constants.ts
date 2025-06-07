@@ -1,8 +1,8 @@
-import { AVAILABLE_EMAILS } from "@/utils/constants";
+import { APP_NAME as applicationName, AVAILABLE_EMAILS } from "@/utils/constants";
 
-export const APP_NAME = "Asset Tracker";
+export const APP_NAME = applicationName;
 export const COPYRIGHT_YEAR = 2022;
-export const SUPPORT_EMAIL = AVAILABLE_EMAILS.support;
+export const SUPPORT_EMAIL = AVAILABLE_EMAILS.Support;
 
 export const ALL_EMAILS = Object.entries(AVAILABLE_EMAILS).map(([key, value]) => ({
   name: key,
