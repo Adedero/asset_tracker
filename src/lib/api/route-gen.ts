@@ -23,7 +23,6 @@ interface InternalApiInfo {
 async function writeFileIfChanged(filePath: string, content: string) {
   try {
     const existing = await fs.readFile(filePath, "utf8");
-    console;
     if (existing.trim() !== content.trim()) {
       await fs.writeFile(filePath, content, "utf8");
     }

@@ -46,7 +46,6 @@ const node_module_1 = require("node:module");
 async function writeFileIfChanged(filePath, content) {
     try {
         const existing = await node_fs_1.promises.readFile(filePath, "utf8");
-        console;
         if (existing.trim() !== content.trim()) {
             await node_fs_1.promises.writeFile(filePath, content, "utf8");
         }
