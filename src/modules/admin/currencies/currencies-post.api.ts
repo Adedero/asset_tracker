@@ -13,13 +13,13 @@ const Schema = z.object({
   image: z.string().trim().optional(),
   rate: z
     .number()
-    .gt(0, { message: "Rate must be greater than 0" })
+    .min(0, { message: "Rate must be greater than 0" })
     .positive({ message: "Rate must be positive" }),
   rateUpdatedAt: z.coerce.date().optional(),
   walletAddress: z.string({ message: "Wallet address is required" }).trim(),
   walletAddressNetwork: z.string().trim().optional(),
   isAvailableForWithdrawal: z.boolean().optional(),
-  withdrawalCharge: z.number().positive({ message: "Rate must be positive" }).optional()
+  withdrawalCharge: z.number().min(0, { message: "Rate must not be less than 0" }).optional()
 });
 
 export interface CurrencyCreateApiResponse extends ApiResponse {

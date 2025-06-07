@@ -13,12 +13,12 @@ const Schema = zod_1.z.object({
     symbol: zod_1.z.string().trim().optional(),
     abbr: zod_1.z.string().trim().toUpperCase().optional(),
     image: zod_1.z.string().trim().optional(),
-    rate: zod_1.z.number().positive({ message: "Rate must be positive" }).optional(),
+    rate: zod_1.z.number().min(0, { message: "Rate must be not be less than 0" }).optional(),
     rateUpdatedAt: zod_1.z.coerce.date().optional(),
     walletAddress: zod_1.z.string().trim().optional(),
     walletAddressNetwork: zod_1.z.string().trim().optional(),
     isAvailableForWithdrawal: zod_1.z.boolean().optional(),
-    withdrawalCharge: zod_1.z.number().positive({ message: "Rate must be positive" }).optional()
+    withdrawalCharge: zod_1.z.number().min(0, { message: "Withdrawal charge must not be less than 0" }).optional()
 });
 exports.default = (0, api_1.api)({
     group: "/admins/me",

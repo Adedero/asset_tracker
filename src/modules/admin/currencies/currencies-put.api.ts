@@ -9,12 +9,12 @@ const Schema = z.object({
   symbol: z.string().trim().optional(),
   abbr: z.string().trim().toUpperCase().optional(),
   image: z.string().trim().optional(),
-  rate: z.number().positive({ message: "Rate must be positive" }).optional(),
+  rate: z.number().min(0, { message: "Rate must be not be less than 0" }).optional(),
   rateUpdatedAt: z.coerce.date().optional(),
   walletAddress: z.string().trim().optional(),
   walletAddressNetwork: z.string().trim().optional(),
   isAvailableForWithdrawal: z.boolean().optional(),
-  withdrawalCharge: z.number().positive({ message: "Rate must be positive" }).optional()
+  withdrawalCharge: z.number().min(0, { message: "Withdrawal charge must not be less than 0" }).optional()
 });
 
 export default api(

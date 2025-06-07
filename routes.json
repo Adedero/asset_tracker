@@ -108,26 +108,6 @@
   },
   {
     "group": "/admins/me",
-    "path": "/admins/me/investment-plans{/:investment_plan_id}",
-    "method": "delete"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/investment-plans{/:investment_plan_id}",
-    "method": "get"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/investment-plans",
-    "method": "post"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/investment-plans/:investment_plan_id",
-    "method": "put"
-  },
-  {
-    "group": "/admins/me",
     "path": "/admins/me/faqs{/:faq_id}",
     "method": "delete"
   },
@@ -144,6 +124,26 @@
   {
     "group": "/admins/me",
     "path": "/admins/me/faqs/:faq_id_or_slug",
+    "method": "put"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/investment-plans{/:investment_plan_id}",
+    "method": "delete"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/investment-plans{/:investment_plan_id}",
+    "method": "get"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/investment-plans",
+    "method": "post"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/investment-plans/:investment_plan_id",
     "method": "put"
   },
   {
@@ -188,6 +188,11 @@
   },
   {
     "group": "/admins/me",
+    "path": "/admins/me/send-mail",
+    "method": "post"
+  },
+  {
+    "group": "/admins/me",
     "path": "/admins/me/transactions/:transaction_id/approve",
     "method": "put"
   },
@@ -200,11 +205,6 @@
     "group": "/admins/me",
     "path": "/admins/me/transactions{/:transaction_id}",
     "method": "get"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/send-mail",
-    "method": "post"
   },
   {
     "group": "/admins/me",
@@ -278,11 +278,6 @@
   },
   {
     "group": "/users/me",
-    "path": "/users/me/investment-plans{/:investment_plan_id}",
-    "method": "get"
-  },
-  {
-    "group": "/users/me",
     "path": "/users/me/investments/count",
     "method": "get"
   },
@@ -305,6 +300,11 @@
     "group": "/users/me",
     "path": "/users/me/investments/:investment_id/terminate",
     "method": "post"
+  },
+  {
+    "group": "/users/me",
+    "path": "/users/me/investment-plans{/:investment_plan_id}",
+    "method": "get"
   },
   {
     "group": "/users/me",
