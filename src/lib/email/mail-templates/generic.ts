@@ -1,7 +1,7 @@
 import mailTransporters from "#src/config/nodemailer.config";
 import env from "#src/utils/env";
-import { EmailTemplate, RequiredEmailTemplateOptions } from "../email.js";
-import { render } from "./utils/helpers.js";
+import { EmailTemplate, RequiredEmailTemplateOptions } from "../email";
+import { render } from "./utils/helpers";
 
 export interface GenericEmailTemplateOptions extends RequiredEmailTemplateOptions {
   transporter?: keyof typeof mailTransporters;

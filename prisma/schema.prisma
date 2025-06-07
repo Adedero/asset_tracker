@@ -1,7 +1,7 @@
 generator client {
   provider     = "prisma-client"
   output       = "../src/prisma-gen"
-  moduleFormat = "esm"
+  moduleFormat = "cjs"
 }
 
 generator json {

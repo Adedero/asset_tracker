@@ -1,6 +1,6 @@
 import axios from "axios";
-import env from "../env.js";
-import logger from "../logger.js";
+import env from "../env";
+import logger from "../logger";
 
 export type ExchangeRateData<T extends string[]> = {
   [P in T[number]]: number;

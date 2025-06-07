@@ -1,11 +1,16 @@
-import path from "path";
-import fs from "fs";
-import winston from "winston";
-import "winston-daily-rotate-file";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
+const winston_1 = __importDefault(require("winston"));
+require("winston-daily-rotate-file");
 class Logger {
     static instance;
     logger;
-    logsDir = path.resolve("logs");
+    logsDir = path_1.default.resolve("logs");
     customColors = {
         error: "red",
         warn: "yellow",
@@ -13,24 +18,24 @@ class Logger {
         debug: "green"
     };
     constructor() {
-        if (!fs.existsSync(this.logsDir)) {
-            fs.mkdirSync(this.logsDir, { recursive: true });
+        if (!fs_1.default.existsSync(this.logsDir)) {
+            fs_1.default.mkdirSync(this.logsDir, { recursive: true });
         }
-        winston.addColors(this.customColors);
-        this.logger = winston.createLogger({
+        winston_1.default.addColors(this.customColors);
+        this.logger = winston_1.default.createLogger({
             level: "info",
-            format: winston.format.combine(winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), winston.format.printf(({ timestamp, level, message }) => {
+            format: winston_1.default.format.combine(winston_1.default.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), winston_1.default.format.printf(({ timestamp, level, message }) => {
                 return `${timestamp} [${level.toUpperCase()}]: ${message}`;
             })),
             transports: [
-                new winston.transports.Console({
-                    format: winston.format.combine(winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), winston.format.printf(({ timestamp, level, message }) => {
+                new winston_1.default.transports.Console({
+                    format: winston_1.default.format.combine(winston_1.default.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), winston_1.default.format.printf(({ timestamp, level, message }) => {
                         return `${timestamp} [${level.toUpperCase()}]: ${message}`;
-                    }), winston.format.colorize({ all: true }))
+                    }), winston_1.default.format.colorize({ all: true }))
                 }),
                 process.env.NODE_ENV === "production" &&
-                    new winston.transports.DailyRotateFile({
-                        filename: path.join(this.logsDir, "site-%DATE%.log"),
+                    new winston_1.default.transports.DailyRotateFile({
+                        filename: path_1.default.join(this.logsDir, "site-%DATE%.log"),
                         datePattern: "YYYY-MM-DD",
                         zippedArchive: true,
                         maxSize: 20 * 1024 * 1024,
@@ -69,4 +74,4 @@ class Logger {
     }
 }
 const logger = Logger.getInstance();
-export default logger;
+exports.default = logger;

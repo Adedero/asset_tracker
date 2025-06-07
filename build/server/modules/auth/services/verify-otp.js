@@ -1,7 +1,13 @@
-import prisma from "#src/lib/prisma/prisma";
-import { isDateExpired } from "#src/utils/token";
-import { compare } from "bcrypt";
-export default async function verifyOTP(options) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = verifyOTP;
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const token_1 = require("#src/utils/token");
+const bcrypt_1 = require("bcrypt");
+async function verifyOTP(options) {
     const { userId, email, otp, withVerificationLink = false } = options;
     let query = null;
     if (userId) {
@@ -16,7 +22,7 @@ export default async function verifyOTP(options) {
             message: "Invalid request. Please try again."
         };
     }
-    const user = await prisma.user.findUnique({
+    const user = await prisma_1.default.user.findUnique({
         where: query
     });
     if (!user) {
@@ -27,24 +33,24 @@ export default async function verifyOTP(options) {
     }
     let isValid = false;
     if (!withVerificationLink) {
-        const tokenData = await prisma.token.findUnique({
+        const tokenData = await prisma_1.default.token.findUnique({
             where: { userId },
             select: { value: true, expiresIn: true }
         });
-        if (!tokenData || isDateExpired(tokenData?.expiresIn)) {
+        if (!tokenData || (0, token_1.isDateExpired)(tokenData?.expiresIn)) {
             return {
                 valid: false,
                 message: "Invalid or expired OTP."
             };
         }
-        isValid = await compare(otp, tokenData.value);
+        isValid = await (0, bcrypt_1.compare)(otp, tokenData.value);
     }
     else {
-        const tokenData = await prisma.token.findUnique({
+        const tokenData = await prisma_1.default.token.findUnique({
             where: { userId, value: otp },
             select: { value: true, expiresIn: true }
         });
-        if (!tokenData || isDateExpired(tokenData?.expiresIn)) {
+        if (!tokenData || (0, token_1.isDateExpired)(tokenData?.expiresIn)) {
             return {
                 valid: false,
                 message: "Invalid or expired OTP."

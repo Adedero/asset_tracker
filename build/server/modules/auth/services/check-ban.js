@@ -1,4 +1,7 @@
-export function isUserBanned(user) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isUserBanned = isUserBanned;
+function isUserBanned(user) {
     if (!user.ban) {
         return !!user.isBanned;
     }

@@ -1,7 +1,13 @@
-import passport from "#src/config/passport.config";
-export default function auth(role, strict = true) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = auth;
+const passport_config_1 = __importDefault(require("#src/config/passport.config"));
+function auth(role, strict = true) {
     return (req, res, next) => {
-        passport.authenticate("jwt", (err, user) => {
+        passport_config_1.default.authenticate("jwt", (err, user) => {
             if (err) {
                 res.status(401).json({
                     success: false,

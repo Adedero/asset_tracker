@@ -1,30 +1,35 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import { HttpException } from "#src/lib/api/http";
-import prisma from "#src/lib/prisma/prisma";
-import { z } from "zod";
-import { InvestmentStatus } from "#src/prisma-gen/index";
-const Schema = z.object({
-    unfreezeInvestments: z.boolean().default(true)
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const http_1 = require("#src/lib/api/http");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const zod_1 = require("zod");
+const index_1 = require("#src/prisma-gen/index");
+const Schema = zod_1.z.object({
+    unfreezeInvestments: zod_1.z.boolean().default(true)
 });
-export default api({
+exports.default = (0, api_1.api)({
     group: "/admins/me",
     path: "/users/:user_id/unban",
     method: "put",
-    middleware: defineValidator("body", Schema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("body", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const { user_id } = req.params;
     const { unfreezeInvestments } = req.validatedBody;
-    const user = await prisma.user.findUnique({
+    const user = await prisma_1.default.user.findUnique({
         where: {
             id: user_id
         }
     });
     if (!user) {
-        throw HttpException.notFound("User not found");
+        throw http_1.HttpException.notFound("User not found");
     }
     const promises = [
-        prisma.user.update({
+        prisma_1.default.user.update({
             where: { id: user_id },
             data: {
                 isBanned: false,
@@ -37,14 +42,14 @@ export default api({
         })
     ];
     if (unfreezeInvestments) {
-        promises.push(prisma.investment.updateMany({
-            where: { userId: user_id, investmentStatus: InvestmentStatus.PAUSED },
+        promises.push(prisma_1.default.investment.updateMany({
+            where: { userId: user_id, investmentStatus: index_1.InvestmentStatus.PAUSED },
             data: {
-                investmentStatus: InvestmentStatus.OPEN
+                investmentStatus: index_1.InvestmentStatus.OPEN
             }
         }));
     }
-    await prisma.$transaction(promises);
+    await prisma_1.default.$transaction(promises);
     return {
         success: true,
         message: "User unbanned successfully"

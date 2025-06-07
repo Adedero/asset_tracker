@@ -4,7 +4,7 @@ import { HttpException } from "#src/lib/api/http";
 import prisma from "#src/lib/prisma/prisma";
 import { Currency } from "#src/prisma-gen/index";
 import { ApiResponse } from "#src/types/api-response";
-import getUpdatedCurrencyData from "./get-updated-currency-data.js";
+import getUpdatedCurrencyData from "./get-updated-currency-data";
 
 export interface CurrencyRateApiResponse extends ApiResponse {
   currency: Currency;

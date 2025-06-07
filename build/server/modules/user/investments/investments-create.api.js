@@ -1,52 +1,57 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import { HttpException } from "#src/lib/api/http";
-import prisma from "#src/lib/prisma/prisma";
-import { InvestmentStatus, TransactionStatus, TransactionType } from "#src/prisma-gen/index";
-import { number, z } from "zod";
-import Decimal from "decimal.js";
-import { alertEmitter } from "#src/events/alert.event";
-const Schema = z.object({
-    autocompounded: z.boolean(),
-    investmentStatus: z
-        .enum([InvestmentStatus.OPEN, InvestmentStatus.CLOSED, InvestmentStatus.TERMINATED])
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const http_1 = require("#src/lib/api/http");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const index_1 = require("#src/prisma-gen/index");
+const zod_1 = require("zod");
+const decimal_js_1 = __importDefault(require("decimal.js"));
+const alert_event_1 = require("#src/events/alert.event");
+const Schema = zod_1.z.object({
+    autocompounded: zod_1.z.boolean(),
+    investmentStatus: zod_1.z
+        .enum([index_1.InvestmentStatus.OPEN, index_1.InvestmentStatus.CLOSED, index_1.InvestmentStatus.TERMINATED])
         .optional(),
-    initialDeposit: z.number(),
-    expectedReturnRate: z.number(),
-    autocompoundedReturnRate: number().optional(),
-    expectedTotalReturns: z.number(),
-    currentTotalReturns: z.number(),
-    currentCompoundedAmount: z.number().optional(),
-    investmentName: z.string(),
-    investmentTier: z.string(),
-    minimumDeposit: z.number(),
-    duration: z.number(),
-    terminationFee: z.number(),
-    daysCompleted: z.number()
+    initialDeposit: zod_1.z.number(),
+    expectedReturnRate: zod_1.z.number(),
+    autocompoundedReturnRate: (0, zod_1.number)().optional(),
+    expectedTotalReturns: zod_1.z.number(),
+    currentTotalReturns: zod_1.z.number(),
+    currentCompoundedAmount: zod_1.z.number().optional(),
+    investmentName: zod_1.z.string(),
+    investmentTier: zod_1.z.string(),
+    minimumDeposit: zod_1.z.number(),
+    duration: zod_1.z.number(),
+    terminationFee: zod_1.z.number(),
+    daysCompleted: zod_1.z.number()
 });
-export default api({
+exports.default = (0, api_1.api)({
     group: "/users/me",
     path: "/investments",
     method: "post",
-    middleware: defineValidator("body", Schema)
-}, defineHandler(async (req) => {
-    Decimal.set({ precision: 5, rounding: 2 });
+    middleware: (0, handlers_1.defineValidator)("body", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
+    decimal_js_1.default.set({ precision: 5, rounding: 2 });
     const userId = req.user.id;
     const data = req.validatedBody;
-    const user = await prisma.user.findUnique({
+    const user = await prisma_1.default.user.findUnique({
         where: { id: userId },
         select: { id: true, account: { select: { walletBalance: true } } }
     });
     if (!user || !user.account) {
-        throw HttpException.notFound("User not found.");
+        throw http_1.HttpException.notFound("User not found.");
     }
     if (!user.account.walletBalance || user.account.walletBalance < data.initialDeposit) {
-        throw HttpException.badRequest("Insufficient funds.");
+        throw http_1.HttpException.badRequest("Insufficient funds.");
     }
-    const walletBalance = new Decimal(user.account.walletBalance);
-    const initialDeposit = new Decimal(data.initialDeposit);
+    const walletBalance = new decimal_js_1.default(user.account.walletBalance);
+    const initialDeposit = new decimal_js_1.default(data.initialDeposit);
     const updatedWalletBalance = walletBalance.minus(initialDeposit).toNumber();
-    const investment = await prisma.$transaction(async (txn) => {
+    const investment = await prisma_1.default.$transaction(async (txn) => {
         const inv = await txn.investment.create({
             data: { ...data, userId }
         });
@@ -54,8 +59,8 @@ export default api({
             data: {
                 userId,
                 investmentId: inv.id,
-                transactionType: TransactionType.INVESTMENT,
-                transactionStatus: TransactionStatus.SUCCESSFUL,
+                transactionType: index_1.TransactionType.INVESTMENT,
+                transactionStatus: index_1.TransactionStatus.SUCCESSFUL,
                 amountInUSD: inv.initialDeposit,
                 charge: 0,
                 actualAmountInUSD: inv.initialDeposit,
@@ -72,7 +77,7 @@ export default api({
         });
         return inv;
     });
-    alertEmitter.emit("investment:create", { user: req.user, investment });
+    alert_event_1.alertEmitter.emit("investment:create", { user: req.user, investment });
     const payload = {
         success: true,
         investment

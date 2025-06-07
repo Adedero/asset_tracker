@@ -6,11 +6,11 @@ import {
   InvestmentAlertData,
   onInvestmentPauseToggle,
   onInvestmentClose
-} from "./handlers/investment.alert.js";
-import { DepositAlertData, onDepositCreate } from "./handlers/deposit.alert.js";
-import { WithdrawalAlertData } from "./handlers/withdrawal.alert.js";
-import { onPasswordChange, OnPasswordChangeAlertData } from "./handlers/auth.alert.js";
-import { onTransactionStatusUpdate, TransactionAlertData } from "./handlers/transaction.alert.js";
+} from "./handlers/investment.alert";
+import { DepositAlertData, onDepositCreate } from "./handlers/deposit.alert";
+import { WithdrawalAlertData } from "./handlers/withdrawal.alert";
+import { onPasswordChange, OnPasswordChangeAlertData } from "./handlers/auth.alert";
+import { onTransactionStatusUpdate, TransactionAlertData } from "./handlers/transaction.alert";
 
 interface AlertEvents {
   "investment:create": [data: InvestmentAlertData];

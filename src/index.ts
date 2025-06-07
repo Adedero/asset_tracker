@@ -38,7 +38,7 @@ async function main() {
     const { createServer } = await import("vite");
 
     const viteServer = await createServer({
-      configFile: path.resolve("vite.config.ts"),
+      configFile: path.resolve("vite.config.mts"),
       server: { middlewareMode: true },
       root: path.resolve("src/app/"),
       base: "/",

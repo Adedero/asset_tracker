@@ -1,22 +1,27 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import { sendTemplateEmail } from "#src/lib/email/email";
-import generic from "#src/lib/email/mail-templates/generic";
-import env from "#src/utils/env";
-import { z } from "zod";
-const Schema = z.object({
-    subject: z.string({ message: "Invalid email subject" }).optional(),
-    message: z.string({ message: "Message is required" })
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const email_1 = require("#src/lib/email/email");
+const generic_1 = __importDefault(require("#src/lib/email/mail-templates/generic"));
+const env_1 = __importDefault(require("#src/utils/env"));
+const zod_1 = require("zod");
+const Schema = zod_1.z.object({
+    subject: zod_1.z.string({ message: "Invalid email subject" }).optional(),
+    message: zod_1.z.string({ message: "Message is required" })
 });
-export default api({
+exports.default = (0, api_1.api)({
     group: "/users/me",
     path: "contact",
     method: "post",
-    middleware: defineValidator("body", Schema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("body", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const { subject, message } = req.validatedBody;
-    await sendTemplateEmail({
-        email: env.get("SUPPORT_EMAIL_USER"),
+    await (0, email_1.sendTemplateEmail)({
+        email: env_1.default.get("SUPPORT_EMAIL_USER"),
         subject: "Support Request",
         sections: {
             intro: "You have received a support request",
@@ -27,7 +32,7 @@ export default api({
                 Message: message
             }
         }
-    }, generic);
+    }, generic_1.default);
     return {
         success: true,
         message: "Email sent successfully"

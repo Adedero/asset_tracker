@@ -1,8 +1,13 @@
-import env from "#src/utils/env";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const env_1 = __importDefault(require("#src/utils/env"));
 const welcome = (options) => {
-    const appUrl = env.get("APP_URL");
+    const appUrl = env_1.default.get("APP_URL");
     const logoUrl = `${appUrl}/logo.png`;
-    const appName = env.get("APP_NAME", "My Assets Tracker");
+    const appName = env_1.default.get("APP_NAME", "My Assets Tracker");
     const { subject = `Welcome to ${appName}`, user } = options;
     function template() {
         return `<!DOCTYPE html>
@@ -160,7 +165,7 @@ const welcome = (options) => {
         transporter: "support"
     };
 };
-export default welcome;
+exports.default = welcome;
 /*
 * <mjml>
   <mj-body>

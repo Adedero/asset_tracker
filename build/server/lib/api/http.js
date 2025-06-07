@@ -1,4 +1,7 @@
-export class HttpResponse {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HttpException = exports.HttpResponse = void 0;
+class HttpResponse {
     statusCode;
     message;
     data;
@@ -40,7 +43,8 @@ export class HttpResponse {
         return new HttpResponse(500, message, data);
     }
 }
-export class HttpException extends Error {
+exports.HttpResponse = HttpResponse;
+class HttpException extends Error {
     statusCode;
     message;
     data;
@@ -87,3 +91,4 @@ export class HttpException extends Error {
         };
     }
 }
+exports.HttpException = HttpException;

@@ -1,6 +1,12 @@
-import prisma from "#src/lib/prisma/prisma";
-import { compare, hash } from "bcrypt";
-export default async function changePassword(userId, password) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = changePassword;
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const bcrypt_1 = require("bcrypt");
+async function changePassword(userId, password) {
     const { oldPassword, newPassword, newPasswordConfirm } = password;
     if (!userId) {
         return {
@@ -32,7 +38,7 @@ export default async function changePassword(userId, password) {
             message: "Passwords do not match. Please, confirm your new password and try again."
         };
     }
-    const user = await prisma.user.findUnique({
+    const user = await prisma_1.default.user.findUnique({
         where: { id: userId },
         select: { id: true, password: true }
     });
@@ -42,15 +48,15 @@ export default async function changePassword(userId, password) {
             message: "User not found"
         };
     }
-    const isMatch = await compare(oldPassword, user.password);
+    const isMatch = await (0, bcrypt_1.compare)(oldPassword, user.password);
     if (!isMatch) {
         return {
             success: false,
             message: "Incorrect old password. Enter the correct password and try again"
         };
     }
-    const hashedPassword = await hash(newPassword, 10);
-    await prisma.user.update({
+    const hashedPassword = await (0, bcrypt_1.hash)(newPassword, 10);
+    await prisma_1.default.user.update({
         where: { id: userId },
         data: { password: hashedPassword }
     });

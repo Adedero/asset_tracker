@@ -1,7 +1,6 @@
-
-import fs from "node:fs";
-import path from "node:path"
-import pluralize from "pluralize"
+const fs = require("node:fs");
+const path = require("node:path");
+const pluralize = require("pluralize")
 
 function main() {
   const args = process.argv.slice(2);

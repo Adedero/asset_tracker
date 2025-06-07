@@ -2,7 +2,7 @@ import { api } from "#src/lib/api/api";
 import { defineHandler, defineValidator } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
 import { compare, hash } from "bcrypt";
-import verifyOTP from "./services/verify-otp.js";
+import verifyOTP from "./services/verify-otp";
 import prisma from "#src/lib/prisma/prisma";
 import { sendTemplateEmail } from "#src/lib/email/email";
 import generic from "#src/lib/email/mail-templates/generic";

@@ -1,18 +1,58 @@
-import { default as fg } from "fast-glob";
-import { Router } from "express";
-import path from "node:path";
-import { promises as fs } from "node:fs";
-import { pathToFileURL } from "url";
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateRoutes = void 0;
+const fast_glob_1 = __importDefault(require("fast-glob"));
+const express_1 = require("express");
+const node_path_1 = __importDefault(require("node:path"));
+const node_fs_1 = require("node:fs");
+const url_1 = require("url");
+const node_module_1 = require("node:module");
 async function writeFileIfChanged(filePath, content) {
     try {
-        const existing = await fs.readFile(filePath, "utf8");
+        const existing = await node_fs_1.promises.readFile(filePath, "utf8");
         console;
         if (existing.trim() !== content.trim()) {
-            await fs.writeFile(filePath, content, "utf8");
+            await node_fs_1.promises.writeFile(filePath, content, "utf8");
         }
     }
     catch {
-        await fs.writeFile(filePath, content, "utf8");
+        await node_fs_1.promises.writeFile(filePath, content, "utf8");
     }
 }
 const addLeadingSlash = (str) => {
@@ -20,9 +60,20 @@ const addLeadingSlash = (str) => {
         return "";
     return str.startsWith("/") ? str : `/${str}`;
 };
-const __filename = import.meta.filename;
-export const generateRoutes = async (expressApp, options = {}) => {
-    const router = Router();
+const isCommonJS = typeof require !== "undefined" && typeof __filename !== "undefined";
+const requireIfAvailable = isCommonJS ? (0, node_module_1.createRequire)(__filename) : null;
+async function loadModule(entry) {
+    if (isCommonJS && requireIfAvailable) {
+        return requireIfAvailable(node_path_1.default.resolve(entry));
+    }
+    else {
+        const url = (0, url_1.pathToFileURL)(node_path_1.default.resolve(entry)).href;
+        return await Promise.resolve(`${url}`).then(s => __importStar(require(s))); // works in dev (ESM/TS)
+    }
+}
+//const __filename = import.meta.filename;
+const generateRoutes = async (expressApp, options = {}) => {
+    const router = (0, express_1.Router)();
     const { globalMiddleware = [], groupMiddleware = {}, globalPrefix = "" } = options;
     const allGlobalMiddleware = Array.isArray(globalMiddleware)
         ? globalMiddleware
@@ -32,10 +83,10 @@ export const generateRoutes = async (expressApp, options = {}) => {
     }
     let entries = [];
     if (__filename.endsWith("ts")) {
-        entries = await fg("src/modules/**/*.api.{ts,js}");
+        entries = await (0, fast_glob_1.default)("src/modules/**/*.api.{ts,js}");
     }
     else {
-        entries = await fg("build/server/modules/**/*.api.js");
+        entries = await (0, fast_glob_1.default)("build/server/modules/**/*.api.js");
     }
     if (entries.length === 0) {
         if (process.env.NODE_ENV === "development") {
@@ -48,7 +99,7 @@ export const generateRoutes = async (expressApp, options = {}) => {
     const allGroups = new Set();
     const apis = [];
     for (const entry of entries) {
-        const module = (await import(pathToFileURL(path.resolve(entry)).href));
+        const module = (await loadModule(entry));
         for (const key of Object.keys(module)) {
             const api = module[key];
             if (!api || api.options === undefined || api.handlers === undefined) {
@@ -95,8 +146,8 @@ export const routes = ${routesArrayString} as const;
   "routes": ${routesArrayString}
 }`;
     const outPath = __filename.endsWith("ts")
-        ? path.resolve("src/lib/api/generated.ts")
-        : path.resolve("routes.json");
+        ? node_path_1.default.resolve("src/lib/api/generated.ts")
+        : node_path_1.default.resolve("routes.json");
     await writeFileIfChanged(outPath, output);
     const seenPaths = new Map();
     for (const route of routesList) {
@@ -146,6 +197,7 @@ export const routes = ${routesArrayString} as const;
     //console.log(listRoutes(router));
     return expressApp;
 };
+exports.generateRoutes = generateRoutes;
 /* function listRoutes(router: Router) {
   const routes: { method: string, path: string }[] = [];
 

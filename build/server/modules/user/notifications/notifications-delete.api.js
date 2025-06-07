@@ -1,16 +1,21 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler } from "#src/lib/api/handlers";
-import prisma from "#src/lib/prisma/prisma";
-import { GET_REQUEST_DATA_LIMIT } from "#src/utils/constants";
-export default api({
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const constants_1 = require("#src/utils/constants");
+exports.default = (0, api_1.api)({
     group: "/users/me",
     path: "/notifications{/:notification_id}",
     method: "delete"
-}, defineHandler(async (req) => {
+}, (0, handlers_1.defineHandler)(async (req) => {
     const userId = req.user.id;
     const { notification_id } = req.params;
     if (notification_id === "ALL") {
-        const { count } = await prisma.notification.deleteMany({
+        const { count } = await prisma_1.default.notification.deleteMany({
             where: { userId }
         });
         const payload = {
@@ -23,8 +28,8 @@ export default api({
     const notificationIds = notification_id
         .split(",")
         .map((id) => id.trim())
-        .slice(0, GET_REQUEST_DATA_LIMIT);
-    const { count } = await prisma.notification.deleteMany({
+        .slice(0, constants_1.GET_REQUEST_DATA_LIMIT);
+    const { count } = await prisma_1.default.notification.deleteMany({
         where: {
             id: {
                 in: notificationIds

@@ -3,8 +3,9 @@ import { Express, RequestHandler, Router } from "express";
 import path from "node:path";
 import { promises as fs } from "node:fs";
 import type { ApiDefinition, ApiRequestHandler } from "./api";
-import type { RouteGroups } from "./generated.js";
+import type { RouteGroups } from "./generated";
 import { pathToFileURL } from "url";
+import { createRequire } from "node:module";
 
 export interface GenerateRoutesOptions {
   globalMiddleware?: RequestHandler | RequestHandler[];
@@ -36,7 +37,20 @@ const addLeadingSlash = (str: string | undefined) => {
   return str.startsWith("/") ? str : `/${str}`;
 };
 
-const __filename = import.meta.filename;
+const isCommonJS = typeof require !== "undefined" && typeof __filename !== "undefined";
+
+const requireIfAvailable = isCommonJS ? createRequire(__filename) : null;
+
+async function loadModule(entry: string) {
+  if (isCommonJS && requireIfAvailable) {
+    return requireIfAvailable(path.resolve(entry));
+  } else {
+    const url = pathToFileURL(path.resolve(entry)).href;
+    return await import(url); // works in dev (ESM/TS)
+  }
+}
+
+//const __filename = import.meta.filename;
 
 export const generateRoutes = async (expressApp: Express, options: GenerateRoutesOptions = {}) => {
   const router: Router = Router();
@@ -73,7 +87,7 @@ export const generateRoutes = async (expressApp: Express, options: GenerateRoute
   const apis: InternalApiInfo[] = [];
 
   for (const entry of entries) {
-    const module = (await import(pathToFileURL(path.resolve(entry)).href)) as Record<
+    const module = (await loadModule(entry)) as Record<
       string,
       ApiDefinition
     >;

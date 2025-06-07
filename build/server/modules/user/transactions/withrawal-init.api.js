@@ -1,25 +1,30 @@
-import { api } from "#src/lib/api/api";
-import { z } from "zod";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import prisma from "#src/lib/prisma/prisma";
-import { HttpException } from "#src/lib/api/http";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const zod_1 = require("zod");
+const handlers_1 = require("#src/lib/api/handlers");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const http_1 = require("#src/lib/api/http");
 //Initi data and currencies
-const Schema = z.object({
-    symbol: z.string({ message: "Currency symbol is required" }).toUpperCase()
+const Schema = zod_1.z.object({
+    symbol: zod_1.z.string({ message: "Currency symbol is required" }).toUpperCase()
 });
-export default api({
+exports.default = (0, api_1.api)({
     group: "/users/me",
     path: "/transactions/withdrawal/initialize",
     method: "get",
-    middleware: defineValidator("query", Schema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("query", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const userId = req.user.id;
     const { symbol } = req.validatedQuery;
     const [currency, user] = await Promise.all([
-        prisma.currency.findUnique({
+        prisma_1.default.currency.findUnique({
             where: { abbr: symbol }
         }),
-        prisma.user.findUnique({
+        prisma_1.default.user.findUnique({
             where: { id: userId },
             select: {
                 id: true,
@@ -32,10 +37,10 @@ export default api({
         })
     ]);
     if (!user) {
-        throw HttpException.notFound("Account not found");
+        throw http_1.HttpException.notFound("Account not found");
     }
     if (!currency) {
-        throw HttpException.notFound("Currency not found");
+        throw http_1.HttpException.notFound("Currency not found");
     }
     //const updatedCurrency = await getUpdatedCurrencyData(currency);
     const payload = {

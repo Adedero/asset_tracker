@@ -1,20 +1,25 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler } from "#src/lib/api/handlers";
-import { HttpException } from "#src/lib/api/http";
-import prisma from "#src/lib/prisma/prisma";
-export default api({
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const http_1 = require("#src/lib/api/http");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+exports.default = (0, api_1.api)({
     group: "/users/me",
     path: "/investment-plans{/:investment_plan_id}",
     method: "get"
-}, defineHandler(async (req) => {
+}, (0, handlers_1.defineHandler)(async (req) => {
     const investment_plan_id = req.params.investment_plan_id?.toString();
     const parsedQuery = req.parsedQuery;
     if (investment_plan_id) {
-        const investmentPlan = await prisma.investmentPlan.findUnique({
+        const investmentPlan = await prisma_1.default.investmentPlan.findUnique({
             where: { id: investment_plan_id }
         });
         if (!investmentPlan) {
-            throw HttpException.notFound("Not found");
+            throw http_1.HttpException.notFound("Not found");
         }
         const payload = {
             success: true,
@@ -23,7 +28,7 @@ export default api({
         };
         return payload;
     }
-    const investmentPlans = await prisma.investmentPlan.findMany();
+    const investmentPlans = await prisma_1.default.investmentPlan.findMany();
     const payload = {
         success: true,
         message: "Successful",

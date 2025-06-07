@@ -1,40 +1,45 @@
-import { alertEmitter } from "#src/events/alert.event";
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import { HttpException } from "#src/lib/api/http";
-import prisma from "#src/lib/prisma/prisma";
-import Decimal from "decimal.js";
-import { z } from "zod";
-const Schema = z
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const alert_event_1 = require("#src/events/alert.event");
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const http_1 = require("#src/lib/api/http");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const decimal_js_1 = __importDefault(require("decimal.js"));
+const zod_1 = require("zod");
+const Schema = zod_1.z
     .object({
-    amountInUSD: z
+    amountInUSD: zod_1.z
         .number({ message: "Transaction amount must be a number" })
         .min(0, { message: "Transaction amount must be a positive number" })
         .optional(),
-    cards: z
-        .array(z.object({
-        type: z.string({ message: "Gift card type is required" }),
-        country: z.string({ message: "Gift card country is required" }),
-        cardNumber: z.string({ message: "Gift card number is required" }),
-        pin: z.string({ message: "Gift card pin is required" }),
-        amount: z
+    cards: zod_1.z
+        .array(zod_1.z.object({
+        type: zod_1.z.string({ message: "Gift card type is required" }),
+        country: zod_1.z.string({ message: "Gift card country is required" }),
+        cardNumber: zod_1.z.string({ message: "Gift card number is required" }),
+        pin: zod_1.z.string({ message: "Gift card pin is required" }),
+        amount: zod_1.z
             .number({ message: "Gift card amount is required" })
             .min(0, { message: "Gift card amount must be greater than 0" }),
-        currency: z.enum(["USD", "CAD", "GBP"]),
-        amountRetrieved: z
+        currency: zod_1.z.enum(["USD", "CAD", "GBP"]),
+        amountRetrieved: zod_1.z
             .number({ message: "Amount retrieved must be a number" })
             .min(0, { message: "Amount retrieved must be greater than 0" }),
-        rateUsed: z.number({ message: "Rate used must be a number" }).optional()
+        rateUsed: zod_1.z.number({ message: "Rate used must be a number" }).optional()
     }))
         .optional()
 })
     .optional();
-export default api({
+exports.default = (0, api_1.api)({
     group: "/admins/me",
     path: "/transactions/:transaction_id/approve",
     method: "put",
-    middleware: defineValidator("body", Schema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("body", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const { transaction_id } = req.params;
     const data = req.validatedBody;
     const update = data?.amountInUSD
@@ -44,11 +49,11 @@ export default api({
             amountInCurrency: data.amountInUSD
         }
         : undefined;
-    const transaction = await prisma.transaction.findUnique({
+    const transaction = await prisma_1.default.transaction.findUnique({
         where: { id: transaction_id }
     });
     if (!transaction)
-        throw HttpException.notFound("Transaction not found");
+        throw http_1.HttpException.notFound("Transaction not found");
     let giftCardData = transaction.giftCardData || undefined;
     if (giftCardData) {
         giftCardData = {
@@ -57,7 +62,7 @@ export default api({
         };
     }
     const promises = [];
-    promises.push(prisma.transaction.update({
+    promises.push(prisma_1.default.transaction.update({
         where: { id: transaction.id },
         data: {
             ...update,
@@ -68,22 +73,22 @@ export default api({
         include: { user: true }
     }));
     if (transaction.transactionType === "DEPOSIT") {
-        const account = await prisma.account.findUnique({
+        const account = await prisma_1.default.account.findUnique({
             where: { userId: transaction.userId }
         });
         if (!account)
-            throw HttpException.notFound("User's account not found");
-        const walletBalance = new Decimal(account.walletBalance);
-        const amountInUSD = new Decimal(transaction.amountInUSD);
-        promises.push(prisma.account.update({
+            throw http_1.HttpException.notFound("User's account not found");
+        const walletBalance = new decimal_js_1.default(account.walletBalance);
+        const amountInUSD = new decimal_js_1.default(transaction.amountInUSD);
+        promises.push(prisma_1.default.account.update({
             where: { id: account.id },
             data: {
                 walletBalance: walletBalance.plus(amountInUSD).toDecimalPlaces(2).toNumber()
             }
         }));
     }
-    const [updatedTransaction] = (await prisma.$transaction(promises));
-    alertEmitter.emit("transaction:status-update", {
+    const [updatedTransaction] = (await prisma_1.default.$transaction(promises));
+    alert_event_1.alertEmitter.emit("transaction:status-update", {
         transaction: updatedTransaction,
         user: updatedTransaction.user
     });

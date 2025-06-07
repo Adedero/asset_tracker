@@ -1,15 +1,20 @@
-import passport from "passport";
-import { ExtractJwt, Strategy } from "passport-jwt";
-import env from "#src/utils/env";
-import prisma from "#src/lib/prisma/prisma";
-const JWT_ACCESS_SECRET = env.get("JWT_ACCESS_SECRET", "JWT_ACCESS_SECRET");
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const passport_1 = __importDefault(require("passport"));
+const passport_jwt_1 = require("passport-jwt");
+const env_1 = __importDefault(require("#src/utils/env"));
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const JWT_ACCESS_SECRET = env_1.default.get("JWT_ACCESS_SECRET", "JWT_ACCESS_SECRET");
 const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: JWT_ACCESS_SECRET
 };
-passport.use(new Strategy(jwtOptions, async (payload, done) => {
+passport_1.default.use(new passport_jwt_1.Strategy(jwtOptions, async (payload, done) => {
     try {
-        const user = await prisma.user.findUnique({
+        const user = await prisma_1.default.user.findUnique({
             where: { id: payload.id }
         });
         if (!user)
@@ -27,4 +32,4 @@ passport.use(new Strategy(jwtOptions, async (payload, done) => {
         return done(err, false);
     }
 }));
-export default passport;
+exports.default = passport_1.default;

@@ -1,9 +1,15 @@
-import { sendTemplateEmail } from "#src/lib/email/email";
-import generic from "#src/lib/email/mail-templates/generic";
-import prisma from "#src/lib/prisma/prisma";
-import env from "#src/utils/env";
-import logger from "#src/utils/logger";
-export async function onDepositCreate({ user, transaction }) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.onDepositCreate = onDepositCreate;
+const email_1 = require("#src/lib/email/email");
+const generic_1 = __importDefault(require("#src/lib/email/mail-templates/generic"));
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const env_1 = __importDefault(require("#src/utils/env"));
+const logger_1 = __importDefault(require("#src/utils/logger"));
+async function onDepositCreate({ user, transaction }) {
     const subject = "New Deposit Request";
     const message = (name) => {
         const info = name
@@ -35,18 +41,18 @@ export async function onDepositCreate({ user, transaction }) {
     };
     try {
         await Promise.all([
-            prisma.notification.create({
+            prisma_1.default.notification.create({
                 data: {
                     userId: user.id,
                     title: subject,
                     description: message(user.name).info
                 }
             }),
-            sendTemplateEmail({ email: user.email, subject, sections: message(user.name) }, generic),
-            sendTemplateEmail({ email: env.get("SUPPORT_EMAIL_USER"), subject, sections: message() }, generic)
+            (0, email_1.sendTemplateEmail)({ email: user.email, subject, sections: message(user.name) }, generic_1.default),
+            (0, email_1.sendTemplateEmail)({ email: env_1.default.get("SUPPORT_EMAIL_USER"), subject, sections: message() }, generic_1.default)
         ]);
     }
     catch (error) {
-        logger.error(`Alerts failed for deposit request: ${transaction.id}`, error);
+        logger_1.default.error(`Alerts failed for deposit request: ${transaction.id}`, error);
     }
 }

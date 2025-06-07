@@ -1,24 +1,29 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import prisma from "#src/lib/prisma/prisma";
-import { z } from "zod";
-const Schema = z.object({
-    name: z.string().trim().min(2, { message: "Name must be at least 2 characters long" }).optional(),
-    image: z.string().trim().optional(),
-    phoneNumber: z.string().trim().optional(),
-    address: z.string().trim().optional(),
-    country: z.string().trim().optional(),
-    region: z.string().trim().optional()
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const zod_1 = require("zod");
+const Schema = zod_1.z.object({
+    name: zod_1.z.string().trim().min(2, { message: "Name must be at least 2 characters long" }).optional(),
+    image: zod_1.z.string().trim().optional(),
+    phoneNumber: zod_1.z.string().trim().optional(),
+    address: zod_1.z.string().trim().optional(),
+    country: zod_1.z.string().trim().optional(),
+    region: zod_1.z.string().trim().optional()
 });
-export default api({
+exports.default = (0, api_1.api)({
     group: "/admins/me",
     path: "/",
     method: "put",
-    middleware: defineValidator("body", Schema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("body", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const data = req.validatedBody;
     const userId = req.user.id;
-    await prisma.user.update({
+    await prisma_1.default.user.update({
         where: { id: userId },
         data
     });

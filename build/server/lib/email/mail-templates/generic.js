@@ -1,7 +1,12 @@
-import env from "#src/utils/env";
-import { render } from "./utils/helpers.js";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const env_1 = __importDefault(require("#src/utils/env"));
+const helpers_1 = require("./utils/helpers");
 const generic = (options) => {
-    const appName = env.get("APP_NAME", "My Assets Tracker");
+    const appName = env_1.default.get("APP_NAME", "My Assets Tracker");
     const { subject = appName, sections, mailReason, transporter } = options;
     function template() {
         return `
@@ -21,7 +26,7 @@ const generic = (options) => {
     <main style="border: 1px solid #aaa; border-radius: 5px; padding: 0.8rem">
       <header>
         <div style="background-color: #eee; width: 32px; height: 32px; border-radius: 5px; overflow: hidden">
-          <img src="${env.get("APP_URL")}/logo.png" style="width: 100%; height: 100%; object-fit: cover" alt="logo" />
+          <img src="${env_1.default.get("APP_URL")}/logo.png" style="width: 100%; height: 100%; object-fit: cover" alt="logo" />
         </div>
 
         <div style="margin-top: 1rem; color: #3974d0;">
@@ -31,7 +36,7 @@ const generic = (options) => {
 
       ${sections
             ? `${Object.values(sections)
-                .map((section) => `<div style="margin-top: 1.25rem"> ${render(section)}</div>`)
+                .map((section) => `<div style="margin-top: 1.25rem"> ${(0, helpers_1.render)(section)}</div>`)
                 .join("\n")}`
             : ""}
 
@@ -50,4 +55,4 @@ const generic = (options) => {
         transporter
     };
 };
-export default generic;
+exports.default = generic;

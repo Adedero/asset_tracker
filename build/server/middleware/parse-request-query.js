@@ -1,5 +1,8 @@
-import { GET_REQUEST_DATA_LIMIT } from "#src/utils/constants";
-export default function parseRequestQuery(req, res, next) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = parseRequestQuery;
+const constants_1 = require("#src/utils/constants");
+function parseRequestQuery(req, res, next) {
     const { where, sort, select, exclude, populate, skip, take } = req.query;
     const parsedQuery = {};
     if (where) {
@@ -73,7 +76,7 @@ export default function parseRequestQuery(req, res, next) {
     }
     if (take) {
         const parsed = Array.isArray(take) ? take[0].toString() : take.toString();
-        parsedQuery.take = Math.min(parseInt(parsed, 10) || 0, GET_REQUEST_DATA_LIMIT);
+        parsedQuery.take = Math.min(parseInt(parsed, 10) || 0, constants_1.GET_REQUEST_DATA_LIMIT);
     }
     if (skip) {
         const parsed = Array.isArray(skip) ? skip[0].toString() : skip.toString();

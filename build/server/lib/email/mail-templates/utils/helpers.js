@@ -1,5 +1,12 @@
-import env from "#src/utils/env";
-export function render(data) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.render = render;
+exports.formatMailHTMLContent = formatMailHTMLContent;
+const env_1 = __importDefault(require("#src/utils/env"));
+function render(data) {
     const styles = `font-family="Verdana"`;
     const paragraph = (content) => `<p${styles}>${content}</p>`;
     if (!data)
@@ -27,8 +34,8 @@ export function render(data) {
     }
     return paragraph(String(data));
 }
-export function formatMailHTMLContent(html, subject) {
-    const appName = env.get("APP_NAME", "App Assets Tracker");
+function formatMailHTMLContent(html, subject) {
+    const appName = env_1.default.get("APP_NAME", "App Assets Tracker");
     return `<html lang="en">
   <head>
     <title>${subject}</title>
@@ -45,7 +52,7 @@ export function formatMailHTMLContent(html, subject) {
     <main style="border: 1px solid #aaa; border-radius: 5px; padding: 0.8rem">
       <header>
         <div style="background-color: #eee; width: 32px; height: 32px; border-radius: 5px; overflow: hidden">
-          <img src="${env.get("APP_URL")}/logo.png" style="width: 100%; height: 100%; object-fit: cover" alt="logo" />
+          <img src="${env_1.default.get("APP_URL")}/logo.png" style="width: 100%; height: 100%; object-fit: cover" alt="logo" />
         </div>
 
         ${subject

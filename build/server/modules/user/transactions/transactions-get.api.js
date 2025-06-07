@@ -1,21 +1,26 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler } from "#src/lib/api/handlers";
-import { HttpException } from "#src/lib/api/http";
-import prisma from "#src/lib/prisma/prisma";
-export default api({
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const http_1 = require("#src/lib/api/http");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+exports.default = (0, api_1.api)({
     group: "/users/me",
     path: "/transactions{/:transaction_id}",
     method: "get"
-}, defineHandler(async (req) => {
+}, (0, handlers_1.defineHandler)(async (req) => {
     const userId = req.user.id;
     const transaction_id = req.params.transaction_id?.toString();
     const parsedQuery = req.parsedQuery;
     if (transaction_id) {
-        const transaction = await prisma.transaction.findUnique({
+        const transaction = await prisma_1.default.transaction.findUnique({
             where: { id: transaction_id, userId }
         });
         if (!transaction) {
-            throw HttpException.notFound("Not found");
+            throw http_1.HttpException.notFound("Not found");
         }
         const payload = {
             success: true,
@@ -24,7 +29,7 @@ export default api({
         };
         return payload;
     }
-    const transactions = await prisma.transaction.findMany({
+    const transactions = await prisma_1.default.transaction.findMany({
         //@ts-ignore
         where: { userId, ...(parsedQuery?.where || {}) },
         /*  //@ts-ignore

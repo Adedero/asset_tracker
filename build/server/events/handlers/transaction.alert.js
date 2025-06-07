@@ -1,10 +1,16 @@
-import { sendTemplateEmail } from "#src/lib/email/email";
-import button from "#src/lib/email/mail-templates/components/button";
-import generic from "#src/lib/email/mail-templates/generic";
-import prisma from "#src/lib/prisma/prisma";
-import env from "#src/utils/env";
-import logger from "#src/utils/logger";
-export async function onTransactionStatusUpdate({ user, transaction }) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.onTransactionStatusUpdate = onTransactionStatusUpdate;
+const email_1 = require("#src/lib/email/email");
+const button_1 = __importDefault(require("#src/lib/email/mail-templates/components/button"));
+const generic_1 = __importDefault(require("#src/lib/email/mail-templates/generic"));
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const env_1 = __importDefault(require("#src/utils/env"));
+const logger_1 = __importDefault(require("#src/utils/logger"));
+async function onTransactionStatusUpdate({ user, transaction }) {
     const subject = "Transaction Status Updated";
     const mailReason = `This message was sent because of an update was made to the transaction with ID ${transaction.id}`;
     const message = (name) => ({
@@ -26,35 +32,35 @@ export async function onTransactionStatusUpdate({ user, transaction }) {
             })
         },
         direction: "Click the button to view the details of the transaction",
-        cta: button(conditional(
+        cta: (0, button_1.default)(conditional(
         /* transactions/:transaction_id/receipt */
-        new URL(`user/transactions/${transaction.id}/receipt`, env.get("APP_URL")).href, new URL(`admin/transactions/${transaction.id}`, env.get("APP_URL")).href, !!name), "View Transaction", { centered: true })
+        new URL(`user/transactions/${transaction.id}/receipt`, env_1.default.get("APP_URL")).href, new URL(`admin/transactions/${transaction.id}`, env_1.default.get("APP_URL")).href, !!name), "View Transaction", { centered: true })
     });
     try {
         await Promise.all([
-            prisma.notification.create({
+            prisma_1.default.notification.create({
                 data: {
                     userId: user.id,
                     title: subject,
                     description: message(user.name).info
                 }
             }),
-            sendTemplateEmail({
+            (0, email_1.sendTemplateEmail)({
                 email: user.email,
                 subject,
                 mailReason,
                 sections: message(user.name)
-            }, generic),
-            sendTemplateEmail({
-                email: env.get("SUPPORT_EMAIL_USER"),
+            }, generic_1.default),
+            (0, email_1.sendTemplateEmail)({
+                email: env_1.default.get("SUPPORT_EMAIL_USER"),
                 subject,
                 mailReason,
                 sections: message()
-            }, generic)
+            }, generic_1.default)
         ]);
     }
     catch (error) {
-        logger.error(`Alerts failed for transaction status update: ${transaction.id}`, error);
+        logger_1.default.error(`Alerts failed for transaction status update: ${transaction.id}`, error);
     }
     function conditional(str1, str2, condition = transaction.transactionStatus === "SUCCESSFUL") {
         return condition ? str1 : str2;

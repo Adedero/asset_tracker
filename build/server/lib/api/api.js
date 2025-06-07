@@ -1,5 +1,11 @@
-import internalOnly from "#src/middleware/internal-only";
-export const api = (options, ...handlers) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.api = void 0;
+const internal_only_1 = __importDefault(require("#src/middleware/internal-only"));
+const api = (options, ...handlers) => {
     let { path = "" } = options;
     const { expose = true, method = "get", group = "", middleware = [] } = options;
     if (!path && !group)
@@ -12,7 +18,7 @@ export const api = (options, ...handlers) => {
         allHandlers.push(...allMiddleware);
     allHandlers.push(...handlers);
     if (!expose) {
-        allHandlers.unshift(internalOnly);
+        allHandlers.unshift(internal_only_1.default);
     }
     const apiDefinition = {
         options: { path, expose, method, group },
@@ -20,3 +26,4 @@ export const api = (options, ...handlers) => {
     };
     return apiDefinition;
 };
+exports.api = api;

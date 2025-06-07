@@ -1,21 +1,26 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import { HttpException } from "#src/lib/api/http";
-import prisma from "#src/lib/prisma/prisma";
-import LoginSchema from "#src/shared/schemas/login.schema";
-import { compare } from "bcrypt";
-import jwt from "jsonwebtoken";
-import env from "#src/utils/env";
-import { JWT_ACCESS_TOKEN_EXPIRY, JWT_REFRESH_TOKEN_EXPIRY } from "#src/utils/constants";
-import { isUserBanned } from "#src/modules/auth/services/check-ban";
-export default api({
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const http_1 = require("#src/lib/api/http");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const login_schema_1 = __importDefault(require("#src/shared/schemas/login.schema"));
+const bcrypt_1 = require("bcrypt");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const env_1 = __importDefault(require("#src/utils/env"));
+const constants_1 = require("#src/utils/constants");
+const check_ban_1 = require("#src/modules/auth/services/check-ban");
+exports.default = (0, api_1.api)({
     group: "/auth",
     path: "/login",
     method: "post",
-    middleware: defineValidator("body", LoginSchema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("body", login_schema_1.default)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const { email, password } = req.validatedBody;
-    const user = await prisma.user.findUnique({
+    const user = await prisma_1.default.user.findUnique({
         where: { email },
         select: {
             id: true,
@@ -28,18 +33,18 @@ export default api({
         }
     });
     const mockHash = "hashed_password";
-    const isPasswordValid = await compare(password, user?.password || mockHash);
+    const isPasswordValid = await (0, bcrypt_1.compare)(password, user?.password || mockHash);
     if (!user || !isPasswordValid) {
-        throw HttpException.badRequest("Invalid email or password");
+        throw http_1.HttpException.badRequest("Invalid email or password");
     }
-    if (isUserBanned(user)) {
-        throw HttpException.unauthorized("Your account has been banned. Please contact us if you think there has been a mistake.");
+    if ((0, check_ban_1.isUserBanned)(user)) {
+        throw http_1.HttpException.unauthorized("Your account has been banned. Please contact us if you think there has been a mistake.");
     }
-    const accessToken = jwt.sign({ id: user.id }, env.get("JWT_ACCESS_SECRET", "secret_1"), {
-        expiresIn: JWT_ACCESS_TOKEN_EXPIRY
+    const accessToken = jsonwebtoken_1.default.sign({ id: user.id }, env_1.default.get("JWT_ACCESS_SECRET", "secret_1"), {
+        expiresIn: constants_1.JWT_ACCESS_TOKEN_EXPIRY
     });
-    const refreshToken = jwt.sign({ id: user.id }, env.get("JWT_REFRESH_SECRET", "secret_2"), {
-        expiresIn: JWT_REFRESH_TOKEN_EXPIRY
+    const refreshToken = jsonwebtoken_1.default.sign({ id: user.id }, env_1.default.get("JWT_REFRESH_SECRET", "secret_2"), {
+        expiresIn: constants_1.JWT_REFRESH_TOKEN_EXPIRY
     });
     const response = {
         success: true,

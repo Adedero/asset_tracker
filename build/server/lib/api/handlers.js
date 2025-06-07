@@ -1,4 +1,7 @@
-import { HttpException, HttpResponse } from "./http.js";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.defineValidator = exports.defineHandler = void 0;
+const http_1 = require("./http");
 /**
  * A higher-order function that wraps an asynchronous handler function with error handling and response formatting.
  *
@@ -11,13 +14,13 @@ import { HttpException, HttpResponse } from "./http.js";
  * @param fn - The asynchronous handler function to be wrapped.
  * @returns An Express middleware function that wraps the handler.
  */
-export const defineHandler = (fn) => {
+const defineHandler = (fn) => {
     return async (req, res, next) => {
         try {
             const result = await fn(req, res, next);
             if (res.headersSent)
                 return;
-            if (result instanceof HttpException) {
+            if (result instanceof http_1.HttpException) {
                 next(result);
                 return;
             }
@@ -29,7 +32,7 @@ export const defineHandler = (fn) => {
                 typeof result === "boolean") {
                 res.status(200).send(result);
             }
-            else if (result instanceof HttpResponse) {
+            else if (result instanceof http_1.HttpResponse) {
                 result.send(res);
             }
             else {
@@ -47,6 +50,7 @@ export const defineHandler = (fn) => {
         }
     };
 };
+exports.defineHandler = defineHandler;
 /**
  * Defines a validation middleware that parses and attaches the validated data to the request object.
  *
@@ -55,7 +59,7 @@ export const defineHandler = (fn) => {
  * @param options - Optional custom error handling
  * @returns Express middleware
  */
-export const defineValidator = (path, schema, options = {}) => {
+const defineValidator = (path, schema, options = {}) => {
     return (req, res, next) => {
         const data = req[path];
         const result = schema.safeParse(data);
@@ -85,7 +89,7 @@ export const defineValidator = (path, schema, options = {}) => {
             return options.onError(validationError, req, res, next);
         }
         const errorMessage = options.errorMessage || validationError.errors[0].message;
-        const error = new HttpException(400, errorMessage, {
+        const error = new http_1.HttpException(400, errorMessage, {
             errorCode: options.errorCode || `VALIDATION_ERROR_${path.toUpperCase()}`,
             data: {
                 errors: validationError.errors
@@ -94,3 +98,4 @@ export const defineValidator = (path, schema, options = {}) => {
         next(error);
     };
 };
+exports.defineValidator = defineValidator;

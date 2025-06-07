@@ -1,29 +1,34 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import { HttpException } from "#src/lib/api/http";
-import prisma from "#src/lib/prisma/prisma";
-import { MIN_DEPOSIT_AMOUNT, MAX_DEPOSIT_AMOUNT } from "#src/utils/constants";
-import { z } from "zod";
-import getUpdatedCurrencyData from "../currencies/get-updated-currency-data.js";
-const Schema = z.object({
-    symbol: z.string({ message: "Currency symbol is required" }).toUpperCase(),
-    amount: z.string({ message: "Invalid amount" }).transform((amt) => Number(amt))
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const http_1 = require("#src/lib/api/http");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const constants_1 = require("#src/utils/constants");
+const zod_1 = require("zod");
+const get_updated_currency_data_js_1 = __importDefault(require("../currencies/get-updated-currency-data.js"));
+const Schema = zod_1.z.object({
+    symbol: zod_1.z.string({ message: "Currency symbol is required" }).toUpperCase(),
+    amount: zod_1.z.string({ message: "Invalid amount" }).transform((amt) => Number(amt))
 });
-export default api({
+exports.default = (0, api_1.api)({
     group: "/users/me",
     path: "transactions/deposit/initialize",
     method: "get",
-    middleware: defineValidator("query", Schema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("query", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const userId = req.user.id;
     const { symbol, amount } = req.validatedQuery;
-    if (amount < MIN_DEPOSIT_AMOUNT) {
-        throw HttpException.badRequest(`Amount must not be less than $${MIN_DEPOSIT_AMOUNT.toLocaleString()}`);
+    if (amount < constants_1.MIN_DEPOSIT_AMOUNT) {
+        throw http_1.HttpException.badRequest(`Amount must not be less than $${constants_1.MIN_DEPOSIT_AMOUNT.toLocaleString()}`);
     }
-    if (amount > MAX_DEPOSIT_AMOUNT) {
-        throw HttpException.badRequest(`Amount must not be more than $${MAX_DEPOSIT_AMOUNT.toLocaleString()}`);
+    if (amount > constants_1.MAX_DEPOSIT_AMOUNT) {
+        throw http_1.HttpException.badRequest(`Amount must not be more than $${constants_1.MAX_DEPOSIT_AMOUNT.toLocaleString()}`);
     }
-    const user = await prisma.user.findUnique({
+    const user = await prisma_1.default.user.findUnique({
         where: { id: userId },
         select: {
             id: true,
@@ -34,7 +39,7 @@ export default api({
         }
     });
     if (!user) {
-        throw HttpException.notFound("User not found");
+        throw http_1.HttpException.notFound("User not found");
     }
     if (symbol === "USD") {
         const wireTransferPayload = {
@@ -52,16 +57,16 @@ export default api({
         };
         return wireTransferPayload;
     }
-    let currency = await prisma.currency.findUnique({
+    let currency = await prisma_1.default.currency.findUnique({
         where: { abbr: symbol }
     });
     if (!currency) {
-        throw HttpException.notFound("Currency not found");
+        throw http_1.HttpException.notFound("Currency not found");
     }
     const selectedCurrency = user.accountGroup?.currencies.find((curr) => curr.id === currency?.id);
     const depositAccountWalletAddress = selectedCurrency?.walletAddress || currency.walletAddress;
     const depositAccountWalletAddressNetwork = selectedCurrency?.walletAddressNetwork || currency.walletAddressNetwork || undefined;
-    const updatedCurrency = await getUpdatedCurrencyData(currency);
+    const updatedCurrency = await (0, get_updated_currency_data_js_1.default)(currency);
     const result = amount / updatedCurrency.rate;
     const payload = {
         success: true,

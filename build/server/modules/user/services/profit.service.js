@@ -1,18 +1,24 @@
-import logger from "#src/utils/logger";
-import prisma from "#src/lib/prisma/prisma";
-import { InvestmentStatus, ProfitStatus, TransactionType, TransactionStatus } from "#src/prisma-gen/index";
-import Decimal from "decimal.js";
-import { alertEmitter } from "#src/events/alert.event";
-export async function distributeProfit() {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.distributeProfit = distributeProfit;
+const logger_1 = __importDefault(require("#src/utils/logger"));
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const index_1 = require("#src/prisma-gen/index");
+const decimal_js_1 = __importDefault(require("decimal.js"));
+const alert_event_1 = require("#src/events/alert.event");
+async function distributeProfit() {
     const { start, end, noInvestments, logError, userNotFound, closeInvestment, profitError } = useLogger();
     start();
     const startOfToday = getStartOfTodayUTC();
     try {
         // Fetch only investments that are OPEN and haven't had profit distributed today yet.
         // Also ensures the investment was created *before* today to avoid day 0 distribution.
-        const eligibleInvestments = await prisma.investment.findMany({
+        const eligibleInvestments = await prisma_1.default.investment.findMany({
             where: {
-                investmentStatus: InvestmentStatus.OPEN,
+                investmentStatus: index_1.InvestmentStatus.OPEN,
                 createdAt: { lt: startOfToday },
                 OR: [{ lastProfitDistributedAt: null }, { lastProfitDistributedAt: { lt: startOfToday } }]
             },
@@ -33,19 +39,19 @@ export async function distributeProfit() {
                     continue;
                 }
                 // --- Convert relevant investment numbers to Decimal for calculation ---
-                const initialDeposit = new Decimal(investment.initialDeposit);
-                const currentTotalReturns = new Decimal(investment.currentTotalReturns);
-                const expectedTotalReturns = new Decimal(investment.expectedTotalReturns);
+                const initialDeposit = new decimal_js_1.default(investment.initialDeposit);
+                const currentTotalReturns = new decimal_js_1.default(investment.currentTotalReturns);
+                const expectedTotalReturns = new decimal_js_1.default(investment.expectedTotalReturns);
                 const currentCompoundedAmount = investment.currentCompoundedAmount !== null &&
                     investment.currentCompoundedAmount !== undefined
-                    ? new Decimal(investment.currentCompoundedAmount)
+                    ? new decimal_js_1.default(investment.currentCompoundedAmount)
                     : initialDeposit; // Fallback to initialDeposit if null/undefined
-                const userWalletBalance = new Decimal(user.account.walletBalance);
+                const userWalletBalance = new decimal_js_1.default(user.account.walletBalance);
                 // --- Check if Investment Duration is Complete ---
                 if (investment.daysCompleted >= investment.duration) {
                     const shortfallDecimal = expectedTotalReturns.sub(currentTotalReturns);
                     if (shortfallDecimal.greaterThan(0)) {
-                        await prisma.$transaction(async (tx) => {
+                        await prisma_1.default.$transaction(async (tx) => {
                             const profit = await tx.profit.create({
                                 data: {
                                     userId: investment.userId,
@@ -53,8 +59,8 @@ export async function distributeProfit() {
                                     investmentId: investment.id,
                                     amount: shortfallDecimal.toDecimalPlaces(2).toNumber(),
                                     status: investment.autocompounded
-                                        ? ProfitStatus.FROZEN
-                                        : ProfitStatus.DISTRIBUTED,
+                                        ? index_1.ProfitStatus.FROZEN
+                                        : index_1.ProfitStatus.DISTRIBUTED,
                                     ...(!investment.autocompounded && {
                                         distributedAt: new Date()
                                     })
@@ -73,8 +79,8 @@ export async function distributeProfit() {
                                     investmentId: investment.id,
                                     isWireTransfer: false,
                                     isGiftCard: false,
-                                    transactionStatus: TransactionStatus.SUCCESSFUL,
-                                    transactionType: TransactionType.PROFIT
+                                    transactionStatus: index_1.TransactionStatus.SUCCESSFUL,
+                                    transactionType: index_1.TransactionType.PROFIT
                                 }
                             });
                             // Update investment state
@@ -106,14 +112,14 @@ export async function distributeProfit() {
                                 data: {
                                     currentTotalReturns: updatedCurrentTotalReturns,
                                     currentCompoundedAmount: updatedCurrentCompoundedAmount,
-                                    investmentStatus: InvestmentStatus.CLOSED,
+                                    investmentStatus: index_1.InvestmentStatus.CLOSED,
                                     closedAt: new Date()
                                 },
                                 include: {
                                     user: true
                                 }
                             });
-                            alertEmitter.emit("investment:close", {
+                            alert_event_1.alertEmitter.emit("investment:close", {
                                 investment: updatedInvestment,
                                 user: updatedInvestment.user
                             });
@@ -122,10 +128,10 @@ export async function distributeProfit() {
                     else {
                         // No shortfall, just close the investment
                         closeInvestment(investment.id);
-                        const updatedInvestment = await prisma.investment.update({
+                        const updatedInvestment = await prisma_1.default.investment.update({
                             where: { id: investment.id },
                             data: {
-                                investmentStatus: InvestmentStatus.CLOSED,
+                                investmentStatus: index_1.InvestmentStatus.CLOSED,
                                 closedAt: new Date()
                             },
                             include: {
@@ -135,7 +141,7 @@ export async function distributeProfit() {
                         if (!updatedInvestment) {
                             continue;
                         }
-                        alertEmitter.emit("investment:close", {
+                        alert_event_1.alertEmitter.emit("investment:close", {
                             investment: updatedInvestment,
                             user: updatedInvestment.user
                         });
@@ -145,12 +151,12 @@ export async function distributeProfit() {
                 // --- Calculate Daily Profit for ongoing investments ---
                 const remainingDays = investment.duration - investment.daysCompleted;
                 if (remainingDays <= 0) {
-                    await prisma.investment.update({
+                    await prisma_1.default.investment.update({
                         where: {
                             id: investment.id
                         },
                         data: {
-                            investmentStatus: InvestmentStatus.CLOSED
+                            investmentStatus: index_1.InvestmentStatus.CLOSED
                         }
                     });
                     continue; // Avoid division by zero and handle unexpected state
@@ -164,7 +170,7 @@ export async function distributeProfit() {
                 // Calculate daily return using Decimal, ensure non-negative, round appropriately
                 let dailyReturnDecimal = avgDailyReturn.mul(fluctuationFactor);
                 if (dailyReturnDecimal.isNegative()) {
-                    dailyReturnDecimal = new Decimal(0);
+                    dailyReturnDecimal = new decimal_js_1.default(0);
                 }
                 // Ensure daily return doesn't exceed remaining total returns left (can happen with fluctuation)
                 if (dailyReturnDecimal.greaterThan(totalReturnsLeft) && !totalReturnsLeft.isNegative()) {
@@ -173,14 +179,14 @@ export async function distributeProfit() {
                 // Round to 2 decimal places *after* calculations
                 dailyReturnDecimal = dailyReturnDecimal.toDecimalPlaces(2);
                 // --- Distribute Daily Profit within a Transaction ---
-                await prisma.$transaction(async (tx) => {
+                await prisma_1.default.$transaction(async (tx) => {
                     const profit = await tx.profit.create({
                         data: {
                             userId: user.id,
                             accountId: user.account.id,
                             investmentId: investment.id,
                             amount: dailyReturnDecimal.toDecimalPlaces(2).toNumber(),
-                            status: investment.autocompounded ? ProfitStatus.FROZEN : ProfitStatus.DISTRIBUTED,
+                            status: investment.autocompounded ? index_1.ProfitStatus.FROZEN : index_1.ProfitStatus.DISTRIBUTED,
                             ...(!investment.autocompounded && {
                                 distributedAt: new Date()
                             })
@@ -198,8 +204,8 @@ export async function distributeProfit() {
                             isWireTransfer: false,
                             isGiftCard: false,
                             rate: 1,
-                            transactionStatus: TransactionStatus.SUCCESSFUL,
-                            transactionType: TransactionType.PROFIT,
+                            transactionStatus: index_1.TransactionStatus.SUCCESSFUL,
+                            transactionType: index_1.TransactionType.PROFIT,
                             userId: investment.userId
                         }
                     });
@@ -268,12 +274,12 @@ function getStartOfTodayUTC() {
 }
 function useLogger() {
     return {
-        start: () => logger.info("Starting profit distribution cycle."),
-        end: () => logger.info("Profit distribution cycle finished."),
-        noInvestments: () => logger.info("No eligible investments found for profit distribution today."),
-        logError: (error) => logger.error("Error during profit distribution setup or initial fetch.", error),
-        userNotFound: (investmentId) => logger.warn(`User or account not found for investment ${investmentId}. Skipping.`),
-        closeInvestment: (investmentId) => logger.info(`Closing completed investment ${investmentId} (no shortfall).`),
-        profitError: (investmentId, error) => logger.error(`Failed to process profit distribution for investment ${investmentId}:`, error)
+        start: () => logger_1.default.info("Starting profit distribution cycle."),
+        end: () => logger_1.default.info("Profit distribution cycle finished."),
+        noInvestments: () => logger_1.default.info("No eligible investments found for profit distribution today."),
+        logError: (error) => logger_1.default.error("Error during profit distribution setup or initial fetch.", error),
+        userNotFound: (investmentId) => logger_1.default.warn(`User or account not found for investment ${investmentId}. Skipping.`),
+        closeInvestment: (investmentId) => logger_1.default.info(`Closing completed investment ${investmentId} (no shortfall).`),
+        profitError: (investmentId, error) => logger_1.default.error(`Failed to process profit distribution for investment ${investmentId}:`, error)
     };
 }

@@ -1,47 +1,52 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import { HttpException } from "#src/lib/api/http";
-import prisma from "#src/lib/prisma/prisma";
-import { TransactionStatus, TransactionType } from "#src/prisma-gen/index";
-import { DUPLICATE_TRANSACTION_CHECK_TIME, MIN_ACCOUNT_BALANCE } from "#src/utils/constants";
-import { z } from "zod";
-import { alertEmitter } from "#src/events/alert.event";
-const Schema = z.object({
-    transactionType: z.enum([
-        TransactionType.DEPOSIT,
-        TransactionType.WITHDRAWAL,
-        TransactionType.INVESTMENT,
-        TransactionType.PROFIT
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const http_1 = require("#src/lib/api/http");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const index_1 = require("#src/prisma-gen/index");
+const constants_1 = require("#src/utils/constants");
+const zod_1 = require("zod");
+const alert_event_1 = require("#src/events/alert.event");
+const Schema = zod_1.z.object({
+    transactionType: zod_1.z.enum([
+        index_1.TransactionType.DEPOSIT,
+        index_1.TransactionType.WITHDRAWAL,
+        index_1.TransactionType.INVESTMENT,
+        index_1.TransactionType.PROFIT
     ]),
-    transactionStatus: z.enum([
-        TransactionStatus.FAILED,
-        TransactionStatus.PENDING,
-        TransactionStatus.SUCCESSFUL
+    transactionStatus: zod_1.z.enum([
+        index_1.TransactionStatus.FAILED,
+        index_1.TransactionStatus.PENDING,
+        index_1.TransactionStatus.SUCCESSFUL
     ]),
-    amountInUSD: z.number(),
-    charge: z.number().optional(),
-    actualAmountInUSD: z.number().optional(),
-    rate: z.number(),
-    currency: z.string(),
-    amountInCurrency: z.number().optional(),
-    isWireTransfer: z.boolean(),
-    withdrawalWalletAddress: z.string(),
-    withdrawalWalletAddressNetwork: z.string().optional(),
-    description: z.string().optional()
+    amountInUSD: zod_1.z.number(),
+    charge: zod_1.z.number().optional(),
+    actualAmountInUSD: zod_1.z.number().optional(),
+    rate: zod_1.z.number(),
+    currency: zod_1.z.string(),
+    amountInCurrency: zod_1.z.number().optional(),
+    isWireTransfer: zod_1.z.boolean(),
+    withdrawalWalletAddress: zod_1.z.string(),
+    withdrawalWalletAddressNetwork: zod_1.z.string().optional(),
+    description: zod_1.z.string().optional()
 });
-export default api({
+exports.default = (0, api_1.api)({
     group: "/users/me",
     path: "/transactions/withdrawal",
     method: "post",
-    middleware: defineValidator("body", Schema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("body", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const userId = req.user.id;
     const data = req.validatedBody;
     if (data.transactionType !== "WITHDRAWAL") {
-        throw HttpException.badRequest("Transaction must be a withdrawal request");
+        throw http_1.HttpException.badRequest("Transaction must be a withdrawal request");
     }
     const [user, currency] = await Promise.all([
-        prisma.user.findUnique({
+        prisma_1.default.user.findUnique({
             where: {
                 id: userId
             },
@@ -56,36 +61,36 @@ export default api({
                 }
             }
         }),
-        prisma.currency.findUnique({
+        prisma_1.default.currency.findUnique({
             where: { abbr: data.currency },
             select: { rate: true, withdrawalCharge: true }
         })
     ]);
     if (!user || !user.account) {
-        throw HttpException.notFound("User not found");
+        throw http_1.HttpException.notFound("User not found");
     }
     if (!currency) {
-        throw HttpException.notFound("Failed to get currency data");
+        throw http_1.HttpException.notFound("Failed to get currency data");
     }
     const amountInUSD = data.amountInUSD;
     const walletBalance = user.account.walletBalance;
     const updatedWalletBalance = walletBalance - amountInUSD;
-    if (walletBalance - MIN_ACCOUNT_BALANCE < amountInUSD) {
-        throw HttpException.badRequest("You do not have suffient funds to complete this request");
+    if (walletBalance - constants_1.MIN_ACCOUNT_BALANCE < amountInUSD) {
+        throw http_1.HttpException.badRequest("You do not have suffient funds to complete this request");
     }
-    const lastWithdrawalRequest = await prisma.transaction.findFirst({
+    const lastWithdrawalRequest = await prisma_1.default.transaction.findFirst({
         where: {
             userId,
             transactionType: "WITHDRAWAL",
             transactionStatus: "PENDING",
             amountInUSD: data.amountInUSD,
             createdAt: {
-                gte: new Date(Date.now() - DUPLICATE_TRANSACTION_CHECK_TIME)
+                gte: new Date(Date.now() - constants_1.DUPLICATE_TRANSACTION_CHECK_TIME)
             }
         }
     });
     if (lastWithdrawalRequest) {
-        throw HttpException.badRequest("Possible duplicate withdrawal request detected. Please, wait a little before trying again.");
+        throw http_1.HttpException.badRequest("Possible duplicate withdrawal request detected. Please, wait a little before trying again.");
     }
     let rate = 0;
     if (currency.rate === data.rate) {
@@ -95,10 +100,10 @@ export default api({
         rate = Math.min(currency.rate, data.rate || 0);
     }
     if (!rate) {
-        throw HttpException.badRequest("Failed to get currency rate. Please, try again later.");
+        throw http_1.HttpException.badRequest("Failed to get currency rate. Please, try again later.");
     }
-    const [transaction] = await prisma.$transaction([
-        prisma.transaction.create({
+    const [transaction] = await prisma_1.default.$transaction([
+        prisma_1.default.transaction.create({
             data: {
                 ...data,
                 userId: user.id,
@@ -108,14 +113,14 @@ export default api({
                 amountInCurrency: (data.amountInUSD - currency.withdrawalCharge) / rate
             }
         }),
-        prisma.account.update({
+        prisma_1.default.account.update({
             where: { userId: user.id },
             data: {
                 walletBalance: updatedWalletBalance
             }
         })
     ]);
-    alertEmitter.emit("withdrawal:create", { user, transaction });
+    alert_event_1.alertEmitter.emit("withdrawal:create", { user, transaction });
     const payload = {
         success: true,
         message: "Withdrawal request created.",

@@ -1,8 +1,14 @@
-import { sendTemplateEmail } from "#src/lib/email/email";
-import generic from "#src/lib/email/mail-templates/generic";
-import prisma from "#src/lib/prisma/prisma";
-import logger from "#src/utils/logger";
-export async function onPasswordChange({ user }) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.onPasswordChange = onPasswordChange;
+const email_1 = require("#src/lib/email/email");
+const generic_1 = __importDefault(require("#src/lib/email/mail-templates/generic"));
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const logger_1 = __importDefault(require("#src/utils/logger"));
+async function onPasswordChange({ user }) {
     const subject = "Change of Password";
     const sections = {
         greeting: `Hello ${user.name}!`,
@@ -12,22 +18,22 @@ export async function onPasswordChange({ user }) {
     const mailReason = "This email was sent because your password was changed.";
     try {
         await Promise.all([
-            prisma.notification.create({
+            prisma_1.default.notification.create({
                 data: {
                     userId: user.id,
                     title: subject,
                     description: sections.info
                 }
             }),
-            sendTemplateEmail({
+            (0, email_1.sendTemplateEmail)({
                 email: user.email,
                 subject,
                 mailReason,
                 sections
-            }, generic)
+            }, generic_1.default)
         ]);
     }
     catch (error) {
-        logger.error(`Alerts failed for password change: ${user.id}`, error);
+        logger_1.default.error(`Alerts failed for password change: ${user.id}`, error);
     }
 }

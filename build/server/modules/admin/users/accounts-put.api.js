@@ -1,42 +1,47 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import prisma from "#src/lib/prisma/prisma";
-import { KycStatus } from "#src/prisma-gen/index";
-import { z } from "zod";
-const Schema = z.object({
-    walletBalance: z.number({ message: "Wallet balance must be a number" }).optional(),
-    kycIdType: z.string({ message: "The KYC ID type must be a string" }).nullable().optional(),
-    kycDocument: z
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const index_1 = require("#src/prisma-gen/index");
+const zod_1 = require("zod");
+const Schema = zod_1.z.object({
+    walletBalance: zod_1.z.number({ message: "Wallet balance must be a number" }).optional(),
+    kycIdType: zod_1.z.string({ message: "The KYC ID type must be a string" }).nullable().optional(),
+    kycDocument: zod_1.z
         .string({ message: "The KYC document type must be a string" })
         .nullable()
         .optional(),
-    kycDocumentExt: z
+    kycDocumentExt: zod_1.z
         .string({ message: "The KYC document extension type must be a string" })
         .nullable()
         .optional(),
-    kycStatus: z
-        .enum([KycStatus.PENDING, KycStatus.VERIFIED, KycStatus.UNVERIFIED], {
+    kycStatus: zod_1.z
+        .enum([index_1.KycStatus.PENDING, index_1.KycStatus.VERIFIED, index_1.KycStatus.UNVERIFIED], {
         message: "The KYC status must be a string"
     })
         .optional(),
-    kycSubmittedAt: z.coerce
+    kycSubmittedAt: zod_1.z.coerce
         .date({ message: "The KYC submitted at must be a date" })
         .nullable()
         .optional(),
-    kycVerifiedAt: z.coerce
+    kycVerifiedAt: zod_1.z.coerce
         .date({ message: "The KYC verified at must be a date" })
         .nullable()
         .optional()
 });
-export default api({
+exports.default = (0, api_1.api)({
     group: "/admins/me",
     path: "/accounts/:account_id",
     method: "put",
-    middleware: defineValidator("body", Schema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("body", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const { account_id } = req.params;
     const data = req.validatedBody;
-    const account = await prisma.account.update({
+    const account = await prisma_1.default.account.update({
         where: {
             id: account_id
         },

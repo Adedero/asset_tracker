@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction, RequestHandler } from "express";
-import { HttpException, HttpResponse } from "./http.js";
+import { HttpException, HttpResponse } from "./http";
 import { z, ZodError } from "zod";
 
 export type DefineHandlerFunction = <T>(

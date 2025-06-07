@@ -1,19 +1,21 @@
-import { z } from "zod";
-const RegisterSchema = z
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const zod_1 = require("zod");
+const RegisterSchema = zod_1.z
     .object({
-    name: z
+    name: zod_1.z
         .string({ message: "Full name is required" })
         .min(2, { message: "Full name is required" })
         .trim(),
-    email: z
+    email: zod_1.z
         .string({ message: "Email is required" })
         .email({ message: "Please enter a valid email address" })
         .trim(),
-    password: z
+    password: zod_1.z
         .string({ message: "Password is required" })
         .min(8, { message: "Password must be at least 8 characters long" })
         .trim(),
-    passwordConfirm: z
+    passwordConfirm: zod_1.z
         .string({ message: "Password confirmation is required" })
         .min(8, { message: "Password must be at least 8 characters long" })
         .trim()
@@ -22,4 +24,4 @@ const RegisterSchema = z
     message: "Passwords do not match",
     path: ["passwordConfirm"]
 });
-export default RegisterSchema;
+exports.default = RegisterSchema;

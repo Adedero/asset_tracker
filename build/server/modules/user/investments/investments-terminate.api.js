@@ -1,22 +1,27 @@
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import { HttpException } from "#src/lib/api/http";
-import prisma from "#src/lib/prisma/prisma";
-import { z } from "zod";
-import Decimal from "decimal.js";
-import { alertEmitter } from "#src/events/alert.event";
-const Schema = z.object({
-    terminationReason: z.string({ message: "Termination reason is required" })
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const http_1 = require("#src/lib/api/http");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const zod_1 = require("zod");
+const decimal_js_1 = __importDefault(require("decimal.js"));
+const alert_event_1 = require("#src/events/alert.event");
+const Schema = zod_1.z.object({
+    terminationReason: zod_1.z.string({ message: "Termination reason is required" })
 });
-export default api({
+exports.default = (0, api_1.api)({
     group: "/users/me",
     path: "investments/:investment_id/terminate",
     method: "post",
-    middleware: defineValidator("body", Schema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("body", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const { investment_id } = req.params;
     const { terminationReason } = req.validatedBody;
-    const investment = await prisma.investment.findUnique({
+    const investment = await prisma_1.default.investment.findUnique({
         where: { id: investment_id },
         include: {
             user: {
@@ -35,19 +40,19 @@ export default api({
         }
     });
     if (!investment) {
-        throw HttpException.notFound("Investment not found");
+        throw http_1.HttpException.notFound("Investment not found");
     }
     if (investment.investmentStatus === "TERMINATED" || investment.investmentStatus === "CLOSED") {
-        throw HttpException.badRequest("Investment is already resolved and cannot be terminated");
+        throw http_1.HttpException.badRequest("Investment is already resolved and cannot be terminated");
     }
     const { account } = investment.user;
     if (!account) {
-        throw HttpException.notFound("Account not found");
+        throw http_1.HttpException.notFound("Account not found");
     }
-    const walletBalance = new Decimal(account.walletBalance || 0);
-    const initialDeposit = new Decimal(investment.initialDeposit || 0);
-    const currentTotalReturns = new Decimal(investment.currentTotalReturns || 0);
-    const terminationFee = new Decimal(investment.terminationFee || 0);
+    const walletBalance = new decimal_js_1.default(account.walletBalance || 0);
+    const initialDeposit = new decimal_js_1.default(investment.initialDeposit || 0);
+    const currentTotalReturns = new decimal_js_1.default(investment.currentTotalReturns || 0);
+    const terminationFee = new decimal_js_1.default(investment.terminationFee || 0);
     const updatedInvestment = {};
     let updatedWalletBalance = 0;
     if (investment.autocompounded) {
@@ -69,14 +74,14 @@ export default api({
     if (!investment.autocompounded) {
         if (investment.currentTotalReturns >= investment.initialDeposit) {
             if (walletBalance.minus(terminationFee).lessThan(0)) {
-                throw HttpException.badRequest("Insufficient funds to pay the investment termination fee");
+                throw http_1.HttpException.badRequest("Insufficient funds to pay the investment termination fee");
             }
             updatedWalletBalance = walletBalance.minus(terminationFee).toDecimalPlaces(2).toNumber();
         }
         else {
             const debt = initialDeposit.minus(currentTotalReturns.minus(terminationFee));
             if (walletBalance.plus(debt).lessThan(0)) {
-                throw HttpException.badRequest("Insufficient funds to pay the investment termination fee");
+                throw http_1.HttpException.badRequest("Insufficient funds to pay the investment termination fee");
             }
             updatedWalletBalance = walletBalance.plus(debt).toDecimalPlaces(2).toNumber();
         }
@@ -87,12 +92,12 @@ export default api({
     updatedInvestment.closedAt = new Date();
     updatedInvestment.terminationFeeApplied = true;
     updatedInvestment.terminationReason = terminationReason;
-    await prisma.$transaction([
-        prisma.investment.update({
+    await prisma_1.default.$transaction([
+        prisma_1.default.investment.update({
             where: { id: investment.id },
             data: updatedInvestment
         }),
-        prisma.account.update({
+        prisma_1.default.account.update({
             where: { id: account.id },
             data: { walletBalance: updatedWalletBalance }
         })
@@ -102,7 +107,7 @@ export default api({
         message: "Investment terminated",
         investment: { ...investment, ...updatedInvestment }
     };
-    alertEmitter.emit("investment:terminate", {
+    alert_event_1.alertEmitter.emit("investment:terminate", {
         investment: { ...investment, ...updatedInvestment },
         user: investment.user
     });

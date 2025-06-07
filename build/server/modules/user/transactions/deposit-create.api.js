@@ -1,65 +1,70 @@
-import { alertEmitter } from "#src/events/alert.event";
-import { api } from "#src/lib/api/api";
-import { defineHandler, defineValidator } from "#src/lib/api/handlers";
-import { HttpException } from "#src/lib/api/http";
-import prisma from "#src/lib/prisma/prisma";
-import { TransactionStatus, TransactionType } from "#src/prisma-gen/index";
-import { DUPLICATE_TRANSACTION_CHECK_TIME } from "#src/utils/constants";
-import { z } from "zod";
-const Schema = z.object({
-    transactionType: z.enum([
-        TransactionType.DEPOSIT,
-        TransactionType.WITHDRAWAL,
-        TransactionType.INVESTMENT,
-        TransactionType.PROFIT
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const alert_event_1 = require("#src/events/alert.event");
+const api_1 = require("#src/lib/api/api");
+const handlers_1 = require("#src/lib/api/handlers");
+const http_1 = require("#src/lib/api/http");
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const index_1 = require("#src/prisma-gen/index");
+const constants_1 = require("#src/utils/constants");
+const zod_1 = require("zod");
+const Schema = zod_1.z.object({
+    transactionType: zod_1.z.enum([
+        index_1.TransactionType.DEPOSIT,
+        index_1.TransactionType.WITHDRAWAL,
+        index_1.TransactionType.INVESTMENT,
+        index_1.TransactionType.PROFIT
     ]),
-    transactionStatus: z.enum([
-        TransactionStatus.FAILED,
-        TransactionStatus.PENDING,
-        TransactionStatus.SUCCESSFUL
+    transactionStatus: zod_1.z.enum([
+        index_1.TransactionStatus.FAILED,
+        index_1.TransactionStatus.PENDING,
+        index_1.TransactionStatus.SUCCESSFUL
     ]),
-    amountInUSD: z.number(),
-    charge: z.number(),
-    actualAmountInUSD: z.number(),
-    rate: z.number(),
-    currency: z.string(),
-    amountInCurrency: z.number(),
-    isWireTransfer: z.boolean(),
-    isGiftCard: z.boolean().optional(),
-    giftCardData: z
+    amountInUSD: zod_1.z.number(),
+    charge: zod_1.z.number(),
+    actualAmountInUSD: zod_1.z.number(),
+    rate: zod_1.z.number(),
+    currency: zod_1.z.string(),
+    amountInCurrency: zod_1.z.number(),
+    isWireTransfer: zod_1.z.boolean(),
+    isGiftCard: zod_1.z.boolean().optional(),
+    giftCardData: zod_1.z
         .object({
-        rates: z.object({
-            USD: z.number(),
-            CAD: z.number().optional(),
-            GBP: z.number().optional()
+        rates: zod_1.z.object({
+            USD: zod_1.z.number(),
+            CAD: zod_1.z.number().optional(),
+            GBP: zod_1.z.number().optional()
         }),
-        totalInUSD: z.number().positive(),
-        cards: z.array(z.object({
-            type: z.string(),
-            country: z.string(),
-            cardNumber: z.string(),
-            pin: z.string(),
-            amount: z.number().positive(),
-            currency: z.enum(["USD", "CAD", "GBP"])
+        totalInUSD: zod_1.z.number().positive(),
+        cards: zod_1.z.array(zod_1.z.object({
+            type: zod_1.z.string(),
+            country: zod_1.z.string(),
+            cardNumber: zod_1.z.string(),
+            pin: zod_1.z.string(),
+            amount: zod_1.z.number().positive(),
+            currency: zod_1.z.enum(["USD", "CAD", "GBP"])
         }))
     })
         .optional(),
-    depositWalletAddress: z.string().optional(),
-    depositWalletAddressNetwork: z.string().optional(),
-    description: z.string().optional()
+    depositWalletAddress: zod_1.z.string().optional(),
+    depositWalletAddressNetwork: zod_1.z.string().optional(),
+    description: zod_1.z.string().optional()
 });
-export default api({
+exports.default = (0, api_1.api)({
     group: "/users/me",
     path: "/transactions/deposit",
     method: "post",
-    middleware: defineValidator("body", Schema)
-}, defineHandler(async (req) => {
+    middleware: (0, handlers_1.defineValidator)("body", Schema)
+}, (0, handlers_1.defineHandler)(async (req) => {
     const userId = req.user.id;
     const data = req.validatedBody;
     if (data.transactionType !== "DEPOSIT") {
-        throw HttpException.badRequest("Transaction must be a deposit request");
+        throw http_1.HttpException.badRequest("Transaction must be a deposit request");
     }
-    const user = await prisma.user.findUnique({
+    const user = await prisma_1.default.user.findUnique({
         where: {
             id: userId
         },
@@ -75,29 +80,29 @@ export default api({
         }
     });
     if (!user) {
-        throw HttpException.notFound("User not found");
+        throw http_1.HttpException.notFound("User not found");
     }
-    const lastDepositRequest = await prisma.transaction.findFirst({
+    const lastDepositRequest = await prisma_1.default.transaction.findFirst({
         where: {
             userId,
             transactionType: "DEPOSIT",
             transactionStatus: "PENDING",
             amountInUSD: data.amountInUSD,
             createdAt: {
-                gte: new Date(Date.now() - DUPLICATE_TRANSACTION_CHECK_TIME)
+                gte: new Date(Date.now() - constants_1.DUPLICATE_TRANSACTION_CHECK_TIME)
             }
         }
     });
     if (lastDepositRequest) {
-        throw HttpException.badRequest("Possible duplicate deposit request detected. Please, wait a little before trying again.");
+        throw http_1.HttpException.badRequest("Possible duplicate deposit request detected. Please, wait a little before trying again.");
     }
-    const transaction = await prisma.transaction.create({
+    const transaction = await prisma_1.default.transaction.create({
         data: {
             userId,
             ...data
         }
     });
-    alertEmitter.emit("deposit:create", { user, transaction });
+    alert_event_1.alertEmitter.emit("deposit:create", { user, transaction });
     const payload = {
         success: true,
         message: "Deposit request created.",

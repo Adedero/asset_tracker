@@ -1,9 +1,18 @@
-import { sendTemplateEmail } from "#src/lib/email/email";
-import generic from "#src/lib/email/mail-templates/generic";
-import prisma from "#src/lib/prisma/prisma";
-import env from "#src/utils/env";
-import logger from "#src/utils/logger";
-export async function onInvestmentCreate({ user, investment }) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.onInvestmentCreate = onInvestmentCreate;
+exports.onInvestmentClose = onInvestmentClose;
+exports.onInvestmentPauseToggle = onInvestmentPauseToggle;
+exports.onInvestmentTerminate = onInvestmentTerminate;
+const email_1 = require("#src/lib/email/email");
+const generic_1 = __importDefault(require("#src/lib/email/mail-templates/generic"));
+const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
+const env_1 = __importDefault(require("#src/utils/env"));
+const logger_1 = __importDefault(require("#src/utils/logger"));
+async function onInvestmentCreate({ user, investment }) {
     const subject = "New Investment";
     const message = (name) => {
         return {
@@ -26,22 +35,22 @@ export async function onInvestmentCreate({ user, investment }) {
     };
     try {
         await Promise.all([
-            prisma.notification.create({
+            prisma_1.default.notification.create({
                 data: {
                     userId: user.id,
                     title: subject,
                     description: message(user.name).info + " " + message(user.name).more
                 }
             }),
-            sendTemplateEmail({ email: user.email, subject, sections: message(user.name) }, generic),
-            sendTemplateEmail({ email: env.get("SUPPORT_EMAIL_USER"), subject, sections: message() }, generic)
+            (0, email_1.sendTemplateEmail)({ email: user.email, subject, sections: message(user.name) }, generic_1.default),
+            (0, email_1.sendTemplateEmail)({ email: env_1.default.get("SUPPORT_EMAIL_USER"), subject, sections: message() }, generic_1.default)
         ]);
     }
     catch (error) {
-        logger.error(`Alerts failed for investment creation: ${investment.id}`, error);
+        logger_1.default.error(`Alerts failed for investment creation: ${investment.id}`, error);
     }
 }
-export async function onInvestmentClose({ user, investment }) {
+async function onInvestmentClose({ user, investment }) {
     const subject = "Investment Closure";
     const mailReason = "This message was sent to you because an investment was closed.";
     const message = (name) => {
@@ -62,32 +71,32 @@ export async function onInvestmentClose({ user, investment }) {
     };
     try {
         await Promise.all([
-            prisma.notification.create({
+            prisma_1.default.notification.create({
                 data: {
                     userId: user.id,
                     title: subject,
                     description: message(user.name).info
                 }
             }),
-            sendTemplateEmail({
+            (0, email_1.sendTemplateEmail)({
                 email: user.email,
                 subject,
                 mailReason,
                 sections: message(user.name)
-            }, generic),
-            sendTemplateEmail({
-                email: env.get("SUPPORT_EMAIL_USER"),
+            }, generic_1.default),
+            (0, email_1.sendTemplateEmail)({
+                email: env_1.default.get("SUPPORT_EMAIL_USER"),
                 subject,
                 mailReason,
                 sections: message()
-            }, generic)
+            }, generic_1.default)
         ]);
     }
     catch (error) {
-        logger.error(`Alerts failed for investment closure: ${investment.id}`, error);
+        logger_1.default.error(`Alerts failed for investment closure: ${investment.id}`, error);
     }
 }
-export async function onInvestmentPauseToggle({ user, investment }) {
+async function onInvestmentPauseToggle({ user, investment }) {
     const conditional = (str1, str2, condition = investment.investmentStatus === "PAUSED") => {
         return condition ? str1 : str2;
     };
@@ -98,7 +107,7 @@ export async function onInvestmentPauseToggle({ user, investment }) {
             greeting: `Hello ${name ? name : "Admin"}!`,
             info: "The investment "
                 .concat(`${investment.investmentName} (${investment.investmentTier} Tier) `)
-                .concat(conditional(`was paused by the ${env.get("APP_NAME")} admin `, "has been resumed"))
+                .concat(conditional(`was paused by the ${env_1.default.get("APP_NAME")} admin `, "has been resumed"))
                 .concat(conditional(`with reason ${investment.pausedReason}`, "")),
             details: {
                 "Investment Name": investment.investmentName,
@@ -112,35 +121,35 @@ export async function onInvestmentPauseToggle({ user, investment }) {
     };
     try {
         await Promise.all([
-            prisma.notification.create({
+            prisma_1.default.notification.create({
                 data: {
                     userId: user.id,
                     title: subject,
                     description: message(user.name).info
                 }
             }),
-            sendTemplateEmail({
+            (0, email_1.sendTemplateEmail)({
                 email: user.email,
                 subject,
                 mailReason,
                 sections: message(user.name)
-            }, generic),
-            sendTemplateEmail({
-                email: env.get("SUPPORT_EMAIL_USER"),
+            }, generic_1.default),
+            (0, email_1.sendTemplateEmail)({
+                email: env_1.default.get("SUPPORT_EMAIL_USER"),
                 subject,
                 mailReason,
                 sections: message()
-            }, generic)
+            }, generic_1.default)
         ]);
     }
     catch (error) {
-        logger.error(`Alerts failed for investment pause toggle: ${investment.id}`, error);
+        logger_1.default.error(`Alerts failed for investment pause toggle: ${investment.id}`, error);
     }
 }
-export async function onInvestmentTerminate({ user, investment }) {
+async function onInvestmentTerminate({ user, investment }) {
     const subject = "Termination of Investment";
     const message = (name) => {
-        const info = `The investment ${investment.investmentName} (${investment.investmentTier} Tier) was terminated by ${investment.terminator === "USER" && name ? "you" : investment.terminator === "USER" && !name ? user.name : `the ${env.get("APP_NAME")} admin`} ${!investment.terminationReason ? "without reason." : "with reason: " + investment.terminationReason}.`;
+        const info = `The investment ${investment.investmentName} (${investment.investmentTier} Tier) was terminated by ${investment.terminator === "USER" && name ? "you" : investment.terminator === "USER" && !name ? user.name : `the ${env_1.default.get("APP_NAME")} admin`} ${!investment.terminationReason ? "without reason." : "with reason: " + investment.terminationReason}.`;
         return {
             greeting: `Hello ${name ? name : "Admin"}!`,
             info,
@@ -156,18 +165,18 @@ export async function onInvestmentTerminate({ user, investment }) {
     };
     try {
         await Promise.all([
-            prisma.notification.create({
+            prisma_1.default.notification.create({
                 data: {
                     userId: user.id,
                     title: subject,
                     description: message(user.name).info
                 }
             }),
-            sendTemplateEmail({ email: user.email, subject, sections: message(user.name) }, generic),
-            sendTemplateEmail({ email: env.get("SUPPORT_EMAIL_USER"), subject, sections: message() }, generic)
+            (0, email_1.sendTemplateEmail)({ email: user.email, subject, sections: message(user.name) }, generic_1.default),
+            (0, email_1.sendTemplateEmail)({ email: env_1.default.get("SUPPORT_EMAIL_USER"), subject, sections: message() }, generic_1.default)
         ]);
     }
     catch (error) {
-        logger.error(`Alerts failed for investment termination: ${investment.id}`, error);
+        logger_1.default.error(`Alerts failed for investment termination: ${investment.id}`, error);
     }
 }
