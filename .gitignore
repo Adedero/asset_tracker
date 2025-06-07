@@ -21,6 +21,7 @@ tmp
 .private
 dev
 *.rest
+routes.json
 
 # Local env files
 .env
