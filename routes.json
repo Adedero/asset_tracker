@@ -43,31 +43,6 @@
   },
   {
     "group": "/admins/me",
-    "path": "/admins/me/account-groups/:account_group_id",
-    "method": "delete"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/pages/account-groups/:account_group_id",
-    "method": "get"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/account-groups{/:account_group_id}",
-    "method": "get"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/account-groups",
-    "method": "post"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/account-groups/:account_group_id",
-    "method": "put"
-  },
-  {
-    "group": "/admins/me",
     "path": "/admins/me/database/backups",
     "method": "post"
   },
@@ -104,6 +79,31 @@
   {
     "group": "/admins/me",
     "path": "/admins/me/currencies/:currency_id",
+    "method": "put"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/account-groups/:account_group_id",
+    "method": "delete"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/pages/account-groups/:account_group_id",
+    "method": "get"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/account-groups{/:account_group_id}",
+    "method": "get"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/account-groups",
+    "method": "post"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/account-groups/:account_group_id",
     "method": "put"
   },
   {
@@ -263,11 +263,6 @@
   },
   {
     "group": "/users/me",
-    "path": "/users/me/faq{/:faq_id_slug}",
-    "method": "get"
-  },
-  {
-    "group": "/users/me",
     "path": "/users/me/currencies{/:currency_id}",
     "method": "get"
   },
@@ -278,7 +273,17 @@
   },
   {
     "group": "/users/me",
-    "path": "/users/me/investment-plans{/:investment_plan_id}",
+    "path": "/users/me/faq{/:faq_id_slug}",
+    "method": "get"
+  },
+  {
+    "group": "/users/me",
+    "path": "/users/me/notifications{/:notification_id}",
+    "method": "delete"
+  },
+  {
+    "group": "/users/me",
+    "path": "/users/me/notifications{/:notification_id}",
     "method": "get"
   },
   {
@@ -308,12 +313,7 @@
   },
   {
     "group": "/users/me",
-    "path": "/users/me/notifications{/:notification_id}",
-    "method": "delete"
-  },
-  {
-    "group": "/users/me",
-    "path": "/users/me/notifications{/:notification_id}",
+    "path": "/users/me/investment-plans{/:investment_plan_id}",
     "method": "get"
   },
   {
