@@ -13,9 +13,7 @@ const Schema = zod_1.z.object({
     symbol: zod_1.z.string().trim(),
     abbr: zod_1.z.string().trim().toUpperCase(),
     image: zod_1.z.string().trim().optional(),
-    rate: zod_1.z
-        .number()
-        .min(0, { message: "Rate must be greater than 0" }),
+    rate: zod_1.z.number().min(0, { message: "Rate must be greater than 0" }),
     rateUpdatedAt: zod_1.z.coerce.date().optional(),
     walletAddress: zod_1.z.string({ message: "Wallet address is required" }).trim(),
     walletAddressNetwork: zod_1.z.string().trim().optional(),

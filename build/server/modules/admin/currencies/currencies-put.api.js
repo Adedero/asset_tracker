@@ -18,7 +18,10 @@ const Schema = zod_1.z.object({
     walletAddress: zod_1.z.string().trim().optional(),
     walletAddressNetwork: zod_1.z.string().trim().optional(),
     isAvailableForWithdrawal: zod_1.z.boolean().optional(),
-    withdrawalCharge: zod_1.z.number().min(0, { message: "Withdrawal charge must not be less than 0" }).optional()
+    withdrawalCharge: zod_1.z
+        .number()
+        .min(0, { message: "Withdrawal charge must not be less than 0" })
+        .optional()
 });
 exports.default = (0, api_1.api)({
     group: "/admins/me",
