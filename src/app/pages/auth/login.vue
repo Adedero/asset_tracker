@@ -2,7 +2,7 @@
 import { reactive, ref } from "vue";
 import { APP_NAME } from "@/app/data/constants";
 import { z } from "zod";
-import { zodResolver } from "@primevue/forms/resolvers/zod";
+import { zodResolver } from "@primeuix/forms/resolvers/zod";
 import LoginSchema from "@/shared/schemas/login.schema";
 import { useHead } from "@unhead/vue";
 import useAuth from "@/app/composables/use-auth";

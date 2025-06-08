@@ -1,0 +1,1 @@
+import{j as a,Q as n,V as c}from"./main-CE88ee4Q.js";function g(e){const o=c(),{status:r=500,message:s="Internal Server Error"}=e||{},t=a(()=>r===404?"error-404":"error-500"),u=n();u.settings.error={status:r,message:s},o.push({name:t.value})}export{g as u};

@@ -55,7 +55,7 @@ const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
         class="mt-1 flex flex-col gap-6 w-full"
       >
         <div class="flex flex-col gap-1">
-          <label for="email" class="text-mute text-sm">Enter for email address</label>
+          <label for="email" class="text-mute text-sm">Enter your email address</label>
           <InputText id="email" name="email" type="email" fluid />
           <small v-if="$form.email?.invalid" class="font-medium text-red-500">
             {{ $form.email?.error?.message }}

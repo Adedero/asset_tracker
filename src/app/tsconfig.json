@@ -2,16 +2,15 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "es2020",
-    "rootDir": "./app",
+    "rootDir": "../../src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "bundler",
     "paths": {
-      "#src/*": ["./src/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["../../src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["../app/*"]
 }
