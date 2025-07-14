@@ -37,6 +37,7 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-history-api-fallback": "^2.2.1",
+    "fast-glob": "^3.3.3",
     "helmet": "^8.1.0",
     "html-to-image": "^1.11.11",
     "jsonwebtoken": "^9.0.2",
