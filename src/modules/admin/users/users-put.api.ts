@@ -11,7 +11,8 @@ const Schema = z.object({
   country: z.string().trim().optional(),
   region: z.string().trim().optional(),
   verified: z.boolean().optional(),
-  accountGroupId: z.string().optional()
+  accountGroupId: z.string().optional(),
+  role: z.enum(["ADMIN", "USER"], { message: "Role must either be ADMIN or USER" }).default("USER")
 });
 
 export default api(

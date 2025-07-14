@@ -65,6 +65,31 @@ export const routes = [
   },
   {
     "group": "/admins/me",
+    "path": "/admins/me/account-groups/:account_group_id",
+    "method": "delete"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/pages/account-groups/:account_group_id",
+    "method": "get"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/account-groups{/:account_group_id}",
+    "method": "get"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/account-groups",
+    "method": "post"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/account-groups/:account_group_id",
+    "method": "put"
+  },
+  {
+    "group": "/admins/me",
     "path": "/admins/me/currencies/:currency_id",
     "method": "delete"
   },
@@ -101,31 +126,6 @@ export const routes = [
   {
     "group": "/admins/me",
     "path": "/admins/me/faqs/:faq_id_or_slug",
-    "method": "put"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/account-groups/:account_group_id",
-    "method": "delete"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/pages/account-groups/:account_group_id",
-    "method": "get"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/account-groups{/:account_group_id}",
-    "method": "get"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/account-groups",
-    "method": "post"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/account-groups/:account_group_id",
     "method": "put"
   },
   {
@@ -265,17 +265,17 @@ export const routes = [
   },
   {
     "group": "/users/me",
-    "path": "/users/me/faq{/:faq_id_slug}",
-    "method": "get"
-  },
-  {
-    "group": "/users/me",
     "path": "/users/me/currencies{/:currency_id}",
     "method": "get"
   },
   {
     "group": "/users/me",
     "path": "/users/me/currencies/:currency_id_or_symbol/rate",
+    "method": "get"
+  },
+  {
+    "group": "/users/me",
+    "path": "/users/me/faq{/:faq_id_slug}",
     "method": "get"
   },
   {
