@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { $fetch } from "@/app/composables/use-fetch";
-import { UserGetApiResponse } from "#src/modules/admin/users/users-get.api";
 import { toTitleCase } from "@/app/utils/helpers";
 import useSWRV from "swrv";
 import { useDateFormat } from "@vueuse/core";
 import { User } from "@/prisma-gen";
 import { Icon } from "@iconify/vue";
 import { useRouter } from "vue-router";
+import type { UserGetApiResponse } from "@/modules/admin/users/users-get.api"
 
 const router = useRouter();
 
@@ -86,15 +86,13 @@ const onDeleteUser = () => {
           <h1 class="text-lg font-semibold text-primary">{{ data?.user?.name || "User" }}</h1>
 
           <div v-if="data?.user" class="flex items-center gap-1">
-            <RouterLink
-              :to="{
-                name: 'admin-email-service',
-                query: {
-                  to_name: data.user.name,
-                  to_address: data.user.email
-                }
-              }"
-            >
+            <RouterLink :to="{
+              name: 'admin-email-service',
+              query: {
+                to_name: data.user.name,
+                to_address: data.user.email
+              }
+            }">
               <Button size="small" severity="secondary" label="Send mail" icon="pi pi-envelope" />
             </RouterLink>
 
@@ -114,12 +112,7 @@ const onDeleteUser = () => {
               <div class="flex items-center gap-4 flex-wrap">
                 <div class="w-32 aspect-square overflow-hidden rounded-full">
                   <img v-if="data.user.image" :src="data.user.image" :alt="data.user.name" />
-                  <Icon
-                    v-else
-                    icon="ic:baseline-account-circle"
-                    style="font-size: 8rem"
-                    class="text-white"
-                  />
+                  <Icon v-else icon="ic:baseline-account-circle" style="font-size: 8rem" class="text-white" />
                 </div>
 
                 <div>
@@ -136,10 +129,8 @@ const onDeleteUser = () => {
 
             <div class="mt-2">
               <VCard class="grid gap-2" header="Profile">
-                <div
-                  v-if="data.user.isBanned && data.user.ban?.active"
-                  class="v-card !p-2 bg-red-100 text-red-500 border dark:border-white/30 dark:bg-slate-800"
-                >
+                <div v-if="data.user.isBanned && data.user.ban?.active"
+                  class="v-card !p-2 bg-red-100 text-red-500 border dark:border-white/30 dark:bg-slate-800">
                   <div class="flex items-center">
                     <span class="pi pi-ban text-red-400 p-1 rounded-full" style="font-size: 12px" />
                     <p class="text-red-400 text-sm font-semibold">Ban Status</p>
@@ -158,10 +149,7 @@ const onDeleteUser = () => {
                 <div class="flex flex-col gap-2 *:flex-shrink-0">
                   <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                     <div class="flex items-center">
-                      <span
-                        class="pi pi-phone text-mute p-1 rounded-full"
-                        style="font-size: 12px"
-                      />
+                      <span class="pi pi-phone text-mute p-1 rounded-full" style="font-size: 12px" />
                       <p class="text-mute text-sm font-semibold">Phone Number</p>
                     </div>
                     <p class="text-right font-semibold">
@@ -181,10 +169,7 @@ const onDeleteUser = () => {
 
                   <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                     <div class="flex items-center">
-                      <span
-                        class="pi pi-map-marker text-mute p-1 rounded-full"
-                        style="font-size: 12px"
-                      />
+                      <span class="pi pi-map-marker text-mute p-1 rounded-full" style="font-size: 12px" />
                       <p class="text-mute text-sm font-semibold">Location</p>
                     </div>
                     <p class="text-right font-semibold">
@@ -194,10 +179,7 @@ const onDeleteUser = () => {
 
                   <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                     <div class="flex items-center">
-                      <span
-                        class="pi pi-check-circle text-mute p-1 rounded-full"
-                        style="font-size: 12px"
-                      />
+                      <span class="pi pi-check-circle text-mute p-1 rounded-full" style="font-size: 12px" />
                       <p class="text-mute text-sm font-semibold">Account Verification</p>
                     </div>
                     <p class="text-right font-semibold">
@@ -207,10 +189,7 @@ const onDeleteUser = () => {
 
                   <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                     <div class="flex items-center">
-                      <span
-                        class="pi pi-calendar text-mute p-1 rounded-full"
-                        style="font-size: 12px"
-                      />
+                      <span class="pi pi-calendar text-mute p-1 rounded-full" style="font-size: 12px" />
                       <p class="text-mute text-sm font-semibold">Account Creation Date</p>
                     </div>
                     <p class="text-right font-semibold">
@@ -223,28 +202,20 @@ const onDeleteUser = () => {
           </div>
 
           <div class="md:h-full md:overflow-y-auto md:col-span-2">
-            <VCard
-              v-if="data.user.account"
-              header="Account Balance"
-              class="bg-emerald-500 dark:bg-emerald-500/50 text-white"
-              header-class="text-white"
-            >
+            <VCard v-if="data.user.account" header="Account Balance"
+              class="bg-emerald-500 dark:bg-emerald-500/50 text-white" header-class="text-white">
               <div class="flex items-end justify-between gap-2 flex-wrap">
                 <div class="font-semibold">
                   <span>$</span>
                   <span class="text-2xl font-semibold">
                     {{ data.user.account?.walletBalance.toLocaleString().split(".")[0] }}
                   </span>
-                  <span
-                    >.
+                  <span>.
                     {{ data.user.account?.walletBalance.toLocaleString().split(".")[1] || "00" }}
                   </span>
                 </div>
 
-                <UserAccountBalanceEditor
-                  :account="data.user.account"
-                  @update="updateWalletBalance"
-                />
+                <UserAccountBalanceEditor :account="data.user.account" @update="updateWalletBalance" />
               </div>
             </VCard>
 
@@ -263,22 +234,13 @@ const onDeleteUser = () => {
                     </p>
                   </div>
 
-                  <Button
-                    v-if="data.user.accountGroup"
-                    @click="
-                      $router.push({
-                        name: 'admin-account-group-editor',
-                        params: { account_group_id: data.user.accountGroup.id }
-                      })
-                    "
-                    label="View Account Group"
-                    icon="pi pi-chevron-right"
-                    icon-pos="right"
-                    size="small"
-                    class="mt-2"
-                    fluid
-                    outlined
-                  />
+                  <Button v-if="data.user.accountGroup" @click="
+                    $router.push({
+                      name: 'admin-account-group-editor',
+                      params: { account_group_id: data.user.accountGroup.id }
+                    })
+                    " label="View Account Group" icon="pi pi-chevron-right" icon-pos="right" size="small" class="mt-2"
+                    fluid outlined />
                 </div>
 
                 <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
@@ -293,10 +255,7 @@ const onDeleteUser = () => {
                       <p class="font-semibold">{{ toTitleCase(data.user.account?.kycStatus) }}</p>
                     </div>
 
-                    <div
-                      v-if="data.user.account?.kycSubmittedAt"
-                      class="flex flex-wrap gap-2 justify-between"
-                    >
+                    <div v-if="data.user.account?.kycSubmittedAt" class="flex flex-wrap gap-2 justify-between">
                       <p>Submitted On</p>
                       <p class="font-semibold">
                         {{
@@ -305,44 +264,25 @@ const onDeleteUser = () => {
                       </p>
                     </div>
 
-                    <Button
-                      @click="
-                        $router.push({
-                          name: 'admin-kyc-review',
-                          params: { user_id: data.user.id }
-                        })
-                      "
-                      label="View Details"
-                      icon="pi pi-chevron-right"
-                      icon-pos="right"
-                      size="small"
-                      class="mt-2"
-                      fluid
-                      outlined
-                    />
+                    <Button @click="
+                      $router.push({
+                        name: 'admin-kyc-review',
+                        params: { account_id: data.user.account.id }
+                      })
+                      " label="View Details" icon="pi pi-chevron-right" icon-pos="right" size="small" class="mt-2"
+                      fluid outlined />
                   </div>
                 </div>
 
                 <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                   <div class="flex items-center">
-                    <span
-                      class="pi pi-chart-line text-mute p-1 rounded-full"
-                      style="font-size: 12px"
-                    />
+                    <span class="pi pi-chart-line text-mute p-1 rounded-full" style="font-size: 12px" />
                     <p class="text-mute text-sm font-semibold">Investments</p>
                   </div>
-                  <Button
-                    @click="
-                      $router.push({ name: 'admin-investments', query: { user_id: data.user.id } })
-                    "
-                    label="View Investments"
-                    icon="pi pi-chevron-right"
-                    icon-pos="right"
-                    size="small"
-                    class="mt-2"
-                    fluid
-                    outlined
-                  />
+                  <Button @click="
+                    $router.push({ name: 'admin-investments', query: { user_id: data.user.id } })
+                    " label="View Investments" icon="pi pi-chevron-right" icon-pos="right" size="small" class="mt-2"
+                    fluid outlined />
                 </div>
 
                 <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
@@ -350,18 +290,10 @@ const onDeleteUser = () => {
                     <span class="pi pi-wallet text-mute p-1 rounded-full" style="font-size: 12px" />
                     <p class="text-mute text-sm font-semibold">Transactions</p>
                   </div>
-                  <Button
-                    @click="
-                      $router.push({ name: 'admin-transactions', query: { user_id: data.user.id } })
-                    "
-                    label="View Transactions"
-                    icon="pi pi-chevron-right"
-                    icon-pos="right"
-                    size="small"
-                    class="mt-2"
-                    fluid
-                    outlined
-                  />
+                  <Button @click="
+                    $router.push({ name: 'admin-transactions', query: { user_id: data.user.id } })
+                    " label="View Transactions" icon="pi pi-chevron-right" icon-pos="right" size="small" class="mt-2"
+                    fluid outlined />
                 </div>
               </div>
             </VCard>
@@ -370,10 +302,7 @@ const onDeleteUser = () => {
               <div class="grid gap-2">
                 <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                   <div class="flex items-center">
-                    <span
-                      class="pi pi-envelope text-mute p-1 rounded-full"
-                      style="font-size: 12px"
-                    />
+                    <span class="pi pi-envelope text-mute p-1 rounded-full" style="font-size: 12px" />
                     <p class="text-mute text-sm font-semibold">Change Email</p>
                   </div>
                   <div>
@@ -396,15 +325,9 @@ const onDeleteUser = () => {
                   <UserPasswordResetter class="mt-2" :user="data.user" />
                 </div>
 
-                <div
-                  v-if="!data.user.isBanned"
-                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
-                >
+                <div v-if="!data.user.isBanned" class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                   <div class="flex items-center">
-                    <span
-                      class="pi pi-lock text-amber-500 p-1 rounded-full"
-                      style="font-size: 12px"
-                    />
+                    <span class="pi pi-lock text-amber-500 p-1 rounded-full" style="font-size: 12px" />
                     <p class="text-amber-500 text-sm font-semibold">User Ban</p>
                   </div>
                   <div>
@@ -415,10 +338,7 @@ const onDeleteUser = () => {
 
                 <div v-else class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                   <div class="flex items-center">
-                    <span
-                      class="pi pi-lock text-amber-500 p-1 rounded-full"
-                      style="font-size: 12px"
-                    />
+                    <span class="pi pi-lock text-amber-500 p-1 rounded-full" style="font-size: 12px" />
                     <p class="text-amber-500 text-sm font-semibold">User Ban</p>
                   </div>
                   <div>
@@ -429,10 +349,7 @@ const onDeleteUser = () => {
 
                 <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                   <div class="flex items-center">
-                    <span
-                      class="pi pi-trash text-red-500 p-1 rounded-full"
-                      style="font-size: 12px"
-                    />
+                    <span class="pi pi-trash text-red-500 p-1 rounded-full" style="font-size: 12px" />
                     <p class="text-red-500 text-sm font-semibold">Delete Account</p>
                   </div>
                   <div>

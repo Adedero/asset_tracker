@@ -12,17 +12,17 @@ export async function getAccessToken(options: {
 
   const accessTokenExp = await getTokenExpirationDate(accessToken);
   if (!isTokenExpired(accessTokenExp)) {
-    console.log("Access token not expired: forwarding request...");
+    //console.log("Access token not expired: forwarding request...");
     return accessToken;
   }
 
   const refreshTokenExp = await getTokenExpirationDate(refreshToken);
   if (isTokenExpired(refreshTokenExp)) {
-    console.log("Refresh token expired!");
+    //console.log("Refresh token expired!");
     return null;
   }
 
-  console.log("Access token expired: getting new access token...");
+  //console.log("Access token expired: getting new access token...");
   const { data, error } = await useFetch(`/api/auth/refresh/${refreshToken}`, {
     timeout: FETCH_TIMEOUT,
     updateDataOnError: true,
@@ -38,11 +38,11 @@ export async function getAccessToken(options: {
     .json<{ success: boolean; accessToken: string }>();
 
   if (error?.value || !data?.value?.success || !data?.value?.accessToken) {
-    console.log("Failed to get new access token!");
+    //console.log("Failed to get new access token!");
     return null;
   }
 
-  console.log("New access token retrieved");
+  //console.log("New access token retrieved");
   return data.value.accessToken;
 }
 

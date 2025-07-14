@@ -13,7 +13,7 @@ export default api(
   defineHandler<ApiResponse>(async (req) => {
     const { user_id } = req.params;
 
-    throw HttpException.internal();
+    //throw HttpException.internal();
 
     await prisma.user.delete({
       where: {

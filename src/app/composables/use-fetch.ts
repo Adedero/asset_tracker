@@ -15,7 +15,7 @@ export const $fetch = async <T extends Record<string, any>>(url: string, auth: b
     const token = await getAccessToken({ accessToken, refreshToken });
 
     if (!token) {
-      console.log("Failed to get token: redirecting to login");
+      //console.log("Failed to get token: redirecting to login");
       localStorage.removeItem("user");
       const currentRoute = window.location.pathname;
       window.location.href = `/login?redirect=${currentRoute}`;
@@ -67,7 +67,7 @@ export const useFetch = createFetch({
       const token = await getAccessToken({ accessToken, refreshToken });
       if (!token) {
         ctx.cancel();
-        console.log("Failed to get token: redirecting to login");
+        //console.log("Failed to get token: redirecting to login");
         localStorage.removeItem("user");
         const currentRoute = window.location.pathname;
         window.location.href = `/login?redirect=${currentRoute}`;

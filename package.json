@@ -4,15 +4,14 @@
   "main": "build/server/index.js",
   "scripts": {
     "dev": "nodemon --watch src --ignore src/app --ignore src/lib/api/generated.ts src/index.ts",
-    "build": "npm run clear:build && npm run build:client &&  npm run build:server",
+    "build": "npm run clear:build && npm run build:client &&  npm run build:server && npm run build:post",
     "build:client": "vite build --emptyOutDir",
     "build:server": "tsc --project tsconfig.build.json",
     "format": "prettier --write ./src",
     "start": "npm run build && npm run server",
     "server": "node build/server/index.js",
     "clear:build": "rimraf build",
-    "fix:prisma-gen-imports": "node ./bin/fix-prisma-gen-imports",
-    "generate:routes": "node ./bin/generate-auto-routes"
+    "build:post": "node ./bin/post-build.js"
   },
   "keywords": [],
   "author": "",

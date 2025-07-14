@@ -80,7 +80,7 @@ const manageCurrency = async () => {
   } else {
     if (!updatedCurrency.value.image) {
       try {
-        const res = await fetch("/assets/default-crypto-icon.txt");
+        const res = await fetch("/resources/default-crypto-icon.txt");
         const text = await res.text();
         updatedCurrency.value.image = text;
       } catch (error) {

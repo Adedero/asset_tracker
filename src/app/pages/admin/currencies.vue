@@ -3,7 +3,6 @@ import { CurrenciesGetApiResponse } from "@/modules/user/currencies/currencies-g
 import { $fetch } from "@/app/composables/use-fetch";
 import type { Currency } from "@/prisma-gen";
 import useSWRV from "swrv";
-import { useRouter } from "vue-router";
 
 const { isLoading, error, data, mutate } = useSWRV<CurrenciesGetApiResponse>(
   "/api/admins/me/currencies",
