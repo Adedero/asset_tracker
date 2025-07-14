@@ -36,6 +36,7 @@
     "decimal.js": "^10.5.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "express-history-api-fallback": "^2.2.1",
     "helmet": "^8.1.0",
     "html-to-image": "^1.11.11",
     "jsonwebtoken": "^9.0.2",

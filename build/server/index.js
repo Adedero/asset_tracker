@@ -49,6 +49,8 @@ const error_handler_1 = __importDefault(require("#src/middleware/error-handler")
 const auth_1 = __importDefault(require("#src/middleware/auth"));
 const parse_request_query_1 = __importDefault(require("#src/middleware/parse-request-query"));
 const profit_distribution_cron_1 = require("#src/cron/profit-distribution.cron");
+//@ts-ignore
+const fallback = __importStar(require("express-history-api-fallback"));
 const PORT = env_1.default.get("PORT", 8000);
 const app = (0, express_1.default)();
 const server = node_http_1.default.createServer(app);
@@ -73,7 +75,6 @@ async function main() {
             configFile: node_path_1.default.resolve("vite.config.mts"),
             server: { middlewareMode: true },
             root: node_path_1.default.resolve("src/app/"),
-            base: "/",
             forceOptimizeDeps: true
         });
         await viteServer.restart(true);
@@ -81,7 +82,8 @@ async function main() {
     }
     else {
         app.use((0, helmet_1.default)());
-        app.use("/", (0, sirv_1.default)("build/client", { single: true }));
+        app.use("/", (0, sirv_1.default)(node_path_1.default.resolve("build/client"), { single: true }));
+        app.use(fallback.default(node_path_1.default.resolve("build/client/index.html"), { root: node_path_1.default.resolve("build/client") }));
     }
     app.get("/api/{*all}", (req, res) => {
         res.status(404).json({ success: false, message: "not found" });

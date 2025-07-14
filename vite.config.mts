@@ -16,6 +16,7 @@ export default defineConfig({
     }),
     tailwindcss()
   ],
+  base: "/",
   root: "./src/app",
   resolve: {
     alias: {

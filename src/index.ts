@@ -11,6 +11,8 @@ import errorHandler from "#src/middleware/error-handler";
 import auth from "#src/middleware/auth";
 import parseRequestQuery from "#src/middleware/parse-request-query";
 import { profitDistributionJob } from "#src/cron/profit-distribution.cron";
+//@ts-ignore
+import * as fallback from "express-history-api-fallback";
 
 const PORT = env.get("PORT", 8000);
 const app = express();
@@ -41,7 +43,6 @@ async function main() {
       configFile: path.resolve("vite.config.mts"),
       server: { middlewareMode: true },
       root: path.resolve("src/app/"),
-      base: "/",
       forceOptimizeDeps: true
     });
 
@@ -50,7 +51,8 @@ async function main() {
     app.use(viteServer.middlewares);
   } else {
     app.use(helmet());
-    app.use("/", sirv("build/client", { single: true }));
+    app.use("/", sirv(path.resolve("build/client"), { single: true }));
+    app.use(fallback.default(path.resolve("build/client/index.html"), { root: path.resolve("build/client") }))
   }
 
   app.get("/api/{*all}", (req, res) => {
