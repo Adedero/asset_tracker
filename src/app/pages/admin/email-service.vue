@@ -107,9 +107,9 @@ function reset() {
 }
 
 const handleSelect = (files: IFile[]) => {
-  const attachments = files.map(({ id, name, dataUrl }) => ({
+  const attachments = files.map(({ id, fileData, dataUrl }) => ({
     id,
-    filename: name,
+    filename: fileData.name,
     path: dataUrl
   }));
   emailData.value.attachments = [

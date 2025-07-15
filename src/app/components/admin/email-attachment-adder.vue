@@ -10,10 +10,10 @@ import { onUnmounted, ref } from "vue";
 import { useAsyncState } from "@vueuse/core";
 import { useToast } from "primevue/usetoast";
 
-export interface IFile extends File {
+/*export interface IFile extends File {
   id: string;
   dataUrl?: string;
-}
+}*/
 
 export interface IFile {
   id: string,
@@ -29,6 +29,7 @@ const emit = defineEmits<{
 
 const id = uuid();
 const files = ref<IFile[] | null>(null);
+const tempFiles = ref<Array<Omit<IFile, "dataUrl">> | null>(null);
 
 const { error, execute, state } = useAsyncState(uploadPromise, null, {
   immediate: false
@@ -41,23 +42,24 @@ async function uploadPromise(event: Event): Promise<IFile[] | null> {
     throw new Error("No files selected.");
   }
 
+
   files.value = Array.from(uploadedFiles).map((file) => ({
-    ...file,
-    id: uuid()
+    fileData: file,
+    id: uuid(),
+    dataUrl: ""
   }));
 
   if (files.value.length > EMAIL_MAX_FILES) {
     throw new Error(
-      `Only a amaximum of ${EMAIL_MAX_FILES} files can be uploaded.`
+      `Only a maximum of ${EMAIL_MAX_FILES} files can be uploaded.`
     );
   }
 
   const isFormatValid = files.value.every((file) => {
     const accept = EMAIL_ATTACHMENT_ACCEPT.replace(/\s+/g, "").split(",");
-    const fileType = file.type;
-    const fileExtension = file.name?.split(".")?.pop()?.toLowerCase() ?? "";
+    const fileType = file.fileData.type;
+    const fileExtension = file.fileData.name?.split(".")?.pop()?.toLowerCase() ?? "";
 
-    console.log(fileType, fileExtension)
     return (
       accept.includes(fileType) ||
       EMAIL_FILES_ALLOWED_EXTENSIONS.includes(fileExtension)
@@ -71,7 +73,7 @@ async function uploadPromise(event: Event): Promise<IFile[] | null> {
 
   const formattedSize = formatFileSize(EMAIL_MAX_FILE_SIZE);
   const isSizeValid = files.value.every(
-    (file) => file.size <= EMAIL_MAX_FILE_SIZE
+    (file) => file.fileData.size <= EMAIL_MAX_FILE_SIZE
   );
 
   if (!isSizeValid) {
@@ -85,7 +87,7 @@ async function uploadPromise(event: Event): Promise<IFile[] | null> {
     const reader = new FileReader();
 
     file.dataUrl = await new Promise<string>((resolve, reject) => {
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file.fileData);
       reader.onload = (event: ProgressEvent<FileReader>) => {
         resolve(event.target?.result as string);
       };
@@ -95,7 +97,7 @@ async function uploadPromise(event: Event): Promise<IFile[] | null> {
     });
   }
 
-  return files.value;
+  return files.value.filter((file) => file.dataUrl.length > 0);
 }
 
 async function handleSelect(event: Event) {
