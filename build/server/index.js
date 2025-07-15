@@ -41,7 +41,6 @@ const express_1 = __importDefault(require("express"));
 const env_1 = __importDefault(require("#src/utils/env"));
 const logger_1 = __importDefault(require("#src/utils/logger"));
 const compression_1 = __importDefault(require("compression"));
-const helmet_1 = __importDefault(require("helmet"));
 const node_path_1 = __importDefault(require("node:path"));
 const sirv_1 = __importDefault(require("sirv"));
 const route_gen_1 = require("#src/lib/api/route-gen");
@@ -81,7 +80,7 @@ async function main() {
         app.use(viteServer.middlewares);
     }
     else {
-        app.use((0, helmet_1.default)());
+        //app.use(helmet());
         app.use("/", (0, sirv_1.default)(node_path_1.default.resolve("build/client"), { single: true }));
         app.use(fallback.default(node_path_1.default.resolve("build/client/index.html"), {
             root: node_path_1.default.resolve("build/client")

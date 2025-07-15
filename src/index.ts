@@ -50,7 +50,7 @@ async function main() {
 
     app.use(viteServer.middlewares);
   } else {
-    app.use(helmet());
+    //app.use(helmet());
     app.use("/", sirv(path.resolve("build/client"), { single: true }));
     app.use(
       fallback.default(path.resolve("build/client/index.html"), {
