@@ -14,10 +14,23 @@ const supportTransportConfig = {
         pass: env_1.default.get("SUPPORT_EMAIL_PASSWORD")
     }
 };
+const financeTransportConfig = {
+    host: env_1.default.get("FINANCE_EMAIL_HOST"),
+    port: 465,
+    secure: true,
+    auth: {
+        user: env_1.default.get("FINANCE_EMAIL_USER"),
+        pass: env_1.default.get("FINANCE_EMAIL_PASSWORD")
+    }
+};
 const mailTransporters = {
     support: {
         config: supportTransportConfig,
         transporter: () => (0, nodemailer_1.createTransport)(supportTransportConfig)
+    },
+    finance: {
+        config: financeTransportConfig,
+        transporter: () => (0, nodemailer_1.createTransport)(financeTransportConfig)
     }
 };
 exports.default = mailTransporters;

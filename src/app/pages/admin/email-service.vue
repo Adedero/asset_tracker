@@ -214,6 +214,7 @@ onMounted(() => {
                 option-label="name"
                 size="small"
               >
+                <template #value="{ value }"> {{ value.name }}</template>
                 <template #option="{ option }"> {{ option.name }}<{{ option.address }}> </template>
               </Select>
               <EmailAttachmentAdder @select="handleSelect" />
