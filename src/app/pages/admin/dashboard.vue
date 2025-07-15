@@ -107,30 +107,21 @@ function getInvestmentSeverity(status: InvestmentStatus) {
 
           <VCard header="Recent Investments" class="mt-2">
             <div class="w-full overflow-auto">
-              <DataTable
-                :value="data.overview.recentInvestments"
-                selectionMode="single"
-                dataKey="id"
-                @row-select="
-                  (event) =>
-                    $router.push({
-                      name: 'admin-investment-item',
-                      params: { investment_id: event.data.id }
-                    })
-                "
-                class="text-sm min-w-[70rem]"
-              >
+              <DataTable :value="data.overview.recentInvestments" selectionMode="single" dataKey="id" @row-select="
+                (event) =>
+                  $router.push({
+                    name: 'admin-investment-item',
+                    params: { investment_id: event.data.id }
+                  })
+              " class="text-sm min-w-[70rem]">
                 <Column field="investmentName" header="Investment" />
 
                 <Column field="investmentTier" header="Tier" />
 
                 <Column header="Status">
                   <template #body="{ data }">
-                    <Tag
-                      class="text-xs font-semibold"
-                      :severity="getInvestmentSeverity(data.investmentStatus)"
-                      :value="toTitleCase(data.investmentStatus)"
-                    />
+                    <Tag class="text-xs font-semibold" :severity="getInvestmentSeverity(data.investmentStatus)"
+                      :value="toTitleCase(data.investmentStatus)" />
                   </template>
                 </Column>
 
@@ -157,28 +148,17 @@ function getInvestmentSeverity(status: InvestmentStatus) {
 
           <VCard header="Recent Transactions" class="mt-2">
             <div class="w-full overflow-auto">
-              <DataTable
-                :value="data.overview.recentTransactions"
-                selectionMode="single"
-                dataKey="id"
-                @row-select="
-                  (event) =>
-                    $router.push({
-                      name: 'admin-transaction-item',
-                      params: { transaction_id: event.data.id }
-                    })
-                "
-                class="text-sm min-w-[40rem]"
-              >
+              <DataTable :value="data.overview.recentTransactions" selectionMode="single" dataKey="id" @row-select="
+                (event) =>
+                  $router.push({
+                    name: 'admin-transaction-item',
+                    params: { transaction_id: event.data.id }
+                  })
+              " class="text-sm min-w-[40rem]">
                 <Column header="Type">
                   <template #body="{ data }">
-                    <div
-                      :class="['flex items-center gap-1', getTypeData(data.transactionType).color]"
-                    >
-                      <Icon
-                        style="font-size: 20px"
-                        :icon="getTypeData(data.transactionType).icon"
-                      />
+                    <div :class="['flex items-center gap-1', getTypeData(data.transactionType).color]">
+                      <Icon style="font-size: 20px" :icon="getTypeData(data.transactionType).icon" />
                       <p class="text-sm font-medium">{{ toTitleCase(data.transactionType) }}</p>
                     </div>
                   </template>
@@ -204,11 +184,8 @@ function getInvestmentSeverity(status: InvestmentStatus) {
 
                 <Column header="Status">
                   <template #body="{ data }">
-                    <Tag
-                      class="text-xs font-semibold"
-                      :severity="getSeverity(data.transactionStatus)"
-                      :value="toTitleCase(data.transactionStatus)"
-                    />
+                    <Tag class="text-xs font-semibold" :severity="getSeverity(data.transactionStatus)"
+                      :value="toTitleCase(data.transactionStatus)" />
                   </template>
                 </Column>
                 <Column header="Created On">

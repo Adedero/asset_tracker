@@ -38,7 +38,8 @@ const onCurrencyUpdate = async (c: Currency) => {
 
 const onCurrencyDelete = async (id: string) => {
   if (!data.value?.currencies) return;
-  const updatedCurrencies = data.value.currencies.filter((c) => c.id !== id);
+  const updatedCurrencies = data.value.currencies
+    .filter((c) => c.id !== id);
 
   await mutate(() =>
     Promise.resolve({
@@ -68,13 +69,7 @@ const onCurrencyDelete = async (id: string) => {
         <VErrorMessage v-else-if="error" :error should-retry @retry="mutate" />
 
         <div v-else-if="data?.currencies" class="h-full w-full overflow-y-auto rounded-lg">
-          <DataTable
-            :value="data.currencies"
-            size="small"
-            paginator
-            :rows="10"
-            tableStyle="min-width: 50rem"
-          >
+          <DataTable :value="data.currencies" size="small" paginator :rows="10" tableStyle="min-width: 50rem">
             <Column>
               <template #body="{ data }">
                 <div class="w-8 aspect-square rounded-full overflow-hidden">
