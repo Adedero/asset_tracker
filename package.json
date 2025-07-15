@@ -9,7 +9,7 @@
     "build:server": "tsc --project tsconfig.build.json",
     "format": "prettier --write ./src",
     "start": "npm run build && npm run server",
-    "server": "node build/server/index.js",
+    "server": "node --watch build/server/index.js",
     "clear:build": "rimraf build",
     "build:post": "node ./bin/post-build.js"
   },

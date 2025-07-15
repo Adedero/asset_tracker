@@ -16,8 +16,8 @@ export default defineConfig({
     }),
     tailwindcss()
   ],
-  base: "/",
-  root: "./src/app",
+  base: "/client",
+  root: path.resolve("src/app"),
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("src", import.meta.url)),
