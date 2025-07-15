@@ -37,7 +37,7 @@ async function main() {
 
   if (!isProduction) {
     app.use(express.static("public"));
-    
+
     const { createServer } = await import("vite");
 
     const viteServer = await createServer({
@@ -52,7 +52,7 @@ async function main() {
     app.use(viteServer.middlewares);
   } else {
     //app.use(helmet());
-    app.use("/", sirv(path.resolve("build/client"), { single: true }));
+    app.use("/app", sirv(path.resolve("build/client"), { single: true }));
     app.use(
       fallback.default(path.resolve("build/client/index.html"), {
         root: path.resolve("build/client")
