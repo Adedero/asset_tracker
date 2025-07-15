@@ -10,7 +10,9 @@ import getUpdatedCurrencyData from "../currencies/get-updated-currency-data.js";
 
 const Schema = z.object({
   symbol: z.string({ message: "Currency symbol is required" }).toUpperCase(),
-  amount: z.string({ message: "Invalid amount" }).transform((amt) => Number(amt))
+  amount: z
+    .string({ message: "Invalid amount" })
+    .transform((amt) => Number(amt))
 });
 
 export interface DepositInitApiResponse extends ApiResponse {
@@ -93,11 +95,16 @@ export default api(
       throw HttpException.notFound("Currency not found");
     }
 
-    const selectedCurrency = user.accountGroup?.currencies.find((curr) => curr.id === currency?.id);
+    const selectedCurrency = user.accountGroup?.currencies.find(
+      (curr) => curr.id === currency?.id
+    );
 
-    const depositAccountWalletAddress = selectedCurrency?.walletAddress || currency.walletAddress;
+    const depositAccountWalletAddress =
+      selectedCurrency?.walletAddress || currency.walletAddress;
     const depositAccountWalletAddressNetwork =
-      selectedCurrency?.walletAddressNetwork || currency.walletAddressNetwork || undefined;
+      selectedCurrency?.walletAddressNetwork ||
+      currency.walletAddressNetwork ||
+      undefined;
 
     const updatedCurrency = await getUpdatedCurrencyData(currency);
 

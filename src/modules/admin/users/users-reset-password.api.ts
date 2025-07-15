@@ -11,9 +11,11 @@ import env from "#src/utils/env";
 import { ApiResponse } from "#src/types/api-response";
 
 const Schema = z.object({
-  password: z.string({ message: "Password is required" }).min(MIN_PASSWORD_LENGTH, {
-    message: `Password must contain at least ${MIN_PASSWORD_LENGTH} characters.`
-  }),
+  password: z
+    .string({ message: "Password is required" })
+    .min(MIN_PASSWORD_LENGTH, {
+      message: `Password must contain at least ${MIN_PASSWORD_LENGTH} characters.`
+    }),
   notify: z.boolean({ message: "Notify option is required" })
 });
 

@@ -14,7 +14,12 @@ useHead({
 
 const resolver = ref(zodResolver(RegisterSchema));
 
-const credentials = reactive({ name: "", email: "", password: "", passwordConfirm: "" });
+const credentials = reactive({
+  name: "",
+  email: "",
+  password: "",
+  passwordConfirm: ""
+});
 
 const { isLoading, error, execute: register } = useAuth().register();
 
@@ -27,7 +32,9 @@ const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
 
 <template>
   <VueLayout name="auth">
-    <div class="w-full md:w-[26rem] h-full md:p-10 md:bg-white dark:bg-transparent">
+    <div
+      class="w-full md:w-[26rem] h-full md:p-10 md:bg-white dark:bg-transparent"
+    >
       <Logo />
 
       <header class="mt-8">
@@ -74,14 +81,25 @@ const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
 
           <div class="flex flex-col gap-1">
             <label for="password" class="text-mute text-sm">Password</label>
-            <Password input-id="password" name="password" fluid toggle-mask :feedback="false" />
-            <small v-if="$form.password?.invalid" class="font-medium text-red-500">
+            <Password
+              input-id="password"
+              name="password"
+              fluid
+              toggle-mask
+              :feedback="false"
+            />
+            <small
+              v-if="$form.password?.invalid"
+              class="font-medium text-red-500"
+            >
               {{ $form.password?.error?.message }}
             </small>
           </div>
 
           <div class="flex flex-col gap-1">
-            <label for="passwordConfirm" class="text-mute text-sm">Confirm Password</label>
+            <label for="passwordConfirm" class="text-mute text-sm"
+              >Confirm Password</label
+            >
             <Password
               input-id="passwordConfirm"
               name="passwordConfirm"
@@ -89,7 +107,10 @@ const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
               toggle-mask
               :feedback="false"
             />
-            <small v-if="$form.passwordConfirm?.invalid" class="font-medium text-red-500">
+            <small
+              v-if="$form.passwordConfirm?.invalid"
+              class="font-medium text-red-500"
+            >
               {{ $form.passwordConfirm?.error?.message }}
             </small>
           </div>
@@ -122,7 +143,12 @@ const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
             </p>
           </div>
 
-          <Button :loading="isLoading" type="submit" label="Submit" icon="pi pi-user-plus" />
+          <Button
+            :loading="isLoading"
+            type="submit"
+            label="Submit"
+            icon="pi pi-user-plus"
+          />
         </Form>
       </div>
     </div>

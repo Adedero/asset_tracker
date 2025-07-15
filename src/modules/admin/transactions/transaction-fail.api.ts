@@ -18,7 +18,9 @@ type TransactionWithUser = Transaction & {
 
 const Schema = z.object(
   {
-    failReason: z.string({ message: "Reason for failing the transaction is required" })
+    failReason: z.string({
+      message: "Reason for failing the transaction is required"
+    })
   },
   { message: "No request body provided" }
 );
@@ -68,15 +70,18 @@ export default api(
         prisma.account.update({
           where: { id: account.id },
           data: {
-            walletBalance: walletBalance.plus(amountInUSD).toDecimalPlaces(2).toNumber()
+            walletBalance: walletBalance
+              .plus(amountInUSD)
+              .toDecimalPlaces(2)
+              .toNumber()
           }
         })
       );
     }
 
-    const [updatedTransaction] = (await prisma.$transaction(promises)) as Awaited<
-      [TransactionWithUser]
-    >;
+    const [updatedTransaction] = (await prisma.$transaction(
+      promises
+    )) as Awaited<[TransactionWithUser]>;
 
     alertEmitter.emit("transaction:status-update", {
       transaction: updatedTransaction,

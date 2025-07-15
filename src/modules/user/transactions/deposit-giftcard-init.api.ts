@@ -1,7 +1,10 @@
 import { api } from "#src/lib/api/api";
 import { defineHandler, defineValidator } from "#src/lib/api/handlers";
 import { ApiResponse } from "#src/types/api-response";
-import { ExchangeRateData, getExchangeRate } from "#src/utils/api/free-currency";
+import {
+  ExchangeRateData,
+  getExchangeRate
+} from "#src/utils/api/free-currency";
 import { z } from "zod";
 import Decimal from "decimal.js";
 

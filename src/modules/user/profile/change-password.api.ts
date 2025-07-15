@@ -8,12 +8,16 @@ import { z } from "zod";
 
 const Schema = z
   .object({
-    oldPassword: z.string({ message: "Old password is required" }).min(MIN_PASSWORD_LENGTH, {
-      message: `Old password must contain at least ${MIN_PASSWORD_LENGTH} characters`
-    }),
-    newPassword: z.string({ message: "New password is required" }).min(MIN_PASSWORD_LENGTH, {
-      message: `New password must contain at least ${MIN_PASSWORD_LENGTH} characters`
-    }),
+    oldPassword: z
+      .string({ message: "Old password is required" })
+      .min(MIN_PASSWORD_LENGTH, {
+        message: `Old password must contain at least ${MIN_PASSWORD_LENGTH} characters`
+      }),
+    newPassword: z
+      .string({ message: "New password is required" })
+      .min(MIN_PASSWORD_LENGTH, {
+        message: `New password must contain at least ${MIN_PASSWORD_LENGTH} characters`
+      }),
     newPasswordConfirm: z
       .string({ message: "Confirm password is required" })
       .min(MIN_PASSWORD_LENGTH, {

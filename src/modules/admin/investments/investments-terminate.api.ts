@@ -15,7 +15,9 @@ export interface TerminateInvestmentApiResponse extends ApiResponse {
 const Schema = z.object({
   terminationReason: z.string({ message: "Termination reason is required" }),
   terminator: z.string({ message: "Terminator is required" }),
-  applyTerminationFee: z.boolean({ message: "Apply termination fee option is required" })
+  applyTerminationFee: z.boolean({
+    message: "Apply termination fee option is required"
+  })
 });
 
 export default api(
@@ -27,9 +29,8 @@ export default api(
   },
   defineHandler<TerminateInvestmentApiResponse>(async (req) => {
     const { investment_id } = req.params;
-    const { terminator, applyTerminationFee, terminationReason } = req.validatedBody as z.infer<
-      typeof Schema
-    >;
+    const { terminator, applyTerminationFee, terminationReason } =
+      req.validatedBody as z.infer<typeof Schema>;
 
     const investment = await prisma.investment.findUnique({
       where: { id: investment_id },
@@ -54,8 +55,13 @@ export default api(
       throw HttpException.notFound("Investment not found");
     }
 
-    if (investment.investmentStatus === "TERMINATED" || investment.investmentStatus === "CLOSED") {
-      throw HttpException.badRequest("Investment is already resolved and cannot be terminated");
+    if (
+      investment.investmentStatus === "TERMINATED" ||
+      investment.investmentStatus === "CLOSED"
+    ) {
+      throw HttpException.badRequest(
+        "Investment is already resolved and cannot be terminated"
+      );
     }
 
     const { account } = investment.user;
@@ -66,8 +72,12 @@ export default api(
 
     const walletBalance = new Decimal(account.walletBalance || 0);
     const initialDeposit = new Decimal(investment.initialDeposit || 0);
-    const currentTotalReturns = new Decimal(investment.currentTotalReturns || 0);
-    const terminationFee = new Decimal(applyTerminationFee ? investment.terminationFee : 0);
+    const currentTotalReturns = new Decimal(
+      investment.currentTotalReturns || 0
+    );
+    const terminationFee = new Decimal(
+      applyTerminationFee ? investment.terminationFee : 0
+    );
 
     const updatedInvestment: Partial<Omit<Investment, "id">> = {};
     let updatedWalletBalance: number = 0;
@@ -79,7 +89,9 @@ export default api(
           .toDecimalPlaces(2)
           .toNumber();
       } else {
-        const balance = initialDeposit.minus(currentTotalReturns.minus(terminationFee));
+        const balance = initialDeposit.minus(
+          currentTotalReturns.minus(terminationFee)
+        );
         updatedWalletBalance = walletBalance
           .plus(currentTotalReturns.plus(balance))
           .toDecimalPlaces(2)
@@ -95,16 +107,24 @@ export default api(
             "Insufficient funds to pay the investment termination fee"
           );
         }
-        updatedWalletBalance = walletBalance.minus(terminationFee).toDecimalPlaces(2).toNumber();
+        updatedWalletBalance = walletBalance
+          .minus(terminationFee)
+          .toDecimalPlaces(2)
+          .toNumber();
       } else {
-        const debt = initialDeposit.minus(currentTotalReturns.minus(terminationFee));
+        const debt = initialDeposit.minus(
+          currentTotalReturns.minus(terminationFee)
+        );
 
         if (walletBalance.plus(debt).lessThan(0)) {
           throw HttpException.badRequest(
             "Insufficient funds to pay the investment termination fee"
           );
         }
-        updatedWalletBalance = walletBalance.plus(debt).toDecimalPlaces(2).toNumber();
+        updatedWalletBalance = walletBalance
+          .plus(debt)
+          .toDecimalPlaces(2)
+          .toNumber();
       }
     }
 

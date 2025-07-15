@@ -44,7 +44,8 @@ export default async function changePassword(
   if (newPassword !== newPasswordConfirm) {
     return {
       success: false,
-      message: "Passwords do not match. Please, confirm your new password and try again."
+      message:
+        "Passwords do not match. Please, confirm your new password and try again."
     };
   }
 
@@ -64,7 +65,8 @@ export default async function changePassword(
   if (!isMatch) {
     return {
       success: false,
-      message: "Incorrect old password. Enter the correct password and try again"
+      message:
+        "Incorrect old password. Enter the correct password and try again"
     };
   }
 

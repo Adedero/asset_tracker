@@ -10,7 +10,10 @@ export interface WithdrawalAlertData {
   transaction: Transaction;
 }
 
-export async function onWithdrawalCreate({ user, transaction }: WithdrawalAlertData) {
+export async function onWithdrawalCreate({
+  user,
+  transaction
+}: WithdrawalAlertData) {
   const subject = "New Withdrawal Request";
 
   const message = (name?: string) => {
@@ -29,7 +32,8 @@ export async function onWithdrawalCreate({ user, transaction }: WithdrawalAlertD
         Rate: `$${transaction.rate}`,
         "Amount in the selected currency": `${transaction.amountInCurrency} ${transaction.currency}`,
         "Provided Wallet Address": transaction.withdrawalWalletAddress,
-        "Provided Wallet Address Network": transaction.withdrawalWalletAddressNetwork,
+        "Provided Wallet Address Network":
+          transaction.withdrawalWalletAddressNetwork,
         Status: transaction.transactionStatus
       },
       note: `The withdrawal request will be processed within 24 hours. ${name ? `Please contact us if you are not credited after then.` : ""}`,
@@ -47,7 +51,10 @@ export async function onWithdrawalCreate({ user, transaction }: WithdrawalAlertD
         }
       }),
 
-      sendTemplateEmail({ email: user.email, subject, sections: message(user.name) }, generic),
+      sendTemplateEmail(
+        { email: user.email, subject, sections: message(user.name) },
+        generic
+      ),
 
       sendTemplateEmail(
         { email: env.get("SUPPORT_EMAIL_USER"), subject, sections: message() },
@@ -55,6 +62,9 @@ export async function onWithdrawalCreate({ user, transaction }: WithdrawalAlertD
       )
     ]);
   } catch (error) {
-    logger.error(`Alerts failed for withdrawal request: ${transaction.id}`, error as Error);
+    logger.error(
+      `Alerts failed for withdrawal request: ${transaction.id}`,
+      error as Error
+    );
   }
 }

@@ -17,7 +17,10 @@ const generic_1 = __importDefault(require("#src/lib/email/mail-templates/generic
 const button_1 = __importDefault(require("#src/lib/email/mail-templates/components/button"));
 const Schema = zod_1.z.object({
     id: zod_1.z.string({ message: "User ID is required" }),
-    email: zod_1.z.string({ message: "Email is required" }).email({ message: "Invalid email" }).optional(),
+    email: zod_1.z
+        .string({ message: "Email is required" })
+        .email({ message: "Invalid email" })
+        .optional(),
     verification: zod_1.z
         .object({
         useLink: zod_1.z.boolean().optional(),

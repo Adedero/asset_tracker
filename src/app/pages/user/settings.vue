@@ -16,7 +16,9 @@ const toggleDark = useToggle(isDark);
         <div class="w-full h-fit max-w-[32rem] grid gap-4">
           <VCard header="Display" icon="contrast">
             <Divider class="mt-0 my-1" />
-            <div class="p-2 flex items-center gap-1 justify-between cursor-context-menu">
+            <div
+              class="p-2 flex items-center gap-1 justify-between cursor-context-menu"
+            >
               <p>Dark Mode</p>
               <ToggleSwitch :default-value="isDark" @change="toggleDark()" />
             </div>
@@ -34,7 +36,12 @@ const toggleDark = useToggle(isDark);
               />
               <Divider class="my-1" />
               <Button
-                @click="$router.push({ name: 'user-account', query: { 'edit-profile': 'true' } })"
+                @click="
+                  $router.push({
+                    name: 'user-account',
+                    query: { 'edit-profile': 'true' }
+                  })
+                "
                 label="Edit Profile"
                 fluid
                 icon-pos="right"

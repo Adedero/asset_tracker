@@ -1,11 +1,19 @@
 <template>
-  <div ref="el" class="tradingview-widget-container" style="height: 100%; width: 100%">
+  <div
+    ref="el"
+    class="tradingview-widget-container"
+    style="height: 100%; width: 100%"
+  >
     <div
       class="tradingview-widget-container__widget"
       style="height: calc(100% - 32px); width: 100%"
     ></div>
     <div class="tradingview-widget-copyright">
-      <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+      <a
+        href="https://www.tradingview.com/"
+        rel="noopener nofollow"
+        target="_blank"
+      >
         <span class="blue-text">Track all markets on TradingView</span>
       </a>
     </div>
@@ -24,7 +32,11 @@ interface Props {
   autosize?: boolean;
 }
 
-const { symbol = "BTCUSD", interval = "D", autosize = true } = defineProps<Props>();
+const {
+  symbol = "BTCUSD",
+  interval = "D",
+  autosize = true
+} = defineProps<Props>();
 
 const el = ref<HTMLDivElement>();
 
@@ -44,14 +56,17 @@ function loadWidget() {
   }
 
   // Clear the previous widget content
-  const widgetContainer = el.value.querySelector(".tradingview-widget-container__widget");
+  const widgetContainer = el.value.querySelector(
+    ".tradingview-widget-container__widget"
+  );
   if (widgetContainer) {
     widgetContainer.innerHTML = ""; // Clear any existing content
   }
 
   // Create and append the new widget script
   const script = document.createElement("script");
-  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+  script.src =
+    "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
   script.async = true;
   script.innerHTML = JSON.stringify({
     autosize: autosize,

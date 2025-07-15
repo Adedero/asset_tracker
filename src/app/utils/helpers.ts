@@ -15,7 +15,9 @@ export const toTitleCase = (text: string | undefined) => {
     return "";
   }
   const parts = text.split("-");
-  return parts.map((part) => part.charAt(0).toUpperCase() + part.toLowerCase().slice(1)).join(" ");
+  return parts
+    .map((part) => part.charAt(0).toUpperCase() + part.toLowerCase().slice(1))
+    .join(" ");
 };
 
 export const dollar = new Intl.NumberFormat("en-US", {
@@ -34,7 +36,14 @@ export const slugify = (text?: string) => {
         .replace(/^-+|-+$/g, ""); // Remove leading & trailing hyphens
 };
 
-type JSONValue = string | number | boolean | null | Date | JSONObject | JSONArray;
+type JSONValue =
+  | string
+  | number
+  | boolean
+  | null
+  | Date
+  | JSONObject
+  | JSONArray;
 
 interface JSONObject {
   [key: string]: JSONValue;
@@ -42,7 +51,9 @@ interface JSONObject {
 
 interface JSONArray extends Array<JSONValue> {}
 
-export function removeNullsRecursively<T extends JSONValue>(input: T | Partial<T>): T {
+export function removeNullsRecursively<T extends JSONValue>(
+  input: T | Partial<T>
+): T {
   if (input === null) {
     return undefined as unknown as T; // gets removed by parent
   }

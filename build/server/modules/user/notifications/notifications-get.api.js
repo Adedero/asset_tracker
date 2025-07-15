@@ -42,7 +42,9 @@ exports.default = (0, api_1.api)({
         take: parsedQuery?.take || constants_1.GET_REQUEST_DATA_LIMIT,
         skip: parsedQuery?.skip
     });
-    const unreadNotifications = notifications.filter((n) => n.isRead === false).map((n) => n.id);
+    const unreadNotifications = notifications
+        .filter((n) => n.isRead === false)
+        .map((n) => n.id);
     if (unreadNotifications.length) {
         await prisma_1.default.notification.updateMany({
             where: {

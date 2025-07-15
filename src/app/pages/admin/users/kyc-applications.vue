@@ -34,7 +34,9 @@ const showAdmins = ref<boolean>(false);
 const filteredAccounts = computed(() => {
   if (!data.value?.accounts) return null;
   if (showAdmins.value) return data.value.accounts;
-  return data.value.accounts.filter((account) => account.user && account.user.role !== "ADMIN");
+  return data.value.accounts.filter(
+    (account) => account.user && account.user.role !== "ADMIN"
+  );
 });
 
 const dataLength = computed(() => data.value?.accounts.length || 0);
@@ -67,7 +69,12 @@ function getSeverity(status: KycStatus) {
           <div class="flex items-end gap-1 flex-wrap">
             <div class="flex gap-1 flex-col">
               <label class="text-xs text-mute font-semibold">Status</label>
-              <Select v-model="selectedStatus" :options="statusOptions" size="small" class="py-0" />
+              <Select
+                v-model="selectedStatus"
+                :options="statusOptions"
+                size="small"
+                class="py-0"
+              />
             </div>
           </div>
         </div>
@@ -75,7 +82,12 @@ function getSeverity(status: KycStatus) {
 
       <div class="mt-2 md:h-[calc(100dvh-10rem)]">
         <VPageLoader v-if="isLoading" />
-        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="mutate()"
+        />
 
         <div v-else-if="filteredAccounts">
           <div class="h-full w-full">
@@ -95,7 +107,9 @@ function getSeverity(status: KycStatus) {
                 "
               >
                 <Column header="S/N" style="min-width: 4rem">
-                  <template #body="{ index }"> {{ index + 1 + skip }}&rpar; </template>
+                  <template #body="{ index }">
+                    {{ index + 1 + skip }}&rpar;
+                  </template>
                 </Column>
 
                 <Column>
@@ -149,7 +163,10 @@ function getSeverity(status: KycStatus) {
                   <template #body="{ data }">
                     <p v-if="data.kycSubmittedAt">
                       {{
-                        useDateFormat(new Date(data.kycSubmittedAt), "ddd, DD MMM, YYYY hh:mm aa")
+                        useDateFormat(
+                          new Date(data.kycSubmittedAt),
+                          "ddd, DD MMM, YYYY hh:mm aa"
+                        )
                       }}
                     </p>
                     <p v-else>Not submitted</p>
@@ -158,7 +175,12 @@ function getSeverity(status: KycStatus) {
               </DataTable>
             </div>
 
-            <VPaginator :allLoaded :length="dataLength" :rows="LIMIT" v-model:page="page" />
+            <VPaginator
+              :allLoaded
+              :length="dataLength"
+              :rows="LIMIT"
+              v-model:page="page"
+            />
           </div>
         </div>
       </div>

@@ -10,7 +10,8 @@ interface Props {
   height?: string | number;
 }
 
-const { squareClass, circleClass, triangleClass, className, width, height } = defineProps<Props>();
+const { squareClass, circleClass, triangleClass, className, width, height } =
+  defineProps<Props>();
 </script>
 
 <template>
@@ -40,7 +41,11 @@ const { squareClass, circleClass, triangleClass, className, width, height } = de
     <div
       :style="{ width, height }"
       :class="
-        twMerge('r-triangle', 'w-[24px] bg-blue-500/50 dark:bg-blue-500/70 spin-cw', triangleClass)
+        twMerge(
+          'r-triangle',
+          'w-[24px] bg-blue-500/50 dark:bg-blue-500/70 spin-cw',
+          triangleClass
+        )
       "
     ></div>
   </div>

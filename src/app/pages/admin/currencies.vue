@@ -38,8 +38,7 @@ const onCurrencyUpdate = async (c: Currency) => {
 
 const onCurrencyDelete = async (id: string) => {
   if (!data.value?.currencies) return;
-  const updatedCurrencies = data.value.currencies
-    .filter((c) => c.id !== id);
+  const updatedCurrencies = data.value.currencies.filter((c) => c.id !== id);
 
   await mutate(() =>
     Promise.resolve({
@@ -57,8 +56,14 @@ const onCurrencyDelete = async (id: string) => {
       <VNavbar>
         <template #right>
           <div class="flex items-center gap-3">
-            <p class="text-primary-500 font-semibold">{{ data?.currencies.length }}</p>
-            <CurrencyManager @done="onCurrencyCreate" button-label="New" button-icon="pi pi-plus" />
+            <p class="text-primary-500 font-semibold">
+              {{ data?.currencies.length }}
+            </p>
+            <CurrencyManager
+              @done="onCurrencyCreate"
+              button-label="New"
+              button-icon="pi pi-plus"
+            />
           </div>
         </template>
       </VNavbar>
@@ -68,8 +73,17 @@ const onCurrencyDelete = async (id: string) => {
 
         <VErrorMessage v-else-if="error" :error should-retry @retry="mutate" />
 
-        <div v-else-if="data?.currencies" class="h-full w-full overflow-y-auto rounded-lg">
-          <DataTable :value="data.currencies" size="small" paginator :rows="10" tableStyle="min-width: 50rem">
+        <div
+          v-else-if="data?.currencies"
+          class="h-full w-full overflow-y-auto rounded-lg"
+        >
+          <DataTable
+            :value="data.currencies"
+            size="small"
+            paginator
+            :rows="10"
+            tableStyle="min-width: 50rem"
+          >
             <Column>
               <template #body="{ data }">
                 <div class="w-8 aspect-square rounded-full overflow-hidden">
@@ -89,7 +103,11 @@ const onCurrencyDelete = async (id: string) => {
             <Column header="Actions">
               <template #body="{ data }">
                 <div class="flex gap-4">
-                  <CurrencyManager :currency="data" @done="onCurrencyUpdate" rounded />
+                  <CurrencyManager
+                    :currency="data"
+                    @done="onCurrencyUpdate"
+                    rounded
+                  />
                   <CurrencyDeleter :id="data.id" @delete="onCurrencyDelete" />
                 </div>
               </template>

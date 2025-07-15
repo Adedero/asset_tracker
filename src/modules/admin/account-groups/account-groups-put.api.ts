@@ -13,9 +13,13 @@ const Schema = z.object({
     .array(
       z.object({
         id: z.string({ message: "Currency ID is required" }),
-        walletAddress: z.string({ message: "Currency wallet address is required" }),
+        walletAddress: z.string({
+          message: "Currency wallet address is required"
+        }),
         walletAddressNetwork: z
-          .string({ message: "Currency wallet address network must be a string" })
+          .string({
+            message: "Currency wallet address network must be a string"
+          })
           .optional()
       }),
       { message: "Currencies must be an array" }
@@ -45,7 +49,9 @@ export default api(
     });
 
     if (existingAccountGroup) {
-      throw HttpException.badRequest("A account group with this name already exists");
+      throw HttpException.badRequest(
+        "A account group with this name already exists"
+      );
     }
 
     const accountGroup = await prisma.accountGroup.update({

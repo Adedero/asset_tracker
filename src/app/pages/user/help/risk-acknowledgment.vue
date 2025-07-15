@@ -8,7 +8,12 @@ import risk from "@/app/assets/img/risk-management.avif";
     <VNavbar>
       <template #right>
         <RouterLink :to="{ name: 'user-help-center' }">
-          <Button severity="secondary" label="Help Center" size="small" icon="pi pi-arrow-left" />
+          <Button
+            severity="secondary"
+            label="Help Center"
+            size="small"
+            icon="pi pi-arrow-left"
+          />
         </RouterLink>
       </template>
     </VNavbar>
@@ -33,56 +38,64 @@ import risk from "@/app/assets/img/risk-management.avif";
 
         <p>
           At <strong>{{ APP_NAME }}</strong
-          >, we prioritize transparency and aim to provide you with the tools and information to
-          make informed investment decisions. However, it is important to acknowledge the inherent
-          risks involved in investing. By using our platform and services, you accept and understand
-          the following:
+          >, we prioritize transparency and aim to provide you with the tools
+          and information to make informed investment decisions. However, it is
+          important to acknowledge the inherent risks involved in investing. By
+          using our platform and services, you accept and understand the
+          following:
         </p>
         <ul style="margin-left: 20px" class="mt-5 grid gap-3">
           <li>
-            <strong>Market Risks:</strong> All investments, including those facilitated by
-            {{ APP_NAME }}, are subject to market fluctuations. Past performance is not indicative
-            of future results, and the value of your investments may go up or down.
+            <strong>Market Risks:</strong> All investments, including those
+            facilitated by {{ APP_NAME }}, are subject to market fluctuations.
+            Past performance is not indicative of future results, and the value
+            of your investments may go up or down.
           </li>
           <li>
-            <strong>Investment Decisions:</strong> You are solely responsible for all investment
-            decisions made on this platform. {{ APP_NAME }} does not guarantee profitability, and
-            losses are possible.
+            <strong>Investment Decisions:</strong> You are solely responsible
+            for all investment decisions made on this platform.
+            {{ APP_NAME }} does not guarantee profitability, and losses are
+            possible.
           </li>
           <li>
-            <strong>Third-Party Services:</strong> Some features, such as copy trading, algorithmic
-            trading, or bot investments, rely on third-party services. {{ APP_NAME }} does not
-            control these third-party providers and cannot be held liable for their performance or
-            actions.
+            <strong>Third-Party Services:</strong> Some features, such as copy
+            trading, algorithmic trading, or bot investments, rely on
+            third-party services. {{ APP_NAME }} does not control these
+            third-party providers and cannot be held liable for their
+            performance or actions.
           </li>
           <li>
-            <strong>Cryptocurrency Volatility:</strong> Investments in cryptocurrencies are highly
-            volatile and speculative. The value of digital assets can change drastically within a
-            short period.
+            <strong>Cryptocurrency Volatility:</strong> Investments in
+            cryptocurrencies are highly volatile and speculative. The value of
+            digital assets can change drastically within a short period.
           </li>
           <li>
-            <strong>No Financial Advice:</strong> The information and tools provided by
-            {{ APP_NAME }} are for informational purposes only. We do not offer financial, legal, or
-            tax advice. Always consult a qualified professional before making any investment
-            decisions.
+            <strong>No Financial Advice:</strong> The information and tools
+            provided by {{ APP_NAME }} are for informational purposes only. We
+            do not offer financial, legal, or tax advice. Always consult a
+            qualified professional before making any investment decisions.
           </li>
           <li>
-            <strong>Loss of Capital:</strong> There is a risk of losing all or part of your invested
-            capital. Only invest funds that you can afford to lose without jeopardizing your
-            financial stability or future.
+            <strong>Loss of Capital:</strong> There is a risk of losing all or
+            part of your invested capital. Only invest funds that you can afford
+            to lose without jeopardizing your financial stability or future.
           </li>
           <li>
-            <strong>Regulatory Changes:</strong> Investments may be impacted by changes in
-            regulations or government policies in your region or globally.
+            <strong>Regulatory Changes:</strong> Investments may be impacted by
+            changes in regulations or government policies in your region or
+            globally.
           </li>
         </ul>
         <p class="mt-5">
-          By proceeding with any investment through {{ APP_NAME }}, you confirm that you have read,
-          understood, and agreed to this risk acknowledgment. Please invest responsibly.
+          By proceeding with any investment through {{ APP_NAME }}, you confirm
+          that you have read, understood, and agreed to this risk
+          acknowledgment. Please invest responsibly.
         </p>
         <p class="mt-10 text-center text-sm text-mute">
           For further questions, please contact our support team at
-          <a :href="`mailto:${SUPPORT_EMAIL}`" class="text-primary-500">{{ SUPPORT_EMAIL }}</a
+          <a :href="`mailto:${SUPPORT_EMAIL}`" class="text-primary-500">{{
+            SUPPORT_EMAIL
+          }}</a
           >.
         </p>
       </div>

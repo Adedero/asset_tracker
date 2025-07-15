@@ -22,7 +22,9 @@ const {
   error,
   data,
   execute: getInvestmentPlan
-} = useFetch(() => `/api/admins/me/investment-plans/${investment_plan_id}`, { immediate: false })
+} = useFetch(() => `/api/admins/me/investment-plans/${investment_plan_id}`, {
+  immediate: false
+})
   .get()
   .json<InvestmentPlanGetApiResponse>();
 
@@ -46,7 +48,9 @@ onMounted(async () => {
 });
 
 function sortPlans() {
-  plan.value.tiers = plan.value.tiers?.sort((a, b) => a.minimumDeposit - b.minimumDeposit);
+  plan.value.tiers = plan.value.tiers?.sort(
+    (a, b) => a.minimumDeposit - b.minimumDeposit
+  );
 }
 
 const initialImage = ref<string>("");
@@ -60,7 +64,13 @@ const disabled = computed(() => {
     !image ||
     !tiers?.length ||
     tiers.some(
-      ({ name, minimumDeposit, expectedReturnRate, duration, terminationFee }) =>
+      ({
+        name,
+        minimumDeposit,
+        expectedReturnRate,
+        duration,
+        terminationFee
+      }) =>
         !name ||
         !minimumDeposit ||
         !expectedReturnRate ||
@@ -213,24 +223,39 @@ const removeTier = (tier: NonNullable<InvestmentPlan["tiers"]>[number]) => {
       <div class="mt-2 md:h-[calc(100dvh-9rem)]">
         <VPageLoader v-if="isLoading" />
 
-        <VErrorMessage v-else-if="error" :error should-retry @retry="getInvestmentPlan()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="getInvestmentPlan()"
+        />
 
         <div
-          v-else-if="(investment_plan_id && data?.investmentPlan) || (!investment_plan_id && plan)"
+          v-else-if="
+            (investment_plan_id && data?.investmentPlan) ||
+            (!investment_plan_id && plan)
+          "
           class="h-full w-full"
         >
           <div class="grid md:grid-cols-3 gap-4 h-full">
             <div class="md:col-span-1">
               <div class="grid gap-2">
-                <div class="bg-slate-200 dark:bg-slate-700 rounded-md h-60 overflow-hidden">
-                  <img :src="plan.image || ''" class="w-full h-full object-cover" />
+                <div
+                  class="bg-slate-200 dark:bg-slate-700 rounded-md h-60 overflow-hidden"
+                >
+                  <img
+                    :src="plan.image || ''"
+                    class="w-full h-full object-cover"
+                  />
                 </div>
 
                 <VFileUploader
                   size="small"
                   accept="image/*"
                   :max-file-size="1 * 1024 * 1024"
-                  @select="(files: IFile[]) => (plan.image = files[0].dataUrl ?? '')"
+                  @select="
+                    (files: IFile[]) => (plan.image = files[0].dataUrl ?? '')
+                  "
                   @upload="savePlan"
                   @cancel="plan.image = initialImage ?? ''"
                   class="w-full"
@@ -262,7 +287,11 @@ const removeTier = (tier: NonNullable<InvestmentPlan["tiers"]>[number]) => {
 
             <div class="md:col-span-2 h-full overflow-y-auto">
               <div v-if="plan.tiers" class="grid gap-4">
-                <VCard v-for="(tier, index) in plan.tiers" :key="tier.name" :header="tier.name">
+                <VCard
+                  v-for="(tier, index) in plan.tiers"
+                  :key="tier.name"
+                  :header="tier.name"
+                >
                   <template #header>
                     <div class="flex items-center justify-between gap-3">
                       <p class="text-mute font-semibold">{{ tier.name }}</p>
@@ -288,11 +317,18 @@ const removeTier = (tier: NonNullable<InvestmentPlan["tiers"]>[number]) => {
                       <Select
                         :options
                         v-model="tier.name"
-                        @change="(event: SelectChangeEvent) => handleChange(event.value, index)"
+                        @change="
+                          (event: SelectChangeEvent) =>
+                            handleChange(event.value, index)
+                        "
                         fluid
                       />
                       <small
-                        v-if="plan?.tiers?.some((t, i) => t.name === tier.name && i !== index)"
+                        v-if="
+                          plan?.tiers?.some(
+                            (t, i) => t.name === tier.name && i !== index
+                          )
+                        "
                         class="text-red-500 absolute -bottom-5"
                       >
                         Duplicate name found

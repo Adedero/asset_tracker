@@ -14,9 +14,13 @@ const Schema = zod_1.z.object({
     currencies: zod_1.z
         .array(zod_1.z.object({
         id: zod_1.z.string({ message: "Currency ID is required" }),
-        walletAddress: zod_1.z.string({ message: "Currency wallet address is required" }),
+        walletAddress: zod_1.z.string({
+            message: "Currency wallet address is required"
+        }),
         walletAddressNetwork: zod_1.z
-            .string({ message: "Currency wallet address network must be a string" })
+            .string({
+            message: "Currency wallet address network must be a string"
+        })
             .optional()
     }), { message: "Currencies must be an array" })
         .optional()

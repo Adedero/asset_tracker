@@ -52,7 +52,11 @@ async function main() {
   } else {
     app.use(helmet());
     app.use("/", sirv(path.resolve("build/client"), { single: true }));
-    app.use(fallback.default(path.resolve("build/client/index.html"), { root: path.resolve("build/client") }))
+    app.use(
+      fallback.default(path.resolve("build/client/index.html"), {
+        root: path.resolve("build/client")
+      })
+    );
   }
 
   app.get("/api/{*all}", (req, res) => {
@@ -60,7 +64,9 @@ async function main() {
   });
 
   app.get("/{*all}", (req, res) => {
-    const HTML_PATH = isProduction ? "build/client/index.html" : "src/app/index.html";
+    const HTML_PATH = isProduction
+      ? "build/client/index.html"
+      : "src/app/index.html";
     res.sendFile(path.resolve(HTML_PATH));
   });
 

@@ -11,12 +11,13 @@ const toast = useToast();
 
 const { transaction_id } = router.currentRoute.value.params;
 
-const allSavedTransactions = useLocalStorage<Array<TransactionGetApiResponse["transaction"]>>(
-  "gift-card-transactions",
-  []
-);
+const allSavedTransactions = useLocalStorage<
+  Array<TransactionGetApiResponse["transaction"]>
+>("gift-card-transactions", []);
 const savedTransaction = computed(() =>
-  allSavedTransactions.value.find((transaction) => transaction.id === transaction_id)
+  allSavedTransactions.value.find(
+    (transaction) => transaction.id === transaction_id
+  )
 );
 
 const { isFetching, error, data, execute } = await useFetch(
@@ -47,19 +48,29 @@ onMounted(() => {
   };
 });
 
-const actualAmountFromGiftCards = computed(
+/* const actualAmountFromGiftCards = computed(
   () =>
     transaction.value?.giftCardData?.cards.reduce(
       (total, card) => total + (card.amountRetrieved || 0),
       0
     ) || 0
-);
+); */
+
+const actualAmountFromGiftCards = computed(() => {
+  if (!transaction.value?.giftCardData) return 0;
+
+  return transaction.value.giftCardData.cards.reduce((total, card) => {
+    const amountRetrieved = card.amountRetrieved ?? 0;
+    const amountRetrievedInDollar = amountRetrieved / (card.rateUsed || transaction.value.giftCardData.rates[card.currency] || 1)
+    return Number((total + amountRetrievedInDollar).toFixed(2));
+  }, 0)
+})
 
 watch(
   actualAmountFromGiftCards,
   (newValue) => {
     if (!transaction.value) return;
-    transaction.value.amountInUSD = newValue;
+    transaction.value.amountInUSD = Number(newValue.toFixed(2));
   },
   { immediate: true }
 );
@@ -67,18 +78,27 @@ watch(
 const expectedAmount = computed(
   () =>
     transaction.value?.giftCardData?.totalInUSD ||
-    transaction.value?.giftCardData?.cards.reduce((total, card) => total + card.amount, 0) ||
+    transaction.value?.giftCardData?.cards.reduce(
+      (total, card) => total + card.amount,
+      0
+    ) ||
     0
 );
 
 const numberOfCards = computed(() => {
   return {
     USD:
-      transaction.value?.giftCardData?.cards.filter((card) => card.currency === "USD").length || 0,
+      transaction.value?.giftCardData?.cards.filter(
+        (card) => card.currency === "USD"
+      ).length || 0,
     CAD:
-      transaction.value?.giftCardData?.cards.filter((card) => card.currency === "CAD").length || 0,
+      transaction.value?.giftCardData?.cards.filter(
+        (card) => card.currency === "CAD"
+      ).length || 0,
     GBP:
-      transaction.value?.giftCardData?.cards.filter((card) => card.currency === "GBP").length || 0
+      transaction.value?.giftCardData?.cards.filter(
+        (card) => card.currency === "GBP"
+      ).length || 0
   };
 });
 
@@ -102,11 +122,7 @@ const onDiscardChanges = () => {
     <div>
       <VNavbar>
         <template #right>
-          <GiftCardValidationToolbar
-            v-if="transaction"
-            :transaction
-            @discard-changes="onDiscardChanges"
-          />
+          <GiftCardValidationToolbar v-if="transaction" :transaction @discard-changes="onDiscardChanges" />
         </template>
       </VNavbar>
 
@@ -120,9 +136,13 @@ const onDiscardChanges = () => {
               <VCard header="Actual Amount From Gift Cards">
                 <div class="text-right">
                   <Tag value="$" />
-                  <p class="text-2xl font-semibold text-emerald-500">
+                  <p class="text-2xl font-semibold"
+                    :class="actualAmountFromGiftCards >= expectedAmount ? 'text-emerald-500' : 'text-red-500'">
                     {{ actualAmountFromGiftCards.toLocaleString() }}
                   </p>
+                  <small class="text-mute" v-if="actualAmountFromGiftCards < expectedAmount">Less than expected</small>
+                  <small class="text-mute" v-if="actualAmountFromGiftCards === expectedAmount">Exactly than expected</small>
+                  <small class="text-mute" v-if="actualAmountFromGiftCards > expectedAmount">Higher than expected</small>
                 </div>
               </VCard>
 
@@ -146,9 +166,10 @@ const onDiscardChanges = () => {
                   </div>
                 </div>
 
-                <Divider
-                  v-if="transaction.giftCardData?.rates.CAD || transaction.giftCardData?.rates.GBP"
-                />
+                <Divider v-if="
+                  transaction.giftCardData?.rates.CAD ||
+                  transaction.giftCardData?.rates.GBP
+                " />
 
                 <div class="text-sm text-slate-500">
                   <div v-if="transaction.giftCardData?.rates.CAD">
@@ -166,24 +187,23 @@ const onDiscardChanges = () => {
                   </div>
                 </div>
 
-                <Divider
-                  v-if="transaction.giftCardData?.rates.CAD || transaction.giftCardData?.rates.GBP"
-                />
+                <Divider v-if="
+                  transaction.giftCardData?.rates.CAD ||
+                  transaction.giftCardData?.rates.GBP
+                " />
 
                 <Message size="small">
                   <p class="text-xs leading-4">
-                    This amount was calculated based on the rates at the time the deposit request
-                    was made. It may not be the same with the actual amount retrieved from the gift
-                    card due to fluctuations in market prices and other charges.
+                    This amount was calculated based on the rates at the time
+                    the deposit request was made. It may not be the same with
+                    the actual amount retrieved from the gift card due to
+                    fluctuations in market prices and other charges.
                   </p>
                 </Message>
               </VCard>
             </div>
 
-            <div
-              v-if="transaction.giftCardData"
-              class="h-full pb-5 md:overflow-y-auto md:col-span-4 lg:col-span-3"
-            >
+            <div v-if="transaction.giftCardData" class="h-full pb-5 md:overflow-y-auto md:col-span-4 lg:col-span-3">
               <VCard header="Total Gift Cards">
                 <p class="text-right text-3xl font-semibold">
                   {{ transaction.giftCardData.cards.length }}
@@ -191,11 +211,8 @@ const onDiscardChanges = () => {
               </VCard>
 
               <div class="mt-2 grid gap-2">
-                <VCard
-                  v-for="(card, index) in transaction.giftCardData.cards"
-                  :header="`${index + 1}. ${card.currency} Card`"
-                  class="border"
-                >
+                <VCard v-for="(card, index) in transaction.giftCardData.cards"
+                  :header="`${index + 1}. ${card.currency} Card`" class="border">
                   <div class="grid gap-2 md:grid-cols-6">
                     <div class="md:col-span-3">
                       <span class="text-sm font-medium text-slate-500">Type</span>
@@ -224,21 +241,18 @@ const onDiscardChanges = () => {
 
                     <div class="md:col-span-3">
                       <span class="text-sm font-medium text-slate-500">
-                        Amount Retrieved <span class="text-red-500 text-xs">required</span>
+                        Amount Retrieved
+                        <span class="text-red-500 text-xs">required</span>
                       </span>
                       <InputNumber v-model="card.amountRetrieved" :max-fraction-digits="2" fluid />
                     </div>
 
                     <div class="md:col-span-3">
                       <span class="text-sm font-medium text-slate-500">
-                        Rate Used <span class="text-primary-500 text-xs">optional</span>
+                        Rate Used
+                        <span class="text-primary-500 text-xs">optional</span>
                       </span>
-                      <InputNumber
-                        v-model="card.rateUsed"
-                        :use-grouping="false"
-                        :max-fraction-digits="25"
-                        fluid
-                      />
+                      <InputNumber v-model="card.rateUsed" :use-grouping="false" :max-fraction-digits="25" fluid />
                     </div>
                   </div>
                 </VCard>

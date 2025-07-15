@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { useToast } from "primevue";
 import { useFetch } from "@/app/composables/use-fetch";
 import type { User } from "@/prisma-gen";
@@ -16,9 +16,12 @@ const credentials = ref<{ unfreezeInvestments: boolean }>({
   unfreezeInvestments: false
 });
 
-const { isFetching, error, data, execute } = useFetch(`/api/admins/me/users/${user.id}/unban`, {
-  immediate: false
-})
+const { isFetching, error, data, execute } = useFetch(
+  `/api/admins/me/users/${user.id}/unban`,
+  {
+    immediate: false
+  }
+)
   .put(credentials)
   .json();
 
@@ -79,12 +82,15 @@ const cancel = () => {
 
           <div class="grid">
             <div class="flex flex-wrap items-center gap-2 justify-between">
-              <label class="text-mute text-sm font-semibold">Unfreeze Investments</label>
+              <label class="text-mute text-sm font-semibold"
+                >Unfreeze Investments</label
+              >
               <ToggleSwitch v-model="credentials.unfreezeInvestments" />
             </div>
             <small class="text-xs text-mute mt-1">
-              Unfreeze any of {{ user ? `${user.name}'s` : "this user's" }} investments that were
-              frozen when they were banned.
+              Unfreeze any of
+              {{ user ? `${user.name}'s` : "this user's" }} investments that
+              were frozen when they were banned.
             </small>
           </div>
 
@@ -98,7 +104,9 @@ const cancel = () => {
 
           <div v-else>
             <Divider />
-            <p class="text-sm text-red-500 font-medium">Are you sure you want to proceed?</p>
+            <p class="text-sm text-red-500 font-medium">
+              Are you sure you want to proceed?
+            </p>
             <div class="mt-2 grid grid-cols-2 gap-2">
               <Button
                 @click="cancel"

@@ -13,9 +13,12 @@ const visible = ref(false);
 
 const transaction = ref<Partial<Transaction>>({});
 
-const { isFetching, error, data, execute } = useFetch("/api/users/me/transactions/deposit", {
-  immediate: false
-})
+const { isFetching, error, data, execute } = useFetch(
+  "/api/users/me/transactions/deposit",
+  {
+    immediate: false
+  }
+)
   .post(transaction)
   .json();
 
@@ -31,8 +34,10 @@ const submitDepositRequest = async () => {
     currency: store.depositInitData!.currency?.name,
     amountInCurrency: store.depositInitData!.result,
     isWireTransfer: false,
-    depositWalletAddress: store.depositInitData!.depositAccountData?.walletAddress,
-    depositWalletAddressNetwork: store.depositInitData!.depositAccountData?.walletAddressNetwork
+    depositWalletAddress:
+      store.depositInitData!.depositAccountData?.walletAddress,
+    depositWalletAddressNetwork:
+      store.depositInitData!.depositAccountData?.walletAddressNetwork
   };
   await execute();
   if (error.value || !data.value.success) {
@@ -68,10 +73,16 @@ const copyText = async (text: string, loader: Ref<boolean>) => {
 };
 
 const copyWalletAddress = () => {
-  copyText(store.depositInitData?.depositAccountData?.walletAddress || "", loader_1);
+  copyText(
+    store.depositInitData?.depositAccountData?.walletAddress || "",
+    loader_1
+  );
 };
 const copyWalletAddressNetwork = () => {
-  copyText(store.depositInitData?.depositAccountData?.walletAddressNetwork ?? "", loader_2);
+  copyText(
+    store.depositInitData?.depositAccountData?.walletAddressNetwork ?? "",
+    loader_2
+  );
 };
 
 onMounted(async () => {
@@ -95,17 +106,29 @@ onMounted(async () => {
         :closable="false"
       >
         <div class="flex flex-col items-center justify-center text-center">
-          <span class="pi pi-check-circle text-emerald-500" style="font-size: 40px" />
+          <span
+            class="pi pi-check-circle text-emerald-500"
+            style="font-size: 40px"
+          />
           <p class="mt-4">Your deposit request has been received.</p>
-          <p>Once confirmed, your account will be credited<!--  within 15 minutes -->.</p>
+          <p>
+            Once confirmed, your account will be credited<!--  within 15 minutes -->.
+          </p>
         </div>
 
         <div class="mt-4">
-          <Button @click="$router.push({ name: 'user-transactions' })" label="Continue" fluid />
+          <Button
+            @click="$router.push({ name: 'user-transactions' })"
+            label="Continue"
+            fluid
+          />
         </div>
       </Dialog>
 
-      <div v-if="store.depositInitData" class="flex items-center justify-center py-4">
+      <div
+        v-if="store.depositInitData"
+        class="flex items-center justify-center py-4"
+      >
         <VCard class="w-full max-w-[28rem] md:!p-6">
           <div class="text-center">
             <p class="text-2xl font-semibold">
@@ -117,7 +140,10 @@ onMounted(async () => {
           <Divider />
 
           <div class="flex flex-col items-center justify-center gap-1">
-            <img :src="store.depositInitData.currency?.image || ''" width="40" />
+            <img
+              :src="store.depositInitData.currency?.image || ''"
+              width="40"
+            />
             <p class="text-center font-semibold">
               {{ store.depositInitData.currency?.name }} Deposit
             </p>
@@ -130,7 +156,8 @@ onMounted(async () => {
               <p class="font-normal text-center">
                 Send exactly
                 <span class="font-semibold text-lg">
-                  {{ store.depositInitData.currency?.abbr }} {{ store.depositInitData.result }}
+                  {{ store.depositInitData.currency?.abbr }}
+                  {{ store.depositInitData.result }}
                 </span>
                 to the wallet address below.
               </p>
@@ -155,13 +182,18 @@ onMounted(async () => {
             </InputGroup>
 
             <div
-              v-if="store.depositInitData.depositAccountData?.walletAddressNetwork"
+              v-if="
+                store.depositInitData.depositAccountData?.walletAddressNetwork
+              "
               class="w-full mt-2 grid gap-1"
             >
               <label for="network">Network</label>
               <InputGroup class="w-full">
                 <InputText
-                  :value="store.depositInitData.depositAccountData?.walletAddressNetwork"
+                  :value="
+                    store.depositInitData.depositAccountData
+                      ?.walletAddressNetwork
+                  "
                   fluid
                   disabled
                   class="dark:bg-slate-800"

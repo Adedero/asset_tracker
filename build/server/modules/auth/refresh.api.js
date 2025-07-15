@@ -17,7 +17,10 @@ exports.default = (0, api_1.api)({
     const refreshToken = req.params.refreshToken;
     const payload = jsonwebtoken_1.default.verify(refreshToken, env_1.default.get("JWT_REFRESH_SECRET"));
     const { id } = payload;
-    const user = await prisma_1.default.user.findUnique({ where: { id }, select: { id: true } });
+    const user = await prisma_1.default.user.findUnique({
+        where: { id },
+        select: { id: true }
+    });
     if (!user) {
         throw http_1.HttpException.notFound("User not found");
     }

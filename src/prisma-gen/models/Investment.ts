@@ -16,7 +16,8 @@ import type * as Prisma from "../internal/prismaNamespace";
  * Model Investment
  *
  */
-export type InvestmentModel = runtime.Types.Result.DefaultSelection<Prisma.$InvestmentPayload>;
+export type InvestmentModel =
+  runtime.Types.Result.DefaultSelection<Prisma.$InvestmentPayload>;
 
 export type AggregateInvestment = {
   _count: InvestmentCountAggregateOutputType | null;
@@ -271,7 +272,8 @@ export type InvestmentCountAggregateInputType = {
 };
 
 export type InvestmentAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Investment to aggregate.
@@ -282,7 +284,9 @@ export type InvestmentAggregateArgs<
    *
    * Determine the order of Investments to fetch.
    */
-  orderBy?: Prisma.InvestmentOrderByWithRelationInput | Prisma.InvestmentOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.InvestmentOrderByWithRelationInput
+    | Prisma.InvestmentOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -342,7 +346,8 @@ export type GetInvestmentAggregateType<T extends InvestmentAggregateArgs> = {
 };
 
 export type InvestmentGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.InvestmentWhereInput;
   orderBy?:
@@ -395,17 +400,18 @@ export type InvestmentGroupByOutputType = {
   _max: InvestmentMaxAggregateOutputType | null;
 };
 
-type GetInvestmentGroupByPayload<T extends InvestmentGroupByArgs> = Prisma.PrismaPromise<
-  Array<
-    Prisma.PickEnumerable<InvestmentGroupByOutputType, T["by"]> & {
-      [P in keyof T & keyof InvestmentGroupByOutputType]: P extends "_count"
-        ? T[P] extends boolean
-          ? number
-          : Prisma.GetScalarType<T[P], InvestmentGroupByOutputType[P]>
-        : Prisma.GetScalarType<T[P], InvestmentGroupByOutputType[P]>;
-    }
-  >
->;
+type GetInvestmentGroupByPayload<T extends InvestmentGroupByArgs> =
+  Prisma.PrismaPromise<
+    Array<
+      Prisma.PickEnumerable<InvestmentGroupByOutputType, T["by"]> & {
+        [P in keyof T & keyof InvestmentGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : Prisma.GetScalarType<T[P], InvestmentGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], InvestmentGroupByOutputType[P]>;
+      }
+    >
+  >;
 
 export type InvestmentWhereInput = {
   AND?: Prisma.InvestmentWhereInput | Prisma.InvestmentWhereInput[];
@@ -414,26 +420,45 @@ export type InvestmentWhereInput = {
   id?: Prisma.StringFilter<"Investment"> | string;
   userId?: Prisma.StringFilter<"Investment"> | string;
   autocompounded?: Prisma.BoolFilter<"Investment"> | boolean;
-  investmentStatus?: Prisma.EnumInvestmentStatusFilter<"Investment"> | $Enums.InvestmentStatus;
+  investmentStatus?:
+    | Prisma.EnumInvestmentStatusFilter<"Investment">
+    | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFilter<"Investment"> | number;
   expectedReturnRate?: Prisma.FloatFilter<"Investment"> | number;
-  autocompoundedReturnRate?: Prisma.FloatNullableFilter<"Investment"> | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.FloatNullableFilter<"Investment">
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFilter<"Investment"> | number;
   currentTotalReturns?: Prisma.FloatFilter<"Investment"> | number;
-  currentCompoundedAmount?: Prisma.FloatNullableFilter<"Investment"> | number | null;
+  currentCompoundedAmount?:
+    | Prisma.FloatNullableFilter<"Investment">
+    | number
+    | null;
   investmentName?: Prisma.StringFilter<"Investment"> | string;
   investmentTier?: Prisma.StringFilter<"Investment"> | string;
   minimumDeposit?: Prisma.FloatFilter<"Investment"> | number;
   duration?: Prisma.IntFilter<"Investment"> | number;
   terminationFee?: Prisma.FloatFilter<"Investment"> | number;
   daysCompleted?: Prisma.IntFilter<"Investment"> | number;
-  lastProfitDistributedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
+  lastProfitDistributedAt?:
+    | Prisma.DateTimeNullableFilter<"Investment">
+    | Date
+    | string
+    | null;
   lastProfitAmount?: Prisma.FloatNullableFilter<"Investment"> | number | null;
-  hasTransferedProfitToWallet?: Prisma.BoolNullableFilter<"Investment"> | boolean | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.BoolNullableFilter<"Investment">
+    | boolean
+    | null;
   closedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
   pausedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
   pausedReason?: Prisma.StringNullableFilter<"Investment"> | string | null;
-  terminatedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
+  terminatedAt?:
+    | Prisma.DateTimeNullableFilter<"Investment">
+    | Date
+    | string
+    | null;
   terminator?: Prisma.StringNullableFilter<"Investment"> | string | null;
   terminationReason?: Prisma.StringNullableFilter<"Investment"> | string | null;
   terminationFeeApplied?: Prisma.BoolFilter<"Investment"> | boolean;
@@ -484,28 +509,58 @@ export type InvestmentWhereUniqueInput = Prisma.AtLeast<
     NOT?: Prisma.InvestmentWhereInput | Prisma.InvestmentWhereInput[];
     userId?: Prisma.StringFilter<"Investment"> | string;
     autocompounded?: Prisma.BoolFilter<"Investment"> | boolean;
-    investmentStatus?: Prisma.EnumInvestmentStatusFilter<"Investment"> | $Enums.InvestmentStatus;
+    investmentStatus?:
+      | Prisma.EnumInvestmentStatusFilter<"Investment">
+      | $Enums.InvestmentStatus;
     initialDeposit?: Prisma.FloatFilter<"Investment"> | number;
     expectedReturnRate?: Prisma.FloatFilter<"Investment"> | number;
-    autocompoundedReturnRate?: Prisma.FloatNullableFilter<"Investment"> | number | null;
+    autocompoundedReturnRate?:
+      | Prisma.FloatNullableFilter<"Investment">
+      | number
+      | null;
     expectedTotalReturns?: Prisma.FloatFilter<"Investment"> | number;
     currentTotalReturns?: Prisma.FloatFilter<"Investment"> | number;
-    currentCompoundedAmount?: Prisma.FloatNullableFilter<"Investment"> | number | null;
+    currentCompoundedAmount?:
+      | Prisma.FloatNullableFilter<"Investment">
+      | number
+      | null;
     investmentName?: Prisma.StringFilter<"Investment"> | string;
     investmentTier?: Prisma.StringFilter<"Investment"> | string;
     minimumDeposit?: Prisma.FloatFilter<"Investment"> | number;
     duration?: Prisma.IntFilter<"Investment"> | number;
     terminationFee?: Prisma.FloatFilter<"Investment"> | number;
     daysCompleted?: Prisma.IntFilter<"Investment"> | number;
-    lastProfitDistributedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
+    lastProfitDistributedAt?:
+      | Prisma.DateTimeNullableFilter<"Investment">
+      | Date
+      | string
+      | null;
     lastProfitAmount?: Prisma.FloatNullableFilter<"Investment"> | number | null;
-    hasTransferedProfitToWallet?: Prisma.BoolNullableFilter<"Investment"> | boolean | null;
-    closedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
-    pausedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
+    hasTransferedProfitToWallet?:
+      | Prisma.BoolNullableFilter<"Investment">
+      | boolean
+      | null;
+    closedAt?:
+      | Prisma.DateTimeNullableFilter<"Investment">
+      | Date
+      | string
+      | null;
+    pausedAt?:
+      | Prisma.DateTimeNullableFilter<"Investment">
+      | Date
+      | string
+      | null;
     pausedReason?: Prisma.StringNullableFilter<"Investment"> | string | null;
-    terminatedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
+    terminatedAt?:
+      | Prisma.DateTimeNullableFilter<"Investment">
+      | Date
+      | string
+      | null;
     terminator?: Prisma.StringNullableFilter<"Investment"> | string | null;
-    terminationReason?: Prisma.StringNullableFilter<"Investment"> | string | null;
+    terminationReason?:
+      | Prisma.StringNullableFilter<"Investment">
+      | string
+      | null;
     terminationFeeApplied?: Prisma.BoolFilter<"Investment"> | boolean;
     createdAt?: Prisma.DateTimeFilter<"Investment"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Investment"> | Date | string;
@@ -567,10 +622,18 @@ export type InvestmentScalarWhereWithAggregatesInput = {
     | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatWithAggregatesFilter<"Investment"> | number;
   expectedReturnRate?: Prisma.FloatWithAggregatesFilter<"Investment"> | number;
-  autocompoundedReturnRate?: Prisma.FloatNullableWithAggregatesFilter<"Investment"> | number | null;
-  expectedTotalReturns?: Prisma.FloatWithAggregatesFilter<"Investment"> | number;
+  autocompoundedReturnRate?:
+    | Prisma.FloatNullableWithAggregatesFilter<"Investment">
+    | number
+    | null;
+  expectedTotalReturns?:
+    | Prisma.FloatWithAggregatesFilter<"Investment">
+    | number;
   currentTotalReturns?: Prisma.FloatWithAggregatesFilter<"Investment"> | number;
-  currentCompoundedAmount?: Prisma.FloatNullableWithAggregatesFilter<"Investment"> | number | null;
+  currentCompoundedAmount?:
+    | Prisma.FloatNullableWithAggregatesFilter<"Investment">
+    | number
+    | null;
   investmentName?: Prisma.StringWithAggregatesFilter<"Investment"> | string;
   investmentTier?: Prisma.StringWithAggregatesFilter<"Investment"> | string;
   minimumDeposit?: Prisma.FloatWithAggregatesFilter<"Investment"> | number;
@@ -582,18 +645,44 @@ export type InvestmentScalarWhereWithAggregatesInput = {
     | Date
     | string
     | null;
-  lastProfitAmount?: Prisma.FloatNullableWithAggregatesFilter<"Investment"> | number | null;
+  lastProfitAmount?:
+    | Prisma.FloatNullableWithAggregatesFilter<"Investment">
+    | number
+    | null;
   hasTransferedProfitToWallet?:
     | Prisma.BoolNullableWithAggregatesFilter<"Investment">
     | boolean
     | null;
-  closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Investment"> | Date | string | null;
-  pausedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Investment"> | Date | string | null;
-  pausedReason?: Prisma.StringNullableWithAggregatesFilter<"Investment"> | string | null;
-  terminatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Investment"> | Date | string | null;
-  terminator?: Prisma.StringNullableWithAggregatesFilter<"Investment"> | string | null;
-  terminationReason?: Prisma.StringNullableWithAggregatesFilter<"Investment"> | string | null;
-  terminationFeeApplied?: Prisma.BoolWithAggregatesFilter<"Investment"> | boolean;
+  closedAt?:
+    | Prisma.DateTimeNullableWithAggregatesFilter<"Investment">
+    | Date
+    | string
+    | null;
+  pausedAt?:
+    | Prisma.DateTimeNullableWithAggregatesFilter<"Investment">
+    | Date
+    | string
+    | null;
+  pausedReason?:
+    | Prisma.StringNullableWithAggregatesFilter<"Investment">
+    | string
+    | null;
+  terminatedAt?:
+    | Prisma.DateTimeNullableWithAggregatesFilter<"Investment">
+    | Date
+    | string
+    | null;
+  terminator?:
+    | Prisma.StringNullableWithAggregatesFilter<"Investment">
+    | string
+    | null;
+  terminationReason?:
+    | Prisma.StringNullableWithAggregatesFilter<"Investment">
+    | string
+    | null;
+  terminationFeeApplied?:
+    | Prisma.BoolWithAggregatesFilter<"Investment">
+    | boolean;
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Investment"> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Investment"> | Date | string;
 };
@@ -670,10 +759,16 @@ export type InvestmentUpdateInput = {
     | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
   expectedReturnRate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  autocompoundedReturnRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
   currentTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
-  currentCompoundedAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  currentCompoundedAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   investmentName?: Prisma.StringFieldUpdateOperationsInput | string;
   investmentTier?: Prisma.StringFieldUpdateOperationsInput | string;
   minimumDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -685,14 +780,38 @@ export type InvestmentUpdateInput = {
     | Date
     | string
     | null;
-  lastProfitAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
-  hasTransferedProfitToWallet?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  lastProfitAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.NullableBoolFieldUpdateOperationsInput
+    | boolean
+    | null;
+  closedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  terminatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   terminator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  terminationReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   terminationFeeApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -709,10 +828,16 @@ export type InvestmentUncheckedUpdateInput = {
     | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
   expectedReturnRate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  autocompoundedReturnRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
   currentTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
-  currentCompoundedAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  currentCompoundedAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   investmentName?: Prisma.StringFieldUpdateOperationsInput | string;
   investmentTier?: Prisma.StringFieldUpdateOperationsInput | string;
   minimumDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -724,14 +849,38 @@ export type InvestmentUncheckedUpdateInput = {
     | Date
     | string
     | null;
-  lastProfitAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
-  hasTransferedProfitToWallet?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  lastProfitAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.NullableBoolFieldUpdateOperationsInput
+    | boolean
+    | null;
+  closedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  terminatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   terminator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  terminationReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   terminationFeeApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -777,10 +926,16 @@ export type InvestmentUpdateManyMutationInput = {
     | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
   expectedReturnRate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  autocompoundedReturnRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
   currentTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
-  currentCompoundedAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  currentCompoundedAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   investmentName?: Prisma.StringFieldUpdateOperationsInput | string;
   investmentTier?: Prisma.StringFieldUpdateOperationsInput | string;
   minimumDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -792,14 +947,38 @@ export type InvestmentUpdateManyMutationInput = {
     | Date
     | string
     | null;
-  lastProfitAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
-  hasTransferedProfitToWallet?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  lastProfitAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.NullableBoolFieldUpdateOperationsInput
+    | boolean
+    | null;
+  closedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  terminatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   terminator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  terminationReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   terminationFeeApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -814,10 +993,16 @@ export type InvestmentUncheckedUpdateManyInput = {
     | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
   expectedReturnRate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  autocompoundedReturnRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
   currentTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
-  currentCompoundedAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  currentCompoundedAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   investmentName?: Prisma.StringFieldUpdateOperationsInput | string;
   investmentTier?: Prisma.StringFieldUpdateOperationsInput | string;
   minimumDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -829,14 +1014,38 @@ export type InvestmentUncheckedUpdateManyInput = {
     | Date
     | string
     | null;
-  lastProfitAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
-  hasTransferedProfitToWallet?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  lastProfitAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.NullableBoolFieldUpdateOperationsInput
+    | boolean
+    | null;
+  closedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  terminatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   terminator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  terminationReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   terminationFeeApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -990,7 +1199,9 @@ export type InvestmentCreateNestedManyWithoutUserInput = {
     | Prisma.InvestmentCreateOrConnectWithoutUserInput
     | Prisma.InvestmentCreateOrConnectWithoutUserInput[];
   createMany?: Prisma.InvestmentCreateManyUserInputEnvelope;
-  connect?: Prisma.InvestmentWhereUniqueInput | Prisma.InvestmentWhereUniqueInput[];
+  connect?:
+    | Prisma.InvestmentWhereUniqueInput
+    | Prisma.InvestmentWhereUniqueInput[];
 };
 
 export type InvestmentUncheckedCreateNestedManyWithoutUserInput = {
@@ -1005,7 +1216,9 @@ export type InvestmentUncheckedCreateNestedManyWithoutUserInput = {
     | Prisma.InvestmentCreateOrConnectWithoutUserInput
     | Prisma.InvestmentCreateOrConnectWithoutUserInput[];
   createMany?: Prisma.InvestmentCreateManyUserInputEnvelope;
-  connect?: Prisma.InvestmentWhereUniqueInput | Prisma.InvestmentWhereUniqueInput[];
+  connect?:
+    | Prisma.InvestmentWhereUniqueInput
+    | Prisma.InvestmentWhereUniqueInput[];
 };
 
 export type InvestmentUpdateManyWithoutUserNestedInput = {
@@ -1024,16 +1237,24 @@ export type InvestmentUpdateManyWithoutUserNestedInput = {
     | Prisma.InvestmentUpsertWithWhereUniqueWithoutUserInput[];
   createMany?: Prisma.InvestmentCreateManyUserInputEnvelope;
   set?: Prisma.InvestmentWhereUniqueInput | Prisma.InvestmentWhereUniqueInput[];
-  disconnect?: Prisma.InvestmentWhereUniqueInput | Prisma.InvestmentWhereUniqueInput[];
-  delete?: Prisma.InvestmentWhereUniqueInput | Prisma.InvestmentWhereUniqueInput[];
-  connect?: Prisma.InvestmentWhereUniqueInput | Prisma.InvestmentWhereUniqueInput[];
+  disconnect?:
+    | Prisma.InvestmentWhereUniqueInput
+    | Prisma.InvestmentWhereUniqueInput[];
+  delete?:
+    | Prisma.InvestmentWhereUniqueInput
+    | Prisma.InvestmentWhereUniqueInput[];
+  connect?:
+    | Prisma.InvestmentWhereUniqueInput
+    | Prisma.InvestmentWhereUniqueInput[];
   update?:
     | Prisma.InvestmentUpdateWithWhereUniqueWithoutUserInput
     | Prisma.InvestmentUpdateWithWhereUniqueWithoutUserInput[];
   updateMany?:
     | Prisma.InvestmentUpdateManyWithWhereWithoutUserInput
     | Prisma.InvestmentUpdateManyWithWhereWithoutUserInput[];
-  deleteMany?: Prisma.InvestmentScalarWhereInput | Prisma.InvestmentScalarWhereInput[];
+  deleteMany?:
+    | Prisma.InvestmentScalarWhereInput
+    | Prisma.InvestmentScalarWhereInput[];
 };
 
 export type InvestmentUncheckedUpdateManyWithoutUserNestedInput = {
@@ -1052,16 +1273,24 @@ export type InvestmentUncheckedUpdateManyWithoutUserNestedInput = {
     | Prisma.InvestmentUpsertWithWhereUniqueWithoutUserInput[];
   createMany?: Prisma.InvestmentCreateManyUserInputEnvelope;
   set?: Prisma.InvestmentWhereUniqueInput | Prisma.InvestmentWhereUniqueInput[];
-  disconnect?: Prisma.InvestmentWhereUniqueInput | Prisma.InvestmentWhereUniqueInput[];
-  delete?: Prisma.InvestmentWhereUniqueInput | Prisma.InvestmentWhereUniqueInput[];
-  connect?: Prisma.InvestmentWhereUniqueInput | Prisma.InvestmentWhereUniqueInput[];
+  disconnect?:
+    | Prisma.InvestmentWhereUniqueInput
+    | Prisma.InvestmentWhereUniqueInput[];
+  delete?:
+    | Prisma.InvestmentWhereUniqueInput
+    | Prisma.InvestmentWhereUniqueInput[];
+  connect?:
+    | Prisma.InvestmentWhereUniqueInput
+    | Prisma.InvestmentWhereUniqueInput[];
   update?:
     | Prisma.InvestmentUpdateWithWhereUniqueWithoutUserInput
     | Prisma.InvestmentUpdateWithWhereUniqueWithoutUserInput[];
   updateMany?:
     | Prisma.InvestmentUpdateManyWithWhereWithoutUserInput
     | Prisma.InvestmentUpdateManyWithWhereWithoutUserInput[];
-  deleteMany?: Prisma.InvestmentScalarWhereInput | Prisma.InvestmentScalarWhereInput[];
+  deleteMany?:
+    | Prisma.InvestmentScalarWhereInput
+    | Prisma.InvestmentScalarWhereInput[];
 };
 
 export type EnumInvestmentStatusFieldUpdateOperationsInput = {
@@ -1183,7 +1412,9 @@ export type InvestmentCreateOrConnectWithoutUserInput = {
 };
 
 export type InvestmentCreateManyUserInputEnvelope = {
-  data: Prisma.InvestmentCreateManyUserInput | Prisma.InvestmentCreateManyUserInput[];
+  data:
+    | Prisma.InvestmentCreateManyUserInput
+    | Prisma.InvestmentCreateManyUserInput[];
 };
 
 export type InvestmentUpsertWithWhereUniqueWithoutUserInput = {
@@ -1221,26 +1452,45 @@ export type InvestmentScalarWhereInput = {
   id?: Prisma.StringFilter<"Investment"> | string;
   userId?: Prisma.StringFilter<"Investment"> | string;
   autocompounded?: Prisma.BoolFilter<"Investment"> | boolean;
-  investmentStatus?: Prisma.EnumInvestmentStatusFilter<"Investment"> | $Enums.InvestmentStatus;
+  investmentStatus?:
+    | Prisma.EnumInvestmentStatusFilter<"Investment">
+    | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFilter<"Investment"> | number;
   expectedReturnRate?: Prisma.FloatFilter<"Investment"> | number;
-  autocompoundedReturnRate?: Prisma.FloatNullableFilter<"Investment"> | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.FloatNullableFilter<"Investment">
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFilter<"Investment"> | number;
   currentTotalReturns?: Prisma.FloatFilter<"Investment"> | number;
-  currentCompoundedAmount?: Prisma.FloatNullableFilter<"Investment"> | number | null;
+  currentCompoundedAmount?:
+    | Prisma.FloatNullableFilter<"Investment">
+    | number
+    | null;
   investmentName?: Prisma.StringFilter<"Investment"> | string;
   investmentTier?: Prisma.StringFilter<"Investment"> | string;
   minimumDeposit?: Prisma.FloatFilter<"Investment"> | number;
   duration?: Prisma.IntFilter<"Investment"> | number;
   terminationFee?: Prisma.FloatFilter<"Investment"> | number;
   daysCompleted?: Prisma.IntFilter<"Investment"> | number;
-  lastProfitDistributedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
+  lastProfitDistributedAt?:
+    | Prisma.DateTimeNullableFilter<"Investment">
+    | Date
+    | string
+    | null;
   lastProfitAmount?: Prisma.FloatNullableFilter<"Investment"> | number | null;
-  hasTransferedProfitToWallet?: Prisma.BoolNullableFilter<"Investment"> | boolean | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.BoolNullableFilter<"Investment">
+    | boolean
+    | null;
   closedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
   pausedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
   pausedReason?: Prisma.StringNullableFilter<"Investment"> | string | null;
-  terminatedAt?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null;
+  terminatedAt?:
+    | Prisma.DateTimeNullableFilter<"Investment">
+    | Date
+    | string
+    | null;
   terminator?: Prisma.StringNullableFilter<"Investment"> | string | null;
   terminationReason?: Prisma.StringNullableFilter<"Investment"> | string | null;
   terminationFeeApplied?: Prisma.BoolFilter<"Investment"> | boolean;
@@ -1346,10 +1596,16 @@ export type InvestmentUpdateWithoutProfitsInput = {
     | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
   expectedReturnRate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  autocompoundedReturnRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
   currentTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
-  currentCompoundedAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  currentCompoundedAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   investmentName?: Prisma.StringFieldUpdateOperationsInput | string;
   investmentTier?: Prisma.StringFieldUpdateOperationsInput | string;
   minimumDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -1361,14 +1617,38 @@ export type InvestmentUpdateWithoutProfitsInput = {
     | Date
     | string
     | null;
-  lastProfitAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
-  hasTransferedProfitToWallet?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  lastProfitAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.NullableBoolFieldUpdateOperationsInput
+    | boolean
+    | null;
+  closedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  terminatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   terminator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  terminationReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   terminationFeeApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1384,10 +1664,16 @@ export type InvestmentUncheckedUpdateWithoutProfitsInput = {
     | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
   expectedReturnRate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  autocompoundedReturnRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
   currentTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
-  currentCompoundedAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  currentCompoundedAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   investmentName?: Prisma.StringFieldUpdateOperationsInput | string;
   investmentTier?: Prisma.StringFieldUpdateOperationsInput | string;
   minimumDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -1399,14 +1685,38 @@ export type InvestmentUncheckedUpdateWithoutProfitsInput = {
     | Date
     | string
     | null;
-  lastProfitAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
-  hasTransferedProfitToWallet?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  lastProfitAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.NullableBoolFieldUpdateOperationsInput
+    | boolean
+    | null;
+  closedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  terminatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   terminator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  terminationReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   terminationFeeApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1450,10 +1760,16 @@ export type InvestmentUpdateWithoutUserInput = {
     | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
   expectedReturnRate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  autocompoundedReturnRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
   currentTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
-  currentCompoundedAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  currentCompoundedAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   investmentName?: Prisma.StringFieldUpdateOperationsInput | string;
   investmentTier?: Prisma.StringFieldUpdateOperationsInput | string;
   minimumDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -1465,14 +1781,38 @@ export type InvestmentUpdateWithoutUserInput = {
     | Date
     | string
     | null;
-  lastProfitAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
-  hasTransferedProfitToWallet?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  lastProfitAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.NullableBoolFieldUpdateOperationsInput
+    | boolean
+    | null;
+  closedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  terminatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   terminator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  terminationReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   terminationFeeApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1487,10 +1827,16 @@ export type InvestmentUncheckedUpdateWithoutUserInput = {
     | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
   expectedReturnRate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  autocompoundedReturnRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
   currentTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
-  currentCompoundedAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  currentCompoundedAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   investmentName?: Prisma.StringFieldUpdateOperationsInput | string;
   investmentTier?: Prisma.StringFieldUpdateOperationsInput | string;
   minimumDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -1502,14 +1848,38 @@ export type InvestmentUncheckedUpdateWithoutUserInput = {
     | Date
     | string
     | null;
-  lastProfitAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
-  hasTransferedProfitToWallet?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  lastProfitAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.NullableBoolFieldUpdateOperationsInput
+    | boolean
+    | null;
+  closedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  terminatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   terminator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  terminationReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   terminationFeeApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1524,10 +1894,16 @@ export type InvestmentUncheckedUpdateManyWithoutUserInput = {
     | $Enums.InvestmentStatus;
   initialDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
   expectedReturnRate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  autocompoundedReturnRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  autocompoundedReturnRate?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   expectedTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
   currentTotalReturns?: Prisma.FloatFieldUpdateOperationsInput | number;
-  currentCompoundedAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  currentCompoundedAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
   investmentName?: Prisma.StringFieldUpdateOperationsInput | string;
   investmentTier?: Prisma.StringFieldUpdateOperationsInput | string;
   minimumDeposit?: Prisma.FloatFieldUpdateOperationsInput | number;
@@ -1539,14 +1915,38 @@ export type InvestmentUncheckedUpdateManyWithoutUserInput = {
     | Date
     | string
     | null;
-  lastProfitAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
-  hasTransferedProfitToWallet?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  pausedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  lastProfitAmount?:
+    | Prisma.NullableFloatFieldUpdateOperationsInput
+    | number
+    | null;
+  hasTransferedProfitToWallet?:
+    | Prisma.NullableBoolFieldUpdateOperationsInput
+    | boolean
+    | null;
+  closedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  pausedReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  terminatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   terminator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  terminationReason?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   terminationFeeApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1561,7 +1961,8 @@ export type InvestmentCountOutputType = {
 };
 
 export type InvestmentCountOutputTypeSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   profits?: boolean | InvestmentCountOutputTypeCountProfitsArgs;
 };
@@ -1570,7 +1971,8 @@ export type InvestmentCountOutputTypeSelect<
  * InvestmentCountOutputType without action
  */
 export type InvestmentCountOutputTypeDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentCountOutputType
@@ -1582,13 +1984,15 @@ export type InvestmentCountOutputTypeDefaultArgs<
  * InvestmentCountOutputType without action
  */
 export type InvestmentCountOutputTypeCountProfitsArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.ProfitWhereInput;
 };
 
 export type InvestmentSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1627,7 +2031,8 @@ export type InvestmentSelect<
 >;
 
 export type InvestmentSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1664,7 +2069,8 @@ export type InvestmentSelectCreateManyAndReturn<
 >;
 
 export type InvestmentSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1732,7 +2138,8 @@ export type InvestmentSelectScalar = {
 };
 
 export type InvestmentOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetOmit<
   | "id"
   | "userId"
@@ -1765,25 +2172,29 @@ export type InvestmentOmit<
   ExtArgs["result"]["investment"]
 >;
 export type InvestmentInclude<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
   profits?: boolean | Prisma.Investment$profitsArgs<ExtArgs>;
   _count?: boolean | Prisma.InvestmentCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type InvestmentIncludeCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 export type InvestmentIncludeUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 
 export type $InvestmentPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   name: "Investment";
   objects: {
@@ -1826,17 +2237,20 @@ export type $InvestmentPayload<
   composites: {};
 };
 
-export type InvestmentGetPayload<S extends boolean | null | undefined | InvestmentDefaultArgs> =
-  runtime.Types.Result.GetResult<Prisma.$InvestmentPayload, S>;
+export type InvestmentGetPayload<
+  S extends boolean | null | undefined | InvestmentDefaultArgs
+> = runtime.Types.Result.GetResult<Prisma.$InvestmentPayload, S>;
 
 export type InvestmentCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = Omit<InvestmentFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
   select?: InvestmentCountAggregateInputType | true;
 };
 
 export interface InvestmentDelegate<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > {
   [K: symbol]: {
@@ -2307,7 +2721,12 @@ export interface InvestmentDelegate<
               ? never
               : P extends string
                 ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                : [Error, "Field ", P, ` in "having" needs to be provided in "by"`];
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`
+                  ];
           }[HavingFields]
         : "take" extends Prisma.Keys<T>
           ? "orderBy" extends Prisma.Keys<T>
@@ -2337,8 +2756,11 @@ export interface InvestmentDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields]
   >(
-    args: Prisma.SubsetIntersection<T, InvestmentGroupByArgs, OrderByArg> & InputErrors
-  ): {} extends InputErrors ? GetInvestmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, InvestmentGroupByArgs, OrderByArg> &
+      InputErrors
+  ): {} extends InputErrors
+    ? GetInvestmentGroupByPayload<T>
+    : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the Investment model
    */
@@ -2354,7 +2776,8 @@ export interface InvestmentDelegate<
 export interface Prisma__InvestmentClient<
   T,
   Null = never,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
@@ -2390,8 +2813,14 @@ export interface Prisma__InvestmentClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -2399,7 +2828,10 @@ export interface Prisma__InvestmentClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -2407,7 +2839,9 @@ export interface Prisma__InvestmentClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  finally(
+    onfinally?: (() => void) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -2432,7 +2866,10 @@ export interface InvestmentFieldRefs {
   readonly daysCompleted: Prisma.FieldRef<"Investment", "Int">;
   readonly lastProfitDistributedAt: Prisma.FieldRef<"Investment", "DateTime">;
   readonly lastProfitAmount: Prisma.FieldRef<"Investment", "Float">;
-  readonly hasTransferedProfitToWallet: Prisma.FieldRef<"Investment", "Boolean">;
+  readonly hasTransferedProfitToWallet: Prisma.FieldRef<
+    "Investment",
+    "Boolean"
+  >;
   readonly closedAt: Prisma.FieldRef<"Investment", "DateTime">;
   readonly pausedAt: Prisma.FieldRef<"Investment", "DateTime">;
   readonly pausedReason: Prisma.FieldRef<"Investment", "String">;
@@ -2449,7 +2886,8 @@ export interface InvestmentFieldRefs {
  * Investment findUnique
  */
 export type InvestmentFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2473,7 +2911,8 @@ export type InvestmentFindUniqueArgs<
  * Investment findUniqueOrThrow
  */
 export type InvestmentFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2497,7 +2936,8 @@ export type InvestmentFindUniqueOrThrowArgs<
  * Investment findFirst
  */
 export type InvestmentFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2520,7 +2960,9 @@ export type InvestmentFindFirstArgs<
    *
    * Determine the order of Investments to fetch.
    */
-  orderBy?: Prisma.InvestmentOrderByWithRelationInput | Prisma.InvestmentOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.InvestmentOrderByWithRelationInput
+    | Prisma.InvestmentOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -2544,14 +2986,17 @@ export type InvestmentFindFirstArgs<
    *
    * Filter by unique combinations of Investments.
    */
-  distinct?: Prisma.InvestmentScalarFieldEnum | Prisma.InvestmentScalarFieldEnum[];
+  distinct?:
+    | Prisma.InvestmentScalarFieldEnum
+    | Prisma.InvestmentScalarFieldEnum[];
 };
 
 /**
  * Investment findFirstOrThrow
  */
 export type InvestmentFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2574,7 +3019,9 @@ export type InvestmentFindFirstOrThrowArgs<
    *
    * Determine the order of Investments to fetch.
    */
-  orderBy?: Prisma.InvestmentOrderByWithRelationInput | Prisma.InvestmentOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.InvestmentOrderByWithRelationInput
+    | Prisma.InvestmentOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -2598,14 +3045,17 @@ export type InvestmentFindFirstOrThrowArgs<
    *
    * Filter by unique combinations of Investments.
    */
-  distinct?: Prisma.InvestmentScalarFieldEnum | Prisma.InvestmentScalarFieldEnum[];
+  distinct?:
+    | Prisma.InvestmentScalarFieldEnum
+    | Prisma.InvestmentScalarFieldEnum[];
 };
 
 /**
  * Investment findMany
  */
 export type InvestmentFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2628,7 +3078,9 @@ export type InvestmentFindManyArgs<
    *
    * Determine the order of Investments to fetch.
    */
-  orderBy?: Prisma.InvestmentOrderByWithRelationInput | Prisma.InvestmentOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.InvestmentOrderByWithRelationInput
+    | Prisma.InvestmentOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -2647,14 +3099,17 @@ export type InvestmentFindManyArgs<
    * Skip the first `n` Investments.
    */
   skip?: number;
-  distinct?: Prisma.InvestmentScalarFieldEnum | Prisma.InvestmentScalarFieldEnum[];
+  distinct?:
+    | Prisma.InvestmentScalarFieldEnum
+    | Prisma.InvestmentScalarFieldEnum[];
 };
 
 /**
  * Investment create
  */
 export type InvestmentCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2671,14 +3126,18 @@ export type InvestmentCreateArgs<
   /**
    * The data needed to create a Investment.
    */
-  data: Prisma.XOR<Prisma.InvestmentCreateInput, Prisma.InvestmentUncheckedCreateInput>;
+  data: Prisma.XOR<
+    Prisma.InvestmentCreateInput,
+    Prisma.InvestmentUncheckedCreateInput
+  >;
 };
 
 /**
  * Investment createMany
  */
 export type InvestmentCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to create many Investments.
@@ -2690,7 +3149,8 @@ export type InvestmentCreateManyArgs<
  * Investment createManyAndReturn
  */
 export type InvestmentCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2714,7 +3174,8 @@ export type InvestmentCreateManyAndReturnArgs<
  * Investment update
  */
 export type InvestmentUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2731,7 +3192,10 @@ export type InvestmentUpdateArgs<
   /**
    * The data needed to update a Investment.
    */
-  data: Prisma.XOR<Prisma.InvestmentUpdateInput, Prisma.InvestmentUncheckedUpdateInput>;
+  data: Prisma.XOR<
+    Prisma.InvestmentUpdateInput,
+    Prisma.InvestmentUncheckedUpdateInput
+  >;
   /**
    * Choose, which Investment to update.
    */
@@ -2742,7 +3206,8 @@ export type InvestmentUpdateArgs<
  * Investment updateMany
  */
 export type InvestmentUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to update Investments.
@@ -2765,7 +3230,8 @@ export type InvestmentUpdateManyArgs<
  * Investment updateManyAndReturn
  */
 export type InvestmentUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2800,7 +3266,8 @@ export type InvestmentUpdateManyAndReturnArgs<
  * Investment upsert
  */
 export type InvestmentUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2821,18 +3288,25 @@ export type InvestmentUpsertArgs<
   /**
    * In case the Investment found by the `where` argument doesn't exist, create a new Investment with this data.
    */
-  create: Prisma.XOR<Prisma.InvestmentCreateInput, Prisma.InvestmentUncheckedCreateInput>;
+  create: Prisma.XOR<
+    Prisma.InvestmentCreateInput,
+    Prisma.InvestmentUncheckedCreateInput
+  >;
   /**
    * In case the Investment was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<Prisma.InvestmentUpdateInput, Prisma.InvestmentUncheckedUpdateInput>;
+  update: Prisma.XOR<
+    Prisma.InvestmentUpdateInput,
+    Prisma.InvestmentUncheckedUpdateInput
+  >;
 };
 
 /**
  * Investment delete
  */
 export type InvestmentDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -2856,7 +3330,8 @@ export type InvestmentDeleteArgs<
  * Investment deleteMany
  */
 export type InvestmentDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Investments to delete
@@ -2872,7 +3347,8 @@ export type InvestmentDeleteManyArgs<
  * Investment.profits
  */
 export type Investment$profitsArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -2887,7 +3363,9 @@ export type Investment$profitsArgs<
    */
   include?: Prisma.ProfitInclude<ExtArgs> | null;
   where?: Prisma.ProfitWhereInput;
-  orderBy?: Prisma.ProfitOrderByWithRelationInput | Prisma.ProfitOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.ProfitOrderByWithRelationInput
+    | Prisma.ProfitOrderByWithRelationInput[];
   cursor?: Prisma.ProfitWhereUniqueInput;
   take?: number;
   skip?: number;
@@ -2898,7 +3376,8 @@ export type Investment$profitsArgs<
  * Investment without action
  */
 export type InvestmentDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment

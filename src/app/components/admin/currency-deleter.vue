@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { useConfirm, useToast } from "primevue";
 import { useFetch } from "@/app/composables/use-fetch";
 
@@ -14,9 +13,12 @@ const emit = defineEmits<{
 const toast = useToast();
 const confirm = useConfirm();
 
-const { isFetching, error, data, execute } = useFetch(() => `/api/admins/me/currencies/${id}`, {
-  immediate: false
-})
+const { isFetching, error, data, execute } = useFetch(
+  () => `/api/admins/me/currencies/${id}`,
+  {
+    immediate: false
+  }
+)
   .delete()
   .json();
 

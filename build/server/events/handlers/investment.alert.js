@@ -114,7 +114,9 @@ async function onInvestmentPauseToggle({ user, investment }) {
                 "Investment Tier": investment.investmentTier,
                 Status: conditional("Paused", "Open"),
                 ...(investment.investmentStatus === "PAUSED" &&
-                    !!investment.pausedReason && { "Reason for Pause": investment.pausedReason }),
+                    !!investment.pausedReason && {
+                    "Reason for Pause": investment.pausedReason
+                }),
                 "Total Returns": `$${investment.currentTotalReturns.toLocaleString()}`
             }
         };

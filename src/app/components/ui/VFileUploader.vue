@@ -92,7 +92,9 @@ const handleSelect = async (event: Event) => {
       files.value = null;
       uploadError.value = {
         error: true,
-        message: invalidFileSizeMessage || `File size exceeds the ${formattedSize} limit.`
+        message:
+          invalidFileSizeMessage ||
+          `File size exceeds the ${formattedSize} limit.`
       };
       return;
     }
@@ -168,7 +170,12 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="flex flex-col items-center justify-center *:flex-shrink-0">
-    <Message v-show="uploadError.error" severity="error" closable class="w-full mb-2">
+    <Message
+      v-show="uploadError.error"
+      severity="error"
+      closable
+      class="w-full mb-2"
+    >
       {{ uploadError.message }}
     </Message>
 
@@ -213,9 +220,14 @@ onBeforeUnmount(() => {
         <template #default>
           <div
             class="font-semibold flex items-center justify-center gap-2 cursor-pointer w-full p-2"
-            :class="{ 'cursor-context-menu': disabled, '!p-1': size === 'small' }"
+            :class="{
+              'cursor-context-menu': disabled,
+              '!p-1': size === 'small'
+            }"
           >
-            <span :class="loading ? 'pi pi-spinner pi-spin' : 'pi pi-plus'"></span>
+            <span
+              :class="loading ? 'pi pi-spinner pi-spin' : 'pi pi-plus'"
+            ></span>
             <span>{{ uploadLabel }}</span>
           </div>
         </template>

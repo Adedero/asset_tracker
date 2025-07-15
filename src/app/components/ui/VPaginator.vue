@@ -25,7 +25,8 @@ const prev = () => {
 };
 
 const next = () => {
-  if (allLoaded || (totalPages !== undefined && page.value >= totalPages - 1)) return;
+  if (allLoaded || (totalPages !== undefined && page.value >= totalPages - 1))
+    return;
   page.value += 1;
   emit("next", page.value);
 };
@@ -53,18 +54,27 @@ const next = () => {
         <div v-if="rows && length" class="text-center flex-shrink-0 py-1 px-2">
           <span class="font-medium">{{ page * rows + 1 }}</span>
           to
-          <span class="font-medium">{{ Math.min((page + 1) * rows, length) }} </span>
+          <span class="font-medium"
+            >{{ Math.min((page + 1) * rows, length) }}
+          </span>
         </div>
 
-        <p class="border border-slate-400 text-center p-1 px-2 rounded-md dark:text-slate-400">
-          page <span class="font-medium text-slate-600 dark:text-slate-200">{{ page + 1 }}</span>
+        <p
+          class="border border-slate-400 text-center p-1 px-2 rounded-md dark:text-slate-400"
+        >
+          page
+          <span class="font-medium text-slate-600 dark:text-slate-200">{{
+            page + 1
+          }}</span>
         </p>
       </div>
 
       <Button
         aria-label="Next Page"
         @click="next"
-        :disabled="allLoaded || (totalPages !== undefined && page >= totalPages - 1)"
+        :disabled="
+          allLoaded || (totalPages !== undefined && page >= totalPages - 1)
+        "
         size="small"
         severity="secondary"
         rounded
@@ -73,7 +83,10 @@ const next = () => {
       />
     </div>
 
-    <div v-if="allLoaded" class="text-center mt-2 text-sm text-gray-500 dark:text-gray-400">
+    <div
+      v-if="allLoaded"
+      class="text-center mt-2 text-sm text-gray-500 dark:text-gray-400"
+    >
       All data loaded
     </div>
   </div>

@@ -17,8 +17,9 @@ const { isLoading, data, error, mutate } = useSWRV<TransactionGetApiResponse>(
 );
 
 function numberOfCards(currency: "USD" | "CAD" | "GBP") {
-  return data.value?.transaction.giftCardData?.cards.filter((card) => card.currency === currency)
-    .length;
+  return data.value?.transaction.giftCardData?.cards.filter(
+    (card) => card.currency === currency
+  ).length;
 }
 
 const isExpected = computed(() => {
@@ -61,7 +62,9 @@ function totalAmountInUSD() {
     <div class="h-full">
       <VNavbar>
         <template v-if="data" #right>
-          <div class="flex flex-wrap md:flex-nowrap justify-end items-center gap-2">
+          <div
+            class="flex flex-wrap md:flex-nowrap justify-end items-center gap-2"
+          >
             <div class="text-right">
               <small class="text-slate-500">Deposited</small>
               <p
@@ -75,10 +78,14 @@ function totalAmountInUSD() {
 
             <div class="text-right">
               <small class="text-slate-500">Requested</small>
-              <p class="text-emerald-500 font-semibold text-lg md:text-2xl leading-5">
+              <p
+                class="text-emerald-500 font-semibold text-lg md:text-2xl leading-5"
+              >
                 {{
                   dollar.format(
-                    data.transaction.giftCardData?.totalInUSD || totalAmountInUSD() || 0
+                    data.transaction.giftCardData?.totalInUSD ||
+                      totalAmountInUSD() ||
+                      0
                   )
                 }}
               </p>
@@ -116,7 +123,9 @@ function totalAmountInUSD() {
                 <VCard v-if="totalAmount('CAD')" header="Canadian Gift Cards">
                   <template #header>
                     <div class="flex items-center gap-1">
-                      <p class="text-slate-500 font-semibold">Canadian Gift Cards</p>
+                      <p class="text-slate-500 font-semibold">
+                        Canadian Gift Cards
+                      </p>
                       <Badge severity="danger" :value="numberOfCards('CAD')" />
                     </div>
                   </template>
@@ -149,7 +158,9 @@ function totalAmountInUSD() {
                     <p class="text-2xl font-semibold">
                       {{
                         dollar.format(
-                          data.transaction.giftCardData?.totalInUSD || totalAmountInUSD() || 0
+                          data.transaction.giftCardData?.totalInUSD ||
+                            totalAmountInUSD() ||
+                            0
                         )
                       }}
                     </p>
@@ -185,16 +196,22 @@ function totalAmountInUSD() {
                     "
                   />
 
-                  <Message v-if="totalAmount('CAD') || totalAmount('GBP')" size="small">
+                  <Message
+                    v-if="totalAmount('CAD') || totalAmount('GBP')"
+                    size="small"
+                  >
                     <p class="text-xs font-normal">
-                      The rates above were based on the market rates at the time of the creation of
-                      the deposit request :
+                      The rates above were based on the market rates at the time
+                      of the creation of the deposit request :
                       <b>{{
-                        useDateFormat(data.transaction.createdAt, "MMM DD, YYYY hh:mm:ss aa")
+                        useDateFormat(
+                          data.transaction.createdAt,
+                          "MMM DD, YYYY hh:mm:ss aa"
+                        )
                       }}</b
                       >. <br />
-                      Please note that at the time of validating the gift cards, the rates may have
-                      changed.
+                      Please note that at the time of validating the gift cards,
+                      the rates may have changed.
                     </p>
                   </Message>
                 </VCard>
@@ -208,40 +225,61 @@ function totalAmountInUSD() {
                 </VCard>
 
                 <div class="mt-2 grid gap-2">
-                  <VCard v-for="card in data.transaction.giftCardData?.cards || []" class="border">
+                  <VCard
+                    v-for="card in data.transaction.giftCardData?.cards || []"
+                    class="border"
+                  >
                     <div class="grid gap-2 md:grid-cols-6">
                       <div class="md:col-span-3">
-                        <span class="text-sm font-medium text-slate-500">Type</span>
+                        <span class="text-sm font-medium text-slate-500"
+                          >Type</span
+                        >
                         <InputText :value="card.type" fluid disabled />
                       </div>
 
                       <div class="md:col-span-3">
-                        <span class="text-sm font-medium text-slate-500">Country</span>
+                        <span class="text-sm font-medium text-slate-500"
+                          >Country</span
+                        >
                         <InputText :value="card.country" fluid disabled />
                       </div>
 
                       <div class="md:col-span-6">
-                        <span class="text-sm font-medium text-slate-500">Card Number</span>
+                        <span class="text-sm font-medium text-slate-500"
+                          >Card Number</span
+                        >
                         <InputText :value="card.cardNumber" fluid disabled />
                       </div>
 
                       <div class="md:col-span-3">
-                        <span class="text-sm font-medium text-slate-500">PIN/Security Code</span>
+                        <span class="text-sm font-medium text-slate-500"
+                          >PIN/Security Code</span
+                        >
                         <InputText :value="card.pin" fluid disabled />
                       </div>
 
                       <div class="md:col-span-3">
-                        <span class="text-sm font-medium text-slate-500">Amount/Balance</span>
+                        <span class="text-sm font-medium text-slate-500"
+                          >Amount/Balance</span
+                        >
                         <InputText :value="card.amount" fluid disabled />
                       </div>
 
                       <div class="md:col-span-3">
-                        <span class="text-sm font-medium text-slate-500">Amount Retrieved</span>
-                        <InputText :value="card.amountRetrieved" fluid disabled />
+                        <span class="text-sm font-medium text-slate-500"
+                          >Amount Retrieved</span
+                        >
+                        <InputText
+                          :value="card.amountRetrieved"
+                          fluid
+                          disabled
+                        />
                       </div>
 
                       <div class="md:col-span-3">
-                        <span class="text-sm font-medium text-slate-500">Rate Used</span>
+                        <span class="text-sm font-medium text-slate-500"
+                          >Rate Used</span
+                        >
                         <InputText :value="card.rateUsed" fluid disabled />
                       </div>
                     </div>
@@ -253,7 +291,8 @@ function totalAmountInUSD() {
 
           <div v-else>
             <Message>
-              No report exists for this gift card transaction because it has not yet been approved.
+              No report exists for this gift card transaction because it has not
+              yet been approved.
             </Message>
           </div>
         </div>

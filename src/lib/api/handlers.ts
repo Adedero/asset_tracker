@@ -3,7 +3,11 @@ import { HttpException, HttpResponse } from "./http";
 import { z, ZodError } from "zod";
 
 export type DefineHandlerFunction = <T>(
-  fn: (req: Request, res: Response, next: NextFunction) => void | Promise<void> | T | Promise<T>
+  fn: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => void | Promise<void> | T | Promise<T>
 ) => RequestHandler;
 /**
  * A higher-order function that wraps an asynchronous handler function with error handling and response formatting.
@@ -44,7 +48,9 @@ export const defineHandler: DefineHandlerFunction = <T>(
         result.send(res);
       } else {
         try {
-          res.status(200).json({ success: true, statusCode: res.status, ...result });
+          res
+            .status(200)
+            .json({ success: true, statusCode: res.status, ...result });
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
           res.status(200).send(String(result));
@@ -61,8 +67,18 @@ type RequestPart = "body" | "query" | "params" | "headers";
 export type DefineValidatorOptions<T extends z.ZodTypeAny> = {
   errorCode?: string;
   errorMessage?: string;
-  onSuccess?: (parsed: z.infer<T>, req: Request, res: Response, next: NextFunction) => void;
-  onError?: (error: z.ZodError, req: Request, res: Response, next: NextFunction) => void;
+  onSuccess?: (
+    parsed: z.infer<T>,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => void;
+  onError?: (
+    error: z.ZodError,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => void;
 };
 
 export type DefineValidatorFunction = typeof defineValidator;
@@ -117,7 +133,8 @@ export const defineValidator = <T extends RequestPart, K extends z.ZodTypeAny>(
       return options.onError(validationError, req, res, next);
     }
 
-    const errorMessage = options.errorMessage || validationError.errors[0].message;
+    const errorMessage =
+      options.errorMessage || validationError.errors[0].message;
 
     const error = new HttpException(400, errorMessage, {
       errorCode: options.errorCode || `VALIDATION_ERROR_${path.toUpperCase()}`,

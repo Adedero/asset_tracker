@@ -17,14 +17,21 @@ const { isLoading, data, error, mutate } = useSWRV<FaqItemGetApiResponse>(
   <VueLayout name="user">
     <VNavbar>
       <template #left>
-        <h1 class="text-lg font-semibold text-primary-500 dark:text-primary-400">
+        <h1
+          class="text-lg font-semibold text-primary-500 dark:text-primary-400"
+        >
           Frequently Asked Questions
         </h1>
       </template>
 
       <template #right>
         <RouterLink :to="{ name: 'user-faq' }">
-          <Button severity="secondary" label="FAQs" size="small" icon="pi pi-arrow-left" />
+          <Button
+            severity="secondary"
+            label="FAQs"
+            size="small"
+            icon="pi pi-arrow-left"
+          />
         </RouterLink>
       </template>
     </VNavbar>
@@ -38,9 +45,13 @@ const { isLoading, data, error, mutate } = useSWRV<FaqItemGetApiResponse>(
         <div
           class="mt-2 py-2 flex gap-2 *:flex-shrink-0 md:h-[calc(100dvh-9rem)] overflow-y-auto justify-center"
         >
-          <div class="w-full h-fit max-w-[32rem] grid gap-4 bg-slate-200 p-4 rounded-lg">
+          <div
+            class="w-full h-fit max-w-[32rem] grid gap-4 bg-slate-200 p-4 rounded-lg"
+          >
             <div class="v-card !p-3">
-              <h1 class="text-lg text-center font-semibold text-primary-500 dark:text-primary-400">
+              <h1
+                class="text-lg text-center font-semibold text-primary-500 dark:text-primary-400"
+              >
                 {{ data.faq.title }}
               </h1>
             </div>

@@ -23,7 +23,9 @@ const {
   error: deleteError,
   data: deleteData,
   execute: deleteFaq
-} = useFetch(() => `/api/admins/me/faqs/${selectedFaq.value?.id}`, { immediate: false })
+} = useFetch(() => `/api/admins/me/faqs/${selectedFaq.value?.id}`, {
+  immediate: false
+})
   .delete()
   .json<FaqDeleteApiResponse>();
 
@@ -31,13 +33,21 @@ async function deleteFaqItem() {
   if (!data.value?.faqs) return;
 
   if (!selectedFaq.value) {
-    toast.add({ severity: "error", summary: "Error", detail: "No FAQ selected" });
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "No FAQ selected"
+    });
     return;
   }
   await deleteFaq();
 
   if (deleteError.value || !deleteData.value?.faq) {
-    toast.add({ severity: "error", summary: "Error", detail: deleteError.value.message });
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: deleteError.value.message
+    });
     return;
   }
 
@@ -98,7 +108,9 @@ const onDeleteFaq = (faq: Faq) => {
 
         <template #right>
           <div class="flex items-center gap-2">
-            <p class="text-primary-500 font-semibold">{{ data?.faqs.length }}</p>
+            <p class="text-primary-500 font-semibold">
+              {{ data?.faqs.length }}
+            </p>
             <Button
               @click="$router.push({ name: 'admin-faq-item' })"
               label="New"
@@ -112,7 +124,12 @@ const onDeleteFaq = (faq: Faq) => {
       <div class="mt-2 md:h-[calc(100dvh-9rem)]">
         <VPageLoader v-if="isLoading" />
 
-        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="mutate()"
+        />
 
         <div v-else-if="data" class="h-full w-full overflow-y-auto">
           <div class="grid gap-4">
@@ -124,7 +141,12 @@ const onDeleteFaq = (faq: Faq) => {
               <div class="mt-2">
                 <div class="flex items-center gap-2 justify-end">
                   <Button
-                    @click="$router.push({ name: 'admin-faq-item', params: { faq_id: faq.id } })"
+                    @click="
+                      $router.push({
+                        name: 'admin-faq-item',
+                        params: { faq_id: faq.id }
+                      })
+                    "
                     label="Edit"
                     icon="pi pi-file-edit"
                     severity="secondary"

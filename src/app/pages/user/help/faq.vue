@@ -13,14 +13,21 @@ const { isLoading, data, error, mutate } = useSWRV<FaqGetApiResponse>(
   <VueLayout name="user">
     <VNavbar>
       <template #left>
-        <h1 class="text-lg font-semibold text-primary-500 dark:text-primary-400">
+        <h1
+          class="text-lg font-semibold text-primary-500 dark:text-primary-400"
+        >
           Frequently Asked Questions
         </h1>
       </template>
 
       <template #right>
         <RouterLink :to="{ name: 'user-help-center' }">
-          <Button severity="secondary" label="Help Center" size="small" icon="pi pi-arrow-left" />
+          <Button
+            severity="secondary"
+            label="Help Center"
+            size="small"
+            icon="pi pi-arrow-left"
+          />
         </RouterLink>
       </template>
     </VNavbar>
@@ -40,7 +47,10 @@ const { isLoading, data, error, mutate } = useSWRV<FaqGetApiResponse>(
             :key="f.id"
             :to="{ name: 'user-faq-item', params: { faq_item_slug: f.slug } }"
           >
-            <VCard :header="`${i + 1}) ${f.title}`" class="w-full max-w-[32rem] hover:bg-slate-50">
+            <VCard
+              :header="`${i + 1}) ${f.title}`"
+              class="w-full max-w-[32rem] hover:bg-slate-50"
+            >
               <p class="line-clamp-1">
                 {{ f.description }}
               </p>

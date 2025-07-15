@@ -37,7 +37,9 @@ const {
   error,
   data,
   execute: terminate
-} = useFetch(`/api/admins/me/investments/${investment.id}/terminate`, { immediate: false })
+} = useFetch(`/api/admins/me/investments/${investment.id}/terminate`, {
+  immediate: false
+})
   .post(request)
   .json<TerminateInvestmentApiResponse>();
 
@@ -57,7 +59,11 @@ const terminateInvestment = async () => {
 
   if (!data.value?.success) return;
 
-  emit("terminate", { ...investment, ...data.value.investment, investmentStatus: "TERMINATED" });
+  emit("terminate", {
+    ...investment,
+    ...data.value.investment,
+    investmentStatus: "TERMINATED"
+  });
 
   visible.value = false;
 };
@@ -111,7 +117,12 @@ const cancel = () => {
       </slot>
     </button>
 
-    <Dialog v-model:visible="visible" header="Terminate Investment" modal class="max-w-96">
+    <Dialog
+      v-model:visible="visible"
+      header="Terminate Investment"
+      modal
+      class="max-w-96"
+    >
       <div class="grid gap-5">
         <p>
           You are about to terminate your investment:
@@ -123,13 +134,23 @@ const cancel = () => {
           <label for="reason" class="text-sm text-mute font-medium">
             Enter the reason for terminating the investment
           </label>
-          <Textarea id="reason" v-model="request.terminationReason" rows="6" class="resize-none" />
+          <Textarea
+            id="reason"
+            v-model="request.terminationReason"
+            rows="6"
+            class="resize-none"
+          />
         </div>
 
         <div class="mt-4 flex items-center gap-2 flex-wrap">
-          <Checkbox binary v-model="request.applyTerminationFee" id="apply-fee" />
+          <Checkbox
+            binary
+            v-model="request.applyTerminationFee"
+            id="apply-fee"
+          />
           <label for="apply-fee" class="text-sm text-mute font-medium">
-            Apply ${{ investment.terminationFee.toLocaleString() }} termination fee
+            Apply ${{ investment.terminationFee.toLocaleString() }} termination
+            fee
           </label>
         </div>
 

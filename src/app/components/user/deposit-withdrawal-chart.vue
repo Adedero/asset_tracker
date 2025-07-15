@@ -28,8 +28,12 @@ const setChartData = () => {
 
   // Separate transactions into deposits and withdrawals
   const deposits = transactions.filter((t) => t.transactionType === "DEPOSIT");
-  const withdrawals = transactions.filter((t) => t.transactionType === "WITHDRAWAL");
-  const investments = transactions.filter((t) => t.transactionType === "INVESTMENT");
+  const withdrawals = transactions.filter(
+    (t) => t.transactionType === "WITHDRAWAL"
+  );
+  const investments = transactions.filter(
+    (t) => t.transactionType === "INVESTMENT"
+  );
   const profits = transactions.filter((t) => t.transactionType === "PROFIT");
 
   const labels = ["Deposits", "Withdrawals", "Investments", "Profits"];
@@ -38,7 +42,12 @@ const setChartData = () => {
     labels,
     datasets: [
       {
-        data: [deposits.length, withdrawals.length, investments.length, profits.length],
+        data: [
+          deposits.length,
+          withdrawals.length,
+          investments.length,
+          profits.length
+        ],
         backgroundColor: [
           documentStyle.getPropertyValue("--p-emerald-500"),
           documentStyle.getPropertyValue("--p-red-500"),

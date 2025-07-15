@@ -9,7 +9,13 @@ interface Props {
   shouldRetry?: boolean;
 }
 
-const { error, closable = true, life, size = "small", shouldRetry = false } = defineProps<Props>();
+const {
+  error,
+  closable = true,
+  life,
+  size = "small",
+  shouldRetry = false
+} = defineProps<Props>();
 
 const emit = defineEmits(["retry"]);
 
@@ -31,7 +37,12 @@ const attrs = useAttrs();
         <div class="flex items-start gap-2 text-sm font-medium">
           <span class="pi pi-info-circle block shrink-0 translate-y-0.5"></span>
           <p class="flex-grow">
-            {{ error.data?.statusMessage || error.statusMessage || error.message || error }}
+            {{
+              error.data?.statusMessage ||
+              error.statusMessage ||
+              error.message ||
+              error
+            }}
           </p>
           <Button
             size="small"
@@ -44,7 +55,10 @@ const attrs = useAttrs();
           />
         </div>
 
-        <div v-if="shouldRetry" class="mt-2 flex items-center justify-end w-full">
+        <div
+          v-if="shouldRetry"
+          class="mt-2 flex items-center justify-end w-full"
+        >
           <Button
             size="small"
             label="Retry"

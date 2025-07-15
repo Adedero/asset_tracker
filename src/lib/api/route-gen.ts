@@ -10,7 +10,10 @@ import { createRequire } from "node:module";
 export interface GenerateRoutesOptions {
   globalMiddleware?: RequestHandler | RequestHandler[];
   groupMiddleware?: Partial<
-    Record<RouteGroups, RequestHandler | ApiRequestHandler | ApiRequestHandler[]>
+    Record<
+      RouteGroups,
+      RequestHandler | ApiRequestHandler | ApiRequestHandler[]
+    >
   >;
   globalPrefix?: string;
 }
@@ -36,7 +39,8 @@ const addLeadingSlash = (str: string | undefined) => {
   return str.startsWith("/") ? str : `/${str}`;
 };
 
-const isCommonJS = typeof require !== "undefined" && typeof __filename !== "undefined";
+const isCommonJS =
+  typeof require !== "undefined" && typeof __filename !== "undefined";
 
 const requireIfAvailable = isCommonJS ? createRequire(__filename) : null;
 
@@ -51,10 +55,17 @@ async function loadModule(entry: string) {
 
 //const __filename = import.meta.filename;
 
-export const generateRoutes = async (expressApp: Express, options: GenerateRoutesOptions = {}) => {
+export const generateRoutes = async (
+  expressApp: Express,
+  options: GenerateRoutesOptions = {}
+) => {
   const router: Router = Router();
 
-  const { globalMiddleware = [], groupMiddleware = {}, globalPrefix = "" } = options;
+  const {
+    globalMiddleware = [],
+    groupMiddleware = {},
+    globalPrefix = ""
+  } = options;
 
   const allGlobalMiddleware = Array.isArray(globalMiddleware)
     ? globalMiddleware
@@ -74,7 +85,9 @@ export const generateRoutes = async (expressApp: Express, options: GenerateRoute
 
   if (entries.length === 0) {
     if (process.env.NODE_ENV === "development") {
-      console.warn("[⚠️ Warning] No API files found. Skipping route generation.");
+      console.warn(
+        "[⚠️ Warning] No API files found. Skipping route generation."
+      );
     }
     return expressApp;
   }

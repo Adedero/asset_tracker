@@ -37,12 +37,14 @@ const adminRoutes = [
   {
     path: "transactions/:transaction_id/gift-card/validate",
     name: "admin-gift-card-validate",
-    component: () => import("@/app/pages/admin/transactions/gift-card-validate.vue")
+    component: () =>
+      import("@/app/pages/admin/transactions/gift-card-validate.vue")
   },
   {
     path: "transactions/:transaction_id/gift-card/validation-report",
     name: "admin-gift-card-validation-report",
-    component: () => import("@/app/pages/admin/transactions/gift-card-validation-report.vue")
+    component: () =>
+      import("@/app/pages/admin/transactions/gift-card-validation-report.vue")
   },
   {
     path: "investments",
@@ -57,22 +59,26 @@ const adminRoutes = [
   {
     path: "investment-plans",
     name: "admin-investment-plans",
-    component: () => import("@/app/pages/admin/investments/investment-plans.vue")
+    component: () =>
+      import("@/app/pages/admin/investments/investment-plans.vue")
   },
   {
     path: "investment-plans/edit/:investment_plan_id?",
     name: "admin-investment-plan-editor",
-    component: () => import("@/app/pages/admin/investments/investment-plan-editor.vue")
+    component: () =>
+      import("@/app/pages/admin/investments/investment-plan-editor.vue")
   },
   {
     path: "account-groups",
     name: "admin-account-groups",
-    component: () => import("@/app/pages/admin/account-groups/account-groups.vue")
+    component: () =>
+      import("@/app/pages/admin/account-groups/account-groups.vue")
   },
   {
     path: "account-groups/edit/:account_group_id?",
     name: "admin-account-group-editor",
-    component: () => import("@/app/pages/admin/account-groups/account-group-editor.vue")
+    component: () =>
+      import("@/app/pages/admin/account-groups/account-group-editor.vue")
   },
   {
     path: "email-service",

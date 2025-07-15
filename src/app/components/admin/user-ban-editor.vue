@@ -22,10 +22,22 @@ const disabled = computed(() => {
   if (banIndefinitely.value) {
     return !credentials.value.banReason;
   }
-  return !credentials.value.banReason || !duration.value.number || !duration.value.frame;
+  return (
+    !credentials.value.banReason ||
+    !duration.value.number ||
+    !duration.value.frame
+  );
 });
 
-const timeFrame = ref(["seconds", "minutes", "hours", "days", "weeks", "months", "years"]);
+const timeFrame = ref([
+  "seconds",
+  "minutes",
+  "hours",
+  "days",
+  "weeks",
+  "months",
+  "years"
+]);
 
 const credentials = ref<{
   banReason: string;
@@ -37,9 +49,12 @@ const credentials = ref<{
   freezeInvestments: true
 });
 
-const { isFetching, error, data, execute } = useFetch(`/api/admins/me/users/${user.id}/ban`, {
-  immediate: false
-})
+const { isFetching, error, data, execute } = useFetch(
+  `/api/admins/me/users/${user.id}/ban`,
+  {
+    immediate: false
+  }
+)
   .put(credentials)
   .json();
 
@@ -115,13 +130,21 @@ const cancel = () => {
           <p>Are you sure you want to ban this user?</p>
 
           <div class="grid">
-            <label class="text-mute text-sm font-semibold">Enter the reason for the ban</label>
-            <Textarea v-model="credentials.banReason" rows="3" class="resize-none" />
+            <label class="text-mute text-sm font-semibold"
+              >Enter the reason for the ban</label
+            >
+            <Textarea
+              v-model="credentials.banReason"
+              rows="3"
+              class="resize-none"
+            />
           </div>
 
           <div class="grid">
             <div>
-              <label class="text-mute text-sm font-semibold">Ban duration </label>
+              <label class="text-mute text-sm font-semibold"
+                >Ban duration
+              </label>
 
               <div class="flex items-center gap-2 justify-between">
                 <InputNumber
@@ -142,19 +165,23 @@ const cancel = () => {
 
               <div class="flex items-center gap-1 mt-2">
                 <Checkbox v-model="banIndefinitely" binary />
-                <span class="text-red-500 text-sm font-medium">Ban indefinetly</span>
+                <span class="text-red-500 text-sm font-medium"
+                  >Ban indefinetly</span
+                >
               </div>
             </div>
           </div>
 
           <div class="grid">
             <div class="flex flex-wrap items-center gap-2 justify-between">
-              <label class="text-mute text-sm font-semibold">Freeze Investments</label>
+              <label class="text-mute text-sm font-semibold"
+                >Freeze Investments</label
+              >
               <ToggleSwitch v-model="credentials.freezeInvestments" />
             </div>
             <small class="text-xs text-mute mt-1">
-              Stop {{ user ? `${user.name}'s` : "this user's" }} investments from receiving any
-              profits for the duration of their ban.
+              Stop {{ user ? `${user.name}'s` : "this user's" }} investments
+              from receiving any profits for the duration of their ban.
             </small>
           </div>
 
@@ -169,7 +196,9 @@ const cancel = () => {
 
           <div v-else>
             <Divider />
-            <p class="text-sm text-red-500 font-medium">Are you sure you want to proceed?</p>
+            <p class="text-sm text-red-500 font-medium">
+              Are you sure you want to proceed?
+            </p>
             <div class="mt-2 grid grid-cols-2 gap-2">
               <Button
                 @click="cancel"

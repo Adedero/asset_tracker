@@ -17,7 +17,9 @@ export interface VerifyOTPResponse {
   user?: User;
 }
 
-export default async function verifyOTP(options: VerifyOTPOptions): Promise<VerifyOTPResponse> {
+export default async function verifyOTP(
+  options: VerifyOTPOptions
+): Promise<VerifyOTPResponse> {
   const { userId, email, otp, withVerificationLink = false } = options;
 
   let query: null | UserWhereUniqueInput = null;

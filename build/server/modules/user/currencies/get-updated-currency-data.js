@@ -12,7 +12,9 @@ const COINLAYER_API = env_1.default.get("COINLAYER_API");
 const COINLAYER_API_KEY = env_1.default.get("COINLAYER_API_KEY");
 async function getUpdatedCurrencyData(currency) {
     const ONE_DAY_AGO = new Date().getTime() - 24 * 60 * 60 * 1000;
-    const updatedAt = currency.rateUpdatedAt ? new Date(currency.rateUpdatedAt).getTime() : null;
+    const updatedAt = currency.rateUpdatedAt
+        ? new Date(currency.rateUpdatedAt).getTime()
+        : null;
     if (!updatedAt || updatedAt < ONE_DAY_AGO) {
         //If it has been a day since the rate was updated
         //fetch the new rate from coinbase

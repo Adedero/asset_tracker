@@ -9,7 +9,10 @@ const http_1 = require("#src/lib/api/http");
 const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
 const zod_1 = require("zod");
 const Schema = zod_1.z.object({
-    name: zod_1.z.string().trim().min(2, { message: "Name must be at least 2 characters long" }),
+    name: zod_1.z
+        .string()
+        .trim()
+        .min(2, { message: "Name must be at least 2 characters long" }),
     symbol: zod_1.z.string().trim(),
     abbr: zod_1.z.string().trim().toUpperCase(),
     image: zod_1.z.string().trim().optional(),
@@ -18,7 +21,10 @@ const Schema = zod_1.z.object({
     walletAddress: zod_1.z.string({ message: "Wallet address is required" }).trim(),
     walletAddressNetwork: zod_1.z.string().trim().optional(),
     isAvailableForWithdrawal: zod_1.z.boolean().optional(),
-    withdrawalCharge: zod_1.z.number().min(0, { message: "Rate must not be less than 0" }).optional()
+    withdrawalCharge: zod_1.z
+        .number()
+        .min(0, { message: "Rate must not be less than 0" })
+        .optional()
 });
 exports.default = (0, api_1.api)({
     group: "/admins/me",

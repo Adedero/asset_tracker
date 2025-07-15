@@ -34,15 +34,40 @@ const { isLoading, data, error, mutate } = useSWRV<InvestmentPlanApiResponse>(
           <VErrorMessage :error should-retry @retry="mutate()" />
         </div>
 
-        <div v-else-if="data" class="w-full py-2 grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          v-else-if="data"
+          class="w-full py-2 grid gap-2 md:grid-cols-2 lg:grid-cols-3"
+        >
           <div v-for="tier in data.plan.tiers" :key="tier.name" class="v-card">
             <div class="flex flex-col gap-2 items-center justify-center">
-              <p class="uppercase text-lg text-center font-semibold">{{ tier.name }}</p>
-              <SvgIcon v-if="tier.name.toLowerCase() === 'basic'" name="plant" size="80" />
-              <SvgIcon v-if="tier.name.toLowerCase() === 'bronze'" name="bronze-medal" size="80" />
-              <SvgIcon v-if="tier.name.toLowerCase() === 'silver'" name="silver-medal" size="80" />
-              <SvgIcon v-if="tier.name.toLowerCase() === 'gold'" name="gold-medal" size="80" />
-              <SvgIcon v-if="tier.name.toLowerCase() === 'platinum'" name="platinum" size="80" />
+              <p class="uppercase text-lg text-center font-semibold">
+                {{ tier.name }}
+              </p>
+              <SvgIcon
+                v-if="tier.name.toLowerCase() === 'basic'"
+                name="plant"
+                size="80"
+              />
+              <SvgIcon
+                v-if="tier.name.toLowerCase() === 'bronze'"
+                name="bronze-medal"
+                size="80"
+              />
+              <SvgIcon
+                v-if="tier.name.toLowerCase() === 'silver'"
+                name="silver-medal"
+                size="80"
+              />
+              <SvgIcon
+                v-if="tier.name.toLowerCase() === 'gold'"
+                name="gold-medal"
+                size="80"
+              />
+              <SvgIcon
+                v-if="tier.name.toLowerCase() === 'platinum'"
+                name="platinum"
+                size="80"
+              />
             </div>
             <Divider />
             <div class="w-full">
@@ -51,7 +76,9 @@ const { isLoading, data, error, mutate } = useSWRV<InvestmentPlanApiResponse>(
                   <span class="pi pi-money-bill" />
                   Minimum Amount
                 </p>
-                <p class="text-right font-semibold">{{ dollar.format(tier.minimumDeposit) }}</p>
+                <p class="text-right font-semibold">
+                  {{ dollar.format(tier.minimumDeposit) }}
+                </p>
               </div>
               <Divider />
               <div class="grid grid-cols-3 text-sm">
@@ -67,7 +94,9 @@ const { isLoading, data, error, mutate } = useSWRV<InvestmentPlanApiResponse>(
                   <span class="pi pi-replay" />
                   Expected Return
                 </p>
-                <p class="text-right font-semibold">{{ tier.expectedReturnRate }}%</p>
+                <p class="text-right font-semibold">
+                  {{ tier.expectedReturnRate }}%
+                </p>
               </div>
               <Divider />
               <Button

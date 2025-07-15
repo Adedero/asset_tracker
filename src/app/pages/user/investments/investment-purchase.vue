@@ -9,7 +9,8 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 
 const investment_plan_slug = route.params.investment_plan_slug.toString();
-const investment_plan_tier_name = route.params.investment_plan_tier_name.toString();
+const investment_plan_tier_name =
+  route.params.investment_plan_tier_name.toString();
 
 const {
   isLoading: initializing,
@@ -34,18 +35,36 @@ const selectedTier = computed(() => {
       <VPageLoader v-if="initializing" />
 
       <div v-else-if="errorInitializing" class="w-full flex-center">
-        <VErrorMessage :error="errorInitializing" should-retry @retry="initialize" />
+        <VErrorMessage
+          :error="errorInitializing"
+          should-retry
+          @retry="initialize"
+        />
       </div>
 
-      <div v-else-if="initData" class="grid gap-2 md:grid-cols-5 lg:grid-cols-3">
+      <div
+        v-else-if="initData"
+        class="grid gap-2 md:grid-cols-5 lg:grid-cols-3"
+      >
         <div class="md:col-span-2 lg:col-span-1">
           <div class="v-card grid">
-            <Tag severity="secondary" :value="initData.plan.name" class="dark:bg-slate-800" />
-            <div v-if="selectedTier" class="mt-2 flex flex-col gap-2 items-center justify-center">
+            <Tag
+              severity="secondary"
+              :value="initData.plan.name"
+              class="dark:bg-slate-800"
+            />
+            <div
+              v-if="selectedTier"
+              class="mt-2 flex flex-col gap-2 items-center justify-center"
+            >
               <p class="uppercase text-lg text-center font-semibold">
                 {{ selectedTier.name }}
               </p>
-              <SvgIcon v-if="selectedTier.name.toLowerCase() === 'basic'" name="plant" size="100" />
+              <SvgIcon
+                v-if="selectedTier.name.toLowerCase() === 'basic'"
+                name="plant"
+                size="100"
+              />
               <SvgIcon
                 v-if="selectedTier.name.toLowerCase() === 'bronze'"
                 name="bronze-medal"
@@ -84,7 +103,9 @@ const selectedTier = computed(() => {
                   <span class="pi pi-calendar" />
                   Term
                 </p>
-                <p class="text-right font-semibold">{{ selectedTier.duration }} days</p>
+                <p class="text-right font-semibold">
+                  {{ selectedTier.duration }} days
+                </p>
               </div>
               <Divider />
               <div class="grid grid-cols-3 text-sm">
@@ -92,7 +113,9 @@ const selectedTier = computed(() => {
                   <span class="pi pi-replay" />
                   Expected Return
                 </p>
-                <p class="text-right font-semibold">{{ selectedTier.expectedReturnRate }}%</p>
+                <p class="text-right font-semibold">
+                  {{ selectedTier.expectedReturnRate }}%
+                </p>
               </div>
               <Divider />
               <p class="text-xs text-mute">
@@ -135,7 +158,9 @@ const selectedTier = computed(() => {
               <span
                 class="pi pi-wallet bg-blue-400 dark:bg-blue-500/30 rounded-full p-2 text-white"
               />
-              <div class="flex-grow flex items-center gap-x-2 justify-between flex-wrap">
+              <div
+                class="flex-grow flex items-center gap-x-2 justify-between flex-wrap"
+              >
                 <p class="text-mute text-sm md:text-base">Available Balance</p>
                 <p class="text-xl md:text-2xl font-semibold text-green-600">
                   {{ dollar.format(initData.walletBalance) }}

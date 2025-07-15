@@ -21,11 +21,20 @@ const { isLoading, data, error, mutate } = useSWRV<InvestmentPlansApiResponse>(
           <VErrorMessage :error should-retry @retry="mutate()" />
         </div>
 
-        <div v-else-if="data" class="pt-2 grid gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div
+          v-else-if="data"
+          class="pt-2 grid gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        >
           <VCard v-for="plan in data.plans" :key="plan.id">
             <div class="grid gap-2 relative">
-              <div class="w-full h-40 bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden">
-                <img v-if="plan.image" :src="plan.image" class="w-full h-full object-cover" />
+              <div
+                class="w-full h-40 bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden"
+              >
+                <img
+                  v-if="plan.image"
+                  :src="plan.image"
+                  class="w-full h-full object-cover"
+                />
               </div>
               <p class="font-semibold text-center">{{ plan.name }}</p>
               <Button

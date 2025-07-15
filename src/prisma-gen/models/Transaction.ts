@@ -16,7 +16,8 @@ import type * as Prisma from "../internal/prismaNamespace";
  * Model Transaction
  *
  */
-export type TransactionModel = runtime.Types.Result.DefaultSelection<Prisma.$TransactionPayload>;
+export type TransactionModel =
+  runtime.Types.Result.DefaultSelection<Prisma.$TransactionPayload>;
 
 export type AggregateTransaction = {
   _count: TransactionCountAggregateOutputType | null;
@@ -225,7 +226,8 @@ export type TransactionCountAggregateInputType = {
 };
 
 export type TransactionAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Transaction to aggregate.
@@ -298,7 +300,8 @@ export type GetTransactionAggregateType<T extends TransactionAggregateArgs> = {
 };
 
 export type TransactionGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.TransactionWhereInput;
   orderBy?:
@@ -348,17 +351,18 @@ export type TransactionGroupByOutputType = {
   _max: TransactionMaxAggregateOutputType | null;
 };
 
-type GetTransactionGroupByPayload<T extends TransactionGroupByArgs> = Prisma.PrismaPromise<
-  Array<
-    Prisma.PickEnumerable<TransactionGroupByOutputType, T["by"]> & {
-      [P in keyof T & keyof TransactionGroupByOutputType]: P extends "_count"
-        ? T[P] extends boolean
-          ? number
-          : Prisma.GetScalarType<T[P], TransactionGroupByOutputType[P]>
-        : Prisma.GetScalarType<T[P], TransactionGroupByOutputType[P]>;
-    }
-  >
->;
+type GetTransactionGroupByPayload<T extends TransactionGroupByArgs> =
+  Prisma.PrismaPromise<
+    Array<
+      Prisma.PickEnumerable<TransactionGroupByOutputType, T["by"]> & {
+        [P in keyof T & keyof TransactionGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : Prisma.GetScalarType<T[P], TransactionGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], TransactionGroupByOutputType[P]>;
+      }
+    >
+  >;
 
 export type TransactionWhereInput = {
   AND?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[];
@@ -367,8 +371,12 @@ export type TransactionWhereInput = {
   id?: Prisma.StringFilter<"Transaction"> | string;
   userId?: Prisma.StringFilter<"Transaction"> | string;
   investmentId?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  transactionType?: Prisma.EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType;
-  transactionStatus?: Prisma.EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus;
+  transactionType?:
+    | Prisma.EnumTransactionTypeFilter<"Transaction">
+    | $Enums.TransactionType;
+  transactionStatus?:
+    | Prisma.EnumTransactionStatusFilter<"Transaction">
+    | $Enums.TransactionStatus;
   amountInUSD?: Prisma.FloatFilter<"Transaction"> | number;
   charge?: Prisma.FloatFilter<"Transaction"> | number;
   actualAmountInUSD?: Prisma.FloatFilter<"Transaction"> | number;
@@ -378,13 +386,36 @@ export type TransactionWhereInput = {
   isWireTransfer?: Prisma.BoolFilter<"Transaction"> | boolean;
   isGiftCard?: Prisma.BoolNullableFilter<"Transaction"> | boolean | null;
   giftCardData?: Prisma.JsonNullableFilter<"Transaction">;
-  wireTransferEmail?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  depositWalletAddress?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  depositWalletAddressNetwork?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  withdrawalWalletAddress?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  withdrawalWalletAddressNetwork?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  approvedAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null;
-  failedAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null;
+  wireTransferEmail?:
+    | Prisma.StringNullableFilter<"Transaction">
+    | string
+    | null;
+  depositWalletAddress?:
+    | Prisma.StringNullableFilter<"Transaction">
+    | string
+    | null;
+  depositWalletAddressNetwork?:
+    | Prisma.StringNullableFilter<"Transaction">
+    | string
+    | null;
+  withdrawalWalletAddress?:
+    | Prisma.StringNullableFilter<"Transaction">
+    | string
+    | null;
+  withdrawalWalletAddressNetwork?:
+    | Prisma.StringNullableFilter<"Transaction">
+    | string
+    | null;
+  approvedAt?:
+    | Prisma.DateTimeNullableFilter<"Transaction">
+    | Date
+    | string
+    | null;
+  failedAt?:
+    | Prisma.DateTimeNullableFilter<"Transaction">
+    | Date
+    | string
+    | null;
   failReason?: Prisma.StringNullableFilter<"Transaction"> | string | null;
   description?: Prisma.StringNullableFilter<"Transaction"> | string | null;
   createdAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string;
@@ -429,7 +460,9 @@ export type TransactionWhereUniqueInput = Prisma.AtLeast<
     NOT?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[];
     userId?: Prisma.StringFilter<"Transaction"> | string;
     investmentId?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-    transactionType?: Prisma.EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType;
+    transactionType?:
+      | Prisma.EnumTransactionTypeFilter<"Transaction">
+      | $Enums.TransactionType;
     transactionStatus?:
       | Prisma.EnumTransactionStatusFilter<"Transaction">
       | $Enums.TransactionStatus;
@@ -442,13 +475,36 @@ export type TransactionWhereUniqueInput = Prisma.AtLeast<
     isWireTransfer?: Prisma.BoolFilter<"Transaction"> | boolean;
     isGiftCard?: Prisma.BoolNullableFilter<"Transaction"> | boolean | null;
     giftCardData?: Prisma.JsonNullableFilter<"Transaction">;
-    wireTransferEmail?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-    depositWalletAddress?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-    depositWalletAddressNetwork?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-    withdrawalWalletAddress?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-    withdrawalWalletAddressNetwork?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-    approvedAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null;
-    failedAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null;
+    wireTransferEmail?:
+      | Prisma.StringNullableFilter<"Transaction">
+      | string
+      | null;
+    depositWalletAddress?:
+      | Prisma.StringNullableFilter<"Transaction">
+      | string
+      | null;
+    depositWalletAddressNetwork?:
+      | Prisma.StringNullableFilter<"Transaction">
+      | string
+      | null;
+    withdrawalWalletAddress?:
+      | Prisma.StringNullableFilter<"Transaction">
+      | string
+      | null;
+    withdrawalWalletAddressNetwork?:
+      | Prisma.StringNullableFilter<"Transaction">
+      | string
+      | null;
+    approvedAt?:
+      | Prisma.DateTimeNullableFilter<"Transaction">
+      | Date
+      | string
+      | null;
+    failedAt?:
+      | Prisma.DateTimeNullableFilter<"Transaction">
+      | Date
+      | string
+      | null;
     failReason?: Prisma.StringNullableFilter<"Transaction"> | string | null;
     description?: Prisma.StringNullableFilter<"Transaction"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string;
@@ -501,7 +557,10 @@ export type TransactionScalarWhereWithAggregatesInput = {
     | Prisma.TransactionScalarWhereWithAggregatesInput[];
   id?: Prisma.StringWithAggregatesFilter<"Transaction"> | string;
   userId?: Prisma.StringWithAggregatesFilter<"Transaction"> | string;
-  investmentId?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null;
+  investmentId?:
+    | Prisma.StringNullableWithAggregatesFilter<"Transaction">
+    | string
+    | null;
   transactionType?:
     | Prisma.EnumTransactionTypeWithAggregatesFilter<"Transaction">
     | $Enums.TransactionType;
@@ -515,10 +574,19 @@ export type TransactionScalarWhereWithAggregatesInput = {
   currency?: Prisma.StringWithAggregatesFilter<"Transaction"> | string;
   amountInCurrency?: Prisma.FloatWithAggregatesFilter<"Transaction"> | number;
   isWireTransfer?: Prisma.BoolWithAggregatesFilter<"Transaction"> | boolean;
-  isGiftCard?: Prisma.BoolNullableWithAggregatesFilter<"Transaction"> | boolean | null;
+  isGiftCard?:
+    | Prisma.BoolNullableWithAggregatesFilter<"Transaction">
+    | boolean
+    | null;
   giftCardData?: Prisma.JsonNullableWithAggregatesFilter<"Transaction">;
-  wireTransferEmail?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null;
-  depositWalletAddress?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null;
+  wireTransferEmail?:
+    | Prisma.StringNullableWithAggregatesFilter<"Transaction">
+    | string
+    | null;
+  depositWalletAddress?:
+    | Prisma.StringNullableWithAggregatesFilter<"Transaction">
+    | string
+    | null;
   depositWalletAddressNetwork?:
     | Prisma.StringNullableWithAggregatesFilter<"Transaction">
     | string
@@ -531,12 +599,32 @@ export type TransactionScalarWhereWithAggregatesInput = {
     | Prisma.StringNullableWithAggregatesFilter<"Transaction">
     | string
     | null;
-  approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null;
-  failedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null;
-  failReason?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null;
-  description?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null;
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Transaction"> | Date | string;
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Transaction"> | Date | string;
+  approvedAt?:
+    | Prisma.DateTimeNullableWithAggregatesFilter<"Transaction">
+    | Date
+    | string
+    | null;
+  failedAt?:
+    | Prisma.DateTimeNullableWithAggregatesFilter<"Transaction">
+    | Date
+    | string
+    | null;
+  failReason?:
+    | Prisma.StringNullableWithAggregatesFilter<"Transaction">
+    | string
+    | null;
+  description?:
+    | Prisma.StringNullableWithAggregatesFilter<"Transaction">
+    | string
+    | null;
+  createdAt?:
+    | Prisma.DateTimeWithAggregatesFilter<"Transaction">
+    | Date
+    | string;
+  updatedAt?:
+    | Prisma.DateTimeWithAggregatesFilter<"Transaction">
+    | Date
+    | string;
 };
 
 export type TransactionCreateInput = {
@@ -597,8 +685,13 @@ export type TransactionUncheckedCreateInput = {
 
 export type TransactionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
-  investmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  transactionType?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType;
+  investmentId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  transactionType?:
+    | Prisma.EnumTransactionTypeFieldUpdateOperationsInput
+    | $Enums.TransactionType;
   transactionStatus?:
     | Prisma.EnumTransactionStatusFieldUpdateOperationsInput
     | $Enums.TransactionStatus;
@@ -611,13 +704,36 @@ export type TransactionUpdateInput = {
   isWireTransfer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   isGiftCard?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
   giftCardData?: PrismaJson.GiftCardData | Prisma.NullableJsonNullValueInput;
-  wireTransferEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  wireTransferEmail?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  approvedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  failedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   failReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -628,8 +744,13 @@ export type TransactionUpdateInput = {
 export type TransactionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
-  investmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  transactionType?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType;
+  investmentId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  transactionType?:
+    | Prisma.EnumTransactionTypeFieldUpdateOperationsInput
+    | $Enums.TransactionType;
   transactionStatus?:
     | Prisma.EnumTransactionStatusFieldUpdateOperationsInput
     | $Enums.TransactionStatus;
@@ -642,13 +763,36 @@ export type TransactionUncheckedUpdateInput = {
   isWireTransfer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   isGiftCard?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
   giftCardData?: PrismaJson.GiftCardData | Prisma.NullableJsonNullValueInput;
-  wireTransferEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  wireTransferEmail?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  approvedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  failedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   failReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -685,8 +829,13 @@ export type TransactionCreateManyInput = {
 
 export type TransactionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
-  investmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  transactionType?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType;
+  investmentId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  transactionType?:
+    | Prisma.EnumTransactionTypeFieldUpdateOperationsInput
+    | $Enums.TransactionType;
   transactionStatus?:
     | Prisma.EnumTransactionStatusFieldUpdateOperationsInput
     | $Enums.TransactionStatus;
@@ -699,13 +848,36 @@ export type TransactionUpdateManyMutationInput = {
   isWireTransfer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   isGiftCard?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
   giftCardData?: PrismaJson.GiftCardData | Prisma.NullableJsonNullValueInput;
-  wireTransferEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  wireTransferEmail?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  approvedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  failedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   failReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -715,8 +887,13 @@ export type TransactionUpdateManyMutationInput = {
 export type TransactionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
-  investmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  transactionType?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType;
+  investmentId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  transactionType?:
+    | Prisma.EnumTransactionTypeFieldUpdateOperationsInput
+    | $Enums.TransactionType;
   transactionStatus?:
     | Prisma.EnumTransactionStatusFieldUpdateOperationsInput
     | $Enums.TransactionStatus;
@@ -729,13 +906,36 @@ export type TransactionUncheckedUpdateManyInput = {
   isWireTransfer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   isGiftCard?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
   giftCardData?: PrismaJson.GiftCardData | Prisma.NullableJsonNullValueInput;
-  wireTransferEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  wireTransferEmail?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  approvedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  failedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   failReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -862,7 +1062,9 @@ export type TransactionCreateNestedManyWithoutUserInput = {
     | Prisma.TransactionCreateOrConnectWithoutUserInput
     | Prisma.TransactionCreateOrConnectWithoutUserInput[];
   createMany?: Prisma.TransactionCreateManyUserInputEnvelope;
-  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[];
+  connect?:
+    | Prisma.TransactionWhereUniqueInput
+    | Prisma.TransactionWhereUniqueInput[];
 };
 
 export type TransactionUncheckedCreateNestedManyWithoutUserInput = {
@@ -877,7 +1079,9 @@ export type TransactionUncheckedCreateNestedManyWithoutUserInput = {
     | Prisma.TransactionCreateOrConnectWithoutUserInput
     | Prisma.TransactionCreateOrConnectWithoutUserInput[];
   createMany?: Prisma.TransactionCreateManyUserInputEnvelope;
-  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[];
+  connect?:
+    | Prisma.TransactionWhereUniqueInput
+    | Prisma.TransactionWhereUniqueInput[];
 };
 
 export type TransactionUpdateManyWithoutUserNestedInput = {
@@ -895,17 +1099,27 @@ export type TransactionUpdateManyWithoutUserNestedInput = {
     | Prisma.TransactionUpsertWithWhereUniqueWithoutUserInput
     | Prisma.TransactionUpsertWithWhereUniqueWithoutUserInput[];
   createMany?: Prisma.TransactionCreateManyUserInputEnvelope;
-  set?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[];
-  disconnect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[];
-  delete?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[];
-  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[];
+  set?:
+    | Prisma.TransactionWhereUniqueInput
+    | Prisma.TransactionWhereUniqueInput[];
+  disconnect?:
+    | Prisma.TransactionWhereUniqueInput
+    | Prisma.TransactionWhereUniqueInput[];
+  delete?:
+    | Prisma.TransactionWhereUniqueInput
+    | Prisma.TransactionWhereUniqueInput[];
+  connect?:
+    | Prisma.TransactionWhereUniqueInput
+    | Prisma.TransactionWhereUniqueInput[];
   update?:
     | Prisma.TransactionUpdateWithWhereUniqueWithoutUserInput
     | Prisma.TransactionUpdateWithWhereUniqueWithoutUserInput[];
   updateMany?:
     | Prisma.TransactionUpdateManyWithWhereWithoutUserInput
     | Prisma.TransactionUpdateManyWithWhereWithoutUserInput[];
-  deleteMany?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[];
+  deleteMany?:
+    | Prisma.TransactionScalarWhereInput
+    | Prisma.TransactionScalarWhereInput[];
 };
 
 export type TransactionUncheckedUpdateManyWithoutUserNestedInput = {
@@ -923,17 +1137,27 @@ export type TransactionUncheckedUpdateManyWithoutUserNestedInput = {
     | Prisma.TransactionUpsertWithWhereUniqueWithoutUserInput
     | Prisma.TransactionUpsertWithWhereUniqueWithoutUserInput[];
   createMany?: Prisma.TransactionCreateManyUserInputEnvelope;
-  set?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[];
-  disconnect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[];
-  delete?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[];
-  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[];
+  set?:
+    | Prisma.TransactionWhereUniqueInput
+    | Prisma.TransactionWhereUniqueInput[];
+  disconnect?:
+    | Prisma.TransactionWhereUniqueInput
+    | Prisma.TransactionWhereUniqueInput[];
+  delete?:
+    | Prisma.TransactionWhereUniqueInput
+    | Prisma.TransactionWhereUniqueInput[];
+  connect?:
+    | Prisma.TransactionWhereUniqueInput
+    | Prisma.TransactionWhereUniqueInput[];
   update?:
     | Prisma.TransactionUpdateWithWhereUniqueWithoutUserInput
     | Prisma.TransactionUpdateWithWhereUniqueWithoutUserInput[];
   updateMany?:
     | Prisma.TransactionUpdateManyWithWhereWithoutUserInput
     | Prisma.TransactionUpdateManyWithWhereWithoutUserInput[];
-  deleteMany?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[];
+  deleteMany?:
+    | Prisma.TransactionScalarWhereInput
+    | Prisma.TransactionScalarWhereInput[];
 };
 
 export type EnumTransactionTypeFieldUpdateOperationsInput = {
@@ -1007,7 +1231,9 @@ export type TransactionCreateOrConnectWithoutUserInput = {
 };
 
 export type TransactionCreateManyUserInputEnvelope = {
-  data: Prisma.TransactionCreateManyUserInput | Prisma.TransactionCreateManyUserInput[];
+  data:
+    | Prisma.TransactionCreateManyUserInput
+    | Prisma.TransactionCreateManyUserInput[];
 };
 
 export type TransactionUpsertWithWhereUniqueWithoutUserInput = {
@@ -1039,14 +1265,22 @@ export type TransactionUpdateManyWithWhereWithoutUserInput = {
 };
 
 export type TransactionScalarWhereInput = {
-  AND?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[];
+  AND?:
+    | Prisma.TransactionScalarWhereInput
+    | Prisma.TransactionScalarWhereInput[];
   OR?: Prisma.TransactionScalarWhereInput[];
-  NOT?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[];
+  NOT?:
+    | Prisma.TransactionScalarWhereInput
+    | Prisma.TransactionScalarWhereInput[];
   id?: Prisma.StringFilter<"Transaction"> | string;
   userId?: Prisma.StringFilter<"Transaction"> | string;
   investmentId?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  transactionType?: Prisma.EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType;
-  transactionStatus?: Prisma.EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus;
+  transactionType?:
+    | Prisma.EnumTransactionTypeFilter<"Transaction">
+    | $Enums.TransactionType;
+  transactionStatus?:
+    | Prisma.EnumTransactionStatusFilter<"Transaction">
+    | $Enums.TransactionStatus;
   amountInUSD?: Prisma.FloatFilter<"Transaction"> | number;
   charge?: Prisma.FloatFilter<"Transaction"> | number;
   actualAmountInUSD?: Prisma.FloatFilter<"Transaction"> | number;
@@ -1056,13 +1290,36 @@ export type TransactionScalarWhereInput = {
   isWireTransfer?: Prisma.BoolFilter<"Transaction"> | boolean;
   isGiftCard?: Prisma.BoolNullableFilter<"Transaction"> | boolean | null;
   giftCardData?: Prisma.JsonNullableFilter<"Transaction">;
-  wireTransferEmail?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  depositWalletAddress?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  depositWalletAddressNetwork?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  withdrawalWalletAddress?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  withdrawalWalletAddressNetwork?: Prisma.StringNullableFilter<"Transaction"> | string | null;
-  approvedAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null;
-  failedAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null;
+  wireTransferEmail?:
+    | Prisma.StringNullableFilter<"Transaction">
+    | string
+    | null;
+  depositWalletAddress?:
+    | Prisma.StringNullableFilter<"Transaction">
+    | string
+    | null;
+  depositWalletAddressNetwork?:
+    | Prisma.StringNullableFilter<"Transaction">
+    | string
+    | null;
+  withdrawalWalletAddress?:
+    | Prisma.StringNullableFilter<"Transaction">
+    | string
+    | null;
+  withdrawalWalletAddressNetwork?:
+    | Prisma.StringNullableFilter<"Transaction">
+    | string
+    | null;
+  approvedAt?:
+    | Prisma.DateTimeNullableFilter<"Transaction">
+    | Date
+    | string
+    | null;
+  failedAt?:
+    | Prisma.DateTimeNullableFilter<"Transaction">
+    | Date
+    | string
+    | null;
   failReason?: Prisma.StringNullableFilter<"Transaction"> | string | null;
   description?: Prisma.StringNullableFilter<"Transaction"> | string | null;
   createdAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string;
@@ -1098,8 +1355,13 @@ export type TransactionCreateManyUserInput = {
 
 export type TransactionUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
-  investmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  transactionType?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType;
+  investmentId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  transactionType?:
+    | Prisma.EnumTransactionTypeFieldUpdateOperationsInput
+    | $Enums.TransactionType;
   transactionStatus?:
     | Prisma.EnumTransactionStatusFieldUpdateOperationsInput
     | $Enums.TransactionStatus;
@@ -1112,13 +1374,36 @@ export type TransactionUpdateWithoutUserInput = {
   isWireTransfer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   isGiftCard?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
   giftCardData?: PrismaJson.GiftCardData | Prisma.NullableJsonNullValueInput;
-  wireTransferEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  wireTransferEmail?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  approvedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  failedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   failReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1127,8 +1412,13 @@ export type TransactionUpdateWithoutUserInput = {
 
 export type TransactionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
-  investmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  transactionType?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType;
+  investmentId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  transactionType?:
+    | Prisma.EnumTransactionTypeFieldUpdateOperationsInput
+    | $Enums.TransactionType;
   transactionStatus?:
     | Prisma.EnumTransactionStatusFieldUpdateOperationsInput
     | $Enums.TransactionStatus;
@@ -1141,13 +1431,36 @@ export type TransactionUncheckedUpdateWithoutUserInput = {
   isWireTransfer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   isGiftCard?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
   giftCardData?: PrismaJson.GiftCardData | Prisma.NullableJsonNullValueInput;
-  wireTransferEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  wireTransferEmail?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  approvedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  failedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   failReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1156,8 +1469,13 @@ export type TransactionUncheckedUpdateWithoutUserInput = {
 
 export type TransactionUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
-  investmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  transactionType?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType;
+  investmentId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  transactionType?:
+    | Prisma.EnumTransactionTypeFieldUpdateOperationsInput
+    | $Enums.TransactionType;
   transactionStatus?:
     | Prisma.EnumTransactionStatusFieldUpdateOperationsInput
     | $Enums.TransactionStatus;
@@ -1170,13 +1488,36 @@ export type TransactionUncheckedUpdateManyWithoutUserInput = {
   isWireTransfer?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   isGiftCard?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
   giftCardData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  wireTransferEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  depositWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  withdrawalWalletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  wireTransferEmail?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  depositWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddress?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  withdrawalWalletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  approvedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  failedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   failReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1184,7 +1525,8 @@ export type TransactionUncheckedUpdateManyWithoutUserInput = {
 };
 
 export type TransactionSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1218,7 +1560,8 @@ export type TransactionSelect<
 >;
 
 export type TransactionSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1252,7 +1595,8 @@ export type TransactionSelectCreateManyAndReturn<
 >;
 
 export type TransactionSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1314,7 +1658,8 @@ export type TransactionSelectScalar = {
 };
 
 export type TransactionOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetOmit<
   | "id"
   | "userId"
@@ -1344,23 +1689,27 @@ export type TransactionOmit<
   ExtArgs["result"]["transaction"]
 >;
 export type TransactionInclude<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 export type TransactionIncludeCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 export type TransactionIncludeUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 
 export type $TransactionPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   name: "Transaction";
   objects: {
@@ -1402,17 +1751,23 @@ export type $TransactionPayload<
   composites: {};
 };
 
-export type TransactionGetPayload<S extends boolean | null | undefined | TransactionDefaultArgs> =
-  runtime.Types.Result.GetResult<Prisma.$TransactionPayload, S>;
+export type TransactionGetPayload<
+  S extends boolean | null | undefined | TransactionDefaultArgs
+> = runtime.Types.Result.GetResult<Prisma.$TransactionPayload, S>;
 
 export type TransactionCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-> = Omit<TransactionFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = Omit<
+  TransactionFindManyArgs,
+  "select" | "include" | "distinct" | "omit"
+> & {
   select?: TransactionCountAggregateInputType | true;
 };
 
 export interface TransactionDelegate<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > {
   [K: symbol]: {
@@ -1883,7 +2238,12 @@ export interface TransactionDelegate<
               ? never
               : P extends string
                 ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                : [Error, "Field ", P, ` in "having" needs to be provided in "by"`];
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`
+                  ];
           }[HavingFields]
         : "take" extends Prisma.Keys<T>
           ? "orderBy" extends Prisma.Keys<T>
@@ -1913,8 +2273,11 @@ export interface TransactionDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields]
   >(
-    args: Prisma.SubsetIntersection<T, TransactionGroupByArgs, OrderByArg> & InputErrors
-  ): {} extends InputErrors ? GetTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, TransactionGroupByArgs, OrderByArg> &
+      InputErrors
+  ): {} extends InputErrors
+    ? GetTransactionGroupByPayload<T>
+    : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the Transaction model
    */
@@ -1930,7 +2293,8 @@ export interface TransactionDelegate<
 export interface Prisma__TransactionClient<
   T,
   Null = never,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
@@ -1955,8 +2319,14 @@ export interface Prisma__TransactionClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -1964,7 +2334,10 @@ export interface Prisma__TransactionClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -1972,7 +2345,9 @@ export interface Prisma__TransactionClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  finally(
+    onfinally?: (() => void) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -1983,7 +2358,10 @@ export interface TransactionFieldRefs {
   readonly userId: Prisma.FieldRef<"Transaction", "String">;
   readonly investmentId: Prisma.FieldRef<"Transaction", "String">;
   readonly transactionType: Prisma.FieldRef<"Transaction", "TransactionType">;
-  readonly transactionStatus: Prisma.FieldRef<"Transaction", "TransactionStatus">;
+  readonly transactionStatus: Prisma.FieldRef<
+    "Transaction",
+    "TransactionStatus"
+  >;
   readonly amountInUSD: Prisma.FieldRef<"Transaction", "Float">;
   readonly charge: Prisma.FieldRef<"Transaction", "Float">;
   readonly actualAmountInUSD: Prisma.FieldRef<"Transaction", "Float">;
@@ -1995,9 +2373,15 @@ export interface TransactionFieldRefs {
   readonly giftCardData: Prisma.FieldRef<"Transaction", "Json">;
   readonly wireTransferEmail: Prisma.FieldRef<"Transaction", "String">;
   readonly depositWalletAddress: Prisma.FieldRef<"Transaction", "String">;
-  readonly depositWalletAddressNetwork: Prisma.FieldRef<"Transaction", "String">;
+  readonly depositWalletAddressNetwork: Prisma.FieldRef<
+    "Transaction",
+    "String"
+  >;
   readonly withdrawalWalletAddress: Prisma.FieldRef<"Transaction", "String">;
-  readonly withdrawalWalletAddressNetwork: Prisma.FieldRef<"Transaction", "String">;
+  readonly withdrawalWalletAddressNetwork: Prisma.FieldRef<
+    "Transaction",
+    "String"
+  >;
   readonly approvedAt: Prisma.FieldRef<"Transaction", "DateTime">;
   readonly failedAt: Prisma.FieldRef<"Transaction", "DateTime">;
   readonly failReason: Prisma.FieldRef<"Transaction", "String">;
@@ -2011,7 +2395,8 @@ export interface TransactionFieldRefs {
  * Transaction findUnique
  */
 export type TransactionFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2035,7 +2420,8 @@ export type TransactionFindUniqueArgs<
  * Transaction findUniqueOrThrow
  */
 export type TransactionFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2059,7 +2445,8 @@ export type TransactionFindUniqueOrThrowArgs<
  * Transaction findFirst
  */
 export type TransactionFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2108,14 +2495,17 @@ export type TransactionFindFirstArgs<
    *
    * Filter by unique combinations of Transactions.
    */
-  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[];
+  distinct?:
+    | Prisma.TransactionScalarFieldEnum
+    | Prisma.TransactionScalarFieldEnum[];
 };
 
 /**
  * Transaction findFirstOrThrow
  */
 export type TransactionFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2164,14 +2554,17 @@ export type TransactionFindFirstOrThrowArgs<
    *
    * Filter by unique combinations of Transactions.
    */
-  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[];
+  distinct?:
+    | Prisma.TransactionScalarFieldEnum
+    | Prisma.TransactionScalarFieldEnum[];
 };
 
 /**
  * Transaction findMany
  */
 export type TransactionFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2215,14 +2608,17 @@ export type TransactionFindManyArgs<
    * Skip the first `n` Transactions.
    */
   skip?: number;
-  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[];
+  distinct?:
+    | Prisma.TransactionScalarFieldEnum
+    | Prisma.TransactionScalarFieldEnum[];
 };
 
 /**
  * Transaction create
  */
 export type TransactionCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2239,14 +2635,18 @@ export type TransactionCreateArgs<
   /**
    * The data needed to create a Transaction.
    */
-  data: Prisma.XOR<Prisma.TransactionCreateInput, Prisma.TransactionUncheckedCreateInput>;
+  data: Prisma.XOR<
+    Prisma.TransactionCreateInput,
+    Prisma.TransactionUncheckedCreateInput
+  >;
 };
 
 /**
  * Transaction createMany
  */
 export type TransactionCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to create many Transactions.
@@ -2258,7 +2658,8 @@ export type TransactionCreateManyArgs<
  * Transaction createManyAndReturn
  */
 export type TransactionCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2282,7 +2683,8 @@ export type TransactionCreateManyAndReturnArgs<
  * Transaction update
  */
 export type TransactionUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2299,7 +2701,10 @@ export type TransactionUpdateArgs<
   /**
    * The data needed to update a Transaction.
    */
-  data: Prisma.XOR<Prisma.TransactionUpdateInput, Prisma.TransactionUncheckedUpdateInput>;
+  data: Prisma.XOR<
+    Prisma.TransactionUpdateInput,
+    Prisma.TransactionUncheckedUpdateInput
+  >;
   /**
    * Choose, which Transaction to update.
    */
@@ -2310,7 +2715,8 @@ export type TransactionUpdateArgs<
  * Transaction updateMany
  */
 export type TransactionUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to update Transactions.
@@ -2333,7 +2739,8 @@ export type TransactionUpdateManyArgs<
  * Transaction updateManyAndReturn
  */
 export type TransactionUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2368,7 +2775,8 @@ export type TransactionUpdateManyAndReturnArgs<
  * Transaction upsert
  */
 export type TransactionUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2389,18 +2797,25 @@ export type TransactionUpsertArgs<
   /**
    * In case the Transaction found by the `where` argument doesn't exist, create a new Transaction with this data.
    */
-  create: Prisma.XOR<Prisma.TransactionCreateInput, Prisma.TransactionUncheckedCreateInput>;
+  create: Prisma.XOR<
+    Prisma.TransactionCreateInput,
+    Prisma.TransactionUncheckedCreateInput
+  >;
   /**
    * In case the Transaction was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<Prisma.TransactionUpdateInput, Prisma.TransactionUncheckedUpdateInput>;
+  update: Prisma.XOR<
+    Prisma.TransactionUpdateInput,
+    Prisma.TransactionUncheckedUpdateInput
+  >;
 };
 
 /**
  * Transaction delete
  */
 export type TransactionDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -2424,7 +2839,8 @@ export type TransactionDeleteArgs<
  * Transaction deleteMany
  */
 export type TransactionDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Transactions to delete
@@ -2440,7 +2856,8 @@ export type TransactionDeleteManyArgs<
  * Transaction without action
  */
 export type TransactionDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction

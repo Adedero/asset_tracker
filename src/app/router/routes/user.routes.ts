@@ -29,12 +29,14 @@ const userRoutes = [
   {
     path: "transactions/:transaction_id/receipt",
     name: "user-transaction-receipt",
-    component: () => import("@/app/pages/user/transactions/transaction-receipt.vue")
+    component: () =>
+      import("@/app/pages/user/transactions/transaction-receipt.vue")
   },
   {
     path: "transactions/:transaction_id/gift-card-validation-report",
     name: "user-gift-card-validation-report",
-    component: () => import("@/app/pages/user/transactions/gift-card-validation-report.vue")
+    component: () =>
+      import("@/app/pages/user/transactions/gift-card-validation-report.vue")
   },
   {
     path: "investments",
@@ -59,12 +61,14 @@ const userRoutes = [
   {
     path: "investment-history",
     name: "user-investment-history",
-    component: () => import("@/app/pages/user/investments/investment-history.vue")
+    component: () =>
+      import("@/app/pages/user/investments/investment-history.vue")
   },
   {
     path: "investment-purchase/:investment_plan_slug/:investment_plan_tier_name",
     name: "user-investment-purchase",
-    component: () => import("@/app/pages/user/investments/investment-purchase.vue")
+    component: () =>
+      import("@/app/pages/user/investments/investment-purchase.vue")
   },
 
   {
@@ -90,12 +94,14 @@ const userRoutes = [
   {
     path: "withdrawal/initialize",
     name: "user-withdrawal-initialize",
-    component: () => import("@/app/pages/user/withdrawal/withdrawal-initialize.vue")
+    component: () =>
+      import("@/app/pages/user/withdrawal/withdrawal-initialize.vue")
   },
   {
     path: "withdrawal/validate",
     name: "user-withdrawal-validate",
-    component: () => import("@/app/pages/user/withdrawal/withdrawal-validate.vue")
+    component: () =>
+      import("@/app/pages/user/withdrawal/withdrawal-validate.vue")
   },
   {
     path: "settings",

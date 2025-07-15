@@ -6,7 +6,11 @@ export class HttpResponse {
   public data?: Record<string, unknown>;
   public success: boolean;
 
-  constructor(statusCode: number, message: string, data?: Record<string, unknown>) {
+  constructor(
+    statusCode: number,
+    message: string,
+    data?: Record<string, unknown>
+  ) {
     this.statusCode = statusCode;
     this.message = message;
     this.data = data;
@@ -31,23 +35,38 @@ export class HttpResponse {
     return new HttpResponse(201, message, data);
   }
 
-  static badRequest(message: string = "Bad Request", data?: Record<string, unknown>) {
+  static badRequest(
+    message: string = "Bad Request",
+    data?: Record<string, unknown>
+  ) {
     return new HttpResponse(400, message, data);
   }
 
-  static unauthorized(message: string = "Unauthorized", data?: Record<string, unknown>) {
+  static unauthorized(
+    message: string = "Unauthorized",
+    data?: Record<string, unknown>
+  ) {
     return new HttpResponse(401, message, data);
   }
 
-  static forbidden(message: string = "Forbidden", data?: Record<string, unknown>) {
+  static forbidden(
+    message: string = "Forbidden",
+    data?: Record<string, unknown>
+  ) {
     return new HttpResponse(403, message, data);
   }
 
-  static notFound(message: string = "Not Found", data?: Record<string, unknown>) {
+  static notFound(
+    message: string = "Not Found",
+    data?: Record<string, unknown>
+  ) {
     return new HttpResponse(404, message, data);
   }
 
-  static internal(message: string = "Internal Server Error", data?: Record<string, unknown>) {
+  static internal(
+    message: string = "Internal Server Error",
+    data?: Record<string, unknown>
+  ) {
     return new HttpResponse(500, message, data);
   }
 }
@@ -97,7 +116,10 @@ export class HttpException extends Error {
     return new HttpException(409, message, { errorCode: "CONFLICT" });
   }
 
-  static internal(message = "Internal server error", data?: Record<string, unknown>) {
+  static internal(
+    message = "Internal server error",
+    data?: Record<string, unknown>
+  ) {
     return new HttpException(500, message, {
       data,
       errorCode: "INTERNAL_SERVER_ERROR"

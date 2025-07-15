@@ -56,7 +56,10 @@ const updatedUser = ref<UserUpdateData>({
 
 const result =
   ref<
-    SafeParseReturnType<{ email: string; password: string }, { email: string; password: string }>
+    SafeParseReturnType<
+      { email: string; password: string },
+      { email: string; password: string }
+    >
   >();
 
 const url = ref("/api/admins/me/users");
@@ -122,7 +125,8 @@ const disabled = computed(
     !updatedUser.value.name ||
     !updatedUser.value.email ||
     !updatedUser.value.role ||
-    (!user && (!updatedUser.value.password || updatedUser.value.password.length < 8))
+    (!user &&
+      (!updatedUser.value.password || updatedUser.value.password.length < 8))
 );
 
 const cancel = () => {
@@ -152,7 +156,8 @@ const verificationInfo = computed(() => {
 });
 
 const accountGroups = ref<AccountGroupsGetApiResponse["accountGroups"]>();
-const selectedGroup = ref<AccountGroupsGetApiResponse["accountGroups"][number]>();
+const selectedGroup =
+  ref<AccountGroupsGetApiResponse["accountGroups"][number]>();
 
 watch(selectedGroup, (value) => {
   if (value) {
@@ -230,7 +235,9 @@ const onShow = async () => {
               size="small"
               accept="image/*"
               :max-file-size="1 * 1024 * 1024"
-              @select="(files: IFile[]) => (updatedUser.image = files[0].dataUrl || '')"
+              @select="
+                (files: IFile[]) => (updatedUser.image = files[0].dataUrl || '')
+              "
               @upload="manageUser"
               @cancel="updatedUser.image = user?.image || ''"
               class="w-full"
@@ -276,19 +283,26 @@ const onShow = async () => {
           <p class="text-xs text-red-500">
             {{ result?.error?.flatten()?.fieldErrors.password?.[0] }}
           </p>
-          <p class="text-xs text-mute">Password is automatically set to '00000000' (8 zeros)</p>
+          <p class="text-xs text-mute">
+            Password is automatically set to '00000000' (8 zeros)
+          </p>
         </div>
 
         <div class="grid">
           <label class="text-mute text-sm font-medium">
             Account Verification Status <span class="text-red-500">*</span>
           </label>
-          <ToggleButton v-model="updatedUser.verified" onLabel="Verified" offLabel="Not Verified" />
+          <ToggleButton
+            v-model="updatedUser.verified"
+            onLabel="Verified"
+            offLabel="Not Verified"
+          />
           <p v-if="user" class="text-xs text-mute">
             {{ verificationInfo }}
           </p>
           <p v-else class="text-xs text-mute">
-            If set as 'verified', the user will not receive an email to verify their account.
+            If set as 'verified', the user will not receive an email to verify
+            their account.
           </p>
         </div>
 
@@ -304,7 +318,9 @@ const onShow = async () => {
             placeholder="Select a group"
             class="w-full"
           />
-          <p class="mt-1 text-mute text-xs">Assign this user to a defined group.</p>
+          <p class="mt-1 text-mute text-xs">
+            Assign this user to a defined group.
+          </p>
         </div>
 
         <div>
@@ -317,9 +333,12 @@ const onShow = async () => {
             placeholder="Select a role"
             class="w-full"
           />
-          <p v-if="user && user.role !== updatedUser.role" class="mt-1 text-red-500 text-xs">
-            Role changed from {{ user.role }} to {{ updatedUser.role }}. Be sure of this action
-            before proceeding.
+          <p
+            v-if="user && user.role !== updatedUser.role"
+            class="mt-1 text-red-500 text-xs"
+          >
+            Role changed from {{ user.role }} to {{ updatedUser.role }}. Be sure
+            of this action before proceeding.
           </p>
         </div>
 
@@ -335,13 +354,17 @@ const onShow = async () => {
         <div>
           <label class="text-mute text-sm font-medium">Country</label>
           <Select
-            :default-value="updatedUser.country ? { country: updatedUser.country } : undefined"
+            :default-value="
+              updatedUser.country ? { country: updatedUser.country } : undefined
+            "
             :options="countries"
             editable
             option-label="country"
             fluid
             show-clear
-            @value-change="(value) => (updatedUser.country = value?.country ?? '')"
+            @value-change="
+              (value) => (updatedUser.country = value?.country ?? '')
+            "
           />
         </div>
 

@@ -67,7 +67,9 @@ class Logger {
   public error(message: string, error?: any): void {
     if (error) {
       if (error instanceof Error) {
-        this.logger.error(`${message}\nError: ${error.message}\nStack Trace: ${error.stack}`);
+        this.logger.error(
+          `${message}\nError: ${error.message}\nStack Trace: ${error.stack}`
+        );
         return;
       }
       this.logger.error(`${message}\nError: ${error.toString()}`);

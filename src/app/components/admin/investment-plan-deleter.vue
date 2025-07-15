@@ -12,9 +12,12 @@ const emit = defineEmits<{
 
 const toast = useToast();
 
-const { isFetching, error, data, execute } = useFetch(`/api/admins/me/investment-plans/${id}`, {
-  immediate: false
-})
+const { isFetching, error, data, execute } = useFetch(
+  `/api/admins/me/investment-plans/${id}`,
+  {
+    immediate: false
+  }
+)
   .delete()
   .json();
 

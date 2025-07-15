@@ -21,7 +21,10 @@ const { isLoading, data, error, mutate } = useSWRV<TransactionGetApiResponse>(
   $fetch
 );
 
-const statusSeverity: Record<TransactionStatus, { value: string; icon: string }> = {
+const statusSeverity: Record<
+  TransactionStatus,
+  { value: string; icon: string }
+> = {
   PENDING: { value: "warn", icon: "pi pi-clock" },
   SUCCESSFUL: { value: "success", icon: "pi pi-check" },
   FAILED: { value: "danger", icon: "pi pi-times" }
@@ -32,7 +35,11 @@ const hideFooter = ref(false);
 
 async function saveTransactionReceipt() {
   if (!el.value) {
-    toast.add({ severity: "error", summary: "Error", detail: "Element is undefined" });
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: "Element is undefined"
+    });
     return;
   }
   hideFooter.value = true;
@@ -45,7 +52,11 @@ async function saveTransactionReceipt() {
     link.click();
     toast.add({ severity: "success", detail: "Saved", life: 3000 });
   } catch (error) {
-    toast.add({ severity: "error", summary: "Error", detail: (error as Error).message });
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: (error as Error).message
+    });
   } finally {
     hideFooter.value = false;
   }
@@ -82,14 +93,24 @@ async function saveTransactionReceipt() {
                   `${data.transaction.currency} ${toTitleCase(data.transaction.transactionType)}`
                 }}
               </p>
-              <Tag v-if="data.transaction.isWireTransfer" value="Wire Transfer" icon="pi pi-bolt" />
-              <Tag v-if="data.transaction.isGiftCard" value="Gift Card" icon="pi pi-credit-card" />
+              <Tag
+                v-if="data.transaction.isWireTransfer"
+                value="Wire Transfer"
+                icon="pi pi-bolt"
+              />
+              <Tag
+                v-if="data.transaction.isGiftCard"
+                value="Gift Card"
+                icon="pi pi-credit-card"
+              />
               <p class="text-2xl font-semibold">
                 {{ dollar.format(data.transaction.amountInUSD) }}
               </p>
               <Tag
                 :value="toTitleCase(data.transaction.transactionStatus)"
-                :severity="statusSeverity[data.transaction.transactionStatus].value"
+                :severity="
+                  statusSeverity[data.transaction.transactionStatus].value
+                "
                 :icon="statusSeverity[data.transaction.transactionStatus].icon"
               />
             </div>
@@ -101,24 +122,32 @@ async function saveTransactionReceipt() {
             <div class="mt-2 grid gap-2 text-sm">
               <div
                 v-if="
-                  data.transaction.transactionStatus === 'SUCCESSFUL' && data.transaction.isGiftCard
+                  data.transaction.transactionStatus === 'SUCCESSFUL' &&
+                  data.transaction.isGiftCard
                 "
                 class="flex items-center justify-between gap-2"
               >
                 <p class="text-mute">Requested Amount (USD)</p>
                 <p class="text-right">
-                  {{ dollar.format(data.transaction.giftCardData?.totalInUSD ?? 0) }}
+                  {{
+                    dollar.format(
+                      data.transaction.giftCardData?.totalInUSD ?? 0
+                    )
+                  }}
                 </p>
               </div>
 
               <div
                 v-if="
-                  data.transaction.transactionStatus === 'SUCCESSFUL' && data.transaction.isGiftCard
+                  data.transaction.transactionStatus === 'SUCCESSFUL' &&
+                  data.transaction.isGiftCard
                 "
                 class="flex items-center justify-between gap-2"
               >
                 <p class="text-mute">Actual Amount Deposited (USD)</p>
-                <p class="text-right">{{ dollar.format(data.transaction.amountInUSD) }}</p>
+                <p class="text-right">
+                  {{ dollar.format(data.transaction.amountInUSD) }}
+                </p>
               </div>
 
               <div
@@ -126,7 +155,9 @@ async function saveTransactionReceipt() {
                 class="flex items-center justify-between gap-2"
               >
                 <p class="text-mute">Charge (USD)</p>
-                <p class="text-right">{{ dollar.format(data.transaction.charge) }}</p>
+                <p class="text-right">
+                  {{ dollar.format(data.transaction.charge) }}
+                </p>
               </div>
 
               <div
@@ -134,7 +165,9 @@ async function saveTransactionReceipt() {
                 class="flex items-center justify-between gap-2"
               >
                 <p class="text-mute">Actual Amount (USD)</p>
-                <p class="text-right">{{ dollar.format(data.transaction.actualAmountInUSD) }}</p>
+                <p class="text-right">
+                  {{ dollar.format(data.transaction.actualAmountInUSD) }}
+                </p>
               </div>
 
               <div class="flex items-center justify-between gap-2">
@@ -143,7 +176,10 @@ async function saveTransactionReceipt() {
               </div>
 
               <div
-                v-if="!data.transaction.isWireTransfer && !data.transaction.isGiftCard"
+                v-if="
+                  !data.transaction.isWireTransfer &&
+                  !data.transaction.isGiftCard
+                "
                 class="flex items-center justify-between gap-2"
               >
                 <p class="text-mute">Rate</p>
@@ -151,14 +187,24 @@ async function saveTransactionReceipt() {
               </div>
 
               <div
-                v-if="!data.transaction.isWireTransfer && !data.transaction.isGiftCard"
+                v-if="
+                  !data.transaction.isWireTransfer &&
+                  !data.transaction.isGiftCard
+                "
                 class="flex items-center justify-between gap-2"
               >
-                <p class="text-mute">Amount ({{ data.transaction.currency }})</p>
-                <p class="text-right">{{ data.transaction.amountInCurrency }}</p>
+                <p class="text-mute">
+                  Amount ({{ data.transaction.currency }})
+                </p>
+                <p class="text-right">
+                  {{ data.transaction.amountInCurrency }}
+                </p>
               </div>
 
-              <div v-if="data.transaction.transactionType === 'WITHDRAWAL'" class="contents">
+              <div
+                v-if="data.transaction.transactionType === 'WITHDRAWAL'"
+                class="contents"
+              >
                 <div class="flex items-center justify-between gap-2">
                   <p class="text-mute">Credited to</p>
                   <div class="text-right">
@@ -169,7 +215,9 @@ async function saveTransactionReceipt() {
 
                 <div class="flex items-center justify-between gap-2">
                   <p class="text-mute">Network</p>
-                  <p class="text-right">{{ data.transaction.withdrawalWalletAddressNetwork }}</p>
+                  <p class="text-right">
+                    {{ data.transaction.withdrawalWalletAddressNetwork }}
+                  </p>
                 </div>
               </div>
 
@@ -182,9 +230,13 @@ async function saveTransactionReceipt() {
                 <p class="text-mute">Transaction Date</p>
                 <p class="text-right">
                   {{
-                    useDateFormat(data.transaction.createdAt, "MMM DD, YYYY hh:mm:ss aa", {
-                      locales: "en-us"
-                    })
+                    useDateFormat(
+                      data.transaction.createdAt,
+                      "MMM DD, YYYY hh:mm:ss aa",
+                      {
+                        locales: "en-us"
+                      }
+                    )
                   }}
                 </p>
               </div>
@@ -194,9 +246,13 @@ async function saveTransactionReceipt() {
                 <p class="text-right">
                   {{
                     data.transaction.approvedAt
-                      ? useDateFormat(data.transaction.createdAt, "MMM DD, YYYY hh:mm:ss aa", {
-                          locales: "en-us"
-                        })
+                      ? useDateFormat(
+                          data.transaction.createdAt,
+                          "MMM DD, YYYY hh:mm:ss aa",
+                          {
+                            locales: "en-us"
+                          }
+                        )
                       : "Not Available"
                   }}
                 </p>
@@ -216,7 +272,9 @@ async function saveTransactionReceipt() {
             <div v-if="data.transaction.description">
               <Divider />
               <p class="font-semibold">Description</p>
-              <p class="whitespace-pre-wrap text-sm">{{ data.transaction.description }}</p>
+              <p class="whitespace-pre-wrap text-sm">
+                {{ data.transaction.description }}
+              </p>
             </div>
 
             <div v-if="!hideFooter">
@@ -226,15 +284,17 @@ async function saveTransactionReceipt() {
 
               <div
                 v-if="
-                  data.transaction.transactionStatus === 'SUCCESSFUL' && data.transaction.isGiftCard
+                  data.transaction.transactionStatus === 'SUCCESSFUL' &&
+                  data.transaction.isGiftCard
                 "
                 class="mt-2 grid gap-2 text-sm"
               >
                 <Message size="small">
                   <p>
-                    This deposit was made using one or more gift cards and the actual amount
-                    deposited to your account may differ from the requested amount. To see what
-                    changed, you can view the validation report
+                    This deposit was made using one or more gift cards and the
+                    actual amount deposited to your account may differ from the
+                    requested amount. To see what changed, you can view the
+                    validation report
                   </p>
                 </Message>
                 <Button
@@ -278,9 +338,11 @@ async function saveTransactionReceipt() {
               <p class="font-semibold">{{ APP_NAME }}</p>
 
               <p class="mt-2 grid gap-2 text-xs text-mute">
-                Track your investments like a pro with {{ APP_NAME }}! Our platform helps you
-                effortlessly manage portfolios, monitor growth, and stay informed with real-time
-                updates—all in one intuitive dashboard. Take control of your financial future today!
+                Track your investments like a pro with {{ APP_NAME }}! Our
+                platform helps you effortlessly manage portfolios, monitor
+                growth, and stay informed with real-time updates—all in one
+                intuitive dashboard. Take control of your financial future
+                today!
               </p>
             </div>
           </VCard>

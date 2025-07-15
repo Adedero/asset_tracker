@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useFetch } from "@/app/composables/use-fetch";
-import BackupsGetApi from "@/modules/admin/backup/backups-get.api";
+import type { BackupsGetApiResponse } from "@/modules/admin/backup/backups-get.api";
 import { useDateFormat } from "@vueuse/core";
 import { useToast } from "primevue/usetoast";
-import { computed, ref, watchEffect } from "vue";
+import { ref, watchEffect } from "vue";
 import { useConfirm } from "primevue/useconfirm";
 
 const toast = useToast();
@@ -14,9 +14,14 @@ const {
   error: getBackupsError,
   data: getBackupsData,
   execute: getBackups
-} = await useFetch("/api/admins/me/database/backups").get().json<BackupsGetApi>();
+} = await useFetch("/api/admins/me/database/backups")
+  .get()
+  .json<BackupsGetApiResponse>();
 
-type BackupFile = BackupsGetApi["files"][number] & { downloading?: boolean; deleting?: boolean };
+type BackupFile = BackupsGetApiResponse["files"][number] & {
+  downloading?: boolean;
+  deleting?: boolean;
+};
 const files = ref<BackupFile[] | undefined>(undefined);
 
 // When backup data loads initially, update files
@@ -31,21 +36,31 @@ const {
   error: createError,
   data: createData,
   execute: createBackup
-} = useFetch("/api/admins/me/database/backups", { immediate: false }).post().json();
+} = useFetch("/api/admins/me/database/backups", { immediate: false })
+  .post()
+  .json();
 async function createNewBackup() {
   if (creatingBackup.value || !(await ask("Do you want to create a backup?"))) {
     return;
   }
   await createBackup();
   if (createError.value || !createData.value) {
-    return toast.add({ severity: "error", summary: "Error", detail: createError.value.message });
+    return toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: createError.value.message
+    });
   }
   if (files.value) {
     files.value = [createData.value.file, ...files.value];
   } else {
     files.value = [createData.value.file];
   }
-  toast.add({ severity: "success", summary: createData.value.message, life: 3000 });
+  toast.add({
+    severity: "success",
+    summary: createData.value.message,
+    life: 3000
+  });
 }
 
 const selectedFile = ref<string | null>(null);
@@ -55,7 +70,9 @@ const {
   error: downloadError,
   data: downloadData,
   execute: download
-} = useFetch(() => `/api/admins/me/database/backups/${selectedFile.value}`, { immediate: false })
+} = useFetch(() => `/api/admins/me/database/backups/${selectedFile.value}`, {
+  immediate: false
+})
   .get()
   .blob();
 async function onDownload(file: BackupFile) {
@@ -64,7 +81,11 @@ async function onDownload(file: BackupFile) {
   file.downloading = true;
   await download().finally(() => (file.downloading = false));
   if (downloadError.value || !downloadData.value) {
-    return toast.add({ severity: "error", summary: "Error", detail: downloadError.value.message });
+    return toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: downloadError.value.message
+    });
   }
   const url = window.URL.createObjectURL(downloadData.value);
   const a = document.createElement("a");
@@ -83,20 +104,31 @@ const {
   error: deleteError,
   data: deleteData,
   execute: deleteFile
-} = useFetch(() => `/api/admins/me/database/backups/${selectedFile.value}`, { immediate: false })
+} = useFetch(() => `/api/admins/me/database/backups/${selectedFile.value}`, {
+  immediate: false
+})
   .delete()
   .json();
 async function onDelete(file: BackupFile) {
   if (!files.value) return;
-  if (deleting.value || !(await ask("Do you want to delete this backup?"))) return;
+  if (deleting.value || !(await ask("Do you want to delete this backup?")))
+    return;
   selectedFile.value = file.filename;
   file.deleting = true;
   await deleteFile().finally(() => (file.deleting = false));
   if (deleteError.value || !deleteData.value) {
-    return toast.add({ severity: "error", summary: "Error", detail: deleteError.value.message });
+    return toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: deleteError.value.message
+    });
   }
   files.value = files.value.filter((f) => f.filename !== file.filename);
-  toast.add({ severity: "success", summary: deleteData.value.message, life: 3000 });
+  toast.add({
+    severity: "success",
+    summary: deleteData.value.message,
+    life: 3000
+  });
   selectedFile.value = null;
 }
 
@@ -158,9 +190,14 @@ const ask = async (question: string): Promise<boolean> => {
             >
               <template #header>
                 <p class="text-primary-500 font-medium text-xs">
-                  Created: {{ useDateFormat(file.createdAt, "ddd, DD MMM, YYYY hh:mm aa") }}
+                  Created:
+                  {{
+                    useDateFormat(file.createdAt, "ddd, DD MMM, YYYY hh:mm aa")
+                  }}
                   <span
-                    v-if="Date.now() - new Date(file.createdAt).getTime() < 5000"
+                    v-if="
+                      Date.now() - new Date(file.createdAt).getTime() < 5000
+                    "
                     class="ml-2 text-xs font-semibold p-1 rounded-md bg-emerald-200 text-emerald-600"
                   >
                     new
@@ -170,8 +207,12 @@ const ask = async (question: string): Promise<boolean> => {
 
               <div class="flex items-center justify-between gap-2">
                 <p class="truncate">
-                  <span class="pi pi-database bg-amber-200 text-amber-600 p-1.5 rounded-md" />
-                  <span class="ml-2 text-sm font-semibold">{{ file.filename }}</span>
+                  <span
+                    class="pi pi-database bg-amber-200 text-amber-600 p-1.5 rounded-md"
+                  />
+                  <span class="ml-2 text-sm font-semibold">{{
+                    file.filename
+                  }}</span>
                 </p>
 
                 <div class="flex items-center gap-1">

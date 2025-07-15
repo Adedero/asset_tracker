@@ -8,7 +8,9 @@ import { ApiResponse } from "#src/types/api-response";
 
 const Schema = z.object({
   banReason: z.string({ message: "Ban reason is required" }),
-  banDuration: z.coerce.date({ message: "Ban duration must be a valid date" }).nullable(),
+  banDuration: z.coerce
+    .date({ message: "Ban duration must be a valid date" })
+    .nullable(),
   freezeInvestments: z.boolean().default(true)
 });
 
@@ -21,9 +23,8 @@ export default api(
   },
   defineHandler<ApiResponse>(async (req) => {
     const { user_id } = req.params;
-    const { banReason, banDuration, freezeInvestments } = req.validatedBody as z.infer<
-      typeof Schema
-    >;
+    const { banReason, banDuration, freezeInvestments } =
+      req.validatedBody as z.infer<typeof Schema>;
 
     const user = await prisma.user.findUnique({
       where: {

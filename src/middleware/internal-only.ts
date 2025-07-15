@@ -2,14 +2,21 @@ import env from "#src/utils/env";
 import { Request, Response, NextFunction } from "express";
 import { INTERNAL_REQUEST_ALLOWED_TIME_DIFF } from "#src/utils/constants";
 
-export default function internalOnly(req: Request, res: Response, next: NextFunction) {
+export default function internalOnly(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const internalSecret = req.get("X-Internal-Secret");
   const timestamp = req.get("X-Timestamp");
 
   const now = Date.now();
   const requestTime = Number(timestamp);
 
-  if (isNaN(requestTime) || Math.abs(now - requestTime) > INTERNAL_REQUEST_ALLOWED_TIME_DIFF) {
+  if (
+    isNaN(requestTime) ||
+    Math.abs(now - requestTime) > INTERNAL_REQUEST_ALLOWED_TIME_DIFF
+  ) {
     res.status(401).json({ message: "Unauthorized - Request Expired" });
     return;
   }

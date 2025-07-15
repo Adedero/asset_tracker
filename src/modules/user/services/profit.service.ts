@@ -10,8 +10,15 @@ import Decimal from "decimal.js";
 import { alertEmitter } from "#src/events/alert.event";
 
 export async function distributeProfit() {
-  const { start, end, noInvestments, logError, userNotFound, closeInvestment, profitError } =
-    useLogger();
+  const {
+    start,
+    end,
+    noInvestments,
+    logError,
+    userNotFound,
+    closeInvestment,
+    profitError
+  } = useLogger();
   start();
   const startOfToday = getStartOfTodayUTC();
 
@@ -22,7 +29,10 @@ export async function distributeProfit() {
       where: {
         investmentStatus: InvestmentStatus.OPEN,
         createdAt: { lt: startOfToday },
-        OR: [{ lastProfitDistributedAt: null }, { lastProfitDistributedAt: { lt: startOfToday } }]
+        OR: [
+          { lastProfitDistributedAt: null },
+          { lastProfitDistributedAt: { lt: startOfToday } }
+        ]
       },
       include: {
         user: { include: { account: true } }
@@ -45,7 +55,9 @@ export async function distributeProfit() {
         // --- Convert relevant investment numbers to Decimal for calculation ---
         const initialDeposit = new Decimal(investment.initialDeposit);
         const currentTotalReturns = new Decimal(investment.currentTotalReturns);
-        const expectedTotalReturns = new Decimal(investment.expectedTotalReturns);
+        const expectedTotalReturns = new Decimal(
+          investment.expectedTotalReturns
+        );
         const currentCompoundedAmount =
           investment.currentCompoundedAmount !== null &&
           investment.currentCompoundedAmount !== undefined
@@ -55,7 +67,8 @@ export async function distributeProfit() {
 
         // --- Check if Investment Duration is Complete ---
         if (investment.daysCompleted >= investment.duration) {
-          const shortfallDecimal = expectedTotalReturns.sub(currentTotalReturns);
+          const shortfallDecimal =
+            expectedTotalReturns.sub(currentTotalReturns);
 
           if (shortfallDecimal.greaterThan(0)) {
             await prisma.$transaction(async (tx) => {
@@ -93,7 +106,9 @@ export async function distributeProfit() {
               });
 
               // Update investment state
-              let updatedCurrentTotalReturns = expectedTotalReturns.toDecimalPlaces(2).toNumber();
+              let updatedCurrentTotalReturns = expectedTotalReturns
+                .toDecimalPlaces(2)
+                .toNumber();
               let updatedCurrentCompoundedAmount: number | null =
                 investment.currentCompoundedAmount;
 
@@ -191,7 +206,10 @@ export async function distributeProfit() {
           dailyReturnDecimal = new Decimal(0);
         }
         // Ensure daily return doesn't exceed remaining total returns left (can happen with fluctuation)
-        if (dailyReturnDecimal.greaterThan(totalReturnsLeft) && !totalReturnsLeft.isNegative()) {
+        if (
+          dailyReturnDecimal.greaterThan(totalReturnsLeft) &&
+          !totalReturnsLeft.isNegative()
+        ) {
           dailyReturnDecimal = totalReturnsLeft;
         }
 
@@ -206,7 +224,9 @@ export async function distributeProfit() {
               accountId: user.account!.id,
               investmentId: investment.id,
               amount: dailyReturnDecimal.toDecimalPlaces(2).toNumber(),
-              status: investment.autocompounded ? ProfitStatus.FROZEN : ProfitStatus.DISTRIBUTED,
+              status: investment.autocompounded
+                ? ProfitStatus.FROZEN
+                : ProfitStatus.DISTRIBUTED,
               ...(!investment.autocompounded && {
                 distributedAt: new Date()
               })
@@ -231,7 +251,8 @@ export async function distributeProfit() {
             }
           });
 
-          let updatedCurrentCompoundedAmount = investment.currentCompoundedAmount;
+          let updatedCurrentCompoundedAmount =
+            investment.currentCompoundedAmount;
 
           if (investment.autocompounded) {
             updatedCurrentCompoundedAmount = currentCompoundedAmount
@@ -293,7 +314,9 @@ export async function distributeProfit() {
 
 function getStartOfTodayUTC(): Date {
   const now = new Date();
-  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  return new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+  );
 }
 
 function useLogger() {
@@ -301,14 +324,26 @@ function useLogger() {
     start: () => logger.info("Starting profit distribution cycle."),
     end: () => logger.info("Profit distribution cycle finished."),
     noInvestments: () =>
-      logger.info("No eligible investments found for profit distribution today."),
+      logger.info(
+        "No eligible investments found for profit distribution today."
+      ),
     logError: (error: any) =>
-      logger.error("Error during profit distribution setup or initial fetch.", error),
+      logger.error(
+        "Error during profit distribution setup or initial fetch.",
+        error
+      ),
     userNotFound: (investmentId: string) =>
-      logger.warn(`User or account not found for investment ${investmentId}. Skipping.`),
+      logger.warn(
+        `User or account not found for investment ${investmentId}. Skipping.`
+      ),
     closeInvestment: (investmentId: string) =>
-      logger.info(`Closing completed investment ${investmentId} (no shortfall).`),
+      logger.info(
+        `Closing completed investment ${investmentId} (no shortfall).`
+      ),
     profitError: (investmentId: string, error: any) =>
-      logger.error(`Failed to process profit distribution for investment ${investmentId}:`, error)
+      logger.error(
+        `Failed to process profit distribution for investment ${investmentId}:`,
+        error
+      )
   };
 }

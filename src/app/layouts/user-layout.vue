@@ -63,7 +63,9 @@ const links = ref(userLinks);
             @click="isOpen = false"
             class="lg:hidden flex-shrink-0 rounded-lg transition-all hover:bg-slate-100 dark:hover:bg-slate-800"
           >
-            <div class="flex items-center gap-3 py-3 px-4 font-medium rounded-lg">
+            <div
+              class="flex items-center gap-3 py-3 px-4 font-medium rounded-lg"
+            >
               <span :class="link.icon"></span>
               <p>{{ link.label }}</p>
             </div>
@@ -75,7 +77,9 @@ const links = ref(userLinks);
             :to="link.route"
             class="hidden lg:block flex-shrink-0 rounded-lg transition-all hover:bg-slate-100 dark:hover:bg-slate-800"
           >
-            <div class="flex items-center gap-3 py-3 px-4 font-medium rounded-lg">
+            <div
+              class="flex items-center gap-3 py-3 px-4 font-medium rounded-lg"
+            >
               <span :class="link.icon"></span>
               <p>{{ link.label }}</p>
             </div>
@@ -84,7 +88,12 @@ const links = ref(userLinks);
 
         <div class="p-2">
           <VLogout>
-            <Button label="Log Out" fluid icon="pi pi-sign-out" class="bg-gradient-x" />
+            <Button
+              label="Log Out"
+              fluid
+              icon="pi pi-sign-out"
+              class="bg-gradient-x"
+            />
           </VLogout>
         </div>
       </nav>
@@ -94,7 +103,12 @@ const links = ref(userLinks);
       <div>
         <header class="px-3 py-2 flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <Button size="small" @click="isOpen = !isOpen" outlined icon="pi pi-bars" />
+            <Button
+              size="small"
+              @click="isOpen = !isOpen"
+              outlined
+              icon="pi pi-bars"
+            />
             <h1 class="text-xl md:text-2xl font-medium">
               Hi,
               <span class="text-primary-500 dark:text-primary-400">
@@ -106,7 +120,9 @@ const links = ref(userLinks);
           <div class="flex items-center gap-1">
             <div class="text-right text-xs hidden md:block">
               <p class="font-semibold">{{ store.user.name }}</p>
-              <p class="text-slate-500 dark:text-slate-300">{{ store.user.email }}</p>
+              <p class="text-slate-500 dark:text-slate-300">
+                {{ store.user.email }}
+              </p>
             </div>
             <VAvatar :image="store.user.image" />
 

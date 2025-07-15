@@ -29,7 +29,9 @@ const Schema = zod_1.z
         amountRetrieved: zod_1.z
             .number({ message: "Amount retrieved must be a number" })
             .min(0, { message: "Amount retrieved must be greater than 0" }),
-        rateUsed: zod_1.z.number({ message: "Rate used must be a number" }).optional()
+        rateUsed: zod_1.z
+            .number({ message: "Rate used must be a number" })
+            .optional()
     }))
         .optional()
 })
@@ -83,7 +85,10 @@ exports.default = (0, api_1.api)({
         promises.push(prisma_1.default.account.update({
             where: { id: account.id },
             data: {
-                walletBalance: walletBalance.plus(amountInUSD).toDecimalPlaces(2).toNumber()
+                walletBalance: walletBalance
+                    .plus(amountInUSD)
+                    .toDecimalPlaces(2)
+                    .toNumber()
             }
         }));
     }

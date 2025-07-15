@@ -4,7 +4,11 @@ import prisma from "#src/lib/prisma/prisma";
 import { z } from "zod";
 
 const Schema = z.object({
-  name: z.string().trim().min(2, { message: "Name must be at least 2 characters long" }).optional(),
+  name: z
+    .string()
+    .trim()
+    .min(2, { message: "Name must be at least 2 characters long" })
+    .optional(),
   image: z.string().trim().optional(),
   phoneNumber: z.string().trim().optional(),
   address: z.string().trim().optional(),
@@ -12,7 +16,9 @@ const Schema = z.object({
   region: z.string().trim().optional(),
   verified: z.boolean().optional(),
   accountGroupId: z.string().optional(),
-  role: z.enum(["ADMIN", "USER"], { message: "Role must either be ADMIN or USER" }).default("USER")
+  role: z
+    .enum(["ADMIN", "USER"], { message: "Role must either be ADMIN or USER" })
+    .default("USER")
 });
 
 export default api(

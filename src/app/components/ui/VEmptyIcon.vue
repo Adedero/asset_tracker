@@ -25,8 +25,20 @@ const { size = "500" } = defineProps<Props>();
       <g>
         <g>
           <g>
-            <rect x="62.099" y="208.47" style="fill: #f5f9ff" width="166.199" height="122.601" />
-            <rect x="62.099" y="208.47" style="fill: #d0dbf7" width="166.199" height="15.292" />
+            <rect
+              x="62.099"
+              y="208.47"
+              style="fill: #f5f9ff"
+              width="166.199"
+              height="122.601"
+            />
+            <rect
+              x="62.099"
+              y="208.47"
+              style="fill: #d0dbf7"
+              width="166.199"
+              height="15.292"
+            />
           </g>
           <g>
             <path
@@ -53,8 +65,20 @@ const { size = "500" } = defineProps<Props>();
         </g>
         <g>
           <g>
-            <rect x="266.123" y="131.145" style="fill: #f5f9ff" width="166.199" height="122.601" />
-            <rect x="266.123" y="131.145" style="fill: #d0dbf7" width="166.199" height="15.292" />
+            <rect
+              x="266.123"
+              y="131.145"
+              style="fill: #f5f9ff"
+              width="166.199"
+              height="122.601"
+            />
+            <rect
+              x="266.123"
+              y="131.145"
+              style="fill: #d0dbf7"
+              width="166.199"
+              height="15.292"
+            />
           </g>
           <g>
             <path
@@ -80,7 +104,13 @@ const { size = "500" } = defineProps<Props>();
           />
         </g>
       </g>
-      <ellipse style="fill: #edf0fc" cx="249.001" cy="412.683" rx="203.165" ry="17.555" />
+      <ellipse
+        style="fill: #edf0fc"
+        cx="249.001"
+        cy="412.683"
+        rx="203.165"
+        ry="17.555"
+      />
       <g>
         <g>
           <path
@@ -404,7 +434,12 @@ const { size = "500" } = defineProps<Props>();
             c-13.292,13.292-34.844,13.292-48.136,0c-13.292-13.293-13.292-34.844,0-48.136c13.293-13.293,34.844-13.293,48.136,0
             C359.781,336.76,359.781,358.311,346.489,371.604z"
             />
-            <circle style="opacity: 0.3; fill: #ffffff" cx="322.421" cy="347.535" r="34.037" />
+            <circle
+              style="opacity: 0.3; fill: #ffffff"
+              cx="322.421"
+              cy="347.535"
+              r="34.037"
+            />
           </g>
           <g>
             <g>

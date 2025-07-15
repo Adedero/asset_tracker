@@ -3,13 +3,22 @@ import { defineHandler, defineValidator } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
 import prisma from "#src/lib/prisma/prisma";
 import { z } from "zod";
+import { ApiResponse } from "#src/types/api-response";
+import { Currency } from "#src/prisma-gen";
 
 const Schema = z.object({
-  name: z.string().trim().min(2, { message: "Name must be at least 2 characters long" }).optional(),
+  name: z
+    .string()
+    .trim()
+    .min(2, { message: "Name must be at least 2 characters long" })
+    .optional(),
   symbol: z.string().trim().optional(),
   abbr: z.string().trim().toUpperCase().optional(),
   image: z.string().trim().optional(),
-  rate: z.number().min(0, { message: "Rate must be not be less than 0" }).optional(),
+  rate: z
+    .number()
+    .min(0, { message: "Rate must be not be less than 0" })
+    .optional(),
   rateUpdatedAt: z.coerce.date().optional(),
   walletAddress: z.string().trim().optional(),
   walletAddressNetwork: z.string().trim().optional(),
@@ -20,6 +29,12 @@ const Schema = z.object({
     .optional()
 });
 
+export interface CurrencyUpdateApiResponse extends ApiResponse {
+  currency: Currency;
+  success: boolean;
+  message: string;
+}
+
 export default api(
   {
     group: "/admins/me",
@@ -27,7 +42,7 @@ export default api(
     method: "put",
     middleware: defineValidator("body", Schema)
   },
-  defineHandler(async (req) => {
+  defineHandler<CurrencyUpdateApiResponse>(async (req) => {
     const data = req.validatedBody as z.infer<typeof Schema>;
     const { currency_id } = req.params;
 
@@ -41,7 +56,9 @@ export default api(
     });
 
     if (existingCurrency) {
-      throw HttpException.badRequest("A currency with this name or abbreviation already exists");
+      throw HttpException.badRequest(
+        "A currency with this name or abbreviation already exists"
+      );
     }
 
     const currency = await prisma.currency.update({

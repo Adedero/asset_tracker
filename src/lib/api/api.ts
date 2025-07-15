@@ -3,7 +3,11 @@ import { RequestHandler, NextFunction, Request, Response } from "express";
 
 export type ApiRequestHandler =
   | RequestHandler
-  | ((req: Request, res: Response, next: NextFunction) => unknown | Promise<unknown>);
+  | ((
+      req: Request,
+      res: Response,
+      next: NextFunction
+    ) => unknown | Promise<unknown>);
 
 export interface ApiOptions {
   method?: "get" | "post" | "put" | "patch" | "delete" | "head";
@@ -20,7 +24,12 @@ export interface ApiDefinition {
 
 export const api = (options: ApiOptions, ...handlers: ApiRequestHandler[]) => {
   let { path = "" } = options;
-  const { expose = true, method = "get", group = "", middleware = [] } = options;
+  const {
+    expose = true,
+    method = "get",
+    group = "",
+    middleware = []
+  } = options;
 
   if (!path && !group) throw new Error("Path or group is required");
   if (path.trim() === "/") path = "";

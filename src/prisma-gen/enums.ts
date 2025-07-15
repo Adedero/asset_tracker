@@ -28,7 +28,8 @@ export const InvestmentStatus = {
   TERMINATED: "TERMINATED"
 } as const;
 
-export type InvestmentStatus = (typeof InvestmentStatus)[keyof typeof InvestmentStatus];
+export type InvestmentStatus =
+  (typeof InvestmentStatus)[keyof typeof InvestmentStatus];
 
 export const ProfitStatus = {
   FROZEN: "FROZEN",
@@ -45,7 +46,8 @@ export const TransactionType = {
   PROFIT: "PROFIT"
 } as const;
 
-export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType];
+export type TransactionType =
+  (typeof TransactionType)[keyof typeof TransactionType];
 
 export const TransactionStatus = {
   PENDING: "PENDING",
@@ -53,4 +55,5 @@ export const TransactionStatus = {
   FAILED: "FAILED"
 } as const;
 
-export type TransactionStatus = (typeof TransactionStatus)[keyof typeof TransactionStatus];
+export type TransactionStatus =
+  (typeof TransactionStatus)[keyof typeof TransactionStatus];

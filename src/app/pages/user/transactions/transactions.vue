@@ -58,20 +58,37 @@ const allLoaded = computed(() => {
     <div>
       <div class="v-card !p-3">
         <div class="flex items-center justify-between">
-          <h1 class="text-lg font-semibold text-primary-500 dark:text-primary-400">Transactions</h1>
+          <h1
+            class="text-lg font-semibold text-primary-500 dark:text-primary-400"
+          >
+            Transactions
+          </h1>
 
           <div class="hidden md:flex items-end gap-2 justify-end">
             <div class="grid gap-1">
               <p class="text-sm font-medium text-mute text-right">Type</p>
-              <Select v-model="selectedType" size="small" :options="options.type" />
+              <Select
+                v-model="selectedType"
+                size="small"
+                :options="options.type"
+              />
             </div>
 
             <div class="grid gap-1">
               <p class="text-sm font-medium text-mute text-right">Status</p>
-              <Select v-model="selectedStatus" size="small" :options="options.status" />
+              <Select
+                v-model="selectedStatus"
+                size="small"
+                :options="options.status"
+              />
             </div>
 
-            <Button @click="mutate()" :loading="isLoading" label="Submit" size="small" />
+            <Button
+              @click="mutate()"
+              :loading="isLoading"
+              label="Submit"
+              size="small"
+            />
           </div>
           <Button
             @click="visible = true"
@@ -89,17 +106,35 @@ const allLoaded = computed(() => {
           <div class="flex flex-col gap-2">
             <div class="grid gap-1">
               <p class="text-sm font-medium text-mute">Type</p>
-              <Select v-model="selectedType" size="small" :options="options.type" />
+              <Select
+                v-model="selectedType"
+                size="small"
+                :options="options.type"
+              />
             </div>
 
             <div class="grid gap-1">
               <p class="text-sm font-medium text-mute">Status</p>
-              <Select v-model="selectedStatus" size="small" :options="options.status" />
+              <Select
+                v-model="selectedStatus"
+                size="small"
+                :options="options.status"
+              />
             </div>
 
             <div class="grid grid-cols-2 gap-2 mt-2">
-              <Button @click="visible = false" size="small" severity="secondary" label="Cancel" />
-              <Button @click="mutate()" :loading="isLoading" size="small" label="Submit" />
+              <Button
+                @click="visible = false"
+                size="small"
+                severity="secondary"
+                label="Cancel"
+              />
+              <Button
+                @click="mutate()"
+                :loading="isLoading"
+                size="small"
+                label="Submit"
+              />
             </div>
           </div>
         </Dialog>
@@ -107,7 +142,9 @@ const allLoaded = computed(() => {
 
       <div class="mt-2 h-[calc(100dvh-10rem)] md:h-[calc(100dvh-11rem)]">
         <div class="w-full">
-          <div class="md:max-h-[calc(100dvh-16rem)] overflow-auto w-full rounded-lg">
+          <div
+            class="md:max-h-[calc(100dvh-16rem)] overflow-auto w-full rounded-lg"
+          >
             <DataTable
               :loading="isLoading"
               :value="data?.transactions"
@@ -130,14 +167,16 @@ const allLoaded = computed(() => {
                   <div
                     class="flex-col-center"
                     :class="
-                      data.transactionType === 'DEPOSIT' || data.transactionType === 'PROFIT'
+                      data.transactionType === 'DEPOSIT' ||
+                      data.transactionType === 'PROFIT'
                         ? 'text-green-500'
                         : 'text-red-500'
                     "
                   >
                     <span
                       :class="
-                        data.transactionType === 'DEPOSIT' || data.transactionType === 'PROFIT'
+                        data.transactionType === 'DEPOSIT' ||
+                        data.transactionType === 'PROFIT'
                           ? 'pi pi-arrow-circle-down'
                           : 'pi pi-arrow-circle-up'
                       "
@@ -153,9 +192,13 @@ const allLoaded = computed(() => {
                 <template #body="{ data }">
                   <p>
                     {{
-                      useDateFormat(data.createdAt, "dddd YYYY-MMM-DD, hh:mm:ss A", {
-                        locales: "en-US"
-                      })
+                      useDateFormat(
+                        data.createdAt,
+                        "dddd YYYY-MMM-DD, hh:mm:ss A",
+                        {
+                          locales: "en-US"
+                        }
+                      )
                     }}
                   </p>
                 </template>
@@ -168,7 +211,8 @@ const allLoaded = computed(() => {
                   <p
                     class="font-medium"
                     :class="
-                      data.transactionType === 'DEPOSIT' || data.transactionType === 'PROFIT'
+                      data.transactionType === 'DEPOSIT' ||
+                      data.transactionType === 'PROFIT'
                         ? 'text-green-500'
                         : 'text-red-500'
                     "
@@ -201,7 +245,10 @@ const allLoaded = computed(() => {
 
               <Column field="rate" header="Rate"></Column>
 
-              <Column field="amountInCurrency" header="Amount in Currency"></Column>
+              <Column
+                field="amountInCurrency"
+                header="Amount in Currency"
+              ></Column>
 
               <Column field="status" header="Status">
                 <template #body="{ data }">
@@ -221,7 +268,12 @@ const allLoaded = computed(() => {
             </DataTable>
           </div>
 
-          <VPaginator :allLoaded :length="dataLength" :rows="LIMIT" v-model:page="page" />
+          <VPaginator
+            :allLoaded
+            :length="dataLength"
+            :rows="LIMIT"
+            v-model:page="page"
+          />
         </div>
       </div>
     </div>

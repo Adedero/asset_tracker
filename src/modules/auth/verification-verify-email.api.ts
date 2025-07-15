@@ -13,8 +13,14 @@ import { compare } from "bcrypt";
 import { z } from "zod";
 
 const Schema = z.object({
-  email: z.string({ message: "Email is required" }).email({ message: "Invalid email" }).optional(),
-  emailToVerify: z.string().email({ message: "Invalid email to verify" }).optional(),
+  email: z
+    .string({ message: "Email is required" })
+    .email({ message: "Invalid email" })
+    .optional(),
+  emailToVerify: z
+    .string()
+    .email({ message: "Invalid email to verify" })
+    .optional(),
   otp: z
     .string({ message: "Invalid OTP" })
     .length(OTP_LENGTH, { message: "Invalid OTP" })
@@ -42,7 +48,8 @@ export default api(
     middleware: defineValidator("body", Schema)
   },
   defineHandler(async (req) => {
-    const { otp, token, email, emailToVerify, id } = req.validatedBody as z.infer<typeof Schema>;
+    const { otp, token, email, emailToVerify, id } =
+      req.validatedBody as z.infer<typeof Schema>;
 
     let query: null | UserWhereUniqueInput = null;
 
@@ -144,9 +151,12 @@ export default api(
             salutation: `Hello ${user.name}!`,
             message: "Your email has been verified successfully.",
             info: `Please, log in to your account to continue using our services.`,
-            cta: button(new URL("login", env.get("APP_URL")).href, "Login", { centered: true })
+            cta: button(new URL("login", env.get("APP_URL")).href, "Login", {
+              centered: true
+            })
           },
-          mailReason: "You received this email because you completed an email verification process."
+          mailReason:
+            "You received this email because you completed an email verification process."
         },
         generic
       )

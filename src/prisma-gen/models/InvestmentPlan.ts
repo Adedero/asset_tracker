@@ -84,7 +84,8 @@ export type InvestmentPlanCountAggregateInputType = {
 };
 
 export type InvestmentPlanAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which InvestmentPlan to aggregate.
@@ -136,7 +137,9 @@ export type InvestmentPlanAggregateArgs<
   _max?: InvestmentPlanMaxAggregateInputType;
 };
 
-export type GetInvestmentPlanAggregateType<T extends InvestmentPlanAggregateArgs> = {
+export type GetInvestmentPlanAggregateType<
+  T extends InvestmentPlanAggregateArgs
+> = {
   [P in keyof T & keyof AggregateInvestmentPlan]: P extends "_count" | "count"
     ? T[P] extends true
       ? number
@@ -145,13 +148,16 @@ export type GetInvestmentPlanAggregateType<T extends InvestmentPlanAggregateArgs
 };
 
 export type InvestmentPlanGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.InvestmentPlanWhereInput;
   orderBy?:
     | Prisma.InvestmentPlanOrderByWithAggregationInput
     | Prisma.InvestmentPlanOrderByWithAggregationInput[];
-  by: Prisma.InvestmentPlanScalarFieldEnum[] | Prisma.InvestmentPlanScalarFieldEnum;
+  by:
+    | Prisma.InvestmentPlanScalarFieldEnum[]
+    | Prisma.InvestmentPlanScalarFieldEnum;
   having?: Prisma.InvestmentPlanScalarWhereWithAggregatesInput;
   take?: number;
   skip?: number;
@@ -173,17 +179,19 @@ export type InvestmentPlanGroupByOutputType = {
   _max: InvestmentPlanMaxAggregateOutputType | null;
 };
 
-type GetInvestmentPlanGroupByPayload<T extends InvestmentPlanGroupByArgs> = Prisma.PrismaPromise<
-  Array<
-    Prisma.PickEnumerable<InvestmentPlanGroupByOutputType, T["by"]> & {
-      [P in keyof T & keyof InvestmentPlanGroupByOutputType]: P extends "_count"
-        ? T[P] extends boolean
-          ? number
-          : Prisma.GetScalarType<T[P], InvestmentPlanGroupByOutputType[P]>
-        : Prisma.GetScalarType<T[P], InvestmentPlanGroupByOutputType[P]>;
-    }
-  >
->;
+type GetInvestmentPlanGroupByPayload<T extends InvestmentPlanGroupByArgs> =
+  Prisma.PrismaPromise<
+    Array<
+      Prisma.PickEnumerable<InvestmentPlanGroupByOutputType, T["by"]> & {
+        [P in keyof T &
+          keyof InvestmentPlanGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : Prisma.GetScalarType<T[P], InvestmentPlanGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], InvestmentPlanGroupByOutputType[P]>;
+      }
+    >
+  >;
 
 export type InvestmentPlanWhereInput = {
   AND?: Prisma.InvestmentPlanWhereInput | Prisma.InvestmentPlanWhereInput[];
@@ -248,10 +256,19 @@ export type InvestmentPlanScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"InvestmentPlan"> | string;
   name?: Prisma.StringWithAggregatesFilter<"InvestmentPlan"> | string;
   slug?: Prisma.StringWithAggregatesFilter<"InvestmentPlan"> | string;
-  image?: Prisma.StringNullableWithAggregatesFilter<"InvestmentPlan"> | string | null;
+  image?:
+    | Prisma.StringNullableWithAggregatesFilter<"InvestmentPlan">
+    | string
+    | null;
   tiers?: Prisma.JsonNullableWithAggregatesFilter<"InvestmentPlan">;
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"InvestmentPlan"> | Date | string;
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"InvestmentPlan"> | Date | string;
+  createdAt?:
+    | Prisma.DateTimeWithAggregatesFilter<"InvestmentPlan">
+    | Date
+    | string;
+  updatedAt?:
+    | Prisma.DateTimeWithAggregatesFilter<"InvestmentPlan">
+    | Date
+    | string;
 };
 
 export type InvestmentPlanCreateInput = {
@@ -353,7 +370,8 @@ export type InvestmentPlanMinOrderByAggregateInput = {
 };
 
 export type InvestmentPlanSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -368,7 +386,8 @@ export type InvestmentPlanSelect<
 >;
 
 export type InvestmentPlanSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -383,7 +402,8 @@ export type InvestmentPlanSelectCreateManyAndReturn<
 >;
 
 export type InvestmentPlanSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -408,14 +428,16 @@ export type InvestmentPlanSelectScalar = {
 };
 
 export type InvestmentPlanOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetOmit<
   "id" | "name" | "slug" | "image" | "tiers" | "createdAt" | "updatedAt",
   ExtArgs["result"]["investmentPlan"]
 >;
 
 export type $InvestmentPlanPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   name: "InvestmentPlan";
   objects: {};
@@ -442,13 +464,18 @@ export type InvestmentPlanGetPayload<
 > = runtime.Types.Result.GetResult<Prisma.$InvestmentPlanPayload, S>;
 
 export type InvestmentPlanCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-> = Omit<InvestmentPlanFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = Omit<
+  InvestmentPlanFindManyArgs,
+  "select" | "include" | "distinct" | "omit"
+> & {
   select?: InvestmentPlanCountAggregateInputType | true;
 };
 
 export interface InvestmentPlanDelegate<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > {
   [K: symbol]: {
@@ -653,7 +680,10 @@ export interface InvestmentPlanDelegate<
    *
    */
   createManyAndReturn<T extends InvestmentPlanCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<T, InvestmentPlanCreateManyAndReturnArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<
+      T,
+      InvestmentPlanCreateManyAndReturnArgs<ExtArgs>
+    >
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$InvestmentPlanPayload<ExtArgs>,
@@ -844,7 +874,10 @@ export interface InvestmentPlanDelegate<
     T extends runtime.Types.Utils.Record<"select", any>
       ? T["select"] extends true
         ? number
-        : Prisma.GetScalarType<T["select"], InvestmentPlanCountAggregateOutputType>
+        : Prisma.GetScalarType<
+            T["select"],
+            InvestmentPlanCountAggregateOutputType
+          >
       : number
   >;
 
@@ -919,7 +952,12 @@ export interface InvestmentPlanDelegate<
               ? never
               : P extends string
                 ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                : [Error, "Field ", P, ` in "having" needs to be provided in "by"`];
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`
+                  ];
           }[HavingFields]
         : "take" extends Prisma.Keys<T>
           ? "orderBy" extends Prisma.Keys<T>
@@ -949,7 +987,8 @@ export interface InvestmentPlanDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields]
   >(
-    args: Prisma.SubsetIntersection<T, InvestmentPlanGroupByArgs, OrderByArg> & InputErrors
+    args: Prisma.SubsetIntersection<T, InvestmentPlanGroupByArgs, OrderByArg> &
+      InputErrors
   ): {} extends InputErrors
     ? GetInvestmentPlanGroupByPayload<T>
     : Prisma.PrismaPromise<InputErrors>;
@@ -968,7 +1007,8 @@ export interface InvestmentPlanDelegate<
 export interface Prisma__InvestmentPlanClient<
   T,
   Null = never,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
@@ -979,8 +1019,14 @@ export interface Prisma__InvestmentPlanClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -988,7 +1034,10 @@ export interface Prisma__InvestmentPlanClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -996,7 +1045,9 @@ export interface Prisma__InvestmentPlanClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  finally(
+    onfinally?: (() => void) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -1017,7 +1068,8 @@ export interface InvestmentPlanFieldRefs {
  * InvestmentPlan findUnique
  */
 export type InvestmentPlanFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1037,7 +1089,8 @@ export type InvestmentPlanFindUniqueArgs<
  * InvestmentPlan findUniqueOrThrow
  */
 export type InvestmentPlanFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1057,7 +1110,8 @@ export type InvestmentPlanFindUniqueOrThrowArgs<
  * InvestmentPlan findFirst
  */
 export type InvestmentPlanFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1102,14 +1156,17 @@ export type InvestmentPlanFindFirstArgs<
    *
    * Filter by unique combinations of InvestmentPlans.
    */
-  distinct?: Prisma.InvestmentPlanScalarFieldEnum | Prisma.InvestmentPlanScalarFieldEnum[];
+  distinct?:
+    | Prisma.InvestmentPlanScalarFieldEnum
+    | Prisma.InvestmentPlanScalarFieldEnum[];
 };
 
 /**
  * InvestmentPlan findFirstOrThrow
  */
 export type InvestmentPlanFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1154,14 +1211,17 @@ export type InvestmentPlanFindFirstOrThrowArgs<
    *
    * Filter by unique combinations of InvestmentPlans.
    */
-  distinct?: Prisma.InvestmentPlanScalarFieldEnum | Prisma.InvestmentPlanScalarFieldEnum[];
+  distinct?:
+    | Prisma.InvestmentPlanScalarFieldEnum
+    | Prisma.InvestmentPlanScalarFieldEnum[];
 };
 
 /**
  * InvestmentPlan findMany
  */
 export type InvestmentPlanFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1201,14 +1261,17 @@ export type InvestmentPlanFindManyArgs<
    * Skip the first `n` InvestmentPlans.
    */
   skip?: number;
-  distinct?: Prisma.InvestmentPlanScalarFieldEnum | Prisma.InvestmentPlanScalarFieldEnum[];
+  distinct?:
+    | Prisma.InvestmentPlanScalarFieldEnum
+    | Prisma.InvestmentPlanScalarFieldEnum[];
 };
 
 /**
  * InvestmentPlan create
  */
 export type InvestmentPlanCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1221,26 +1284,33 @@ export type InvestmentPlanCreateArgs<
   /**
    * The data needed to create a InvestmentPlan.
    */
-  data: Prisma.XOR<Prisma.InvestmentPlanCreateInput, Prisma.InvestmentPlanUncheckedCreateInput>;
+  data: Prisma.XOR<
+    Prisma.InvestmentPlanCreateInput,
+    Prisma.InvestmentPlanUncheckedCreateInput
+  >;
 };
 
 /**
  * InvestmentPlan createMany
  */
 export type InvestmentPlanCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to create many InvestmentPlans.
    */
-  data: Prisma.InvestmentPlanCreateManyInput | Prisma.InvestmentPlanCreateManyInput[];
+  data:
+    | Prisma.InvestmentPlanCreateManyInput
+    | Prisma.InvestmentPlanCreateManyInput[];
 };
 
 /**
  * InvestmentPlan createManyAndReturn
  */
 export type InvestmentPlanCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1253,14 +1323,17 @@ export type InvestmentPlanCreateManyAndReturnArgs<
   /**
    * The data used to create many InvestmentPlans.
    */
-  data: Prisma.InvestmentPlanCreateManyInput | Prisma.InvestmentPlanCreateManyInput[];
+  data:
+    | Prisma.InvestmentPlanCreateManyInput
+    | Prisma.InvestmentPlanCreateManyInput[];
 };
 
 /**
  * InvestmentPlan update
  */
 export type InvestmentPlanUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1273,7 +1346,10 @@ export type InvestmentPlanUpdateArgs<
   /**
    * The data needed to update a InvestmentPlan.
    */
-  data: Prisma.XOR<Prisma.InvestmentPlanUpdateInput, Prisma.InvestmentPlanUncheckedUpdateInput>;
+  data: Prisma.XOR<
+    Prisma.InvestmentPlanUpdateInput,
+    Prisma.InvestmentPlanUncheckedUpdateInput
+  >;
   /**
    * Choose, which InvestmentPlan to update.
    */
@@ -1284,7 +1360,8 @@ export type InvestmentPlanUpdateArgs<
  * InvestmentPlan updateMany
  */
 export type InvestmentPlanUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to update InvestmentPlans.
@@ -1307,7 +1384,8 @@ export type InvestmentPlanUpdateManyArgs<
  * InvestmentPlan updateManyAndReturn
  */
 export type InvestmentPlanUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1338,7 +1416,8 @@ export type InvestmentPlanUpdateManyAndReturnArgs<
  * InvestmentPlan upsert
  */
 export type InvestmentPlanUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1355,18 +1434,25 @@ export type InvestmentPlanUpsertArgs<
   /**
    * In case the InvestmentPlan found by the `where` argument doesn't exist, create a new InvestmentPlan with this data.
    */
-  create: Prisma.XOR<Prisma.InvestmentPlanCreateInput, Prisma.InvestmentPlanUncheckedCreateInput>;
+  create: Prisma.XOR<
+    Prisma.InvestmentPlanCreateInput,
+    Prisma.InvestmentPlanUncheckedCreateInput
+  >;
   /**
    * In case the InvestmentPlan was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<Prisma.InvestmentPlanUpdateInput, Prisma.InvestmentPlanUncheckedUpdateInput>;
+  update: Prisma.XOR<
+    Prisma.InvestmentPlanUpdateInput,
+    Prisma.InvestmentPlanUncheckedUpdateInput
+  >;
 };
 
 /**
  * InvestmentPlan delete
  */
 export type InvestmentPlanDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan
@@ -1386,7 +1472,8 @@ export type InvestmentPlanDeleteArgs<
  * InvestmentPlan deleteMany
  */
 export type InvestmentPlanDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which InvestmentPlans to delete
@@ -1402,7 +1489,8 @@ export type InvestmentPlanDeleteManyArgs<
  * InvestmentPlan without action
  */
 export type InvestmentPlanDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the InvestmentPlan

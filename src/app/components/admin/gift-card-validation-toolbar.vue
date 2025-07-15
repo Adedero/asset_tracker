@@ -17,10 +17,9 @@ const emit = defineEmits<{
 const router = useRouter();
 const toast = useToast();
 const confirm = useConfirm();
-const allSavedTransactions = useLocalStorage<Array<TransactionGetApiResponse["transaction"]>>(
-  "gift-card-transactions",
-  []
-);
+const allSavedTransactions = useLocalStorage<
+  Array<TransactionGetApiResponse["transaction"]>
+>("gift-card-transactions", []);
 
 const saveProgress = () => {
   allSavedTransactions.value.push(transaction);
@@ -106,11 +105,17 @@ async function approveTransaction() {
 
 function validateTransaction() {
   if (transaction.transactionStatus !== "PENDING") {
-    return { valid: false, message: "Transaction status has already been resolved" };
+    return {
+      valid: false,
+      message: "Transaction status has already been resolved"
+    };
   }
 
   if (transaction.transactionType !== "DEPOSIT") {
-    return { valid: false, message: "Only deposit transactions can be modified" };
+    return {
+      valid: false,
+      message: "Only deposit transactions can be modified"
+    };
   }
 
   if (!transaction.amountInUSD) {
@@ -120,7 +125,8 @@ function validateTransaction() {
   if (transaction.giftCardData?.cards.some((card) => !card.amountRetrieved)) {
     return {
       valid: false,
-      message: "One or more cards have not been validated. Validate all cards and try again"
+      message:
+        "One or more cards have not been validated. Validate all cards and try again"
     };
   }
 
@@ -171,8 +177,17 @@ const onTransactionStatusUpdate = () => {
         size="small"
         outlined
       />
-      <TransactionStatusManager @update="onTransactionStatusUpdate" :transaction action="fail">
-        <Button v-tooltip="'Fail transaction'" icon="pi pi-times-circle" size="small" outlined />
+      <TransactionStatusManager
+        @update="onTransactionStatusUpdate"
+        :transaction
+        action="fail"
+      >
+        <Button
+          v-tooltip="'Fail transaction'"
+          icon="pi pi-times-circle"
+          size="small"
+          outlined
+        />
       </TransactionStatusManager>
       <Button
         @click="confirmApproval()"

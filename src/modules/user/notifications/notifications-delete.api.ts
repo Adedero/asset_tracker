@@ -47,7 +47,9 @@ export default api(
     });
 
     const word =
-      notificationIds.length === 0 || notificationIds.length > 1 ? "notifications" : "notification";
+      notificationIds.length === 0 || notificationIds.length > 1
+        ? "notifications"
+        : "notification";
 
     const payload: DeleteNotificationsApiResponse = {
       success: true,

@@ -3,7 +3,9 @@ import { APP_NAME } from "@/app/data/constants";
 </script>
 
 <template>
-  <div class="z-[200] w-dvw h-dvh fixed left-0 top-0 bg-primary-300 dark:bg-primary-800 text-white">
+  <div
+    class="z-[200] w-dvw h-dvh fixed left-0 top-0 bg-primary-300 dark:bg-primary-800 text-white"
+  >
     <div class="w-full h-full flex flex-col gap-8 items-center justify-center">
       <span class="loader"></span>
       <p class="text-center uppercase font-medium">{{ APP_NAME }}</p>

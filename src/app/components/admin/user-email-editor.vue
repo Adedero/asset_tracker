@@ -36,7 +36,9 @@ const update = async () => {
   confirm.value = false;
 
   const Schema = z.object({
-    email: z.string({ message: "Email is required" }).email({ message: "Enter a valid email" })
+    email: z
+      .string({ message: "Email is required" })
+      .email({ message: "Enter a valid email" })
   });
 
   const result = Schema.safeParse({ email: credentials.value.email });
@@ -73,7 +75,10 @@ const update = async () => {
 };
 
 const disabled = computed(
-  () => isFetching.value || !credentials.value.email || credentials.value.email === user.email
+  () =>
+    isFetching.value ||
+    !credentials.value.email ||
+    credentials.value.email === user.email
 );
 
 const cancel = () => {
@@ -102,7 +107,12 @@ const cancel = () => {
       </slot>
     </div>
 
-    <Dialog v-model:visible="visible" modal header="Edit Email Address" class="max-w-96">
+    <Dialog
+      v-model:visible="visible"
+      modal
+      header="Edit Email Address"
+      class="max-w-96"
+    >
       <div>
         <div class="grid gap-4">
           <p>
@@ -119,23 +129,27 @@ const cancel = () => {
 
           <div class="grid">
             <div class="flex flex-wrap items-center gap-2 justify-between">
-              <label class="text-mute text-sm font-semibold">Mark email as verified </label>
+              <label class="text-mute text-sm font-semibold"
+                >Mark email as verified
+              </label>
               <ToggleSwitch v-model="credentials.verified" />
             </div>
             <small class="text-xs text-mute mt-1">
-              If you mark this email as verified, the user can log in without an OTP verification
-              message sent to the email to verify it.
+              If you mark this email as verified, the user can log in without an
+              OTP verification message sent to the email to verify it.
             </small>
           </div>
 
           <div class="grid">
             <div class="flex flex-wrap items-center gap-2 justify-between">
-              <label class="text-mute text-sm font-semibold">Notify user </label>
+              <label class="text-mute text-sm font-semibold"
+                >Notify user
+              </label>
               <ToggleSwitch v-model="credentials.notify" />
             </div>
             <small class="text-xs text-mute mt-1">
-              Send an email to {{ user ? user.name : "this user" }} notifying them their email has
-              been changed.
+              Send an email to {{ user ? user.name : "this user" }} notifying
+              them their email has been changed.
             </small>
           </div>
 
@@ -151,7 +165,8 @@ const cancel = () => {
           <div v-else>
             <Divider />
             <p class="text-sm text-red-500 font-medium">
-              Are you sure you want to proceed? Please, make sure you have entered a valid email.
+              Are you sure you want to proceed? Please, make sure you have
+              entered a valid email.
             </p>
             <div class="mt-2 grid grid-cols-2 gap-2">
               <Button

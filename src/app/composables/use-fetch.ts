@@ -6,7 +6,10 @@ import { createFetch } from "@vueuse/core";
 
 const store = useStore();
 
-export const $fetch = async <T extends Record<string, any>>(url: string, auth: boolean = true) => {
+export const $fetch = async <T extends Record<string, any>>(
+  url: string,
+  auth: boolean = true
+) => {
   const headers: HeadersInit = {};
 
   if (auth) {
@@ -43,7 +46,8 @@ export const $fetch = async <T extends Record<string, any>>(url: string, auth: b
     if (error instanceof Error) {
       if (error.name === "AbortError") {
         throw new Error(
-          "The request took too long. " + "Check your internet connection and try again."
+          "The request took too long. " +
+            "Check your internet connection and try again."
         );
       }
       throw new Error(error.message || "Server error");

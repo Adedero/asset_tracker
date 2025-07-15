@@ -12,8 +12,12 @@ useHead({
 <template>
   <VueLayout name="main">
     <main>
-      <header class="bg-slate-200 dark:bg-slate-800 px-4 py-6 flex-col-center gap-4 text-center">
-        <p class="text-primary-500 dark:text-white text-3xl md:text-4xl lg:text-5xl font-semibold">
+      <header
+        class="bg-slate-200 dark:bg-slate-800 px-4 py-6 flex-col-center gap-4 text-center"
+      >
+        <p
+          class="text-primary-500 dark:text-white text-3xl md:text-4xl lg:text-5xl font-semibold"
+        >
           Market
         </p>
         <VShapes />
@@ -21,14 +25,18 @@ useHead({
 
       <div class="px-4 md:px-28 xl:px-32">
         <section class="py-10">
-          <h2 class="text-xl md:text-2xl lg:text-3xl font-semibold dark:text-primary-400">
+          <h2
+            class="text-xl md:text-2xl lg:text-3xl font-semibold dark:text-primary-400"
+          >
             A relationship on your terms.
           </h2>
           <p class="text-lg text-mute mt-1">Work with us the way you want.</p>
           <p class="mt-4">
-            Some believe you must choose between an online broker and a wealth management firm. At
-            {{ APP_NAME }}, you don&apos;t need to compromise. Whether you invest on your own, with
-            an advisor, or a little of both — we can support you.
+            Some believe you must choose between an online broker and a wealth
+            management firm. At
+            {{ APP_NAME }}, you don&apos;t need to compromise. Whether you
+            invest on your own, with an advisor, or a little of both — we can
+            support you.
           </p>
 
           <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -48,7 +56,9 @@ useHead({
               </div>
               <header class="text-lg font-semibold">{{ option.name }}</header>
               <hr class="border-white/20" />
-              <p class="text-white/90 dark:text-slate-400 text-sm">{{ option.desc }}</p>
+              <p class="text-white/90 dark:text-slate-400 text-sm">
+                {{ option.desc }}
+              </p>
             </div>
           </div>
         </section>
@@ -59,21 +69,37 @@ useHead({
               <div
                 class="hidden mb-2 lg:flex items-center bg-green-400 dark:bg-green-500/20 rounded-full p-2 w-fit"
               >
-                <Icon icon="ic:baseline-payments" style="font-size: 24px" class="text-white" />
+                <Icon
+                  icon="ic:baseline-payments"
+                  style="font-size: 24px"
+                  class="text-white"
+                />
               </div>
               <div>
                 <header class="flex items-center gap-2">
                   <div
                     class="lg:hidden mb-2 flex items-center bg-green-400 dark:bg-green-500/20 rounded-full p-2 w-fit"
                   >
-                    <Icon icon="ic:baseline-payments" style="font-size: 24px" class="text-white" />
+                    <Icon
+                      icon="ic:baseline-payments"
+                      style="font-size: 24px"
+                      class="text-white"
+                    />
                   </div>
-                  <p class="text-xl md:text-2xl font-semibold">Why trade with {{ APP_NAME }}?</p>
+                  <p class="text-xl md:text-2xl font-semibold">
+                    Why trade with {{ APP_NAME }}?
+                  </p>
                 </header>
 
                 <div class="mt-5 grid md:grid-cols-2 gap-4">
-                  <div v-for="reason in tradeReasons" :key="reason" class="flex items-center gap-2">
-                    <span class="pi pi-check-circle w-[24px] h-[24px] text-green-500/80" />
+                  <div
+                    v-for="reason in tradeReasons"
+                    :key="reason"
+                    class="flex items-center gap-2"
+                  >
+                    <span
+                      class="pi pi-check-circle w-[24px] h-[24px] text-green-500/80"
+                    />
                     <p class="text-mute">{{ reason }}</p>
                   </div>
                 </div>

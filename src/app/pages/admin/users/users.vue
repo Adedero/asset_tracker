@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { $fetch } from "@/app/composables/use-fetch";
-import { UsersGetApiResponse } from "#src/modules/admin/users/users-get.api";
+import type { UsersGetApiResponse } from "@/modules/admin/users/users-get.api";
 import useSWRV from "swrv";
 import { GET_REQUEST_DATA_LIMIT } from "@/utils/constants";
 import { User } from "@/prisma-gen";
 import { Icon } from "@iconify/vue";
+import useStore from "@/app/stores/store";
+
+const store = useStore();
 
 const page = ref(0);
 const LIMIT = GET_REQUEST_DATA_LIMIT;
@@ -75,13 +78,19 @@ const onDone = async (payload: User) => {
     <div>
       <VCard class="py-2 rounded-xl">
         <div class="flex items-center gap-2 justify-between">
-          <div class="flex items-center gap-2 text-lg font-semibold text-primary-500">
+          <div
+            class="flex items-center gap-2 text-lg font-semibold text-primary-500"
+          >
             <h1>Users</h1>
           </div>
 
           <div class="flex flex-wrap items-center justify-end gap-1">
             <div>
-              <Select v-model="selectedFilter" size="small" :options="filters" />
+              <Select
+                v-model="selectedFilter"
+                size="small"
+                :options="filters"
+              />
             </div>
             <UserManager @done="onDone">
               <Button label="New" icon="pi pi-plus" size="small" />
@@ -93,20 +102,42 @@ const onDone = async (payload: User) => {
       <div class="mt-2">
         <VPageLoader v-if="isLoading" />
 
-        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="mutate()"
+        />
 
-        <div v-else-if="data && data.users" class="w-full md:h-[calc(100dvh-9rem)] overflow-y-auto">
+        <div
+          v-else-if="data && data.users"
+          class="w-full md:h-[calc(100dvh-9rem)] overflow-y-auto"
+        >
           <div class="h-full w-full">
             <div class="w-full overflow-auto md:max-h-[calc(100dvh-15rem)]">
-              <DataTable :loading="isLoading" :value="data.users" size="small" class="text-sm">
+              <DataTable
+                :loading="isLoading"
+                :value="data.users"
+                size="small"
+                class="text-sm"
+              >
                 <Column header="S/N">
-                  <template #body="{ index }"> {{ index + 1 + skip }}&rpar; </template>
+                  <template #body="{ index }">
+                    {{ index + 1 + skip }}&rpar;
+                  </template>
                 </Column>
 
                 <Column>
                   <template #body="{ data }">
-                    <div v-if="data.image" class="w-8 aspect-square overflow-hidden rounded-full">
-                      <img :src="data.image" :alt="data.name" class="w-full h-full object-cover" />
+                    <div
+                      v-if="data.image"
+                      class="w-8 aspect-square overflow-hidden rounded-full"
+                    >
+                      <img
+                        :src="data.image"
+                        :alt="data.name"
+                        class="w-full h-full object-cover"
+                      />
                     </div>
                     <Icon
                       v-else
@@ -120,11 +151,17 @@ const onDone = async (payload: User) => {
                 <Column field="name" header="Name">
                   <template #body="{ data }">
                     {{ data.name }}
-                    <sup v-if="data.role === 'ADMIN'" class="text-blue-500 font-medium text-xs">
+                    <sup
+                      v-if="data.role === 'ADMIN'"
+                      class="text-blue-500 font-medium text-xs"
+                    >
                       admin
                     </sup>
 
-                    <sup v-if="data.isBanned" class="text-red-500 font-medium text-xs">
+                    <sup
+                      v-if="data.isBanned"
+                      class="text-red-500 font-medium text-xs"
+                    >
                       banned
                     </sup>
                   </template>
@@ -152,7 +189,7 @@ const onDone = async (payload: User) => {
 
                 <Column>
                   <template #body="{ data }">
-                    <div v-if="data.role !== 'ADMIN'" class="flex items-center gap-2">
+                    <div v-if="store.user.id !== data.id" class="flex items-center gap-2">
                       <Button
                         @click="
                           $router.push({
@@ -165,7 +202,12 @@ const onDone = async (payload: User) => {
                         rounded
                       />
                       <UserManager :user="data" @done="onDone">
-                        <Button size="small" icon="pi pi-user-edit" rounded severity="secondary" />
+                        <Button
+                          size="small"
+                          icon="pi pi-user-edit"
+                          rounded
+                          severity="secondary"
+                        />
                       </UserManager>
                     </div>
                   </template>
@@ -173,7 +215,12 @@ const onDone = async (payload: User) => {
               </DataTable>
             </div>
 
-            <VPaginator :allLoaded :length="dataLength" :rows="LIMIT" v-model:page="page" />
+            <VPaginator
+              :allLoaded
+              :length="dataLength"
+              :rows="LIMIT"
+              v-model:page="page"
+            />
           </div>
         </div>
       </div>

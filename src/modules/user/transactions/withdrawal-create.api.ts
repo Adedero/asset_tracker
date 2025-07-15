@@ -2,9 +2,16 @@ import { api } from "#src/lib/api/api";
 import { defineHandler, defineValidator } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
 import prisma from "#src/lib/prisma/prisma";
-import { Transaction, TransactionStatus, TransactionType } from "#src/prisma-gen/index";
+import {
+  Transaction,
+  TransactionStatus,
+  TransactionType
+} from "#src/prisma-gen/index";
 import { ApiResponse } from "#src/types/api-response";
-import { DUPLICATE_TRANSACTION_CHECK_TIME, MIN_ACCOUNT_BALANCE } from "#src/utils/constants";
+import {
+  DUPLICATE_TRANSACTION_CHECK_TIME,
+  MIN_ACCOUNT_BALANCE
+} from "#src/utils/constants";
 import { z } from "zod";
 import { alertEmitter } from "#src/events/alert.event";
 
@@ -48,7 +55,9 @@ export default api(
     const data = req.validatedBody as z.infer<typeof Schema>;
 
     if (data.transactionType !== "WITHDRAWAL") {
-      throw HttpException.badRequest("Transaction must be a withdrawal request");
+      throw HttpException.badRequest(
+        "Transaction must be a withdrawal request"
+      );
     }
 
     const [user, currency] = await Promise.all([
@@ -87,7 +96,9 @@ export default api(
     const updatedWalletBalance = walletBalance - amountInUSD;
 
     if (walletBalance - MIN_ACCOUNT_BALANCE < amountInUSD) {
-      throw HttpException.badRequest("You do not have suffient funds to complete this request");
+      throw HttpException.badRequest(
+        "You do not have suffient funds to complete this request"
+      );
     }
 
     const lastWithdrawalRequest = await prisma.transaction.findFirst({
@@ -116,7 +127,9 @@ export default api(
     }
 
     if (!rate) {
-      throw HttpException.badRequest("Failed to get currency rate. Please, try again later.");
+      throw HttpException.badRequest(
+        "Failed to get currency rate. Please, try again later."
+      );
     }
 
     const [transaction] = await prisma.$transaction([
@@ -127,7 +140,8 @@ export default api(
           charge: currency.withdrawalCharge,
           actualAmountInUSD: data.amountInUSD - currency.withdrawalCharge,
           rate,
-          amountInCurrency: (data.amountInUSD - currency.withdrawalCharge) / rate
+          amountInCurrency:
+            (data.amountInUSD - currency.withdrawalCharge) / rate
         }
       }),
 

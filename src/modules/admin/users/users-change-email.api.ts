@@ -8,7 +8,9 @@ import env from "#src/utils/env";
 import { z } from "zod";
 
 const Schema = z.object({
-  email: z.string({ required_error: "Email is required" }).email({ message: "Invalid email" }),
+  email: z
+    .string({ required_error: "Email is required" })
+    .email({ message: "Invalid email" }),
   verified: z.boolean({ required_error: "Verified option is required" }),
   notify: z.boolean({ required_error: "Notify option is required" })
 });
@@ -22,7 +24,9 @@ export default api(
   },
   defineHandler(async (req) => {
     const { user_id } = req.params;
-    const { email, verified, notify } = req.validatedBody as z.infer<typeof Schema>;
+    const { email, verified, notify } = req.validatedBody as z.infer<
+      typeof Schema
+    >;
 
     const user = await prisma.user.findUnique({
       where: { id: user_id },

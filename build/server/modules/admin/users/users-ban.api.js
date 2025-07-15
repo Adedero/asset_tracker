@@ -11,7 +11,9 @@ const zod_1 = require("zod");
 const index_1 = require("#src/prisma-gen/index");
 const Schema = zod_1.z.object({
     banReason: zod_1.z.string({ message: "Ban reason is required" }),
-    banDuration: zod_1.z.coerce.date({ message: "Ban duration must be a valid date" }).nullable(),
+    banDuration: zod_1.z.coerce
+        .date({ message: "Ban duration must be a valid date" })
+        .nullable(),
     freezeInvestments: zod_1.z.boolean().default(true)
 });
 exports.default = (0, api_1.api)({

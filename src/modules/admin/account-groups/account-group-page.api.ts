@@ -5,9 +5,10 @@ import prisma from "#src/lib/prisma/prisma";
 import { AccountGroup, Currency } from "#src/prisma-gen/index";
 import { ApiResponse } from "#src/types/api-response";
 
-type AccountGroupCurrencyWithName = NonNullable<PrismaJson.AccountGroupCurrencyData> & {
-  name?: string;
-};
+type AccountGroupCurrencyWithName =
+  NonNullable<PrismaJson.AccountGroupCurrencyData> & {
+    name?: string;
+  };
 
 export interface AccountGroupPageApiResponse extends ApiResponse {
   accountGroup: AccountGroup & {

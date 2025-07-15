@@ -34,7 +34,9 @@ const editProfile = ref<boolean>(route.query["edit-profile"] === "true");
 const editEmail = ref<boolean>(false);
 
 const email = ref<string>("");
-const isEmailTheSame = computed(() => !!email.value && email.value === data.value?.user.email);
+const isEmailTheSame = computed(
+  () => !!email.value && email.value === data.value?.user.email
+);
 const errorMessage = ref<string>("");
 
 const menu = useTemplateRef("menu");
@@ -57,7 +59,9 @@ const handleEmailChange = () => {
   if (isEmailTheSame.value) return;
 
   const Schema = z.object({
-    email: z.string({ message: "Email is required" }).email({ message: "Enter a valid email" })
+    email: z
+      .string({ message: "Email is required" })
+      .email({ message: "Enter a valid email" })
   });
   const result = Schema.safeParse({ email: email.value });
   if (!result.success) {
@@ -101,18 +105,33 @@ const handleEmailChange = () => {
                   />
                   <Menu ref="menu" :model="items" :popup="true" />
 
-                  <Dialog v-model:visible="editEmail" header="Change Email" modal class="w-80">
+                  <Dialog
+                    v-model:visible="editEmail"
+                    header="Change Email"
+                    modal
+                    class="w-80"
+                  >
                     <div>
                       <div class="grid gap-1">
-                        <label for="email" class="text-mute font-medium text-sm">
+                        <label
+                          for="email"
+                          class="text-mute font-medium text-sm"
+                        >
                           Enter your new email address
                         </label>
                         <small class="text-primary-500"
-                          >You will be asked to verify this email address.</small
+                          >You will be asked to verify this email
+                          address.</small
                         >
                         <InputText v-model="email" fluid />
-                        <small v-if="isEmailTheSame || errorMessage" class="text-red-500">
-                          {{ errorMessage || "Your new email is the same as your current email." }}
+                        <small
+                          v-if="isEmailTheSame || errorMessage"
+                          class="text-red-500"
+                        >
+                          {{
+                            errorMessage ||
+                            "Your new email is the same as your current email."
+                          }}
                         </small>
                       </div>
 
@@ -150,10 +169,16 @@ const handleEmailChange = () => {
                   />
                 </div>
 
-                <Icon v-else icon="ic:baseline-account-circle" style="font-size: 120px" />
+                <Icon
+                  v-else
+                  icon="ic:baseline-account-circle"
+                  style="font-size: 120px"
+                />
 
                 <div>
-                  <h1 class="font-semibold text-4xl md:5xl">{{ data.user.name }}</h1>
+                  <h1 class="font-semibold text-4xl md:5xl">
+                    {{ data.user.name }}
+                  </h1>
                   <p>{{ data.user.email }}</p>
                 </div>
               </div>
@@ -161,9 +186,14 @@ const handleEmailChange = () => {
 
             <VCard class="grid gap-2" header="Profile">
               <div class="flex flex-col gap-2 *:flex-shrink-0">
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
-                    <span class="pi pi-phone text-mute p-1 rounded-full" style="font-size: 12px" />
+                    <span
+                      class="pi pi-phone text-mute p-1 rounded-full"
+                      style="font-size: 12px"
+                    />
                     <p class="text-mute text-sm font-semibold">Phone Number</p>
                   </div>
                   <p class="text-right font-semibold">
@@ -171,9 +201,14 @@ const handleEmailChange = () => {
                   </p>
                 </div>
 
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
-                    <span class="pi pi-map text-mute p-1 rounded-full" style="font-size: 12px" />
+                    <span
+                      class="pi pi-map text-mute p-1 rounded-full"
+                      style="font-size: 12px"
+                    />
                     <p class="text-mute text-sm font-semibold">Address</p>
                   </div>
                   <p class="text-right font-semibold">
@@ -181,7 +216,9 @@ const handleEmailChange = () => {
                   </p>
                 </div>
 
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
                     <span
                       class="pi pi-map-marker text-mute p-1 rounded-full"
@@ -190,14 +227,17 @@ const handleEmailChange = () => {
                     <p class="text-mute text-sm font-semibold">Location</p>
                   </div>
                   <p class="text-right font-semibold">
-                    {{ data.user.region || "_____" }}, {{ data.user.country || "_____" }}
+                    {{ data.user.region || "_____" }},
+                    {{ data.user.country || "_____" }}
                   </p>
                 </div>
               </div>
             </VCard>
           </div>
 
-          <div class="md:col-span-3 md:row-span-6 flex flex-col gap-2 *:flex-shrink-0">
+          <div
+            class="md:col-span-3 md:row-span-6 flex flex-col gap-2 *:flex-shrink-0"
+          >
             <VCard header="Change Password">
               <div>
                 <RouterLink :to="{ name: 'admin-change-password' }">

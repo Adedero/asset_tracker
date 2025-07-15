@@ -1,7 +1,8 @@
 import env from "#src/utils/env";
 import { EmailTemplate, RequiredEmailTemplateOptions } from "../email";
 
-export interface WelcomeEmailTemplateOptions extends RequiredEmailTemplateOptions {
+export interface WelcomeEmailTemplateOptions
+  extends RequiredEmailTemplateOptions {
   user: {
     name: string;
     email: string;

@@ -18,9 +18,12 @@ const confirm = ref<boolean>(false);
 
 const update = ref({ walletBalance: account.walletBalance });
 
-const { isFetching, error, data, execute } = useFetch(`/api/admins/me/accounts/${account.id}`, {
-  immediate: false
-})
+const { isFetching, error, data, execute } = useFetch(
+  `/api/admins/me/accounts/${account.id}`,
+  {
+    immediate: false
+  }
+)
   .put(update)
   .json();
 
@@ -74,7 +77,12 @@ const cancel = () => {
       </slot>
     </div>
 
-    <Dialog v-model:visible="visible" modal header="Edit Account Balance" class="max-w-96">
+    <Dialog
+      v-model:visible="visible"
+      modal
+      header="Edit Account Balance"
+      class="max-w-96"
+    >
       <div>
         <div class="grid gap-4">
           <p>
@@ -85,15 +93,27 @@ const cancel = () => {
           </p>
           <div class="grid">
             <label class="text-mute text-sm font-semibold">New Balance </label>
-            <InputNumber v-model="update.walletBalance" :max-fraction-digits="2" fluid />
+            <InputNumber
+              v-model="update.walletBalance"
+              :max-fraction-digits="2"
+              fluid
+            />
           </div>
 
-          <Button v-if="!confirm" @click="confirm = true" :disabled label="Submit" fluid />
+          <Button
+            v-if="!confirm"
+            @click="confirm = true"
+            :disabled
+            label="Submit"
+            fluid
+          />
 
           <div v-else>
             <Divider />
 
-            <p class="text-sm text-red-500 font-medium">Are you sure you want to proceed?</p>
+            <p class="text-sm text-red-500 font-medium">
+              Are you sure you want to proceed?
+            </p>
             <div class="mt-2 grid grid-cols-2 gap-2">
               <Button
                 @click="cancel"

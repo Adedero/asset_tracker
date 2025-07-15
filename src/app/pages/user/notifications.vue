@@ -51,7 +51,9 @@ const {
   error: errorDeleting,
   data: deleteData,
   execute
-} = useFetch(api, { immediate: false }).delete().json<DeleteNotificationsApiResponse>();
+} = useFetch(api, { immediate: false })
+  .delete()
+  .json<DeleteNotificationsApiResponse>();
 
 const deleteNotifications = async () => {
   if (!data.value) return;
@@ -147,7 +149,9 @@ function confirmDelete() {
         class="left-0 top-0 z-[100] fixed w-dvw h-dvh flex items-center justify-center bg-black/60 backdrop-blur-lg"
       >
         <VCard header="Updating" class="w-60 shadow-lg">
-          <div class="mt-2 flex flex-col w-full items-center justify-center gap-4">
+          <div
+            class="mt-2 flex flex-col w-full items-center justify-center gap-4"
+          >
             <ProgressSpinner
               style="width: 50px; height: 50px"
               strokeWidth="8"
@@ -170,7 +174,11 @@ function confirmDelete() {
         v-else-if="data"
         class="mt-2 py-2 flex flex-col gap-2 *:flex-shrink-0 md:h-[calc(100dvh-8.5rem)] overflow-y-auto items-center"
       >
-        <VCard v-for="n in data.notifications" :key="n.id" class="w-full max-w-[32rem]">
+        <VCard
+          v-for="n in data.notifications"
+          :key="n.id"
+          class="w-full max-w-[32rem]"
+        >
           <template #header>
             <div class="flex items-center gap-1">
               <span class="pi pi-info-circle" />
@@ -182,9 +190,16 @@ function confirmDelete() {
           </p>
           <Divider class="py-1" />
           <div class="flex items-center gap-1 justify-between">
-            <small>{{ useDateFormat(n.createdAt, "MMM DD, YYYY hh:mm AA") }}</small>
+            <small>{{
+              useDateFormat(n.createdAt, "MMM DD, YYYY hh:mm AA")
+            }}</small>
             <div class="flex items-center gap-2">
-              <Tag v-show="!n.isRead" value="new" severity="warn" class="text-xs" />
+              <Tag
+                v-show="!n.isRead"
+                value="new"
+                severity="warn"
+                class="text-xs"
+              />
               <!-- @vue-expect-error -->
               <Button
                 @click="deleteSingleNotification(n)"
@@ -198,7 +213,12 @@ function confirmDelete() {
             </div>
           </div>
         </VCard>
-        <VPaginator :length="dataLength" :allLoaded :rows="LIMIT" v-model:page="page" />
+        <VPaginator
+          :length="dataLength"
+          :allLoaded
+          :rows="LIMIT"
+          v-model:page="page"
+        />
       </div>
     </div>
   </VueLayout>

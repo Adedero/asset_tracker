@@ -31,7 +31,9 @@ const {
   error: approvalError,
   data: approvalData,
   execute: approve
-} = useFetch(() => `/api/admins/me/transactions/${transaction.id}/approve`, { immediate: false })
+} = useFetch(() => `/api/admins/me/transactions/${transaction.id}/approve`, {
+  immediate: false
+})
   .put()
   .json<TransactionApprovalApiResponse>();
 
@@ -40,7 +42,9 @@ const {
   error: failError,
   data: failData,
   execute: fail
-} = useFetch(() => `/api/admins/me/transactions/${transaction.id}/fail`, { immediate: false })
+} = useFetch(() => `/api/admins/me/transactions/${transaction.id}/fail`, {
+  immediate: false
+})
   .put(request)
   .json<TransactionFailApiResponse>();
 
@@ -74,7 +78,8 @@ async function updateTransaction() {
     toast.add({
       severity: "success",
       summary: "Done",
-      detail: approvalData.value.message || "Transaction status updated successfully",
+      detail:
+        approvalData.value.message || "Transaction status updated successfully",
       life: 3000
     });
   }
@@ -84,7 +89,8 @@ async function updateTransaction() {
     toast.add({
       severity: "success",
       summary: "Done",
-      detail: failData.value.message || "Transaction status updated successfully",
+      detail:
+        failData.value.message || "Transaction status updated successfully",
       life: 3000
     });
   }
@@ -99,7 +105,10 @@ function validateRequest() {
     };
   }
 
-  if (transaction.transactionType !== "DEPOSIT" && transaction.transactionType !== "WITHDRAWAL") {
+  if (
+    transaction.transactionType !== "DEPOSIT" &&
+    transaction.transactionType !== "WITHDRAWAL"
+  ) {
     return {
       valid: false,
       message: "Only deposit or withdrawal transactions can be modified"
@@ -184,36 +193,50 @@ function cancel() {
 
         <p>
           You are about to
-          <span :class="`font-semibold ${action === 'fail' ? 'text-red-500' : 'text-green-500'}`">
+          <span
+            :class="`font-semibold ${action === 'fail' ? 'text-red-500' : 'text-green-500'}`"
+          >
             {{ action }}
           </span>
-          this {{ transaction.transactionType }} transaction and this cannot be undone. Are you sure
-          you want to proceed?
+          this {{ transaction.transactionType }} transaction and this cannot be
+          undone. Are you sure you want to proceed?
         </p>
 
-        <div v-if="action === 'approve'" class="mt-2 border rounded-lg p-2 flex items-start gap-2">
+        <div
+          v-if="action === 'approve'"
+          class="mt-2 border rounded-lg p-2 flex items-start gap-2"
+        >
           <Checkbox binary v-model="confirm" />
           <p class="text-sm text-mute">
             <span v-if="transaction.isWireTransfer">
               I have received
-              <span class="font-semibold"> ${{ transaction.amountInUSD.toLocaleString() }} </span>
+              <span class="font-semibold">
+                ${{ transaction.amountInUSD.toLocaleString() }}
+              </span>
               from the client via wire transfer.
             </span>
 
             <span v-else-if="transaction.transactionType === 'DEPOSIT'">
               I have received
               <span class="font-semibold">
-                {{ transaction.amountInCurrency }} {{ transaction.currency }} </span
+                {{ transaction.amountInCurrency }}
+                {{ transaction.currency }} </span
               >,
               <span>the equivalent of </span>
-              <span class="font-semibold"> ${{ transaction.amountInUSD.toLocaleString() }} </span>
-              <span> from the client via cryptocurrency deposit to my wallet address. </span>
+              <span class="font-semibold">
+                ${{ transaction.amountInUSD.toLocaleString() }}
+              </span>
+              <span>
+                from the client via cryptocurrency deposit to my wallet address.
+              </span>
             </span>
 
             <span v-else>
               I have sent
               <span class="font-semibold">
-                {{ `${transaction.amountInCurrency} ${transaction.currency}` }} </span
+                {{
+                  `${transaction.amountInCurrency} ${transaction.currency}`
+                }} </span
               >, the equivalent of
               <span class="font-semibold">
                 ${{ transaction.actualAmountInUSD.toLocaleString() }}
@@ -230,7 +253,12 @@ function cancel() {
           <p class="text-sm text-mute font-medium">
             Reason for transaction failure <span class="text-red-500">*</span>
           </p>
-          <Textarea v-model="request.failReason" rows="4" class="resize-none" fluid />
+          <Textarea
+            v-model="request.failReason"
+            rows="4"
+            class="resize-none"
+            fluid
+          />
         </div>
 
         <div class="mt-4 flex items-center justify-end gap-2">

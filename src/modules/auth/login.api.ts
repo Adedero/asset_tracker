@@ -7,7 +7,10 @@ import { compare } from "bcrypt";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
 import env from "#src/utils/env";
-import { JWT_ACCESS_TOKEN_EXPIRY, JWT_REFRESH_TOKEN_EXPIRY } from "#src/utils/constants";
+import {
+  JWT_ACCESS_TOKEN_EXPIRY,
+  JWT_REFRESH_TOKEN_EXPIRY
+} from "#src/utils/constants";
 import { ApiResponse } from "#src/types/api-response";
 import { isUserBanned } from "#src/modules/auth/services/check-ban";
 
@@ -31,7 +34,9 @@ export default api(
     middleware: defineValidator("body", LoginSchema)
   },
   defineHandler(async (req) => {
-    const { email, password } = req.validatedBody as z.infer<typeof LoginSchema>;
+    const { email, password } = req.validatedBody as z.infer<
+      typeof LoginSchema
+    >;
 
     const user = await prisma.user.findUnique({
       where: { email },
@@ -59,13 +64,21 @@ export default api(
       );
     }
 
-    const accessToken = jwt.sign({ id: user.id }, env.get("JWT_ACCESS_SECRET", "secret_1"), {
-      expiresIn: JWT_ACCESS_TOKEN_EXPIRY
-    });
+    const accessToken = jwt.sign(
+      { id: user.id },
+      env.get("JWT_ACCESS_SECRET", "secret_1"),
+      {
+        expiresIn: JWT_ACCESS_TOKEN_EXPIRY
+      }
+    );
 
-    const refreshToken = jwt.sign({ id: user.id }, env.get("JWT_REFRESH_SECRET", "secret_2"), {
-      expiresIn: JWT_REFRESH_TOKEN_EXPIRY
-    });
+    const refreshToken = jwt.sign(
+      { id: user.id },
+      env.get("JWT_REFRESH_SECRET", "secret_2"),
+      {
+        expiresIn: JWT_REFRESH_TOKEN_EXPIRY
+      }
+    );
 
     const response: LoginApiRespone = {
       success: true,

@@ -11,9 +11,9 @@ const data = ref({
   message: ""
 });
 
-const { isFetching, error, execute } = useFetch("/api/users/me/contact", { immediate: false }).post(
-  data
-);
+const { isFetching, error, execute } = useFetch("/api/users/me/contact", {
+  immediate: false
+}).post(data);
 
 const sendMessage = async () => {
   await execute().then(() => {
@@ -33,7 +33,9 @@ const sendMessage = async () => {
     <div>
       <VNavbar />
 
-      <div class="mt-2 py-2 flex gap-2 h-[calc(100dvh-8.5rem)] overflow-y-auto justify-center">
+      <div
+        class="mt-2 py-2 flex gap-2 h-[calc(100dvh-8.5rem)] overflow-y-auto justify-center"
+      >
         <div class="v-card w-full h-fit max-w-[28rem] grid gap-4">
           <VErrorMessage :error />
 
@@ -46,7 +48,12 @@ const sendMessage = async () => {
             <label class="text-sm font-semibold text-mute"
               >Message <span class="text-red-500">*</span></label
             >
-            <Textarea v-model="data.message" rows="8" fluid class="resize-none" />
+            <Textarea
+              v-model="data.message"
+              rows="8"
+              fluid
+              class="resize-none"
+            />
           </div>
 
           <div class="grid gap-4">

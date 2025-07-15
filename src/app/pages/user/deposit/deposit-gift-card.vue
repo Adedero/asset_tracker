@@ -67,7 +67,9 @@ function addNewCard() {
 }
 
 const url = "/api/users/me/transactions/deposit/giftcard/initialize";
-const { isFetching, data, error, execute } = useFetch(() => url, { immediate: false })
+const { isFetching, data, error, execute } = useFetch(() => url, {
+  immediate: false
+})
   .post(cards.value)
   .json<DepositGiftCardInitApiResponse>();
 
@@ -114,7 +116,9 @@ const {
   error: transactionError,
   data: result,
   execute: createTransaction
-} = useFetch("/api/users/me/transactions/deposit", { immediate: false }).post(transaction).json();
+} = useFetch("/api/users/me/transactions/deposit", { immediate: false })
+  .post(transaction)
+  .json();
 
 async function confirmDepositRequest() {
   if (!payload.value) {
@@ -198,26 +202,40 @@ async function confirmDepositRequest() {
             <div class="grid gap-2">
               <InputGroup>
                 <InputGroupAddon>USD</InputGroupAddon>
-                <InputNumber :default-value="totalAmount('USD')" readonly placeholder="0" />
+                <InputNumber
+                  :default-value="totalAmount('USD')"
+                  readonly
+                  placeholder="0"
+                />
                 <InputGroupAddon>.00</InputGroupAddon>
               </InputGroup>
 
               <InputGroup>
                 <InputGroupAddon>CAD</InputGroupAddon>
-                <InputNumber :default-value="totalAmount('CAD')" readonly placeholder="0" />
+                <InputNumber
+                  :default-value="totalAmount('CAD')"
+                  readonly
+                  placeholder="0"
+                />
                 <InputGroupAddon>.00</InputGroupAddon>
               </InputGroup>
 
               <InputGroup>
                 <InputGroupAddon>GBP</InputGroupAddon>
-                <InputNumber :default-value="totalAmount('GBP')" readonly placeholder="0" />
+                <InputNumber
+                  :default-value="totalAmount('GBP')"
+                  readonly
+                  placeholder="0"
+                />
                 <InputGroupAddon>.00</InputGroupAddon>
               </InputGroup>
             </div>
           </VCard>
         </div>
 
-        <div class="h-full overflow-y-auto grid gap-4 md:col-span-4 lg:col-span-4 items-start">
+        <div
+          class="h-full overflow-y-auto grid gap-4 md:col-span-4 lg:col-span-4 items-start"
+        >
           <VCard v-for="(card, index) in cards" :key="card.id">
             <template #header>
               <div class="flex items-center justify-between">
@@ -257,23 +275,30 @@ async function confirmDepositRequest() {
 
               <div class="grid gap-1 md:col-span-6">
                 <label class="text-mute font-semibold text-sm">
-                  Gift Card Number <span class="text-red-500 font-medium">*</span>
+                  Gift Card Number
+                  <span class="text-red-500 font-medium">*</span>
                 </label>
                 <InputText v-model="card.cardNumber" fluid />
               </div>
 
               <div class="grid gap-1 md:col-span-3">
                 <label class="text-mute font-semibold text-sm">
-                  Card PIN/Security Code <span class="text-red-500 font-medium">*</span>
+                  Card PIN/Security Code
+                  <span class="text-red-500 font-medium">*</span>
                 </label>
                 <InputText v-model="card.pin" fluid />
               </div>
 
               <div class="grid gap-1 md:col-span-3">
                 <label class="text-mute font-semibold text-sm">
-                  Amount/Balance on Card <span class="text-red-500 font-medium">*</span>
+                  Amount/Balance on Card
+                  <span class="text-red-500 font-medium">*</span>
                 </label>
-                <InputNumber v-model="card.amount" :max-fraction-digits="2" fluid />
+                <InputNumber
+                  v-model="card.amount"
+                  :max-fraction-digits="2"
+                  fluid
+                />
               </div>
             </div>
           </VCard>
@@ -291,12 +316,19 @@ async function confirmDepositRequest() {
       </div>
     </div>
 
-    <Dialog v-model:visible="visible_1" modal header="Gift Card Deposit" class="max-w-96">
+    <Dialog
+      v-model:visible="visible_1"
+      modal
+      header="Gift Card Deposit"
+      class="max-w-96"
+    >
       <VErrorMessage :error="transactionError" class="my-2" />
 
       <div v-if="payload" class="flex-col-center gap-1">
         <p class="text-slate-500 font-medium">Total Deposit Amount</p>
-        <p class="text-3xl font-semibold text-emerald-500 bg-emerald-50 rounded-md p-2">
+        <p
+          class="text-3xl font-semibold text-emerald-500 bg-emerald-50 rounded-md p-2"
+        >
           {{ dollar.format(payload.total) }}
         </p>
 
@@ -319,8 +351,8 @@ async function confirmDepositRequest() {
           <Divider />
 
           <Message size="small">
-            NOTE: The rates are subject to change based on market conditions and may vary at the
-            time of deposit.
+            NOTE: The rates are subject to change based on market conditions and
+            may vary at the time of deposit.
           </Message>
         </div>
 
@@ -343,13 +375,22 @@ async function confirmDepositRequest() {
       :closable="false"
     >
       <div class="flex flex-col items-center justify-center text-center">
-        <span class="pi pi-check-circle text-emerald-500" style="font-size: 40px" />
+        <span
+          class="pi pi-check-circle text-emerald-500"
+          style="font-size: 40px"
+        />
         <p class="mt-4">Your deposit request has been received.</p>
-        <p>Once confirmed, your account will be credited<!--  within 15 minutes -->.</p>
+        <p>
+          Once confirmed, your account will be credited<!--  within 15 minutes -->.
+        </p>
       </div>
 
       <div class="mt-4">
-        <Button @click="$router.push({ name: 'user-transactions' })" label="Continue" fluid />
+        <Button
+          @click="$router.push({ name: 'user-transactions' })"
+          label="Continue"
+          fluid
+        />
       </div>
     </Dialog>
   </VueLayout>

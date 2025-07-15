@@ -13,7 +13,13 @@ const LIMIT = GET_REQUEST_DATA_LIMIT;
 const visible = ref(false);
 
 type Status = "ALL" | InvestmentStatus;
-const statuses = ref<Status[]>(["ALL", "OPEN", "PAUSED", "CLOSED", "TERMINATED"]);
+const statuses = ref<Status[]>([
+  "ALL",
+  "OPEN",
+  "PAUSED",
+  "CLOSED",
+  "TERMINATED"
+]);
 const selectedStatus = ref(statuses.value[0]);
 
 const searchParams = computed(() => {
@@ -51,17 +57,28 @@ const getUpdatedData = () => {
     <div>
       <div class="v-card p-3">
         <div class="flex-center-between">
-          <h1 class="text-lg font-semibold text-primary-500 dark:text-primary-400">
+          <h1
+            class="text-lg font-semibold text-primary-500 dark:text-primary-400"
+          >
             Investment History
           </h1>
 
           <div class="hidden md:flex items-end gap-2 justify-end">
             <div class="grid gap-1">
               <p class="text-sm font-medium text-mute text-right">Status</p>
-              <Select v-model="selectedStatus" size="small" :options="statuses" />
+              <Select
+                v-model="selectedStatus"
+                size="small"
+                :options="statuses"
+              />
             </div>
 
-            <Button @click="getUpdatedData" :loading="isLoading" label="Submit" size="small" />
+            <Button
+              @click="getUpdatedData"
+              :loading="isLoading"
+              label="Submit"
+              size="small"
+            />
           </div>
 
           <Button
@@ -80,11 +97,20 @@ const getUpdatedData = () => {
           <div class="flex flex-col gap-2">
             <div class="grid gap-1">
               <p class="text-sm font-medium text-mute">Status</p>
-              <Select v-model="selectedStatus" size="small" :options="statuses" />
+              <Select
+                v-model="selectedStatus"
+                size="small"
+                :options="statuses"
+              />
             </div>
 
             <div class="grid grid-cols-2 gap-2 mt-2">
-              <Button @click="visible = false" size="small" severity="secondary" label="Close" />
+              <Button
+                @click="visible = false"
+                size="small"
+                severity="secondary"
+                label="Close"
+              />
               <Button
                 @click="
                   getUpdatedData;
@@ -161,9 +187,13 @@ const getUpdatedData = () => {
               <template #body="{ data }">
                 <p>
                   {{
-                    useDateFormat(data.createdAt, "dddd YYYY-MM-DD, hh:mm:ss A", {
-                      locales: "en-US"
-                    })
+                    useDateFormat(
+                      data.createdAt,
+                      "dddd YYYY-MM-DD, hh:mm:ss A",
+                      {
+                        locales: "en-US"
+                      }
+                    )
                   }}
                 </p>
               </template>
@@ -185,7 +215,12 @@ const getUpdatedData = () => {
             </Column>
           </DataTable>
 
-          <VPaginator :allLoaded :length="dataLength" :rows="LIMIT" v-model:page="page" />
+          <VPaginator
+            :allLoaded
+            :length="dataLength"
+            :rows="LIMIT"
+            v-model:page="page"
+          />
         </div>
       </div>
     </div>

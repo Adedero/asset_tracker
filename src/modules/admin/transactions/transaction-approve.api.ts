@@ -37,7 +37,9 @@ const Schema = z
           amountRetrieved: z
             .number({ message: "Amount retrieved must be a number" })
             .min(0, { message: "Amount retrieved must be greater than 0" }),
-          rateUsed: z.number({ message: "Rate used must be a number" }).optional()
+          rateUsed: z
+            .number({ message: "Rate used must be a number" })
+            .optional()
         })
       )
       .optional()
@@ -105,15 +107,18 @@ export default api(
         prisma.account.update({
           where: { id: account.id },
           data: {
-            walletBalance: walletBalance.plus(amountInUSD).toDecimalPlaces(2).toNumber()
+            walletBalance: walletBalance
+              .plus(amountInUSD)
+              .toDecimalPlaces(2)
+              .toNumber()
           }
         })
       );
     }
 
-    const [updatedTransaction] = (await prisma.$transaction(promises)) as Awaited<
-      [TransactionWithUser]
-    >;
+    const [updatedTransaction] = (await prisma.$transaction(
+      promises
+    )) as Awaited<[TransactionWithUser]>;
 
     alertEmitter.emit("transaction:status-update", {
       transaction: updatedTransaction,

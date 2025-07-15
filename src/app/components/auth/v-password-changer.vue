@@ -67,7 +67,11 @@ const changePassword = async () => {
       </div>
 
       <StepPanels>
-        <StepPanel v-slot="{ activateCallback }" value="1" class="dark:bg-slate-900">
+        <StepPanel
+          v-slot="{ activateCallback }"
+          value="1"
+          class="dark:bg-slate-900"
+        >
           <div class="flex flex-col">
             <div class="grid gap-1">
               <label for="oldPassword" class="text-mute font-semibold text-sm"
@@ -93,13 +97,19 @@ const changePassword = async () => {
           </div>
         </StepPanel>
 
-        <StepPanel v-slot="{ activateCallback }" value="2" class="dark:bg-slate-900">
+        <StepPanel
+          v-slot="{ activateCallback }"
+          value="2"
+          class="dark:bg-slate-900"
+        >
           <div class="flex flex-col">
             <div class="grid gap-1">
               <label for="oldPassword" class="text-mute font-semibold text-sm"
                 >Enter your new password</label
               >
-              <small class="text-primary-500">Password must have at least 8 characters</small>
+              <small class="text-primary-500"
+                >Password must have at least 8 characters</small
+              >
               <Password
                 v-model.trim="passwords.newPassword"
                 fluid
@@ -117,7 +127,9 @@ const changePassword = async () => {
               @click="activateCallback('1')"
             />
             <Button
-              :disabled="!passwords.newPassword || passwords.newPassword.length < 8"
+              :disabled="
+                !passwords.newPassword || passwords.newPassword.length < 8
+              "
               label="Next"
               icon="pi pi-arrow-right"
               iconPos="right"
@@ -126,7 +138,11 @@ const changePassword = async () => {
           </div>
         </StepPanel>
 
-        <StepPanel v-slot="{ activateCallback }" value="3" class="dark:bg-slate-900">
+        <StepPanel
+          v-slot="{ activateCallback }"
+          value="3"
+          class="dark:bg-slate-900"
+        >
           <div class="flex flex-col">
             <div class="grid gap-1">
               <label for="oldPassword" class="text-mute font-semibold text-sm"

@@ -37,7 +37,9 @@ export default api(
     });
 
     if (existingFaq) {
-      throw HttpException.badRequest("A faq with this name or slug already exists");
+      throw HttpException.badRequest(
+        "A faq with this name or slug already exists"
+      );
     }
 
     const faq = await prisma.faq.updateManyAndReturn({

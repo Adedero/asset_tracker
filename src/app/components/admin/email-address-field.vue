@@ -15,9 +15,12 @@ const Schema = z.object({
   address: z
     .string()
     .email({ message: "Enter a valid email" })
-    .refine((val) => !addresses.value.some((address) => val === address.address), {
-      message: "Email already exists"
-    })
+    .refine(
+      (val) => !addresses.value.some((address) => val === address.address),
+      {
+        message: "Email already exists"
+      }
+    )
 });
 const resolver = ref(zodResolver(Schema));
 const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
@@ -78,21 +81,38 @@ const removeAddress = (email: string) => {
       >
         <div class="flex flex-col gap-1">
           <span class="text-sm text-mute font-medium">
-            Name <span class="text-primary-500 text-xs font-medium">(optional)</span>
+            Name
+            <span class="text-primary-500 text-xs font-medium">(optional)</span>
           </span>
           <InputText name="name" type="text" placeholder="John Doe" fluid />
-          <Message v-if="$form.name?.invalid" severity="error" size="small" variant="simple">
+          <Message
+            v-if="$form.name?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+          >
             {{ $form.name.error?.message }}
           </Message>
         </div>
 
         <div class="flex flex-col gap-1">
           <span class="text-sm text-mute font-medium">
-            Email <span class="text-red-500 text-xs font-medium">(required)</span>
+            Email
+            <span class="text-red-500 text-xs font-medium">(required)</span>
           </span>
 
-          <InputText name="address" type="email" placeholder="user@example.com" fluid />
-          <Message v-if="$form.address?.invalid" severity="error" size="small" variant="simple">
+          <InputText
+            name="address"
+            type="email"
+            placeholder="user@example.com"
+            fluid
+          />
+          <Message
+            v-if="$form.address?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+          >
             {{ $form.address.error?.message }}
           </Message>
         </div>

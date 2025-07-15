@@ -16,7 +16,9 @@ function auth(role, strict = true) {
                 return;
             }
             if (!user) {
-                res.status(401).json({ success: false, message: "Unauthorized. Please, log in" });
+                res
+                    .status(401)
+                    .json({ success: false, message: "Unauthorized. Please, log in" });
                 return;
             }
             if (strict && user.role !== role) {

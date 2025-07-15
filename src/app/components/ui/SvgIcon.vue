@@ -17,7 +17,11 @@ const { name, size = 40 } = defineProps<Props>();
         fill="#000000"
       >
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></g>
         <g id="SVGRepo_iconCarrier">
           <g id="medal" transform="translate(-2 -372)">
             <path
@@ -243,7 +247,11 @@ const { name, size = 40 } = defineProps<Props>();
         xmlns="http://www.w3.org/2000/svg"
       >
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></g>
         <g id="SVGRepo_iconCarrier">
           <path
             d="M9.73795 18.8436L12.9511 20.6987L6.42625 32L4.55349 27.8233L9.73795 18.8436Z"
@@ -318,7 +326,11 @@ const { name, size = 40 } = defineProps<Props>();
         xmlns="http://www.w3.org/2000/svg"
       >
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></g>
         <g id="SVGRepo_iconCarrier">
           <path
             d="M9.73779 18.8436L12.9509 20.6987L6.42609 32.0001L4.55333 27.8234L9.73779 18.8436Z"
@@ -347,7 +359,12 @@ const { name, size = 40 } = defineProps<Props>();
             width="19"
             height="18"
           >
-            <circle cx="12.4857" cy="11.984" r="8.65511" fill="#C28B37"></circle>
+            <circle
+              cx="12.4857"
+              cy="11.984"
+              r="8.65511"
+              fill="#C28B37"
+            ></circle>
           </mask>
           <g mask="url(#mask0_103_1231)">
             <circle
@@ -399,7 +416,11 @@ const { name, size = 40 } = defineProps<Props>();
         xmlns="http://www.w3.org/2000/svg"
       >
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></g>
         <g id="SVGRepo_iconCarrier">
           <path
             d="M9.73779 18.8436L12.9509 20.6987L6.42609 32.0001L4.55333 27.8234L9.73779 18.8436Z"
@@ -428,10 +449,20 @@ const { name, size = 40 } = defineProps<Props>();
             width="19"
             height="18"
           >
-            <circle cx="12.4857" cy="11.984" r="8.65511" fill="#C28B37"></circle>
+            <circle
+              cx="12.4857"
+              cy="11.984"
+              r="8.65511"
+              fill="#C28B37"
+            ></circle>
           </mask>
           <g mask="url(#mask0_103_1242)">
-            <circle cx="12.0247" cy="11.0622" r="8.65511" fill="#A36D1D"></circle>
+            <circle
+              cx="12.0247"
+              cy="11.0622"
+              r="8.65511"
+              fill="#A36D1D"
+            ></circle>
           </g>
           <path
             d="M12.0713 5.04102L13.9383 8.77508L17.6724 9.24183L15.1083 12.1171L15.8054 16.2432L12.0713 14.3762L8.33724 16.2432L9.04049 12.1171L6.47021 9.24183L10.2043 8.77508L12.0713 5.04102Z"
@@ -468,7 +499,11 @@ const { name, size = 40 } = defineProps<Props>();
         fill="#000000"
       >
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></g>
         <g id="SVGRepo_iconCarrier">
           <g transform="translate(0 -1)">
             <g>
@@ -519,7 +554,11 @@ const { name, size = 40 } = defineProps<Props>();
         fill="#000000"
       >
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></g>
         <g id="SVGRepo_iconCarrier">
           <path
             style="fill: #ffd630"

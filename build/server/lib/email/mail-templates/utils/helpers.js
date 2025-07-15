@@ -23,7 +23,9 @@ function render(data) {
     if (typeof data === "object") {
         return Object.entries(data)
             .map(([key, value]) => {
-            if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+            if (typeof value === "string" ||
+                typeof value === "number" ||
+                typeof value === "boolean") {
                 return paragraph(`${key}: ${String(value)}`);
             }
             else {

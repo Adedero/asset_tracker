@@ -53,7 +53,10 @@ export async function onDepositCreate({ user, transaction }: DepositAlertData) {
         }
       }),
 
-      sendTemplateEmail({ email: user.email, subject, sections: message(user.name) }, generic),
+      sendTemplateEmail(
+        { email: user.email, subject, sections: message(user.name) },
+        generic
+      ),
 
       sendTemplateEmail(
         { email: env.get("SUPPORT_EMAIL_USER"), subject, sections: message() },
@@ -61,6 +64,9 @@ export async function onDepositCreate({ user, transaction }: DepositAlertData) {
       )
     ]);
   } catch (error) {
-    logger.error(`Alerts failed for deposit request: ${transaction.id}`, error as Error);
+    logger.error(
+      `Alerts failed for deposit request: ${transaction.id}`,
+      error as Error
+    );
   }
 }

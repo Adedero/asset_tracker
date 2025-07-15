@@ -19,7 +19,9 @@ const confirm = useConfirm();
 const visible = ref<boolean>(false);
 
 const confirmDialogHeader = computed(() => {
-  return investment.investmentStatus === "OPEN" ? "Pause Investment" : "Resume Investment";
+  return investment.investmentStatus === "OPEN"
+    ? "Pause Investment"
+    : "Resume Investment";
 });
 
 const disabled = computed(() => {
@@ -136,7 +138,9 @@ function cancel() {
       <slot>
         <Button
           :label="
-            investment.investmentStatus === 'PAUSED' ? 'Resume Investment' : 'Pause Investment'
+            investment.investmentStatus === 'PAUSED'
+              ? 'Resume Investment'
+              : 'Pause Investment'
           "
           icon="pi pi-chevron-right"
           icon-pos="right"
@@ -162,7 +166,13 @@ function cancel() {
                 Reason for pausing this investment
                 <span class="text-red-500">*</span>
               </label>
-              <Textarea v-model.trim="pausedReason" fluid col="5" class="resize-none" id="reason" />
+              <Textarea
+                v-model.trim="pausedReason"
+                fluid
+                col="5"
+                class="resize-none"
+                id="reason"
+              />
             </div>
           </div>
 
@@ -177,7 +187,9 @@ function cancel() {
               :loading="isFetching"
               :disabled="isFetching || disabled"
               @click="confirmToggle"
-              :label="investment.investmentStatus === 'PAUSED' ? 'Resume' : 'Continue'"
+              :label="
+                investment.investmentStatus === 'PAUSED' ? 'Resume' : 'Continue'
+              "
             />
           </div>
         </div>

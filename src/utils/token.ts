@@ -15,7 +15,10 @@ export function setExpiryDate(validityPeriod: string) {
   if (time.includes("second")) multiplier = 1000;
   else if (time.includes("minute")) multiplier = 60 * 1000;
   else if (time.includes("hour")) multiplier = 60 * 60 * 1000;
-  else throw new Error("Invalid time unit. Only 'seconds', 'minutes' or 'hours' are supported.");
+  else
+    throw new Error(
+      "Invalid time unit. Only 'seconds', 'minutes' or 'hours' are supported."
+    );
 
   const expiryTime = Date.now() + num * multiplier;
   return new Date(expiryTime);
@@ -50,7 +53,10 @@ export type RandomStringType =
   | "uppercase"
   | "alphanumeric"
   | "alphanum";
-export function randomString(lengthOrPattern: number | string, type: RandomStringType) {
+export function randomString(
+  lengthOrPattern: number | string,
+  type: RandomStringType
+) {
   const DEFAULT_STR_LENGTH = 16;
   // Define character sets
   const charSets = {
@@ -59,14 +65,16 @@ export function randomString(lengthOrPattern: number | string, type: RandomStrin
     alphabetic: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     alpha: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    alphanumeric: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+    alphanumeric:
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
     alphanum: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
   };
 
   const getUnbiasedRandomChar = (charset: string) => {
     const charsetLength = charset.length;
     const bytesNeeded = Math.ceil(Math.log(charsetLength) / Math.log(256));
-    const maxValidValue = Math.floor(256 ** bytesNeeded / charsetLength) * charsetLength;
+    const maxValidValue =
+      Math.floor(256 ** bytesNeeded / charsetLength) * charsetLength;
 
     while (true) {
       const randomBytes = crypto.randomBytes(bytesNeeded);

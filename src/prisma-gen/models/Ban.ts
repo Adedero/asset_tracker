@@ -16,7 +16,8 @@ import type * as Prisma from "../internal/prismaNamespace";
  * Model Ban
  *
  */
-export type BanModel = runtime.Types.Result.DefaultSelection<Prisma.$BanPayload>;
+export type BanModel =
+  runtime.Types.Result.DefaultSelection<Prisma.$BanPayload>;
 
 export type AggregateBan = {
   _count: BanCountAggregateOutputType | null;
@@ -101,7 +102,8 @@ export type BanCountAggregateInputType = {
 };
 
 export type BanAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Ban to aggregate.
@@ -112,7 +114,9 @@ export type BanAggregateArgs<
    *
    * Determine the order of Bans to fetch.
    */
-  orderBy?: Prisma.BanOrderByWithRelationInput | Prisma.BanOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.BanOrderByWithRelationInput
+    | Prisma.BanOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -160,10 +164,13 @@ export type GetBanAggregateType<T extends BanAggregateArgs> = {
 };
 
 export type BanGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.BanWhereInput;
-  orderBy?: Prisma.BanOrderByWithAggregationInput | Prisma.BanOrderByWithAggregationInput[];
+  orderBy?:
+    | Prisma.BanOrderByWithAggregationInput
+    | Prisma.BanOrderByWithAggregationInput[];
   by: Prisma.BanScalarFieldEnum[] | Prisma.BanScalarFieldEnum;
   having?: Prisma.BanScalarWhereWithAggregatesInput;
   take?: number;
@@ -269,9 +276,13 @@ export type BanOrderByWithAggregationInput = {
 };
 
 export type BanScalarWhereWithAggregatesInput = {
-  AND?: Prisma.BanScalarWhereWithAggregatesInput | Prisma.BanScalarWhereWithAggregatesInput[];
+  AND?:
+    | Prisma.BanScalarWhereWithAggregatesInput
+    | Prisma.BanScalarWhereWithAggregatesInput[];
   OR?: Prisma.BanScalarWhereWithAggregatesInput[];
-  NOT?: Prisma.BanScalarWhereWithAggregatesInput | Prisma.BanScalarWhereWithAggregatesInput[];
+  NOT?:
+    | Prisma.BanScalarWhereWithAggregatesInput
+    | Prisma.BanScalarWhereWithAggregatesInput[];
   id?: Prisma.StringWithAggregatesFilter<"Ban"> | string;
   userId?: Prisma.StringWithAggregatesFilter<"Ban"> | string;
   reason?: Prisma.StringNullableWithAggregatesFilter<"Ban"> | string | null;
@@ -279,7 +290,11 @@ export type BanScalarWhereWithAggregatesInput = {
   areInvestmentsFrozen?: Prisma.BoolWithAggregatesFilter<"Ban"> | boolean;
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Ban"> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Ban"> | Date | string;
-  expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Ban"> | Date | string | null;
+  expiresAt?:
+    | Prisma.DateTimeNullableWithAggregatesFilter<"Ban">
+    | Date
+    | string
+    | null;
   active?: Prisma.BoolWithAggregatesFilter<"Ban"> | boolean;
   ipAddresses?: Prisma.JsonNullableWithAggregatesFilter<"Ban">;
 };
@@ -317,7 +332,11 @@ export type BanUpdateInput = {
   areInvestmentsFrozen?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  expiresAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput;
   user?: Prisma.UserUpdateOneRequiredWithoutBanNestedInput;
@@ -331,7 +350,11 @@ export type BanUncheckedUpdateInput = {
   areInvestmentsFrozen?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  expiresAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput;
 };
@@ -356,7 +379,11 @@ export type BanUpdateManyMutationInput = {
   areInvestmentsFrozen?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  expiresAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput;
 };
@@ -369,7 +396,11 @@ export type BanUncheckedUpdateManyInput = {
   areInvestmentsFrozen?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  expiresAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput;
 };
@@ -417,39 +448,57 @@ export type BanMinOrderByAggregateInput = {
 };
 
 export type BanCreateNestedOneWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.BanCreateWithoutUserInput, Prisma.BanUncheckedCreateWithoutUserInput>;
+  create?: Prisma.XOR<
+    Prisma.BanCreateWithoutUserInput,
+    Prisma.BanUncheckedCreateWithoutUserInput
+  >;
   connectOrCreate?: Prisma.BanCreateOrConnectWithoutUserInput;
   connect?: Prisma.BanWhereUniqueInput;
 };
 
 export type BanUncheckedCreateNestedOneWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.BanCreateWithoutUserInput, Prisma.BanUncheckedCreateWithoutUserInput>;
+  create?: Prisma.XOR<
+    Prisma.BanCreateWithoutUserInput,
+    Prisma.BanUncheckedCreateWithoutUserInput
+  >;
   connectOrCreate?: Prisma.BanCreateOrConnectWithoutUserInput;
   connect?: Prisma.BanWhereUniqueInput;
 };
 
 export type BanUpdateOneWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.BanCreateWithoutUserInput, Prisma.BanUncheckedCreateWithoutUserInput>;
+  create?: Prisma.XOR<
+    Prisma.BanCreateWithoutUserInput,
+    Prisma.BanUncheckedCreateWithoutUserInput
+  >;
   connectOrCreate?: Prisma.BanCreateOrConnectWithoutUserInput;
   upsert?: Prisma.BanUpsertWithoutUserInput;
   disconnect?: Prisma.BanWhereInput | boolean;
   delete?: Prisma.BanWhereInput | boolean;
   connect?: Prisma.BanWhereUniqueInput;
   update?: Prisma.XOR<
-    Prisma.XOR<Prisma.BanUpdateToOneWithWhereWithoutUserInput, Prisma.BanUpdateWithoutUserInput>,
+    Prisma.XOR<
+      Prisma.BanUpdateToOneWithWhereWithoutUserInput,
+      Prisma.BanUpdateWithoutUserInput
+    >,
     Prisma.BanUncheckedUpdateWithoutUserInput
   >;
 };
 
 export type BanUncheckedUpdateOneWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.BanCreateWithoutUserInput, Prisma.BanUncheckedCreateWithoutUserInput>;
+  create?: Prisma.XOR<
+    Prisma.BanCreateWithoutUserInput,
+    Prisma.BanUncheckedCreateWithoutUserInput
+  >;
   connectOrCreate?: Prisma.BanCreateOrConnectWithoutUserInput;
   upsert?: Prisma.BanUpsertWithoutUserInput;
   disconnect?: Prisma.BanWhereInput | boolean;
   delete?: Prisma.BanWhereInput | boolean;
   connect?: Prisma.BanWhereUniqueInput;
   update?: Prisma.XOR<
-    Prisma.XOR<Prisma.BanUpdateToOneWithWhereWithoutUserInput, Prisma.BanUpdateWithoutUserInput>,
+    Prisma.XOR<
+      Prisma.BanUpdateToOneWithWhereWithoutUserInput,
+      Prisma.BanUpdateWithoutUserInput
+    >,
     Prisma.BanUncheckedUpdateWithoutUserInput
   >;
 };
@@ -480,18 +529,30 @@ export type BanUncheckedCreateWithoutUserInput = {
 
 export type BanCreateOrConnectWithoutUserInput = {
   where: Prisma.BanWhereUniqueInput;
-  create: Prisma.XOR<Prisma.BanCreateWithoutUserInput, Prisma.BanUncheckedCreateWithoutUserInput>;
+  create: Prisma.XOR<
+    Prisma.BanCreateWithoutUserInput,
+    Prisma.BanUncheckedCreateWithoutUserInput
+  >;
 };
 
 export type BanUpsertWithoutUserInput = {
-  update: Prisma.XOR<Prisma.BanUpdateWithoutUserInput, Prisma.BanUncheckedUpdateWithoutUserInput>;
-  create: Prisma.XOR<Prisma.BanCreateWithoutUserInput, Prisma.BanUncheckedCreateWithoutUserInput>;
+  update: Prisma.XOR<
+    Prisma.BanUpdateWithoutUserInput,
+    Prisma.BanUncheckedUpdateWithoutUserInput
+  >;
+  create: Prisma.XOR<
+    Prisma.BanCreateWithoutUserInput,
+    Prisma.BanUncheckedCreateWithoutUserInput
+  >;
   where?: Prisma.BanWhereInput;
 };
 
 export type BanUpdateToOneWithWhereWithoutUserInput = {
   where?: Prisma.BanWhereInput;
-  data: Prisma.XOR<Prisma.BanUpdateWithoutUserInput, Prisma.BanUncheckedUpdateWithoutUserInput>;
+  data: Prisma.XOR<
+    Prisma.BanUpdateWithoutUserInput,
+    Prisma.BanUncheckedUpdateWithoutUserInput
+  >;
 };
 
 export type BanUpdateWithoutUserInput = {
@@ -501,7 +562,11 @@ export type BanUpdateWithoutUserInput = {
   areInvestmentsFrozen?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  expiresAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput;
 };
@@ -513,13 +578,18 @@ export type BanUncheckedUpdateWithoutUserInput = {
   areInvestmentsFrozen?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  expiresAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput;
 };
 
 export type BanSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -538,7 +608,8 @@ export type BanSelect<
 >;
 
 export type BanSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -557,7 +628,8 @@ export type BanSelectCreateManyAndReturn<
 >;
 
 export type BanSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -589,7 +661,8 @@ export type BanSelectScalar = {
 };
 
 export type BanOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetOmit<
   | "id"
   | "userId"
@@ -604,23 +677,27 @@ export type BanOmit<
   ExtArgs["result"]["ban"]
 >;
 export type BanInclude<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 export type BanIncludeCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 export type BanIncludeUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 
 export type $BanPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   name: "Ban";
   objects: {
@@ -647,20 +724,26 @@ export type $BanPayload<
   composites: {};
 };
 
-export type BanGetPayload<S extends boolean | null | undefined | BanDefaultArgs> =
-  runtime.Types.Result.GetResult<Prisma.$BanPayload, S>;
+export type BanGetPayload<
+  S extends boolean | null | undefined | BanDefaultArgs
+> = runtime.Types.Result.GetResult<Prisma.$BanPayload, S>;
 
 export type BanCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = Omit<BanFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
   select?: BanCountAggregateInputType | true;
 };
 
 export interface BanDelegate<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>["model"]["Ban"]; meta: { name: "Ban" } };
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>["model"]["Ban"];
+    meta: { name: "Ban" };
+  };
   /**
    * Find zero or one Ban that matches the filter.
    * @param {BanFindUniqueArgs} args - Arguments to find a Ban
@@ -786,7 +869,12 @@ export interface BanDelegate<
   findMany<T extends BanFindManyArgs>(
     args?: Prisma.SelectSubset<T, BanFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<Prisma.$BanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>
+    runtime.Types.Result.GetResult<
+      Prisma.$BanPayload<ExtArgs>,
+      T,
+      "findMany",
+      GlobalOmitOptions
+    >
   >;
 
   /**
@@ -804,7 +892,12 @@ export interface BanDelegate<
   create<T extends BanCreateArgs>(
     args: Prisma.SelectSubset<T, BanCreateArgs<ExtArgs>>
   ): Prisma.Prisma__BanClient<
-    runtime.Types.Result.GetResult<Prisma.$BanPayload<ExtArgs>, T, "create", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$BanPayload<ExtArgs>,
+      T,
+      "create",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -874,7 +967,12 @@ export interface BanDelegate<
   delete<T extends BanDeleteArgs>(
     args: Prisma.SelectSubset<T, BanDeleteArgs<ExtArgs>>
   ): Prisma.Prisma__BanClient<
-    runtime.Types.Result.GetResult<Prisma.$BanPayload<ExtArgs>, T, "delete", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$BanPayload<ExtArgs>,
+      T,
+      "delete",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -898,7 +996,12 @@ export interface BanDelegate<
   update<T extends BanUpdateArgs>(
     args: Prisma.SelectSubset<T, BanUpdateArgs<ExtArgs>>
   ): Prisma.Prisma__BanClient<
-    runtime.Types.Result.GetResult<Prisma.$BanPayload<ExtArgs>, T, "update", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$BanPayload<ExtArgs>,
+      T,
+      "update",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1000,7 +1103,12 @@ export interface BanDelegate<
   upsert<T extends BanUpsertArgs>(
     args: Prisma.SelectSubset<T, BanUpsertArgs<ExtArgs>>
   ): Prisma.Prisma__BanClient<
-    runtime.Types.Result.GetResult<Prisma.$BanPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$BanPayload<ExtArgs>,
+      T,
+      "upsert",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1100,7 +1208,12 @@ export interface BanDelegate<
               ? never
               : P extends string
                 ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                : [Error, "Field ", P, ` in "having" needs to be provided in "by"`];
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`
+                  ];
           }[HavingFields]
         : "take" extends Prisma.Keys<T>
           ? "orderBy" extends Prisma.Keys<T>
@@ -1131,7 +1244,9 @@ export interface BanDelegate<
                 }[OrderFields]
   >(
     args: Prisma.SubsetIntersection<T, BanGroupByArgs, OrderByArg> & InputErrors
-  ): {} extends InputErrors ? GetBanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+  ): {} extends InputErrors
+    ? GetBanGroupByPayload<T>
+    : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the Ban model
    */
@@ -1147,7 +1262,8 @@ export interface BanDelegate<
 export interface Prisma__BanClient<
   T,
   Null = never,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
@@ -1172,8 +1288,14 @@ export interface Prisma__BanClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -1181,7 +1303,10 @@ export interface Prisma__BanClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -1189,7 +1314,9 @@ export interface Prisma__BanClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  finally(
+    onfinally?: (() => void) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -1213,7 +1340,8 @@ export interface BanFieldRefs {
  * Ban findUnique
  */
 export type BanFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1237,7 +1365,8 @@ export type BanFindUniqueArgs<
  * Ban findUniqueOrThrow
  */
 export type BanFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1261,7 +1390,8 @@ export type BanFindUniqueOrThrowArgs<
  * Ban findFirst
  */
 export type BanFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1284,7 +1414,9 @@ export type BanFindFirstArgs<
    *
    * Determine the order of Bans to fetch.
    */
-  orderBy?: Prisma.BanOrderByWithRelationInput | Prisma.BanOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.BanOrderByWithRelationInput
+    | Prisma.BanOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1315,7 +1447,8 @@ export type BanFindFirstArgs<
  * Ban findFirstOrThrow
  */
 export type BanFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1338,7 +1471,9 @@ export type BanFindFirstOrThrowArgs<
    *
    * Determine the order of Bans to fetch.
    */
-  orderBy?: Prisma.BanOrderByWithRelationInput | Prisma.BanOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.BanOrderByWithRelationInput
+    | Prisma.BanOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1369,7 +1504,8 @@ export type BanFindFirstOrThrowArgs<
  * Ban findMany
  */
 export type BanFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1392,7 +1528,9 @@ export type BanFindManyArgs<
    *
    * Determine the order of Bans to fetch.
    */
-  orderBy?: Prisma.BanOrderByWithRelationInput | Prisma.BanOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.BanOrderByWithRelationInput
+    | Prisma.BanOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1418,7 +1556,8 @@ export type BanFindManyArgs<
  * Ban create
  */
 export type BanCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1442,7 +1581,8 @@ export type BanCreateArgs<
  * Ban createMany
  */
 export type BanCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to create many Bans.
@@ -1454,7 +1594,8 @@ export type BanCreateManyArgs<
  * Ban createManyAndReturn
  */
 export type BanCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1478,7 +1619,8 @@ export type BanCreateManyAndReturnArgs<
  * Ban update
  */
 export type BanUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1506,12 +1648,16 @@ export type BanUpdateArgs<
  * Ban updateMany
  */
 export type BanUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to update Bans.
    */
-  data: Prisma.XOR<Prisma.BanUpdateManyMutationInput, Prisma.BanUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.BanUpdateManyMutationInput,
+    Prisma.BanUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Bans to update
    */
@@ -1526,7 +1672,8 @@ export type BanUpdateManyArgs<
  * Ban updateManyAndReturn
  */
 export type BanUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1539,7 +1686,10 @@ export type BanUpdateManyAndReturnArgs<
   /**
    * The data used to update Bans.
    */
-  data: Prisma.XOR<Prisma.BanUpdateManyMutationInput, Prisma.BanUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.BanUpdateManyMutationInput,
+    Prisma.BanUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Bans to update
    */
@@ -1558,7 +1708,8 @@ export type BanUpdateManyAndReturnArgs<
  * Ban upsert
  */
 export type BanUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1590,7 +1741,8 @@ export type BanUpsertArgs<
  * Ban delete
  */
 export type BanDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -1614,7 +1766,8 @@ export type BanDeleteArgs<
  * Ban deleteMany
  */
 export type BanDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Bans to delete
@@ -1630,7 +1783,8 @@ export type BanDeleteManyArgs<
  * Ban without action
  */
 export type BanDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban

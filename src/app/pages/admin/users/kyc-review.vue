@@ -29,7 +29,9 @@ const {
   error: updatingError,
   data: updateData,
   execute: updateAccount
-} = useFetch(`/api/admins/me/accounts/${account_id}`).put(account).json<AccountUpdateApiResponse>();
+} = useFetch(`/api/admins/me/accounts/${account_id}`)
+  .put(account)
+  .json<AccountUpdateApiResponse>();
 
 async function updateKycStatus() {
   if (!data.value?.account) return;
@@ -100,13 +102,23 @@ const confirmUpdate = () => {
   <VueLayout name="admin">
     <div>
       <VCard class="py-2 px-4">
-        <div class="text-lg text-primary-500 font-semibold">KYC Verification Status</div>
+        <div class="text-lg text-primary-500 font-semibold">
+          KYC Verification Status
+        </div>
       </VCard>
       <div class="mt-2">
         <VPageLoader v-if="isLoading" />
-        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="mutate()"
+        />
 
-        <div v-else-if="data" class="md:h-[calc(100dvh-8.5rem)] grid md:grid-cols-3 gap-2">
+        <div
+          v-else-if="data"
+          class="md:h-[calc(100dvh-8.5rem)] grid md:grid-cols-3 gap-2"
+        >
           <div class="md:col-span-2 md:h-full md:overflow-y-auto">
             <VCard header="KYC Details">
               <template #header>
@@ -115,7 +127,11 @@ const confirmUpdate = () => {
 
                   <Button
                     v-if="data.account.kycStatus !== 'UNVERIFIED'"
-                    :label="data.account.kycStatus === 'PENDING' ? 'Verify' : 'Discard'"
+                    :label="
+                      data.account.kycStatus === 'PENDING'
+                        ? 'Verify'
+                        : 'Discard'
+                    "
                     @click="confirmUpdate"
                     :loading="isUpdating"
                     :icon="
@@ -127,7 +143,9 @@ const confirmUpdate = () => {
                 </div>
               </template>
               <div class="mt-4 grid gap-2">
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
                     <span
                       class="pi pi-check-circle text-mute p-1 rounded-full"
@@ -140,7 +158,10 @@ const confirmUpdate = () => {
                   </p>
                 </div>
 
-                <div v-if="data.account.kycStatus !== 'UNVERIFIED'" class="contents">
+                <div
+                  v-if="data.account.kycStatus !== 'UNVERIFIED'"
+                  class="contents"
+                >
                   <div
                     v-if="data.account.kycIdType"
                     class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
@@ -162,15 +183,25 @@ const confirmUpdate = () => {
                     class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
                   >
                     <div class="flex items-center">
-                      <span class="pi pi-file text-mute p-1 rounded-full" style="font-size: 12px" />
-                      <p class="text-mute text-sm font-semibold">Submitted Document</p>
+                      <span
+                        class="pi pi-file text-mute p-1 rounded-full"
+                        style="font-size: 12px"
+                      />
+                      <p class="text-mute text-sm font-semibold">
+                        Submitted Document
+                      </p>
                     </div>
                     <div class="flex justify-end">
                       <a
                         :href="data.account.kycDocument"
                         :download="`${data.account.id}.${data.account.kycDocumentExt}`"
                       >
-                        <Button label="Download" icon="pi pi-download" size="small" outlined />
+                        <Button
+                          label="Download"
+                          icon="pi pi-download"
+                          size="small"
+                          outlined
+                        />
                       </a>
                     </div>
                   </div>
@@ -184,7 +215,9 @@ const confirmUpdate = () => {
                         class="pi pi-calendar-clock text-mute p-1 rounded-full"
                         style="font-size: 12px"
                       />
-                      <p class="text-mute text-sm font-semibold">Submission Date</p>
+                      <p class="text-mute text-sm font-semibold">
+                        Submission Date
+                      </p>
                     </div>
                     <p class="text-right font-semibold">
                       {{
@@ -205,7 +238,9 @@ const confirmUpdate = () => {
                         class="pi pi-calendar-clock text-mute p-1 rounded-full"
                         style="font-size: 12px"
                       />
-                      <p class="text-mute text-sm font-semibold">Verified Date</p>
+                      <p class="text-mute text-sm font-semibold">
+                        Verified Date
+                      </p>
                     </div>
                     <p class="text-right font-semibold">
                       {{
@@ -223,7 +258,9 @@ const confirmUpdate = () => {
 
           <div class="md:h-full md:overflow-y-auto">
             <VCard v-if="data.account.user" header="User">
-              <div class="flex flex-col items-center justify-center gap-2 text-center">
+              <div
+                class="flex flex-col items-center justify-center gap-2 text-center"
+              >
                 <div
                   class="w-32 aspect-square rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800"
                 >
@@ -240,7 +277,9 @@ const confirmUpdate = () => {
                 </div>
 
                 <div>
-                  <p class="font-semibold md:text-lg">{{ data.account.user.name }}</p>
+                  <p class="font-semibold md:text-lg">
+                    {{ data.account.user.name }}
+                  </p>
                   <p class="text-sm text-mute">{{ data.account.user.email }}</p>
                 </div>
 

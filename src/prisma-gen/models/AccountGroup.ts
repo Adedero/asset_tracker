@@ -16,7 +16,8 @@ import type * as Prisma from "../internal/prismaNamespace";
  * Model AccountGroup
  *
  */
-export type AccountGroupModel = runtime.Types.Result.DefaultSelection<Prisma.$AccountGroupPayload>;
+export type AccountGroupModel =
+  runtime.Types.Result.DefaultSelection<Prisma.$AccountGroupPayload>;
 
 export type AggregateAccountGroup = {
   _count: AccountGroupCountAggregateOutputType | null;
@@ -77,7 +78,8 @@ export type AccountGroupCountAggregateInputType = {
 };
 
 export type AccountGroupAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which AccountGroup to aggregate.
@@ -129,16 +131,18 @@ export type AccountGroupAggregateArgs<
   _max?: AccountGroupMaxAggregateInputType;
 };
 
-export type GetAccountGroupAggregateType<T extends AccountGroupAggregateArgs> = {
-  [P in keyof T & keyof AggregateAccountGroup]: P extends "_count" | "count"
-    ? T[P] extends true
-      ? number
-      : Prisma.GetScalarType<T[P], AggregateAccountGroup[P]>
-    : Prisma.GetScalarType<T[P], AggregateAccountGroup[P]>;
-};
+export type GetAccountGroupAggregateType<T extends AccountGroupAggregateArgs> =
+  {
+    [P in keyof T & keyof AggregateAccountGroup]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : Prisma.GetScalarType<T[P], AggregateAccountGroup[P]>
+      : Prisma.GetScalarType<T[P], AggregateAccountGroup[P]>;
+  };
 
 export type AccountGroupGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.AccountGroupWhereInput;
   orderBy?:
@@ -165,17 +169,18 @@ export type AccountGroupGroupByOutputType = {
   _max: AccountGroupMaxAggregateOutputType | null;
 };
 
-type GetAccountGroupGroupByPayload<T extends AccountGroupGroupByArgs> = Prisma.PrismaPromise<
-  Array<
-    Prisma.PickEnumerable<AccountGroupGroupByOutputType, T["by"]> & {
-      [P in keyof T & keyof AccountGroupGroupByOutputType]: P extends "_count"
-        ? T[P] extends boolean
-          ? number
-          : Prisma.GetScalarType<T[P], AccountGroupGroupByOutputType[P]>
-        : Prisma.GetScalarType<T[P], AccountGroupGroupByOutputType[P]>;
-    }
-  >
->;
+type GetAccountGroupGroupByPayload<T extends AccountGroupGroupByArgs> =
+  Prisma.PrismaPromise<
+    Array<
+      Prisma.PickEnumerable<AccountGroupGroupByOutputType, T["by"]> & {
+        [P in keyof T & keyof AccountGroupGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : Prisma.GetScalarType<T[P], AccountGroupGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], AccountGroupGroupByOutputType[P]>;
+      }
+    >
+  >;
 
 export type AccountGroupWhereInput = {
   AND?: Prisma.AccountGroupWhereInput | Prisma.AccountGroupWhereInput[];
@@ -239,9 +244,18 @@ export type AccountGroupScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"AccountGroup"> | string;
   name?: Prisma.StringWithAggregatesFilter<"AccountGroup"> | string;
   currencies?: Prisma.JsonWithAggregatesFilter<"AccountGroup">;
-  description?: Prisma.StringNullableWithAggregatesFilter<"AccountGroup"> | string | null;
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"AccountGroup"> | Date | string;
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AccountGroup"> | Date | string;
+  description?:
+    | Prisma.StringNullableWithAggregatesFilter<"AccountGroup">
+    | string
+    | null;
+  createdAt?:
+    | Prisma.DateTimeWithAggregatesFilter<"AccountGroup">
+    | Date
+    | string;
+  updatedAt?:
+    | Prisma.DateTimeWithAggregatesFilter<"AccountGroup">
+    | Date
+    | string;
 };
 
 export type AccountGroupCreateInput = {
@@ -442,7 +456,8 @@ export type AccountGroupCountOutputType = {
 };
 
 export type AccountGroupCountOutputTypeSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   users?: boolean | AccountGroupCountOutputTypeCountUsersArgs;
 };
@@ -451,7 +466,8 @@ export type AccountGroupCountOutputTypeSelect<
  * AccountGroupCountOutputType without action
  */
 export type AccountGroupCountOutputTypeDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroupCountOutputType
@@ -463,13 +479,15 @@ export type AccountGroupCountOutputTypeDefaultArgs<
  * AccountGroupCountOutputType without action
  */
 export type AccountGroupCountOutputTypeCountUsersArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.UserWhereInput;
 };
 
 export type AccountGroupSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -485,7 +503,8 @@ export type AccountGroupSelect<
 >;
 
 export type AccountGroupSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -499,7 +518,8 @@ export type AccountGroupSelectCreateManyAndReturn<
 >;
 
 export type AccountGroupSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -522,26 +542,31 @@ export type AccountGroupSelectScalar = {
 };
 
 export type AccountGroupOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetOmit<
   "id" | "name" | "currencies" | "description" | "createdAt" | "updatedAt",
   ExtArgs["result"]["accountGroup"]
 >;
 export type AccountGroupInclude<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   users?: boolean | Prisma.AccountGroup$usersArgs<ExtArgs>;
   _count?: boolean | Prisma.AccountGroupCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type AccountGroupIncludeCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {};
 export type AccountGroupIncludeUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {};
 
 export type $AccountGroupPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   name: "AccountGroup";
   objects: {
@@ -564,17 +589,23 @@ export type $AccountGroupPayload<
   composites: {};
 };
 
-export type AccountGroupGetPayload<S extends boolean | null | undefined | AccountGroupDefaultArgs> =
-  runtime.Types.Result.GetResult<Prisma.$AccountGroupPayload, S>;
+export type AccountGroupGetPayload<
+  S extends boolean | null | undefined | AccountGroupDefaultArgs
+> = runtime.Types.Result.GetResult<Prisma.$AccountGroupPayload, S>;
 
 export type AccountGroupCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-> = Omit<AccountGroupFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = Omit<
+  AccountGroupFindManyArgs,
+  "select" | "include" | "distinct" | "omit"
+> & {
   select?: AccountGroupCountAggregateInputType | true;
 };
 
 export interface AccountGroupDelegate<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > {
   [K: symbol]: {
@@ -970,7 +1001,10 @@ export interface AccountGroupDelegate<
     T extends runtime.Types.Utils.Record<"select", any>
       ? T["select"] extends true
         ? number
-        : Prisma.GetScalarType<T["select"], AccountGroupCountAggregateOutputType>
+        : Prisma.GetScalarType<
+            T["select"],
+            AccountGroupCountAggregateOutputType
+          >
       : number
   >;
 
@@ -1045,7 +1079,12 @@ export interface AccountGroupDelegate<
               ? never
               : P extends string
                 ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                : [Error, "Field ", P, ` in "having" needs to be provided in "by"`];
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`
+                  ];
           }[HavingFields]
         : "take" extends Prisma.Keys<T>
           ? "orderBy" extends Prisma.Keys<T>
@@ -1075,8 +1114,11 @@ export interface AccountGroupDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields]
   >(
-    args: Prisma.SubsetIntersection<T, AccountGroupGroupByArgs, OrderByArg> & InputErrors
-  ): {} extends InputErrors ? GetAccountGroupGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, AccountGroupGroupByArgs, OrderByArg> &
+      InputErrors
+  ): {} extends InputErrors
+    ? GetAccountGroupGroupByPayload<T>
+    : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the AccountGroup model
    */
@@ -1092,14 +1134,20 @@ export interface AccountGroupDelegate<
 export interface Prisma__AccountGroupClient<
   T,
   Null = never,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
   users<T extends Prisma.AccountGroup$usersArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.AccountGroup$usersArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>
+    | runtime.Types.Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
     | Null
   >;
   /**
@@ -1109,8 +1157,14 @@ export interface Prisma__AccountGroupClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -1118,7 +1172,10 @@ export interface Prisma__AccountGroupClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -1126,7 +1183,9 @@ export interface Prisma__AccountGroupClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  finally(
+    onfinally?: (() => void) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -1146,7 +1205,8 @@ export interface AccountGroupFieldRefs {
  * AccountGroup findUnique
  */
 export type AccountGroupFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1170,7 +1230,8 @@ export type AccountGroupFindUniqueArgs<
  * AccountGroup findUniqueOrThrow
  */
 export type AccountGroupFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1194,7 +1255,8 @@ export type AccountGroupFindUniqueOrThrowArgs<
  * AccountGroup findFirst
  */
 export type AccountGroupFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1243,14 +1305,17 @@ export type AccountGroupFindFirstArgs<
    *
    * Filter by unique combinations of AccountGroups.
    */
-  distinct?: Prisma.AccountGroupScalarFieldEnum | Prisma.AccountGroupScalarFieldEnum[];
+  distinct?:
+    | Prisma.AccountGroupScalarFieldEnum
+    | Prisma.AccountGroupScalarFieldEnum[];
 };
 
 /**
  * AccountGroup findFirstOrThrow
  */
 export type AccountGroupFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1299,14 +1364,17 @@ export type AccountGroupFindFirstOrThrowArgs<
    *
    * Filter by unique combinations of AccountGroups.
    */
-  distinct?: Prisma.AccountGroupScalarFieldEnum | Prisma.AccountGroupScalarFieldEnum[];
+  distinct?:
+    | Prisma.AccountGroupScalarFieldEnum
+    | Prisma.AccountGroupScalarFieldEnum[];
 };
 
 /**
  * AccountGroup findMany
  */
 export type AccountGroupFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1350,14 +1418,17 @@ export type AccountGroupFindManyArgs<
    * Skip the first `n` AccountGroups.
    */
   skip?: number;
-  distinct?: Prisma.AccountGroupScalarFieldEnum | Prisma.AccountGroupScalarFieldEnum[];
+  distinct?:
+    | Prisma.AccountGroupScalarFieldEnum
+    | Prisma.AccountGroupScalarFieldEnum[];
 };
 
 /**
  * AccountGroup create
  */
 export type AccountGroupCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1374,26 +1445,33 @@ export type AccountGroupCreateArgs<
   /**
    * The data needed to create a AccountGroup.
    */
-  data: Prisma.XOR<Prisma.AccountGroupCreateInput, Prisma.AccountGroupUncheckedCreateInput>;
+  data: Prisma.XOR<
+    Prisma.AccountGroupCreateInput,
+    Prisma.AccountGroupUncheckedCreateInput
+  >;
 };
 
 /**
  * AccountGroup createMany
  */
 export type AccountGroupCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to create many AccountGroups.
    */
-  data: Prisma.AccountGroupCreateManyInput | Prisma.AccountGroupCreateManyInput[];
+  data:
+    | Prisma.AccountGroupCreateManyInput
+    | Prisma.AccountGroupCreateManyInput[];
 };
 
 /**
  * AccountGroup createManyAndReturn
  */
 export type AccountGroupCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1406,14 +1484,17 @@ export type AccountGroupCreateManyAndReturnArgs<
   /**
    * The data used to create many AccountGroups.
    */
-  data: Prisma.AccountGroupCreateManyInput | Prisma.AccountGroupCreateManyInput[];
+  data:
+    | Prisma.AccountGroupCreateManyInput
+    | Prisma.AccountGroupCreateManyInput[];
 };
 
 /**
  * AccountGroup update
  */
 export type AccountGroupUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1430,7 +1511,10 @@ export type AccountGroupUpdateArgs<
   /**
    * The data needed to update a AccountGroup.
    */
-  data: Prisma.XOR<Prisma.AccountGroupUpdateInput, Prisma.AccountGroupUncheckedUpdateInput>;
+  data: Prisma.XOR<
+    Prisma.AccountGroupUpdateInput,
+    Prisma.AccountGroupUncheckedUpdateInput
+  >;
   /**
    * Choose, which AccountGroup to update.
    */
@@ -1441,7 +1525,8 @@ export type AccountGroupUpdateArgs<
  * AccountGroup updateMany
  */
 export type AccountGroupUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to update AccountGroups.
@@ -1464,7 +1549,8 @@ export type AccountGroupUpdateManyArgs<
  * AccountGroup updateManyAndReturn
  */
 export type AccountGroupUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1495,7 +1581,8 @@ export type AccountGroupUpdateManyAndReturnArgs<
  * AccountGroup upsert
  */
 export type AccountGroupUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1516,18 +1603,25 @@ export type AccountGroupUpsertArgs<
   /**
    * In case the AccountGroup found by the `where` argument doesn't exist, create a new AccountGroup with this data.
    */
-  create: Prisma.XOR<Prisma.AccountGroupCreateInput, Prisma.AccountGroupUncheckedCreateInput>;
+  create: Prisma.XOR<
+    Prisma.AccountGroupCreateInput,
+    Prisma.AccountGroupUncheckedCreateInput
+  >;
   /**
    * In case the AccountGroup was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<Prisma.AccountGroupUpdateInput, Prisma.AccountGroupUncheckedUpdateInput>;
+  update: Prisma.XOR<
+    Prisma.AccountGroupUpdateInput,
+    Prisma.AccountGroupUncheckedUpdateInput
+  >;
 };
 
 /**
  * AccountGroup delete
  */
 export type AccountGroupDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -1551,7 +1645,8 @@ export type AccountGroupDeleteArgs<
  * AccountGroup deleteMany
  */
 export type AccountGroupDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which AccountGroups to delete
@@ -1567,7 +1662,8 @@ export type AccountGroupDeleteManyArgs<
  * AccountGroup.users
  */
 export type AccountGroup$usersArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -1582,7 +1678,9 @@ export type AccountGroup$usersArgs<
    */
   include?: Prisma.UserInclude<ExtArgs> | null;
   where?: Prisma.UserWhereInput;
-  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.UserOrderByWithRelationInput
+    | Prisma.UserOrderByWithRelationInput[];
   cursor?: Prisma.UserWhereUniqueInput;
   take?: number;
   skip?: number;
@@ -1593,7 +1691,8 @@ export type AccountGroup$usersArgs<
  * AccountGroup without action
  */
 export type AccountGroupDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup

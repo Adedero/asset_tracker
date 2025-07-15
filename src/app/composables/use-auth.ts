@@ -34,7 +34,10 @@ export default function useAuth() {
 
   return {
     login() {
-      const fetcher = async (credentials: { email: string; password: string }) => {
+      const fetcher = async (credentials: {
+        email: string;
+        password: string;
+      }) => {
         const res = await fetch("/api/auth/login", {
           method: "POST",
           headers: {
@@ -57,7 +60,10 @@ export default function useAuth() {
 
           if (!data.user.verified) {
             const email = btoa(data.user.email);
-            await router.push({ name: "email-verification", query: { i: data.user.id, e: email } });
+            await router.push({
+              name: "email-verification",
+              query: { i: data.user.id, e: email }
+            });
             return;
           }
           store.user = data.user;
@@ -66,7 +72,11 @@ export default function useAuth() {
 
           switch (data.user.role) {
             case "ADMIN":
-              if (redirect && typeof redirect === "string" && redirect.includes("admin")) {
+              if (
+                redirect &&
+                typeof redirect === "string" &&
+                redirect.includes("admin")
+              ) {
                 await router.push(redirect);
                 return;
               }
@@ -123,13 +133,21 @@ export default function useAuth() {
 
           const email = btoa(data.user.email);
 
-          await router.push({ name: "email-verification", query: { e: email, i: data.user.id } });
+          await router.push({
+            name: "email-verification",
+            query: { e: email, i: data.user.id }
+          });
         }
       });
     },
 
     sendOTP(options: SendOTPOptions) {
-      const { verification, immediate = false, onSuccess, mailOptions } = options;
+      const {
+        verification,
+        immediate = false,
+        onSuccess,
+        mailOptions
+      } = options;
 
       const fetcher = async (credentials: { id: string; email?: string }) => {
         const { id, email } = credentials;
@@ -268,7 +286,10 @@ export default function useAuth() {
           if (!data) return;
           const email = btoa(data.user.email);
           const userId = data.user.id;
-          router.push({ name: "password-reset", query: { i: userId, e: email } });
+          router.push({
+            name: "password-reset",
+            query: { i: userId, e: email }
+          });
         }
       });
     },

@@ -36,7 +36,9 @@ exports.default = (0, api_1.api)({
             }
         }
     });
-    const word = notificationIds.length === 0 || notificationIds.length > 1 ? "notifications" : "notification";
+    const word = notificationIds.length === 0 || notificationIds.length > 1
+        ? "notifications"
+        : "notification";
     const payload = {
         success: true,
         message: `${notificationIds.length} ${word} deleted.`,

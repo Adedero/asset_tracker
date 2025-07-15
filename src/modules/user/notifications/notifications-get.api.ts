@@ -59,7 +59,9 @@ export default api(
       skip: parsedQuery?.skip
     });
 
-    const unreadNotifications = notifications.filter((n) => n.isRead === false).map((n) => n.id);
+    const unreadNotifications = notifications
+      .filter((n) => n.isRead === false)
+      .map((n) => n.id);
 
     if (unreadNotifications.length) {
       await prisma.notification.updateMany({

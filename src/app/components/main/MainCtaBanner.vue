@@ -13,7 +13,9 @@ const {
 </script>
 
 <template>
-  <div class="flex-col-center w-full text-center gap-3 rounded p-6 bg-gradient-x text-white">
+  <div
+    class="flex-col-center w-full text-center gap-3 rounded p-6 bg-gradient-x text-white"
+  >
     <header class="font-semibold text-3xl md:text-4xl">
       <p class="whitespace-pre-wrap">{{ message }}</p>
     </header>

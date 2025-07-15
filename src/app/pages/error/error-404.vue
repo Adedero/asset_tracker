@@ -11,7 +11,9 @@ useHead({
     <main class="h-[75dvh] flex-col-center gap-4">
       <p class="text-6xl font-semibold">404</p>
       <h2 class="text-2xl font-semibold">Page Not Found</h2>
-      <p class="mt-2 text-mute">Sorry, the page you are looking for does not exist.</p>
+      <p class="mt-2 text-mute">
+        Sorry, the page you are looking for does not exist.
+      </p>
     </main>
   </VueLayout>
 </template>

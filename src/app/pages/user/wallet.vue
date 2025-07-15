@@ -37,18 +37,26 @@ const { isLoading, data, error, mutate } = useSWRV<WalletApiResponse>(
       <div class="mt-2 overflow-y-auto md:h-[calc(100dvh-8.5rem)]">
         <VPageLoader v-if="isLoading" />
 
-        <div v-else-if="error" class="flex items-center justify-center w-full h-full">
+        <div
+          v-else-if="error"
+          class="flex items-center justify-center w-full h-full"
+        >
           <VErrorMessage :error should-retry @retry="mutate()" />
         </div>
 
-        <div v-else-if="data" class="w-full h-full grid gap-2 md:grid-rows-6 md:grid-cols-7">
+        <div
+          v-else-if="data"
+          class="w-full h-full grid gap-2 md:grid-rows-6 md:grid-cols-7"
+        >
           <VCard
             class="md:col-span-4 md:row-span-2 bg-gradient-y text-white"
             header="Available Balance"
             header-class="text-white"
           >
             <div class="flex justify-end mb-2">
-              <span class="pi pi-dollar bg-white text-primary-500 p-2 rounded-full aspect-square" />
+              <span
+                class="pi pi-dollar bg-white text-primary-500 p-2 rounded-full aspect-square"
+              />
             </div>
             <div class="flex flex-col items-end justify-end">
               <p class="text-right text-2xl md:text-5xl font-semibold">
@@ -60,7 +68,10 @@ const { isLoading, data, error, mutate } = useSWRV<WalletApiResponse>(
             </div>
           </VCard>
 
-          <VCard class="md:col-span-3 md:row-span-6" header="Recent Transactions">
+          <VCard
+            class="md:col-span-3 md:row-span-6"
+            header="Recent Transactions"
+          >
             <template #header>
               <div class="flex gap-1 justify-between">
                 <h3 class="font-semibold text-mute">Recent Transactions</h3>
@@ -80,22 +91,31 @@ const { isLoading, data, error, mutate } = useSWRV<WalletApiResponse>(
               <RouterLink
                 v-for="t in data.transactions"
                 :key="t.id"
-                :to="{ name: 'user-transaction-receipt', params: { transaction_id: t.id } }"
+                :to="{
+                  name: 'user-transaction-receipt',
+                  params: { transaction_id: t.id }
+                }"
                 class="v-card !p-2 border transition-all hover:bg-slate-50 dark:hover:bg-slate-700 dark:border-white/30 dark:bg-slate-800"
               >
                 <div class="flex items-center gap-1">
                   <span
                     :class="{
                       'pi pi-arrow-circle-down text-emerald-500':
-                        t.transactionType === 'DEPOSIT' || t.transactionType === 'PROFIT',
+                        t.transactionType === 'DEPOSIT' ||
+                        t.transactionType === 'PROFIT',
                       'pi pi-arrow-circle-up text-red-500':
-                        t.transactionType === 'WITHDRAWAL' || t.transactionType === 'INVESTMENT'
+                        t.transactionType === 'WITHDRAWAL' ||
+                        t.transactionType === 'INVESTMENT'
                     }"
                   />
 
                   <p class="text-mute font-semibold">
                     {{
-                      t.isWireTransfer ? "Wire Transfer" : t.isGiftCard ? "Gift Card" : t.currency
+                      t.isWireTransfer
+                        ? "Wire Transfer"
+                        : t.isGiftCard
+                          ? "Gift Card"
+                          : t.currency
                     }}
                     {{ toTitleCase(t.transactionType) }}
                   </p>
@@ -115,13 +135,19 @@ const { isLoading, data, error, mutate } = useSWRV<WalletApiResponse>(
                 <div class="flex items-baseline gap-1 justify-between">
                   <small class="text-mute">
                     {{
-                      useDateFormat(t.createdAt, "MMM DD, YYYY hh:mm:ss A", { locales: "en-US" })
+                      useDateFormat(t.createdAt, "MMM DD, YYYY hh:mm:ss A", {
+                        locales: "en-US"
+                      })
                     }}
                   </small>
                   <p class="text-right text-xl font-semibold">
-                    <span>${{ t.amountInUSD.toLocaleString().split(".")[0] }}</span>
+                    <span
+                      >${{ t.amountInUSD.toLocaleString().split(".")[0] }}</span
+                    >
                     <span class="text-base text-mute"
-                      >.{{ t.amountInUSD.toLocaleString().split(".")[1] || "00" }}</span
+                      >.{{
+                        t.amountInUSD.toLocaleString().split(".")[1] || "00"
+                      }}</span
                     >
                   </p>
                 </div>

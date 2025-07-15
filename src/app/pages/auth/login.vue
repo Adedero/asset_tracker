@@ -27,7 +27,9 @@ const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
 
 <template>
   <VueLayout name="auth">
-    <div class="w-full md:w-[26rem] h-full md:p-10 md:bg-white dark:bg-transparent">
+    <div
+      class="w-full md:w-[26rem] h-full md:p-10 md:bg-white dark:bg-transparent"
+    >
       <Logo />
 
       <header class="mt-8">
@@ -66,8 +68,17 @@ const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
 
           <div class="flex flex-col gap-1">
             <label for="password" class="text-mute text-sm">Password</label>
-            <Password input-id="password" name="password" fluid toggle-mask :feedback="false" />
-            <small v-if="$form.password?.invalid" class="font-medium text-red-500">
+            <Password
+              input-id="password"
+              name="password"
+              fluid
+              toggle-mask
+              :feedback="false"
+            />
+            <small
+              v-if="$form.password?.invalid"
+              class="font-medium text-red-500"
+            >
               {{ $form.password?.error?.message }}
             </small>
           </div>
@@ -81,7 +92,12 @@ const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
             </RouterLink>
           </div>
 
-          <Button :loading="isLoading" type="submit" label="Submit" icon="pi pi-sign-in" />
+          <Button
+            :loading="isLoading"
+            type="submit"
+            label="Submit"
+            icon="pi pi-sign-in"
+          />
         </Form>
       </div>
     </div>

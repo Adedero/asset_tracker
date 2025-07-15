@@ -43,7 +43,9 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
       <div
         class="bg-white rounded-xl dark:bg-slate-900 px-4 py-2 shadow-sm flex items-center justify-between"
       >
-        <div class="text-lg font-semibold text-primary-500 dark:text-primary-400">
+        <div
+          class="text-lg font-semibold text-primary-500 dark:text-primary-400"
+        >
           {{ data?.investment.investmentName ?? "Investment" }}
           <span class="text-sm">({{ data?.investment.investmentTier }})</span>
         </div>
@@ -64,7 +66,10 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
           <VErrorMessage :error should-retry @retry="mutate()" />
         </div>
 
-        <div v-else-if="data" class="h-full w-full overflow-y-auto flex flex-col gap-2">
+        <div
+          v-else-if="data"
+          class="h-full w-full overflow-y-auto flex flex-col gap-2"
+        >
           <div class="grid gap-2 md:grid-cols-3">
             <VCard
               header="Current Return"
@@ -75,11 +80,17 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                 <div class="flex font-semibold flex-wrap break-all">
                   <span class="font-xl">$</span>
                   <span class="text-4xl md:text-5xl font-semibold">
-                    {{ data.investment.currentTotalReturns.toLocaleString().split(".")[0] }}
+                    {{
+                      data.investment.currentTotalReturns
+                        .toLocaleString()
+                        .split(".")[0]
+                    }}
                   </span>
                   <span class="text-lg font-semibold self-end">
                     .{{
-                      data.investment.currentTotalReturns.toLocaleString().split(".")[1] ?? "00"
+                      data.investment.currentTotalReturns
+                        .toLocaleString()
+                        .split(".")[1] ?? "00"
                     }}
                   </span>
                 </div>
@@ -90,12 +101,20 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
               <div class="w-full flex flex-col">
                 <div class="flex font-semibold flex-wrap break-all">
                   <span class="text-mute font-xl">$</span>
-                  <span class="text-4xl md:text-5xl font-semibold text-emerald-500">
-                    {{ data.investment.expectedTotalReturns.toLocaleString().split(".")[0] }}
+                  <span
+                    class="text-4xl md:text-5xl font-semibold text-emerald-500"
+                  >
+                    {{
+                      data.investment.expectedTotalReturns
+                        .toLocaleString()
+                        .split(".")[0]
+                    }}
                   </span>
                   <span class="text-lg text-mute font-semibold self-end">
                     .{{
-                      data.investment.expectedTotalReturns.toLocaleString().split(".")[1] ?? "00"
+                      data.investment.expectedTotalReturns
+                        .toLocaleString()
+                        .split(".")[1] ?? "00"
                     }}
                   </span>
                 </div>
@@ -106,11 +125,21 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
               <div class="w-full flex flex-col">
                 <div class="flex font-semibold flex-wrap break-all">
                   <span class="text-mute font-xl">$</span>
-                  <span class="text-4xl md:text-5xl font-semibold text-rose-500">
-                    {{ data.investment.initialDeposit.toLocaleString().split(".")[0] }}
+                  <span
+                    class="text-4xl md:text-5xl font-semibold text-rose-500"
+                  >
+                    {{
+                      data.investment.initialDeposit
+                        .toLocaleString()
+                        .split(".")[0]
+                    }}
                   </span>
                   <span class="text-lg text-mute font-semibold self-end">
-                    .{{ data.investment.initialDeposit.toLocaleString().split(".")[1] ?? "00" }}
+                    .{{
+                      data.investment.initialDeposit
+                        .toLocaleString()
+                        .split(".")[1] ?? "00"
+                    }}
                   </span>
                 </div>
               </div>
@@ -129,11 +158,17 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                   <div class="flex font-semibold flex-wrap break-all">
                     <span class="font-xl">$</span>
                     <span class="text-4xl md:text-5xl font-semibold text-white">
-                      {{ data.investment.lastProfitAmount?.toLocaleString().split(".")[0] ?? "0" }}
+                      {{
+                        data.investment.lastProfitAmount
+                          ?.toLocaleString()
+                          .split(".")[0] ?? "0"
+                      }}
                     </span>
                     <span class="text-lg font-semibold self-end">
                       .{{
-                        data.investment.lastProfitAmount?.toLocaleString().split(".")[1] ?? "00"
+                        data.investment.lastProfitAmount
+                          ?.toLocaleString()
+                          .split(".")[1] ?? "00"
                       }}
                     </span>
                   </div>
@@ -141,29 +176,38 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
               </VCard>
 
               <VCard
-                :header="data.investment.autocompounded ? 'Auto-compounded' : 'Not auto-compounded'"
+                :header="
+                  data.investment.autocompounded
+                    ? 'Auto-compounded'
+                    : 'Not auto-compounded'
+                "
               >
-                <div class="flex flex-col lg:flex-row gap-2 items-center justify-center">
+                <div
+                  class="flex flex-col lg:flex-row gap-2 items-center justify-center"
+                >
                   <div class="h-40 *:h-full">
                     <AutocompoundIcon />
                   </div>
 
                   <div v-if="data.investment.investmentStatus !== 'OPEN'">
                     <p v-if="data.investment.autocompounded">
-                      Auto-compounding was enabled for this investment. The total returns was
-                      transferred to your wallet at the end of the investment.
+                      Auto-compounding was enabled for this investment. The
+                      total returns was transferred to your wallet at the end of
+                      the investment.
                     </p>
                     <p v-else>
-                      Auto-compounding was not enabled for this investment. Your daily returns were
-                      automatically added to your main wallet.
+                      Auto-compounding was not enabled for this investment. Your
+                      daily returns were automatically added to your main
+                      wallet.
                     </p>
                   </div>
 
                   <div v-else>
                     <p v-if="data.investment.autocompounded">
-                      Auto-compounding is enabled for this investment. The total profit from this
-                      investment will only be added to your wallet once the investment has completed
-                      or terminated by you.
+                      Auto-compounding is enabled for this investment. The total
+                      profit from this investment will only be added to your
+                      wallet once the investment has completed or terminated by
+                      you.
                       <RouterLink
                         :to="{
                           name: 'user-faq-item',
@@ -181,62 +225,86 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                     </p>
 
                     <p v-else>
-                      Auto-compounding is not enabled for this investment. Your daily returns are
-                      automatically added to your main wallet.
+                      Auto-compounding is not enabled for this investment. Your
+                      daily returns are automatically added to your main wallet.
                     </p>
                   </div>
                 </div>
               </VCard>
 
               <VCard header="Days Completed">
-                <div class="w-full flex flex-col gap-2 items-center justify-center">
+                <div
+                  class="w-full flex flex-col gap-2 items-center justify-center"
+                >
                   <DonutChart
                     :percent="
                       Number(
-                        ((data.investment.daysCompleted / data.investment.duration) * 100).toFixed(
-                          1
-                        )
+                        (
+                          (data.investment.daysCompleted /
+                            data.investment.duration) *
+                          100
+                        ).toFixed(1)
                       )
                     "
                     :size="150"
                     :strokeWidth="16"
                     :custom-text="
-                      ((data.investment.daysCompleted / data.investment.duration) * 100).toFixed(
-                        1
-                      ) + '%'
+                      (
+                        (data.investment.daysCompleted /
+                          data.investment.duration) *
+                        100
+                      ).toFixed(1) + '%'
                     "
                     background-color="var(--color-primary-100)"
                     foreground-color="var(--color-primary-500)"
                   />
-                  <p>{{ data.investment.daysCompleted }} / {{ data.investment.duration }} days</p>
+                  <p>
+                    {{ data.investment.daysCompleted }} /
+                    {{ data.investment.duration }} days
+                  </p>
                 </div>
               </VCard>
 
               <VCard header="Investment Health">
-                <div class="w-full flex flex-col gap-2 items-center justify-center">
+                <div
+                  class="w-full flex flex-col gap-2 items-center justify-center"
+                >
                   <DonutChart
                     :percent="investmentHealth"
                     :size="150"
                     :strokeWidth="16"
                     :custom-text="investmentHealth + '%'"
                     :background-color="
-                      investmentHealth >= 70 ? 'var(--p-emerald-100)' : 'var(--p-amber-100)'
+                      investmentHealth >= 70
+                        ? 'var(--p-emerald-100)'
+                        : 'var(--p-amber-100)'
                     "
                     :foreground-color="
-                      investmentHealth >= 70 ? 'var(--p-emerald-500)' : 'var(--p-amber-500)'
+                      investmentHealth >= 70
+                        ? 'var(--p-emerald-500)'
+                        : 'var(--p-amber-500)'
                     "
                   />
                   <p v-if="data.investment.investmentStatus !== 'OPEN'">
                     {{ toTitleCase(data.investment.investmentStatus) }}
                   </p>
-                  <p v-else>{{ investmentHealth >= 70 ? "Great" : "Thriving" }}</p>
+                  <p v-else>
+                    {{ investmentHealth >= 70 ? "Great" : "Thriving" }}
+                  </p>
                 </div>
               </VCard>
             </div>
 
-            <VCard class="md:overflow-y-auto lg:col-span-1 md:row-span-6" header="Details">
+            <VCard
+              class="md:overflow-y-auto lg:col-span-1 md:row-span-6"
+              header="Details"
+            >
               <div class="w-full h-36">
-                <img :src="investment_img" alt="investment" class="w-full h-full object-contain" />
+                <img
+                  :src="investment_img"
+                  alt="investment"
+                  class="w-full h-full object-contain"
+                />
               </div>
 
               <div class="mt-2 grid gap-2">
@@ -244,8 +312,13 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                   class="bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm p-2 rounded-xl"
                 >
                   <div class="flex-center-between">
-                    <p class="font-semibold">{{ data.investment.investmentName }}</p>
-                    <Tag severity="warn" :value="data.investment.investmentTier" />
+                    <p class="font-semibold">
+                      {{ data.investment.investmentName }}
+                    </p>
+                    <Tag
+                      severity="warn"
+                      :value="data.investment.investmentTier"
+                    />
                   </div>
                 </div>
 
@@ -256,21 +329,34 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                       data.investment.investmentStatus === 'TERMINATED'
                   }"
                 >
-                  <header class="text-slate-500 text-sm flex items-center gap-2">
+                  <header
+                    class="text-slate-500 text-sm flex items-center gap-2"
+                  >
                     <span class="pi pi-info-circle" />
                     Status
                   </header>
                   <p class="text-right font-semibold">
                     {{ toTitleCase(data.investment.investmentStatus) }}
                   </p>
-                  <div v-if="data.investment.investmentStatus === 'PAUSED'" class="text-sm mt-2">
+                  <div
+                    v-if="data.investment.investmentStatus === 'PAUSED'"
+                    class="text-sm mt-2"
+                  >
                     <p>
-                      Reason: <span class="font-medium">{{ data.investment.pausedReason }}</span>
+                      Reason:
+                      <span class="font-medium">{{
+                        data.investment.pausedReason
+                      }}</span>
                     </p>
                     <p v-if="data.investment.pausedAt">
                       Paused Date:
                       <span class="font-medium">
-                        {{ useDateFormat(data.investment.pausedAt, "MMM DD, YYYY hh:mm AA") }}
+                        {{
+                          useDateFormat(
+                            data.investment.pausedAt,
+                            "MMM DD, YYYY hh:mm AA"
+                          )
+                        }}
                       </span>
                     </p>
 
@@ -293,23 +379,38 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                     <p>
                       Terminated By:
                       <span class="font-medium">
-                        {{ data.investment.terminator === "USER" ? "You" : `${APP_NAME} Admin` }}
+                        {{
+                          data.investment.terminator === "USER"
+                            ? "You"
+                            : `${APP_NAME} Admin`
+                        }}
                       </span>
                     </p>
                     <p>
                       Reason:
-                      <span class="font-medium">{{ data.investment.terminationReason }}</span>
+                      <span class="font-medium">{{
+                        data.investment.terminationReason
+                      }}</span>
                     </p>
                     <p v-if="data.investment.terminatedAt">
                       Termination Date:
                       <span class="font-medium">
-                        {{ useDateFormat(data.investment.terminatedAt, "MMM DD, YYYY hh:mm AA") }}
+                        {{
+                          useDateFormat(
+                            data.investment.terminatedAt,
+                            "MMM DD, YYYY hh:mm AA"
+                          )
+                        }}
                       </span>
                     </p>
                     <p>
                       Termination Fee:
                       <span class="font-medium">
-                        {{ data.investment.terminationFeeApplied ? "Applied" : "Not Applied" }}
+                        {{
+                          data.investment.terminationFeeApplied
+                            ? "Applied"
+                            : "Not Applied"
+                        }}
                       </span>
                     </p>
                   </div>
@@ -318,7 +419,9 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                 <div
                   class="bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm p-2 rounded-xl"
                 >
-                  <header class="text-slate-500 text-sm flex items-center gap-2">
+                  <header
+                    class="text-slate-500 text-sm flex items-center gap-2"
+                  >
                     <span class="pi pi-money-bill" />
                     Minimun Deposit
                   </header>
@@ -330,7 +433,9 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                 <div
                   class="bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm p-2 rounded-xl"
                 >
-                  <header class="text-slate-500 text-sm flex items-center gap-2">
+                  <header
+                    class="text-slate-500 text-sm flex items-center gap-2"
+                  >
                     <span class="pi pi-credit-card" />
                     Amount Invested
                   </header>
@@ -342,7 +447,9 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                 <div
                   class="bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm p-2 rounded-xl"
                 >
-                  <header class="text-slate-500 text-sm flex items-center gap-1">
+                  <header
+                    class="text-slate-500 text-sm flex items-center gap-1"
+                  >
                     <span class="pi pi-replay" />
                     Expected Returns
                   </header>
@@ -360,7 +467,9 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                 <div
                   class="bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm p-2 rounded-xl"
                 >
-                  <header class="text-slate-500 text-sm flex items-center gap-1">
+                  <header
+                    class="text-slate-500 text-sm flex items-center gap-1"
+                  >
                     <span class="pi pi-arrow-circle-down" />
                     Current Returns
                   </header>
@@ -372,22 +481,30 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                 <div
                   class="bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm p-2 rounded-xl"
                 >
-                  <header class="text-slate-500 text-sm flex items-center gap-1">
+                  <header
+                    class="text-slate-500 text-sm flex items-center gap-1"
+                  >
                     <span class="pi pi-clock" />
                     Term
                   </header>
-                  <p class="text-right font-semibold">{{ data.investment.duration }} Days</p>
+                  <p class="text-right font-semibold">
+                    {{ data.investment.duration }} Days
+                  </p>
                 </div>
 
                 <div
                   class="bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm p-2 rounded-xl"
                 >
-                  <header class="text-slate-500 text-sm flex items-center gap-1">
+                  <header
+                    class="text-slate-500 text-sm flex items-center gap-1"
+                  >
                     <span class="pi pi-calendar" />
                     Approximate Duration
                   </header>
                   <p class="text-right font-semibold">
-                    {{ useDateFormat(data.investment.createdAt, "MMM DD, YYYY") }}
+                    {{
+                      useDateFormat(data.investment.createdAt, "MMM DD, YYYY")
+                    }}
                     -
                     {{
                       useDateFormat(
@@ -400,12 +517,17 @@ const onTerminateInvestment = async (updatedInvestment: Investment) => {
                     }}
                   </p>
                 </div>
-                <div v-if="data.investment.investmentStatus === 'OPEN'" class="grid gap-2">
+                <div
+                  v-if="data.investment.investmentStatus === 'OPEN'"
+                  class="grid gap-2"
+                >
                   <Divider />
                   <div
                     class="bg-white dark:bg-slate-800 border dark:border-slate-800 shadow-sm p-2 rounded-xl"
                   >
-                    <header class="text-slate-500 text-sm flex items-center gap-1">
+                    <header
+                      class="text-slate-500 text-sm flex items-center gap-1"
+                    >
                       <span class="pi pi-times-circle" />
                       Termination Fee
                     </header>

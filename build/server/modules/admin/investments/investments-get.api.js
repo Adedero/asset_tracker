@@ -34,11 +34,11 @@ exports.default = (0, api_1.api)({
         where: { ...(parsedQuery?.where || {}) },
         include: { user: true },
         /*  //@ts-ignore
-        select: {
-          ...(parsedQuery?.select || {}),
-          ...(parsedQuery?.populate || {}),
-          ...(parsedQuery?.exclude || {})
-        }, */
+      select: {
+        ...(parsedQuery?.select || {}),
+        ...(parsedQuery?.populate || {}),
+        ...(parsedQuery?.exclude || {})
+      }, */
         orderBy: parsedQuery?.sort,
         take: parsedQuery?.take,
         skip: parsedQuery?.skip

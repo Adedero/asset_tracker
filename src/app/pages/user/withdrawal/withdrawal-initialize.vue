@@ -43,7 +43,8 @@ const {
   error: errorFetching,
   execute
 } = useFetch(
-  () => `/api/users/me/transactions/withdrawal/initialize?symbol=${selectedCurrency.value?.abbr}`,
+  () =>
+    `/api/users/me/transactions/withdrawal/initialize?symbol=${selectedCurrency.value?.abbr}`,
   { immediate: false }
 )
   .get()
@@ -78,7 +79,8 @@ const initiateWithdrawal = () => {
     },
     {
       value:
-        (initData.value?.user.walletBalance || 0) - request.value.amount >= MIN_ACCOUNT_BALANCE,
+        (initData.value?.user.walletBalance || 0) - request.value.amount >=
+        MIN_ACCOUNT_BALANCE,
       message: "You do not have sufficient funds to complete this withdrawal"
     }
   ];
@@ -126,7 +128,9 @@ onMounted(() => {
 
         <div v-if="initData && selectedCurrency" class="flex-col-center gap-1">
           <div class="text-center">
-            <p class="text-2xl font-semibold">{{ dollar.format(initData.user.walletBalance) }}</p>
+            <p class="text-2xl font-semibold">
+              {{ dollar.format(initData.user.walletBalance) }}
+            </p>
             <p>Account Balance</p>
           </div>
 
@@ -151,7 +155,10 @@ onMounted(() => {
               </small>
 
               <Message
-                v-if="initData.user.walletBalance < request.amount + MIN_ACCOUNT_BALANCE"
+                v-if="
+                  initData.user.walletBalance <
+                  request.amount + MIN_ACCOUNT_BALANCE
+                "
                 size="small"
                 severity="error"
               >
@@ -164,7 +171,10 @@ onMounted(() => {
               <InputGroup class="w-full *:dark:bg-slate-800">
                 <InputGroupAddon>
                   <div class="w-5 rounded-full overlow-hidden">
-                    <img :src="selectedCurrency.image || ''" class="w-full h-full object-cover" />
+                    <img
+                      :src="selectedCurrency.image || ''"
+                      class="w-full h-full object-cover"
+                    />
                   </div>
                 </InputGroupAddon>
                 <InputText
@@ -176,7 +186,9 @@ onMounted(() => {
             </div>
 
             <div class="grid gap-1">
-              <label class="text-mute font-semibold text-sm">Your Wallet Address</label>
+              <label class="text-mute font-semibold text-sm"
+                >Your Wallet Address</label
+              >
               <InputGroup class="w-full *:dark:bg-slate-800">
                 <InputGroupAddon>
                   <span class="pi pi-wallet" />
@@ -214,7 +226,9 @@ onMounted(() => {
               <Button
                 type="submit"
                 :loading="isFetching"
-                :disabled="isFetching || !request.amount || !request.walletAddress"
+                :disabled="
+                  isFetching || !request.amount || !request.walletAddress
+                "
                 label="Confirm"
                 fluid
               />

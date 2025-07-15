@@ -20,7 +20,10 @@ async function distributeProfit() {
             where: {
                 investmentStatus: index_1.InvestmentStatus.OPEN,
                 createdAt: { lt: startOfToday },
-                OR: [{ lastProfitDistributedAt: null }, { lastProfitDistributedAt: { lt: startOfToday } }]
+                OR: [
+                    { lastProfitDistributedAt: null },
+                    { lastProfitDistributedAt: { lt: startOfToday } }
+                ]
             },
             include: {
                 user: { include: { account: true } }
@@ -84,7 +87,9 @@ async function distributeProfit() {
                                 }
                             });
                             // Update investment state
-                            let updatedCurrentTotalReturns = expectedTotalReturns.toDecimalPlaces(2).toNumber();
+                            let updatedCurrentTotalReturns = expectedTotalReturns
+                                .toDecimalPlaces(2)
+                                .toNumber();
                             let updatedCurrentCompoundedAmount = investment.currentCompoundedAmount;
                             if (investment.autocompounded) {
                                 updatedCurrentCompoundedAmount = currentCompoundedAmount
@@ -173,7 +178,8 @@ async function distributeProfit() {
                     dailyReturnDecimal = new decimal_js_1.default(0);
                 }
                 // Ensure daily return doesn't exceed remaining total returns left (can happen with fluctuation)
-                if (dailyReturnDecimal.greaterThan(totalReturnsLeft) && !totalReturnsLeft.isNegative()) {
+                if (dailyReturnDecimal.greaterThan(totalReturnsLeft) &&
+                    !totalReturnsLeft.isNegative()) {
                     dailyReturnDecimal = totalReturnsLeft;
                 }
                 // Round to 2 decimal places *after* calculations
@@ -186,7 +192,9 @@ async function distributeProfit() {
                             accountId: user.account.id,
                             investmentId: investment.id,
                             amount: dailyReturnDecimal.toDecimalPlaces(2).toNumber(),
-                            status: investment.autocompounded ? index_1.ProfitStatus.FROZEN : index_1.ProfitStatus.DISTRIBUTED,
+                            status: investment.autocompounded
+                                ? index_1.ProfitStatus.FROZEN
+                                : index_1.ProfitStatus.DISTRIBUTED,
                             ...(!investment.autocompounded && {
                                 distributedAt: new Date()
                             })

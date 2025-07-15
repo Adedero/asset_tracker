@@ -11,7 +11,9 @@ const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
 const decimal_js_1 = __importDefault(require("decimal.js"));
 const zod_1 = require("zod");
 const Schema = zod_1.z.object({
-    failReason: zod_1.z.string({ message: "Reason for failing the transaction is required" })
+    failReason: zod_1.z.string({
+        message: "Reason for failing the transaction is required"
+    })
 }, { message: "No request body provided" });
 exports.default = (0, api_1.api)({
     group: "/admins/me",
@@ -48,7 +50,10 @@ exports.default = (0, api_1.api)({
         promises.push(prisma_1.default.account.update({
             where: { id: account.id },
             data: {
-                walletBalance: walletBalance.plus(amountInUSD).toDecimalPlaces(2).toNumber()
+                walletBalance: walletBalance
+                    .plus(amountInUSD)
+                    .toDecimalPlaces(2)
+                    .toNumber()
             }
         }));
     }

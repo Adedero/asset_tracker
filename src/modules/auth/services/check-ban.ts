@@ -1,6 +1,8 @@
 import { User, Ban } from "@/prisma-gen/index";
 
-export function isUserBanned(user: Partial<User> & { ban?: Ban | null }): boolean {
+export function isUserBanned(
+  user: Partial<User> & { ban?: Ban | null }
+): boolean {
   if (!user.ban) {
     return !!user.isBanned;
   }

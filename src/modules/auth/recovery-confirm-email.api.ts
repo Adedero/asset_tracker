@@ -6,7 +6,9 @@ import { ApiResponse } from "#src/types/api-response";
 import { z } from "zod";
 
 const Schema = z.object({
-  email: z.string({ message: "Email is required" }).email({ message: "Invalid email" })
+  email: z
+    .string({ message: "Email is required" })
+    .email({ message: "Invalid email" })
 });
 
 export interface ConfirmEmailApiResponse extends ApiResponse {

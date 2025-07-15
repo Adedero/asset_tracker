@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { $fetch } from "@/app/composables/use-fetch";
 import useSWRV from "swrv";
-import type { TransactionType, TransactionStatus, Transaction } from "@/prisma-gen";
+import type {
+  TransactionType,
+  TransactionStatus,
+  Transaction
+} from "@/prisma-gen";
 import { useDateFormat } from "@vueuse/core";
 import { useRouter } from "vue-router";
 import { toTitleCase } from "@/app/utils/helpers";
@@ -33,8 +37,10 @@ const onTransactionUpdate = async (updatedTransaction: Transaction) => {
 };
 
 function getTypeData(type: TransactionType) {
-  if (type === "DEPOSIT") return { icon: "arrow-circle-down", color: "text-primary-500" };
-  if (type === "WITHDRAWAL") return { icon: "arrow-circle-up", color: "text-red-500" };
+  if (type === "DEPOSIT")
+    return { icon: "arrow-circle-down", color: "text-primary-500" };
+  if (type === "WITHDRAWAL")
+    return { icon: "arrow-circle-up", color: "text-red-500" };
   if (type === "INVESTMENT") return { icon: "spa", color: "text-green-500" };
   return { icon: "payments", color: "text-green-500" };
 }
@@ -59,7 +65,12 @@ function getSeverity(status: TransactionStatus) {
       <div class="mt-2">
         <VPageLoader v-if="isLoading" />
 
-        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="mutate()"
+        />
 
         <div v-else-if="data">
           <div class="md:h-[calc(100dvh-8.5rem)] grid md:grid-cols-3 gap-2">
@@ -68,10 +79,18 @@ function getSeverity(status: TransactionStatus) {
                 <VCard header="Amount">
                   <div class="text-xl font-semibold">
                     <span>
-                      ${{ data.transaction.amountInUSD.toLocaleString().split(".")[0] }}.</span
+                      ${{
+                        data.transaction.amountInUSD
+                          .toLocaleString()
+                          .split(".")[0]
+                      }}.</span
                     >
                     <span class="text-sm">
-                      {{ data.transaction.amountInUSD.toLocaleString().split(".")[1] ?? "00" }}
+                      {{
+                        data.transaction.amountInUSD
+                          .toLocaleString()
+                          .split(".")[1] ?? "00"
+                      }}
                     </span>
                   </div>
                 </VCard>
@@ -103,13 +122,22 @@ function getSeverity(status: TransactionStatus) {
               <div class="mt-2">
                 <VCard v-if="data.transaction.isWireTransfer">
                   <template #header>
-                    <Tag value="Wire Transfer" severity="info" icon="pi pi-bolt" />
+                    <Tag
+                      value="Wire Transfer"
+                      severity="info"
+                      icon="pi pi-bolt"
+                    />
                   </template>
 
-                  <div v-if="data.transaction.transactionStatus === 'PENDING'" class="mt-2">
+                  <div
+                    v-if="data.transaction.transactionStatus === 'PENDING'"
+                    class="mt-2"
+                  >
                     <p class="text-sm text-mute">
-                      This is a <span class="font-medium">Wire Transfer</span> deposit request. You
-                      need to send the details of the transfer to the user's email.
+                      This is a
+                      <span class="font-medium">Wire Transfer</span> deposit
+                      request. You need to send the details of the transfer to
+                      the user's email.
                     </p>
 
                     <RouterLink
@@ -121,25 +149,40 @@ function getSeverity(status: TransactionStatus) {
                         }
                       }"
                     >
-                      <Button size="small" label="Send mail" icon="pi pi-envelope" />
+                      <Button
+                        size="small"
+                        label="Send mail"
+                        icon="pi pi-envelope"
+                      />
                     </RouterLink>
                   </div>
 
                   <div v-else class="mt-2">
-                    This is a <span class="font-medium">Wire Transfer</span> deposit request. The
-                    transfer details have been sent to the client's email
+                    This is a
+                    <span class="font-medium">Wire Transfer</span> deposit
+                    request. The transfer details have been sent to the client's
+                    email
                   </div>
                 </VCard>
 
                 <VCard v-if="data.transaction.isGiftCard">
                   <template #header>
-                    <Tag value="Gift Card Deposit" severity="info" icon="pi pi-credit-card" />
+                    <Tag
+                      value="Gift Card Deposit"
+                      severity="info"
+                      icon="pi pi-credit-card"
+                    />
                   </template>
 
-                  <div v-if="data.transaction.transactionStatus === 'PENDING'" class="mt-2">
+                  <div
+                    v-if="data.transaction.transactionStatus === 'PENDING'"
+                    class="mt-2"
+                  >
                     <p class="text-sm text-mute">
-                      This is a <span class="font-medium">Gift Card</span> deposit request. You need
-                      to validate the gift cards and credit the user's account.
+                      This is a
+                      <span class="font-medium">Gift Card</span> deposit
+                      request. You need to validate the gift cards and credit
+                      the user's account.
                     </p>
                     <RouterLink
                       :to="{
@@ -159,7 +202,10 @@ function getSeverity(status: TransactionStatus) {
                         params: { transaction_id: data.transaction.id }
                       }"
                     >
-                      <Button label="View Gift Card Validation Report" size="small" />
+                      <Button
+                        label="View Gift Card Validation Report"
+                        size="small"
+                      />
                     </RouterLink>
                   </div>
                 </VCard>
@@ -209,7 +255,9 @@ function getSeverity(status: TransactionStatus) {
                       "
                       class="contents"
                     >
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-dollar text-mute p-1 rounded-full"
@@ -222,13 +270,17 @@ function getSeverity(status: TransactionStatus) {
                         </p>
                       </div>
 
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-info-circle text-mute p-1 rounded-full"
                             style="font-size: 12px"
                           />
-                          <p class="text-mute text-sm font-semibold">Investment ID</p>
+                          <p class="text-mute text-sm font-semibold">
+                            Investment ID
+                          </p>
                         </div>
                         <p class="text-right font-semibold">
                           {{ data.transaction.investmentId }}
@@ -237,30 +289,44 @@ function getSeverity(status: TransactionStatus) {
                     </div>
 
                     <!-- DEPOSIT TRANSACTIONS -->
-                    <div v-if="data.transaction.transactionType === 'DEPOSIT'" class="contents">
+                    <div
+                      v-if="data.transaction.transactionType === 'DEPOSIT'"
+                      class="contents"
+                    >
                       <!-- Amount to deposit -->
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-dollar text-mute p-1 rounded-full"
                             style="font-size: 12px"
                           />
-                          <p class="text-mute text-sm font-semibold">Deposit Amount</p>
+                          <p class="text-mute text-sm font-semibold">
+                            Deposit Amount
+                          </p>
                         </div>
                         <p class="text-right font-semibold">
                           ${{ data.transaction.amountInUSD.toLocaleString() }}
                         </p>
                       </div>
 
-                      <div v-if="!data.transaction.isWireTransfer" class="contents">
+                      <div
+                        v-if="!data.transaction.isWireTransfer"
+                        class="contents"
+                      >
                         <!-- Selected withdrawal currency -->
-                        <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                        <div
+                          class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                        >
                           <div class="flex items-center">
                             <span
                               class="pi pi-bitcoin text-mute p-1 rounded-full"
                               style="font-size: 12px"
                             />
-                            <p class="text-mute text-sm font-semibold">Selected Currency</p>
+                            <p class="text-mute text-sm font-semibold">
+                              Selected Currency
+                            </p>
                           </div>
                           <p class="text-right font-semibold">
                             {{ data.transaction.currency }}
@@ -268,22 +334,30 @@ function getSeverity(status: TransactionStatus) {
                         </div>
 
                         <!-- Rate -->
-                        <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                        <div
+                          class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                        >
                           <div class="flex items-center">
                             <span
                               class="pi pi-arrow-right-arrow-left text-mute p-1 rounded-full"
                               style="font-size: 12px"
                             />
-                            <p class="text-mute text-sm font-semibold">Exchange Rate</p>
+                            <p class="text-mute text-sm font-semibold">
+                              Exchange Rate
+                            </p>
                           </div>
                           <p class="text-xs text-mute">
                             {{ `1 ${data.transaction.currency} in USD` }}
                           </p>
-                          <p class="text-right font-semibold">${{ data.transaction.rate }}</p>
+                          <p class="text-right font-semibold">
+                            ${{ data.transaction.rate }}
+                          </p>
                         </div>
 
                         <!-- Amount in cryptocurrency -->
-                        <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                        <div
+                          class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                        >
                           <div class="flex items-center">
                             <span
                               class="pi pi-money-bill text-mute p-1 rounded-full"
@@ -301,30 +375,42 @@ function getSeverity(status: TransactionStatus) {
                           </p>
                         </div>
 
-                        <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                        <div
+                          class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                        >
                           <div class="flex items-center">
                             <span
                               class="pi pi-wallet text-mute p-1 rounded-full"
                               style="font-size: 12px"
                             />
-                            <p class="text-mute text-sm font-semibold">Your Wallet Address</p>
+                            <p class="text-mute text-sm font-semibold">
+                              Your Wallet Address
+                            </p>
                           </div>
                           <p class="text-xs text-mute">
                             Wallet address provided by you for
-                            {{ data.transaction.currency ?? "crypto" }} deposits.
+                            {{ data.transaction.currency ?? "crypto" }}
+                            deposits.
                           </p>
                           <p class="text-right font-semibold break-all">
-                            {{ data.transaction.depositWalletAddress ?? "No address provided" }}
+                            {{
+                              data.transaction.depositWalletAddress ??
+                              "No address provided"
+                            }}
                           </p>
                         </div>
 
-                        <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                        <div
+                          class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                        >
                           <div class="flex items-center">
                             <span
                               class="pi pi-sitemap text-mute p-1 rounded-full"
                               style="font-size: 12px"
                             />
-                            <p class="text-mute text-sm font-semibold">Wallet Address Network</p>
+                            <p class="text-mute text-sm font-semibold">
+                              Wallet Address Network
+                            </p>
                           </div>
                           <p class="text-right font-semibold">
                             {{
@@ -337,15 +423,22 @@ function getSeverity(status: TransactionStatus) {
                     </div>
 
                     <!-- WITHDRAWAL TRANSACTIONS -->
-                    <div v-if="data.transaction.transactionType === 'WITHDRAWAL'" class="contents">
+                    <div
+                      v-if="data.transaction.transactionType === 'WITHDRAWAL'"
+                      class="contents"
+                    >
                       <!-- Amount Requested -->
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-dollar text-mute p-1 rounded-full"
                             style="font-size: 12px"
                           />
-                          <p class="text-mute text-sm font-semibold">Amount Requested</p>
+                          <p class="text-mute text-sm font-semibold">
+                            Amount Requested
+                          </p>
                         </div>
                         <p class="text-right font-semibold">
                           ${{ data.transaction.amountInUSD.toLocaleString() }}
@@ -353,13 +446,17 @@ function getSeverity(status: TransactionStatus) {
                       </div>
 
                       <!-- Witrhdrawal charge -->
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-dollar text-mute p-1 rounded-full"
                             style="font-size: 12px"
                           />
-                          <p class="text-mute text-sm font-semibold">Withdrawal Charge</p>
+                          <p class="text-mute text-sm font-semibold">
+                            Withdrawal Charge
+                          </p>
                         </div>
                         <p class="text-right font-semibold">
                           ${{ data.transaction.charge.toLocaleString() }}
@@ -367,27 +464,37 @@ function getSeverity(status: TransactionStatus) {
                       </div>
 
                       <!-- Actual Amount -->
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-dollar text-mute p-1 rounded-full"
                             style="font-size: 12px"
                           />
-                          <p class="text-mute text-sm font-semibold">Actual Amount</p>
+                          <p class="text-mute text-sm font-semibold">
+                            Actual Amount
+                          </p>
                         </div>
                         <p class="text-right font-semibold">
-                          ${{ data.transaction.actualAmountInUSD.toLocaleString() }}
+                          ${{
+                            data.transaction.actualAmountInUSD.toLocaleString()
+                          }}
                         </p>
                       </div>
 
                       <!-- Selected withdrawal currency -->
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-bitcoin text-mute p-1 rounded-full"
                             style="font-size: 12px"
                           />
-                          <p class="text-mute text-sm font-semibold">Selected Currency</p>
+                          <p class="text-mute text-sm font-semibold">
+                            Selected Currency
+                          </p>
                         </div>
                         <p class="text-right font-semibold">
                           {{ data.transaction.currency }}
@@ -395,28 +502,38 @@ function getSeverity(status: TransactionStatus) {
                       </div>
 
                       <!-- Rate -->
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-arrow-right-arrow-left text-mute p-1 rounded-full"
                             style="font-size: 12px"
                           />
-                          <p class="text-mute text-sm font-semibold">Exchange Rate</p>
+                          <p class="text-mute text-sm font-semibold">
+                            Exchange Rate
+                          </p>
                         </div>
                         <p class="text-xs text-mute">
                           {{ `1 ${data.transaction.currency} in USD` }}
                         </p>
-                        <p class="text-right font-semibold">${{ data.transaction.rate }}</p>
+                        <p class="text-right font-semibold">
+                          ${{ data.transaction.rate }}
+                        </p>
                       </div>
 
                       <!-- Amount in cryptocurrency -->
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-money-bill text-mute p-1 rounded-full"
                             style="font-size: 12px"
                           />
-                          <p class="text-mute text-sm font-semibold">Amount in selected currency</p>
+                          <p class="text-mute text-sm font-semibold">
+                            Amount in selected currency
+                          </p>
                         </div>
                         <p class="text-xs text-mute">
                           {{ data.transaction.currency }}
@@ -426,29 +543,40 @@ function getSeverity(status: TransactionStatus) {
                         </p>
                       </div>
 
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-wallet text-mute p-1 rounded-full"
                             style="font-size: 12px"
                           />
-                          <p class="text-mute text-sm font-semibold">Client's Wallet Address</p>
+                          <p class="text-mute text-sm font-semibold">
+                            Client's Wallet Address
+                          </p>
                         </div>
                         <p class="text-xs text-mute">
                           Wallet address provided by client for withdrawal.
                         </p>
                         <p class="text-right font-semibold">
-                          {{ data.transaction.withdrawalWalletAddress ?? "No address provided" }}
+                          {{
+                            data.transaction.withdrawalWalletAddress ??
+                            "No address provided"
+                          }}
                         </p>
                       </div>
 
-                      <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                      <div
+                        class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                      >
                         <div class="flex items-center">
                           <span
                             class="pi pi-sitemap text-mute p-1 rounded-full"
                             style="font-size: 12px"
                           />
-                          <p class="text-mute text-sm font-semibold">Wallet Address Network</p>
+                          <p class="text-mute text-sm font-semibold">
+                            Wallet Address Network
+                          </p>
                         </div>
                         <p class="text-right font-semibold">
                           {{
@@ -459,13 +587,17 @@ function getSeverity(status: TransactionStatus) {
                       </div>
                     </div>
 
-                    <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                    <div
+                      class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                    >
                       <div class="flex items-center">
                         <span
                           class="pi pi-calendar text-mute p-1 rounded-full"
                           style="font-size: 12px"
                         />
-                        <p class="text-mute text-sm font-semibold">Created Date</p>
+                        <p class="text-mute text-sm font-semibold">
+                          Created Date
+                        </p>
                       </div>
                       <p class="text-right font-semibold">
                         {{
@@ -489,7 +621,9 @@ function getSeverity(status: TransactionStatus) {
                           class="pi pi-calendar-clock text-mute p-1 rounded-full"
                           style="font-size: 12px"
                         />
-                        <p class="text-mute text-sm font-semibold">Approval Date</p>
+                        <p class="text-mute text-sm font-semibold">
+                          Approval Date
+                        </p>
                       </div>
                       <p class="text-right font-semibold">
                         <span v-if="data.transaction.approvedAt">
@@ -504,16 +638,23 @@ function getSeverity(status: TransactionStatus) {
                       </p>
                     </div>
 
-                    <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                    <div
+                      class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                    >
                       <div class="flex items-center">
                         <span
                           class="pi pi-info-circle text-mute p-1 rounded-full"
                           style="font-size: 12px"
                         />
-                        <p class="text-mute text-sm font-semibold">Description</p>
+                        <p class="text-mute text-sm font-semibold">
+                          Description
+                        </p>
                       </div>
                       <p class="text-right font-semibold">
-                        {{ data.transaction.description || "No description provided" }}
+                        {{
+                          data.transaction.description ||
+                          "No description provided"
+                        }}
                       </p>
                     </div>
 
@@ -526,10 +667,14 @@ function getSeverity(status: TransactionStatus) {
                           class="pi pi-question-circle text-mute p-1 rounded-full"
                           style="font-size: 12px"
                         />
-                        <p class="text-mute text-sm font-semibold">Reason for Failure</p>
+                        <p class="text-mute text-sm font-semibold">
+                          Reason for Failure
+                        </p>
                       </div>
                       <p class="text-right font-semibold">
-                        {{ data.transaction.failReason || "No reason provided" }}
+                        {{
+                          data.transaction.failReason || "No reason provided"
+                        }}
                       </p>
                     </div>
                   </div>
@@ -539,7 +684,9 @@ function getSeverity(status: TransactionStatus) {
 
             <div class="md:h-full md:overflow-y-auto">
               <VCard v-if="data.transaction.user" header="User" class="w-full">
-                <div class="flex flex-col items-center justify-center gap-2 text-center">
+                <div
+                  class="flex flex-col items-center justify-center gap-2 text-center"
+                >
                   <div
                     class="w-32 aspect-square rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800"
                   >
@@ -555,8 +702,12 @@ function getSeverity(status: TransactionStatus) {
                   </div>
 
                   <div>
-                    <p class="font-semibold md:text-lg">{{ data.transaction.user.name }}</p>
-                    <p class="text-sm text-mute">{{ data.transaction.user.email }}</p>
+                    <p class="font-semibold md:text-lg">
+                      {{ data.transaction.user.name }}
+                    </p>
+                    <p class="text-sm text-mute">
+                      {{ data.transaction.user.email }}
+                    </p>
                   </div>
 
                   <Button
@@ -588,7 +739,9 @@ function getSeverity(status: TransactionStatus) {
                     />
                     <p class="text-mute text-sm font-semibold">Investment ID</p>
                   </div>
-                  <p class="text-sm break-all">{{ data.transaction.investmentId }}</p>
+                  <p class="text-sm break-all">
+                    {{ data.transaction.investmentId }}
+                  </p>
                   <Button
                     @click="
                       router.push({
@@ -606,14 +759,21 @@ function getSeverity(status: TransactionStatus) {
                   />
                 </div>
 
-                <div v-else-if="data.transaction.transactionStatus === 'PENDING'" class="contents">
-                  <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  v-else-if="data.transaction.transactionStatus === 'PENDING'"
+                  class="contents"
+                >
+                  <div
+                    class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                  >
                     <div class="flex items-center">
                       <span
                         class="pi pi-check-circle text-mute p-1 rounded-full"
                         style="font-size: 12px"
                       />
-                      <p class="text-mute text-sm font-semibold">Approve Transaction</p>
+                      <p class="text-mute text-sm font-semibold">
+                        Approve Transaction
+                      </p>
                     </div>
                     <div class="my-1">
                       <Message
@@ -621,15 +781,19 @@ function getSeverity(status: TransactionStatus) {
                         size="small"
                       >
                         <p class="text-xs">
-                          Make sure you have transfered the required amount into the client's wallet
-                          address before approving this transaction.
+                          Make sure you have transfered the required amount into
+                          the client's wallet address before approving this
+                          transaction.
                         </p>
                       </Message>
 
-                      <Message v-if="data.transaction.transactionType === 'DEPOSIT'" size="small">
+                      <Message
+                        v-if="data.transaction.transactionType === 'DEPOSIT'"
+                        size="small"
+                      >
                         <p class="text-xs">
-                          Make sure the client has completed the transfer before approving this
-                          transaction.
+                          Make sure the client has completed the transfer before
+                          approving this transaction.
                         </p>
                       </Message>
                     </div>
@@ -641,13 +805,17 @@ function getSeverity(status: TransactionStatus) {
                     />
                   </div>
 
-                  <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                  <div
+                    class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                  >
                     <div class="flex items-center">
                       <span
                         class="pi pi-times-circle text-mute p-1 rounded-full"
                         style="font-size: 12px"
                       />
-                      <p class="text-mute text-sm font-semibold">Fail Transaction</p>
+                      <p class="text-mute text-sm font-semibold">
+                        Fail Transaction
+                      </p>
                     </div>
                     <div class="my-1">
                       <Message
@@ -656,7 +824,8 @@ function getSeverity(status: TransactionStatus) {
                         severity="error"
                       >
                         <p class="text-xs">
-                          The withdrawal amount will be refunded to the client's in-app wallet
+                          The withdrawal amount will be refunded to the client's
+                          in-app wallet
                         </p>
                       </Message>
                     </div>
@@ -669,7 +838,10 @@ function getSeverity(status: TransactionStatus) {
                   </div>
                 </div>
 
-                <div v-else class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  v-else
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
                     <span
                       class="pi pi-times-circle text-mute p-1 rounded-full"

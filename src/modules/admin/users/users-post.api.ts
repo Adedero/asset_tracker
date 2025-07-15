@@ -5,7 +5,10 @@ import { MIN_PASSWORD_LENGTH } from "#src/utils/constants";
 import { z } from "zod";
 
 const Schema = z.object({
-  name: z.string().trim().min(2, { message: "Name must be at least 2 characters long" }),
+  name: z
+    .string()
+    .trim()
+    .min(2, { message: "Name must be at least 2 characters long" }),
   email: z.string().email({ message: "Invalid email address" }).trim(),
   password: z.string().min(MIN_PASSWORD_LENGTH, {
     message: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long`

@@ -23,7 +23,10 @@ export interface SendOTPApiResponse extends ApiResponse {
 
 const Schema = z.object({
   id: z.string({ message: "User ID is required" }),
-  email: z.string({ message: "Email is required" }).email({ message: "Invalid email" }).optional(),
+  email: z
+    .string({ message: "Email is required" })
+    .email({ message: "Invalid email" })
+    .optional(),
   verification: z
     .object({
       useLink: z.boolean().optional(),
@@ -47,7 +50,8 @@ export default api(
     middleware: defineValidator("body", Schema)
   },
   defineHandler(async (req) => {
-    const { id, email, verification, mailOptions } = req.validatedBody as z.infer<typeof Schema>;
+    const { id, email, verification, mailOptions } =
+      req.validatedBody as z.infer<typeof Schema>;
 
     const user = await prisma.user.findUnique({
       where: { id },
@@ -55,7 +59,9 @@ export default api(
     });
 
     if (!user) {
-      throw HttpException.notFound("Account not found. Please register to continue.");
+      throw HttpException.notFound(
+        "Account not found. Please register to continue."
+      );
     }
 
     await prisma.token.deleteMany({ where: { userId: user.id } });
@@ -89,9 +95,13 @@ export default api(
           introduction: `Your one-time password is <p style="font-size: 1.65rem; font-weight: 600; color: #285baa">${tokenString}</p>`,
           ...(verification?.useLink && {
             info: `You can also copy and paste the following link into your browser to complete your request: <strong>${verificationLink}</strong> or click the button below.`,
-            cta: button(verificationLink, mailOptions?.buttonLabel || "Verify", {
-              centered: true
-            })
+            cta: button(
+              verificationLink,
+              mailOptions?.buttonLabel || "Verify",
+              {
+                centered: true
+              }
+            )
           }),
 
           note: `The ${verification?.useLink ? "link and " : ""}OTP expires in ${OTP_EXPIRY_TIME}.`

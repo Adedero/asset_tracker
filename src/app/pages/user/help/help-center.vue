@@ -18,8 +18,8 @@ import contactUs from "@/app/assets/img/contact-us.png";
               <img :src="faq" class="w-full h-full object-cover" />
             </div>
             <p class="text-sm text-mute text-center">
-              Get answers to your most pressing questions by taking a look at the frequently asked
-              questions.
+              Get answers to your most pressing questions by taking a look at
+              the frequently asked questions.
             </p>
             <div class="mt-3">
               <Button
@@ -36,8 +36,8 @@ import contactUs from "@/app/assets/img/contact-us.png";
               <img :src="risk" class="w-full h-full object-cover" />
             </div>
             <p class="text-sm text-mute text-center">
-              We do our best to minimize all risks, but they cannot be avoided in any financial
-              investment.
+              We do our best to minimize all risks, but they cannot be avoided
+              in any financial investment.
             </p>
             <div class="mt-3">
               <Button
@@ -54,8 +54,8 @@ import contactUs from "@/app/assets/img/contact-us.png";
               <img :src="contactUs" class="w-full h-full object-cover" />
             </div>
             <p class="text-sm text-mute text-center">
-              Reach out to us if you have any issues or complaints. We typically respond within
-              minutes.
+              Reach out to us if you have any issues or complaints. We typically
+              respond within minutes.
             </p>
             <div class="mt-3">
               <Button

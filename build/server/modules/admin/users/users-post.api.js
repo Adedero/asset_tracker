@@ -9,7 +9,10 @@ const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
 const constants_1 = require("#src/utils/constants");
 const zod_1 = require("zod");
 const Schema = zod_1.z.object({
-    name: zod_1.z.string().trim().min(2, { message: "Name must be at least 2 characters long" }),
+    name: zod_1.z
+        .string()
+        .trim()
+        .min(2, { message: "Name must be at least 2 characters long" }),
     email: zod_1.z.string().email({ message: "Invalid email address" }).trim(),
     password: zod_1.z.string().min(constants_1.MIN_PASSWORD_LENGTH, {
         message: `Password must be at least ${constants_1.MIN_PASSWORD_LENGTH} characters long`

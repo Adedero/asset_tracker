@@ -30,14 +30,20 @@ const {
   .get()
   .json<CurrenciesGetApiResponse>();
 
-const accountGroup = ref<Partial<AccountGroupPageApiResponse["accountGroup"]>>({});
+const accountGroup = ref<Partial<AccountGroupPageApiResponse["accountGroup"]>>(
+  {}
+);
 const currentAccountGroupCurrency = ref<
   AccountGroupPageApiResponse["accountGroup"]["currencies"][number] | null
 >(null);
 
 const currencies = computed({
   get() {
-    return (data.value?.currencies || currenciesData.value?.currencies || []).filter((currency) => {
+    return (
+      data.value?.currencies ||
+      currenciesData.value?.currencies ||
+      []
+    ).filter((currency) => {
       return !accountGroup.value?.currencies?.find((c) => c.id === currency.id);
     });
   },
@@ -48,7 +54,9 @@ const currencies = computed({
 });
 
 const onCurrencySelect = (event: SelectChangeEvent) => {
-  const selected = event.value as AccountGroupPageApiResponse["currencies"][number] | null;
+  const selected = event.value as
+    | AccountGroupPageApiResponse["currencies"][number]
+    | null;
   if (selected && currentAccountGroupCurrency.value) {
     currentAccountGroupCurrency.value.id = selected.id;
     currentAccountGroupCurrency.value.name = selected.name;
@@ -87,7 +95,9 @@ const disabled = computed(() => {
   return (
     !accountGroup.value.name ||
     !accountGroup.value.currencies?.length ||
-    accountGroup.value.currencies?.some((currency) => !currency.id || !currency.walletAddress)
+    accountGroup.value.currencies?.some(
+      (currency) => !currency.id || !currency.walletAddress
+    )
   );
 });
 
@@ -122,7 +132,8 @@ const save = async () => {
     toast.add({
       severity: "error",
       summary: "Error",
-      detail: saveError.value?.message || "Failed to complete action. Try again later"
+      detail:
+        saveError.value?.message || "Failed to complete action. Try again later"
     });
     return;
   }
@@ -153,7 +164,10 @@ function validate() {
       return !currency.id || !currency.walletAddress;
     })
   ) {
-    return { valid: false, message: "All currencies must have a name and wallet address" };
+    return {
+      valid: false,
+      message: "All currencies must have a name and wallet address"
+    };
   }
 
   return { valid: true, message: "Validation successful" };
@@ -199,16 +213,31 @@ onMounted(async () => {
 
       <div class="mt-2 md:h-[calc(100dvh-9rem)]">
         <VPageLoader v-if="isFetching" />
-        <VErrorMessage v-else-if="error" :error should-retry @retry="execute()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="execute()"
+        />
 
-        <div v-else-if="(account_group_id && data) || accountGroup" class="h-full w-full">
-          <div class="h-full grid gap-2 items-start md:grid-cols-7 lg:grid-cols-5">
-            <div class="max-h-full pb-5 overflow-y-auto grid gap-2 md:col-span-3 lg:col-span-2">
+        <div
+          v-else-if="(account_group_id && data) || accountGroup"
+          class="h-full w-full"
+        >
+          <div
+            class="h-full grid gap-2 items-start md:grid-cols-7 lg:grid-cols-5"
+          >
+            <div
+              class="max-h-full pb-5 overflow-y-auto grid gap-2 md:col-span-3 lg:col-span-2"
+            >
               <VCard header="Account Group">
                 <div class="grid gap-2">
                   <div class="grid gap-1">
                     <span class="text-sm font-medium text-slate-500">
-                      Group Name <span class="text-xs font-medium text-red-500">(required)</span>
+                      Group Name
+                      <span class="text-xs font-medium text-red-500"
+                        >(required)</span
+                      >
                     </span>
                     <InputText v-model="accountGroup.name" fluid />
                   </div>
@@ -216,15 +245,24 @@ onMounted(async () => {
                   <div class="grid gap-1">
                     <span class="text-sm font-medium text-slate-500">
                       Group Description
-                      <span class="text-xs font-medium text-primary-500">(optional)</span>
+                      <span class="text-xs font-medium text-primary-500"
+                        >(optional)</span
+                      >
                     </span>
-                    <Textarea v-model="accountGroup.description" rows="5" auto-resize fluid />
+                    <Textarea
+                      v-model="accountGroup.description"
+                      rows="5"
+                      auto-resize
+                      fluid
+                    />
                   </div>
                 </div>
               </VCard>
             </div>
 
-            <div class="h-full pb-5 md:overflow-y-auto md:col-span-4 lg:col-span-3">
+            <div
+              class="h-full pb-5 md:overflow-y-auto md:col-span-4 lg:col-span-3"
+            >
               <div class="mt-2 grid gap-2">
                 <VCard
                   v-for="currency in accountGroup.currencies"
@@ -232,7 +270,9 @@ onMounted(async () => {
                   class="border"
                 >
                   <template #header>
-                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                    <div
+                      class="flex items-center justify-between gap-2 flex-wrap"
+                    >
                       <p class="text-mute font-semibold">
                         {{ currency.name }}
                       </p>
@@ -249,7 +289,10 @@ onMounted(async () => {
                   <div class="grid gap-2">
                     <div>
                       <span class="text-sm font-medium text-slate-500">
-                        Currency <span class="text-xs font-medium text-red-500">(required)</span>
+                        Currency
+                        <span class="text-xs font-medium text-red-500"
+                          >(required)</span
+                        >
                       </span>
                       <InputText
                         @click="setCurrentCurrency(currency)"
@@ -262,28 +305,43 @@ onMounted(async () => {
                     <div>
                       <span class="text-sm font-medium text-slate-500">
                         Wallet Address
-                        <span class="text-xs font-medium text-red-500">(required)</span>
+                        <span class="text-xs font-medium text-red-500"
+                          >(required)</span
+                        >
                       </span>
                       <InputText v-model="currency.walletAddress" fluid />
                     </div>
 
                     <div>
                       <span class="text-sm font-medium text-slate-500">
-                        Wallet Address Network<span class="text-xs font-medium text-primary-500"
+                        Wallet Address Network<span
+                          class="text-xs font-medium text-primary-500"
                           >(optional)</span
                         >
                       </span>
-                      <InputText v-model="currency.walletAddressNetwork" fluid />
+                      <InputText
+                        v-model="currency.walletAddressNetwork"
+                        fluid
+                      />
                     </div>
                   </div>
                 </VCard>
 
-                <button @click="addCurrency" type="button" class="cursor-pointer">
+                <button
+                  @click="addCurrency"
+                  type="button"
+                  class="cursor-pointer"
+                >
                   <div
                     class="border-2 border-slate-300 rounded-lg border-dashed bg-slate-200 hover:bg-slate-50 transition-colors grid gap-1 place-content-center p-2 h-40"
                   >
-                    <span class="pi pi-plus-circle text-slate-500" style="font-size: 3rem" />
-                    <p class="text-center font-semibold text-slate-500">Add Currency</p>
+                    <span
+                      class="pi pi-plus-circle text-slate-500"
+                      style="font-size: 3rem"
+                    />
+                    <p class="text-center font-semibold text-slate-500">
+                      Add Currency
+                    </p>
                   </div>
                 </button>
               </div>
@@ -291,9 +349,16 @@ onMounted(async () => {
           </div>
         </div>
 
-        <Dialog v-model:visible="visible" class="min-w-80 max-w-80" header="Select Currency">
+        <Dialog
+          v-model:visible="visible"
+          class="min-w-80 max-w-80"
+          header="Select Currency"
+        >
           <div class="mt-2">
-            <div v-if="loadingCurrencies" class="w-full grid place-content-center gap-2">
+            <div
+              v-if="loadingCurrencies"
+              class="w-full grid place-content-center gap-2"
+            >
               <ProgressSpinner
                 style="width: 50px; height: 50px"
                 strokeWidth="8"
@@ -302,7 +367,9 @@ onMounted(async () => {
                 aria-label="Custom ProgressSpinner"
               />
 
-              <p class="text-mute font-semibold text-sm">Loading currencies...</p>
+              <p class="text-mute font-semibold text-sm">
+                Loading currencies...
+              </p>
             </div>
 
             <VErrorMessage
@@ -314,7 +381,9 @@ onMounted(async () => {
 
             <div v-else>
               <div class="grid gap-2">
-                <span class="text-sm font-medium text-slate-500"> Currencies </span>
+                <span class="text-sm font-medium text-slate-500">
+                  Currencies
+                </span>
                 <Select
                   placeholder="Select currency"
                   @change="onCurrencySelect"

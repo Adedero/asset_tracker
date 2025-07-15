@@ -14,11 +14,16 @@ export interface PasswordResetApiResponse extends ApiResponse {}
 
 const Schema = z.object({
   id: z.string({ message: "Invalid user ID" }).optional(),
-  email: z.string({ message: "Invalid email" }).email({ message: "Invalid email" }).optional(),
-  otp: z.string({ message: "Invalid OTP" }).length(OTP_LENGTH, { message: "Invalid OTP" }),
-  password: z
-    .string({ message: "Inbalid password" })
-    .min(MIN_PASSWORD_LENGTH, { message: "Password must be at least 8 characters long" })
+  email: z
+    .string({ message: "Invalid email" })
+    .email({ message: "Invalid email" })
+    .optional(),
+  otp: z
+    .string({ message: "Invalid OTP" })
+    .length(OTP_LENGTH, { message: "Invalid OTP" }),
+  password: z.string({ message: "Inbalid password" }).min(MIN_PASSWORD_LENGTH, {
+    message: "Password must be at least 8 characters long"
+  })
 });
 
 export default api(
@@ -29,7 +34,9 @@ export default api(
     middleware: defineValidator("body", Schema)
   },
   defineHandler(async (req) => {
-    const { id, email, otp, password } = req.validatedBody as z.infer<typeof Schema>;
+    const { id, email, otp, password } = req.validatedBody as z.infer<
+      typeof Schema
+    >;
 
     const result = await verifyOTP({
       userId: id,
@@ -49,7 +56,9 @@ export default api(
     const { user } = result;
 
     if (await compare(password, user.password)) {
-      throw HttpException.badRequest("Your new password cannot be the same as your old password.");
+      throw HttpException.badRequest(
+        "Your new password cannot be the same as your old password."
+      );
     }
 
     const hashedPassword = await hash(password, 10);

@@ -3,7 +3,8 @@ import env from "#src/utils/env";
 import { EmailTemplate, RequiredEmailTemplateOptions } from "../email";
 import { render } from "./utils/helpers";
 
-export interface GenericEmailTemplateOptions extends RequiredEmailTemplateOptions {
+export interface GenericEmailTemplateOptions
+  extends RequiredEmailTemplateOptions {
   transporter?: keyof typeof mailTransporters;
   sections?: {
     [key: string]: any;
@@ -49,7 +50,10 @@ const generic: EmailTemplate<GenericEmailTemplateOptions> = (options) => {
       ${
         sections
           ? `${Object.values(sections)
-              .map((section) => `<div style="margin-top: 1.25rem"> ${render(section)}</div>`)
+              .map(
+                (section) =>
+                  `<div style="margin-top: 1.25rem"> ${render(section)}</div>`
+              )
               .join("\n")}`
           : ""
       }

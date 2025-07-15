@@ -7,9 +7,13 @@ import prisma from "#src/lib/prisma/prisma";
 const COINLAYER_API = env.get("COINLAYER_API");
 const COINLAYER_API_KEY = env.get("COINLAYER_API_KEY");
 
-export default async function getUpdatedCurrencyData(currency: Currency): Promise<Currency> {
+export default async function getUpdatedCurrencyData(
+  currency: Currency
+): Promise<Currency> {
   const ONE_DAY_AGO = new Date().getTime() - 24 * 60 * 60 * 1000;
-  const updatedAt = currency.rateUpdatedAt ? new Date(currency.rateUpdatedAt).getTime() : null;
+  const updatedAt = currency.rateUpdatedAt
+    ? new Date(currency.rateUpdatedAt).getTime()
+    : null;
 
   if (!updatedAt || updatedAt < ONE_DAY_AGO) {
     //If it has been a day since the rate was updated
@@ -19,7 +23,9 @@ export default async function getUpdatedCurrencyData(currency: Currency): Promis
       const response = await axios.get(uri);
       const data = response.data as Record<string, any>;
       if (!data.error) {
-        const coinbaseRate = (data.rates as Record<string, number>)[currency.abbr.toUpperCase()];
+        const coinbaseRate = (data.rates as Record<string, number>)[
+          currency.abbr.toUpperCase()
+        ];
         if (coinbaseRate) {
           const updatedCurrency = await prisma.currency.update({
             where: { id: currency.id },

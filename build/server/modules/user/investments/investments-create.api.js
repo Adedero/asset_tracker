@@ -14,7 +14,11 @@ const alert_event_1 = require("#src/events/alert.event");
 const Schema = zod_1.z.object({
     autocompounded: zod_1.z.boolean(),
     investmentStatus: zod_1.z
-        .enum([index_1.InvestmentStatus.OPEN, index_1.InvestmentStatus.CLOSED, index_1.InvestmentStatus.TERMINATED])
+        .enum([
+        index_1.InvestmentStatus.OPEN,
+        index_1.InvestmentStatus.CLOSED,
+        index_1.InvestmentStatus.TERMINATED
+    ])
         .optional(),
     initialDeposit: zod_1.z.number(),
     expectedReturnRate: zod_1.z.number(),
@@ -45,7 +49,8 @@ exports.default = (0, api_1.api)({
     if (!user || !user.account) {
         throw http_1.HttpException.notFound("User not found.");
     }
-    if (!user.account.walletBalance || user.account.walletBalance < data.initialDeposit) {
+    if (!user.account.walletBalance ||
+        user.account.walletBalance < data.initialDeposit) {
         throw http_1.HttpException.badRequest("Insufficient funds.");
     }
     const walletBalance = new decimal_js_1.default(user.account.walletBalance);

@@ -46,7 +46,10 @@ exports.default = (0, api_1.api)({
         throw http_1.HttpException.notFound("Investment not found");
     }
     if (isPausing !== undefined) {
-        alert_event_1.alertEmitter.emit("investment:pause-toggle", { investment, user: investment.user });
+        alert_event_1.alertEmitter.emit("investment:pause-toggle", {
+            investment,
+            user: investment.user
+        });
     }
     return {
         success: true,

@@ -42,7 +42,8 @@ exports.default = (0, api_1.api)({
     if (!investment) {
         throw http_1.HttpException.notFound("Investment not found");
     }
-    if (investment.investmentStatus === "TERMINATED" || investment.investmentStatus === "CLOSED") {
+    if (investment.investmentStatus === "TERMINATED" ||
+        investment.investmentStatus === "CLOSED") {
         throw http_1.HttpException.badRequest("Investment is already resolved and cannot be terminated");
     }
     const { account } = investment.user;
@@ -76,14 +77,20 @@ exports.default = (0, api_1.api)({
             if (walletBalance.minus(terminationFee).lessThan(0)) {
                 throw http_1.HttpException.badRequest("Insufficient funds to pay the investment termination fee");
             }
-            updatedWalletBalance = walletBalance.minus(terminationFee).toDecimalPlaces(2).toNumber();
+            updatedWalletBalance = walletBalance
+                .minus(terminationFee)
+                .toDecimalPlaces(2)
+                .toNumber();
         }
         else {
             const debt = initialDeposit.minus(currentTotalReturns.minus(terminationFee));
             if (walletBalance.plus(debt).lessThan(0)) {
                 throw http_1.HttpException.badRequest("Insufficient funds to pay the investment termination fee");
             }
-            updatedWalletBalance = walletBalance.plus(debt).toDecimalPlaces(2).toNumber();
+            updatedWalletBalance = walletBalance
+                .plus(debt)
+                .toDecimalPlaces(2)
+                .toNumber();
         }
     }
     updatedInvestment.investmentStatus = "TERMINATED";

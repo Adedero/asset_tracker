@@ -24,51 +24,53 @@ export default api(
     path: "/transactions{/:transaction_id}",
     method: "get"
   },
-  defineHandler<TransactionsGetApiResponse | TransactionGetApiResponse>(async (req) => {
-    const transaction_id = req.params.transaction_id?.toString();
+  defineHandler<TransactionsGetApiResponse | TransactionGetApiResponse>(
+    async (req) => {
+      const transaction_id = req.params.transaction_id?.toString();
 
-    const parsedQuery: ParsedQuery<Transaction> | undefined = req.parsedQuery;
+      const parsedQuery: ParsedQuery<Transaction> | undefined = req.parsedQuery;
 
-    if (transaction_id) {
-      const transaction = await prisma.transaction.findUnique({
-        where: { id: transaction_id },
-        include: { user: true, ...(parsedQuery?.populate || {}) }
-      });
+      if (transaction_id) {
+        const transaction = await prisma.transaction.findUnique({
+          where: { id: transaction_id },
+          include: { user: true, ...(parsedQuery?.populate || {}) }
+        });
 
-      if (!transaction) {
-        throw HttpException.notFound("Transaction not found");
+        if (!transaction) {
+          throw HttpException.notFound("Transaction not found");
+        }
+
+        const payload = {
+          success: true,
+          message: "Successful",
+          transaction
+        };
+
+        return payload;
       }
 
-      const payload = {
-        success: true,
-        message: "Successful",
-        transaction
-      };
-
-      return payload;
-    }
-
-    const transactions = await prisma.transaction.findMany({
-      //@ts-ignore
-      where: { ...(parsedQuery?.where || {}) },
-      include: { user: true },
-      /*  //@ts-ignore
+      const transactions = await prisma.transaction.findMany({
+        //@ts-ignore
+        where: { ...(parsedQuery?.where || {}) },
+        include: { user: true },
+        /*  //@ts-ignore
       select: {
         ...(parsedQuery?.select || {}),
         ...(parsedQuery?.populate || {}),
         ...(parsedQuery?.exclude || {})
       }, */
-      orderBy: parsedQuery?.sort,
-      take: parsedQuery?.take,
-      skip: parsedQuery?.skip
-    });
+        orderBy: parsedQuery?.sort,
+        take: parsedQuery?.take,
+        skip: parsedQuery?.skip
+      });
 
-    const payload = {
-      success: true,
-      message: "Successful",
-      transactions
-    };
+      const payload = {
+        success: true,
+        message: "Successful",
+        transactions
+      };
 
-    return payload;
-  })
+      return payload;
+    }
+  )
 );

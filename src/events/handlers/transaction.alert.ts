@@ -11,7 +11,10 @@ export interface TransactionAlertData {
   transaction: Transaction;
 }
 
-export async function onTransactionStatusUpdate({ user, transaction }: TransactionAlertData) {
+export async function onTransactionStatusUpdate({
+  user,
+  transaction
+}: TransactionAlertData) {
   const subject = "Transaction Status Updated";
   const mailReason = `This message was sent because of an update was made to the transaction with ID ${transaction.id}`;
 
@@ -32,7 +35,9 @@ export async function onTransactionStatusUpdate({ user, transaction }: Transacti
         .concat(transaction.id)
         .concat(" failed ")
         .concat(
-          transaction.failReason ? `with reason: ${transaction.failReason}` : "without reason."
+          transaction.failReason
+            ? `with reason: ${transaction.failReason}`
+            : "without reason."
         )
         .concat("\n")
         .concat(
@@ -55,8 +60,12 @@ export async function onTransactionStatusUpdate({ user, transaction }: Transacti
     cta: button(
       conditional(
         /* transactions/:transaction_id/receipt */
-        new URL(`user/transactions/${transaction.id}/receipt`, env.get("APP_URL")).href,
-        new URL(`admin/transactions/${transaction.id}`, env.get("APP_URL")).href,
+        new URL(
+          `user/transactions/${transaction.id}/receipt`,
+          env.get("APP_URL")
+        ).href,
+        new URL(`admin/transactions/${transaction.id}`, env.get("APP_URL"))
+          .href,
         !!name
       ),
       "View Transaction",
@@ -95,7 +104,10 @@ export async function onTransactionStatusUpdate({ user, transaction }: Transacti
       )
     ]);
   } catch (error) {
-    logger.error(`Alerts failed for transaction status update: ${transaction.id}`, error as Error);
+    logger.error(
+      `Alerts failed for transaction status update: ${transaction.id}`,
+      error as Error
+    );
   }
 
   function conditional(

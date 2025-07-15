@@ -20,7 +20,11 @@ export interface InvestmentCreateApiResponse extends ApiResponse {
 const Schema = z.object({
   autocompounded: z.boolean(),
   investmentStatus: z
-    .enum([InvestmentStatus.OPEN, InvestmentStatus.CLOSED, InvestmentStatus.TERMINATED])
+    .enum([
+      InvestmentStatus.OPEN,
+      InvestmentStatus.CLOSED,
+      InvestmentStatus.TERMINATED
+    ])
     .optional(),
   initialDeposit: z.number(),
   expectedReturnRate: z.number(),
@@ -58,7 +62,10 @@ export default api(
       throw HttpException.notFound("User not found.");
     }
 
-    if (!user.account.walletBalance || user.account.walletBalance < data.initialDeposit) {
+    if (
+      !user.account.walletBalance ||
+      user.account.walletBalance < data.initialDeposit
+    ) {
       throw HttpException.badRequest("Insufficient funds.");
     }
 
@@ -67,35 +74,37 @@ export default api(
 
     const updatedWalletBalance = walletBalance.minus(initialDeposit).toNumber();
 
-    const investment = await prisma.$transaction<Investment>(async (txn): Promise<Investment> => {
-      const inv = await txn.investment.create({
-        data: { ...data, userId }
-      });
+    const investment = await prisma.$transaction<Investment>(
+      async (txn): Promise<Investment> => {
+        const inv = await txn.investment.create({
+          data: { ...data, userId }
+        });
 
-      await txn.transaction.create({
-        data: {
-          userId,
-          investmentId: inv.id,
-          transactionType: TransactionType.INVESTMENT,
-          transactionStatus: TransactionStatus.SUCCESSFUL,
-          amountInUSD: inv.initialDeposit,
-          charge: 0,
-          actualAmountInUSD: inv.initialDeposit,
-          rate: 1,
-          currency: "USD",
-          amountInCurrency: inv.initialDeposit,
-          isWireTransfer: false,
-          approvedAt: new Date()
-        }
-      });
+        await txn.transaction.create({
+          data: {
+            userId,
+            investmentId: inv.id,
+            transactionType: TransactionType.INVESTMENT,
+            transactionStatus: TransactionStatus.SUCCESSFUL,
+            amountInUSD: inv.initialDeposit,
+            charge: 0,
+            actualAmountInUSD: inv.initialDeposit,
+            rate: 1,
+            currency: "USD",
+            amountInCurrency: inv.initialDeposit,
+            isWireTransfer: false,
+            approvedAt: new Date()
+          }
+        });
 
-      await txn.account.update({
-        where: { userId },
-        data: { walletBalance: updatedWalletBalance }
-      });
+        await txn.account.update({
+          where: { userId },
+          data: { walletBalance: updatedWalletBalance }
+        });
 
-      return inv;
-    });
+        return inv;
+      }
+    );
 
     alertEmitter.emit("investment:create", { user: req.user!, investment });
 

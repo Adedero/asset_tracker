@@ -37,7 +37,9 @@ const defineHandler = (fn) => {
             }
             else {
                 try {
-                    res.status(200).json({ success: true, statusCode: res.status, ...result });
+                    res
+                        .status(200)
+                        .json({ success: true, statusCode: res.status, ...result });
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 }
                 catch (error) {

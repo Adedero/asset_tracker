@@ -14,7 +14,9 @@ const generic_1 = __importDefault(require("#src/lib/email/mail-templates/generic
 const http_1 = require("#src/lib/api/http");
 const env_1 = __importDefault(require("#src/utils/env"));
 const Schema = zod_1.z.object({
-    password: zod_1.z.string({ message: "Password is required" }).min(constants_1.MIN_PASSWORD_LENGTH, {
+    password: zod_1.z
+        .string({ message: "Password is required" })
+        .min(constants_1.MIN_PASSWORD_LENGTH, {
         message: `Password must contain at least ${constants_1.MIN_PASSWORD_LENGTH} characters.`
     }),
     notify: zod_1.z.boolean({ message: "Notify option is required" })

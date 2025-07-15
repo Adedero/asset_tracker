@@ -12,7 +12,9 @@ const Schema = zod_1.z.object({
     kycIdType: zod_1.z.string().optional(),
     kycDocument: zod_1.z.string().optional(),
     kycDocumentExt: zod_1.z.string().optional(),
-    kycStatus: zod_1.z.enum([index_1.KycStatus.PENDING, index_1.KycStatus.VERIFIED, index_1.KycStatus.UNVERIFIED]).optional(),
+    kycStatus: zod_1.z
+        .enum([index_1.KycStatus.PENDING, index_1.KycStatus.VERIFIED, index_1.KycStatus.UNVERIFIED])
+        .optional(),
     kycSubmittedAt: zod_1.z.string().optional()
 });
 exports.default = (0, api_1.api)({
@@ -27,7 +29,9 @@ exports.default = (0, api_1.api)({
         where: { userId },
         data: {
             ...data,
-            kycSubmittedAt: data.kycSubmittedAt ? new Date(data.kycSubmittedAt) : undefined
+            kycSubmittedAt: data.kycSubmittedAt
+                ? new Date(data.kycSubmittedAt)
+                : undefined
         }
     });
     return {

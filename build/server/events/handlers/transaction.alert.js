@@ -20,7 +20,9 @@ async function onTransactionStatusUpdate({ user, transaction }) {
             .concat(" request with transaction ID ")
             .concat(transaction.id)
             .concat(" failed ")
-            .concat(transaction.failReason ? `with reason: ${transaction.failReason}` : "without reason.")
+            .concat(transaction.failReason
+            ? `with reason: ${transaction.failReason}`
+            : "without reason.")
             .concat("\n")
             .concat(conditional(`$${transaction.actualAmountInUSD.toLocaleString()} has been refunded to your wallet.`, "", transaction.transactionType === "WITHDRAWAL" && !!name))),
         details: {
@@ -34,7 +36,8 @@ async function onTransactionStatusUpdate({ user, transaction }) {
         direction: "Click the button to view the details of the transaction",
         cta: (0, button_1.default)(conditional(
         /* transactions/:transaction_id/receipt */
-        new URL(`user/transactions/${transaction.id}/receipt`, env_1.default.get("APP_URL")).href, new URL(`admin/transactions/${transaction.id}`, env_1.default.get("APP_URL")).href, !!name), "View Transaction", { centered: true })
+        new URL(`user/transactions/${transaction.id}/receipt`, env_1.default.get("APP_URL")).href, new URL(`admin/transactions/${transaction.id}`, env_1.default.get("APP_URL"))
+            .href, !!name), "View Transaction", { centered: true })
     });
     try {
         await Promise.all([

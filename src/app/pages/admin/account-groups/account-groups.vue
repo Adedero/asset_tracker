@@ -20,16 +20,24 @@ const {
   error: deleteError,
   data: deleteData,
   execute
-} = useFetch(() => `/api/admins/me/account-groups/${url.value}`, { immediate: false })
+} = useFetch(() => `/api/admins/me/account-groups/${url.value}`, {
+  immediate: false
+})
   .delete()
   .json();
 
-async function deleteAccountGroup(accountGroup: AccountGroup & { isDeleting: boolean }) {
+async function deleteAccountGroup(
+  accountGroup: AccountGroup & { isDeleting: boolean }
+) {
   url.value = accountGroup.id;
   accountGroup.isDeleting = true;
   await execute();
   if (deleteError.value || !deleteData.value) {
-    toast.add({ severity: "error", summary: "Error", detail: deleteError.value.message });
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: deleteError.value.message
+    });
     accountGroup.isDeleting = false;
     return;
   }
@@ -37,7 +45,9 @@ async function deleteAccountGroup(accountGroup: AccountGroup & { isDeleting: boo
     Promise.resolve({
       success: true,
       message: "Account group deleted",
-      accountGroups: data.value!.accountGroups.filter((group) => group.id !== accountGroup.id)
+      accountGroups: data.value!.accountGroups.filter(
+        (group) => group.id !== accountGroup.id
+      )
     })
   );
   toast.add({
@@ -49,7 +59,9 @@ async function deleteAccountGroup(accountGroup: AccountGroup & { isDeleting: boo
   accountGroup.isDeleting = false;
 }
 
-const confirmDelete = (accountGroup: AccountGroup & { isDeleting: boolean }) => {
+const confirmDelete = (
+  accountGroup: AccountGroup & { isDeleting: boolean }
+) => {
   confirm.require({
     header: "Delete account group",
     message: "Are you sure you want to delete this account group?",
@@ -84,9 +96,17 @@ const confirmDelete = (accountGroup: AccountGroup & { isDeleting: boolean }) => 
       <div class="mt-2">
         <VPageLoader v-if="isLoading" />
 
-        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="mutate()"
+        />
 
-        <div v-else-if="data" class="w-full md:h-[calc(100dvh-9rem)] overflow-y-auto">
+        <div
+          v-else-if="data"
+          class="w-full md:h-[calc(100dvh-9rem)] overflow-y-auto"
+        >
           <DataTable
             :value="data.accountGroups"
             size="small"
@@ -115,7 +135,12 @@ const confirmDelete = (accountGroup: AccountGroup & { isDeleting: boolean }) => 
                       params: { account_group_id: data.id }
                     }"
                   >
-                    <Button label="Edit" size="small" outlined icon="pi pi-pencil" />
+                    <Button
+                      label="Edit"
+                      size="small"
+                      outlined
+                      icon="pi pi-pencil"
+                    />
                   </RouterLink>
                   <Button
                     :loading="data.isDeleting"

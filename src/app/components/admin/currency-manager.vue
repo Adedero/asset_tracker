@@ -4,7 +4,8 @@ import type { Currency } from "@/prisma-gen";
 import { computed, ref } from "vue";
 import VFileUploader, { type IFile } from "../ui/VFileUploader.vue";
 import { useToast } from "primevue/usetoast";
-import { CurrencyCreateApiResponse } from "@/modules/admin/currencies/currencies-post.api";
+import type { CurrencyCreateApiResponse } from "@/modules/admin/currencies/currencies-post.api";
+import type { CurrencyUpdateApiResponse } from "@/modules/admin/currencies/currencies-put.api";
 import { MAX_CURRENCY_IMG_SIZE } from "@/app/data/constants";
 
 const {
@@ -45,9 +46,11 @@ const {
   error: errorUpdating,
   data: updateData,
   execute: update
-} = useFetch(() => `/api/admins/me/currencies/${currency?.id}`, { immediate: false })
+} = useFetch(() => `/api/admins/me/currencies/${currency?.id}`, {
+  immediate: false
+})
   .put(updatedCurrency)
-  .json<CurrencyCreateApiResponse>();
+    .json<CurrencyUpdateApiResponse>();
 
 const manageCurrency = async () => {
   if (currency) {
@@ -141,13 +144,19 @@ const disabled = computed(() => {
       <div class="grid gap-4">
         <div class="flex flex-col items-center justify-center gap-1">
           <div class="w-20 aspect-square overflow-hidden rounded-full">
-            <img :src="updatedCurrency.image || undefined" class="w-full h-full object-cover" />
+            <img
+              :src="updatedCurrency.image || undefined"
+              class="w-full h-full object-cover"
+            />
           </div>
           <VFileUploader
             size="small"
             accept="image/*"
             :max-file-size="MAX_CURRENCY_IMG_SIZE"
-            @select="(files: IFile[]) => (updatedCurrency.image = files[0].dataUrl ?? '')"
+            @select="
+              (files: IFile[]) =>
+                (updatedCurrency.image = files[0].dataUrl ?? '')
+            "
             @upload="manageCurrency"
             @cancel="updatedCurrency.image = currency?.image ?? ''"
             class="w-full"
@@ -184,20 +193,32 @@ const disabled = computed(() => {
             Exchange Rate (USD) <span class="text-red-500">*</span>
           </label>
           <small class="text-mute">1 {{ updatedCurrency.abbr }} equals</small>
-          <InputNumber v-model="updatedCurrency.rate" prefix="$" :max-fraction-digits="10" fluid />
+          <InputNumber
+            v-model="updatedCurrency.rate"
+            prefix="$"
+            :max-fraction-digits="10"
+            fluid
+          />
         </div>
 
         <div class="grid">
           <label class="text-mute text-sm font-medium">
             Wallet Address <span class="text-red-500">*</span>
           </label>
-          <small class="text-mute">Wallet address for this currency for users to deposit</small>
+          <small class="text-mute"
+            >Wallet address for this currency for users to deposit</small
+          >
           <InputText v-model.trim="updatedCurrency.walletAddress" fluid />
         </div>
 
         <div class="grid">
-          <label class="text-mute text-sm font-medium"> Wallet Address Network </label>
-          <InputText v-model.trim="updatedCurrency.walletAddressNetwork" fluid />
+          <label class="text-mute text-sm font-medium">
+            Wallet Address Network
+          </label>
+          <InputText
+            v-model.trim="updatedCurrency.walletAddressNetwork"
+            fluid
+          />
         </div>
 
         <div class="grid">

@@ -8,7 +8,11 @@ const handlers_1 = require("#src/lib/api/handlers");
 const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
 const zod_1 = require("zod");
 const Schema = zod_1.z.object({
-    name: zod_1.z.string().trim().min(2, { message: "Name must be at least 2 characters long" }).optional(),
+    name: zod_1.z
+        .string()
+        .trim()
+        .min(2, { message: "Name must be at least 2 characters long" })
+        .optional(),
     image: zod_1.z.string().trim().optional(),
     phoneNumber: zod_1.z.string().trim().optional(),
     address: zod_1.z.string().trim().optional(),

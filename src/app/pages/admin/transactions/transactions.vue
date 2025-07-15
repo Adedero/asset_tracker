@@ -19,7 +19,12 @@ const router = useRouter();
 const { user_id } = router.currentRoute.value.query as { user_id: string };
 
 type TransactionStatusOptions = "ALL" | TransactionStatus;
-const statusOptions = ref<TransactionStatusOptions[]>(["ALL", "PENDING", "SUCCESSFUL", "FAILED"]);
+const statusOptions = ref<TransactionStatusOptions[]>([
+  "ALL",
+  "PENDING",
+  "SUCCESSFUL",
+  "FAILED"
+]);
 const status = ref<TransactionStatusOptions>("PENDING");
 
 type TransactionTypeOptions = "ALL" | TransactionType;
@@ -38,8 +43,10 @@ const searchParams = computed(() => {
   params.set("skip", skip.value.toString());
   params.set("sort", "createdAt,DESC");
   if (user_id) params.set("where", `userId,${user_id}`);
-  if (status.value !== "ALL") params.append("where", `transactionStatus,${status.value}`);
-  if (type.value !== "ALL") params.append("where", `transactionType,${type.value}`);
+  if (status.value !== "ALL")
+    params.append("where", `transactionStatus,${status.value}`);
+  if (type.value !== "ALL")
+    params.append("where", `transactionType,${type.value}`);
   return params.toString();
 });
 
@@ -55,8 +62,10 @@ const allLoaded = computed(() => {
 });
 
 function getTypeData(type: TransactionType) {
-  if (type === "DEPOSIT") return { icon: "arrow-circle-down", color: "text-primary-500" };
-  if (type === "WITHDRAWAL") return { icon: "arrow-circle-up", color: "text-red-500" };
+  if (type === "DEPOSIT")
+    return { icon: "arrow-circle-down", color: "text-primary-500" };
+  if (type === "WITHDRAWAL")
+    return { icon: "arrow-circle-up", color: "text-red-500" };
   if (type === "INVESTMENT") return { icon: "spa", color: "text-green-500" };
   return { icon: "payments", color: "text-green-500" };
 }
@@ -78,12 +87,22 @@ function getSeverity(status: TransactionStatus) {
           <div class="flex items-end gap-1 flex-wrap">
             <div class="flex gap-1 flex-col">
               <label class="text-xs text-mute font-semibold">Status</label>
-              <Select v-model="status" :options="statusOptions" size="small" class="py-0" />
+              <Select
+                v-model="status"
+                :options="statusOptions"
+                size="small"
+                class="py-0"
+              />
             </div>
 
             <div class="flex gap-1 flex-col">
               <label class="text-xs text-mute font-semibold">Type</label>
-              <Select v-model="type" :options="typeOptions" size="small" class="py-0" />
+              <Select
+                v-model="type"
+                :options="typeOptions"
+                size="small"
+                class="py-0"
+              />
             </div>
           </div>
         </div>
@@ -92,7 +111,12 @@ function getSeverity(status: TransactionStatus) {
       <div class="mt-2 md:h-[calc(100dvh-11rem)]">
         <VPageLoader v-if="isLoading" />
 
-        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="mutate()"
+        />
 
         <div v-else-if="data" class="w-full">
           <div class="w-full overflow-auto md:max-h-[calc(100dvh-15.5rem)]">
@@ -111,19 +135,26 @@ function getSeverity(status: TransactionStatus) {
               "
             >
               <Column header="S/N">
-                <template #body="{ index }"> {{ index + 1 + skip }}&rpar; </template>
+                <template #body="{ index }">
+                  {{ index + 1 + skip }}&rpar;
+                </template>
               </Column>
 
               <Column header="Type">
                 <template #body="{ data }">
                   <div
-                    :class="['flex items-center gap-1', getTypeData(data.transactionType).color]"
+                    :class="[
+                      'flex items-center gap-1',
+                      getTypeData(data.transactionType).color
+                    ]"
                   >
                     <Icon
                       style="font-size: 20px"
                       :icon="`ic:baseline-${getTypeData(data.transactionType).icon}`"
                     />
-                    <p class="text-sm font-medium">{{ toTitleCase(data.transactionType) }}</p>
+                    <p class="text-sm font-medium">
+                      {{ toTitleCase(data.transactionType) }}
+                    </p>
                   </div>
                 </template>
               </Column>
@@ -131,7 +162,9 @@ function getSeverity(status: TransactionStatus) {
               <Column field="user.name" header="User" />
 
               <Column field="amount" header="Amount">
-                <template #body="{ data }"> ${{ data.amountInUSD.toLocaleString() }} </template>
+                <template #body="{ data }">
+                  ${{ data.amountInUSD.toLocaleString() }}
+                </template>
               </Column>
 
               <Column header="Medium">
@@ -153,13 +186,23 @@ function getSeverity(status: TransactionStatus) {
               </Column>
               <Column header="Created On">
                 <template #body="{ data }">
-                  {{ useDateFormat(new Date(data.createdAt), "ddd, DD MMM, YYYY hh:mm aa") }}
+                  {{
+                    useDateFormat(
+                      new Date(data.createdAt),
+                      "ddd, DD MMM, YYYY hh:mm aa"
+                    )
+                  }}
                 </template>
               </Column>
             </DataTable>
           </div>
 
-          <VPaginator :allLoaded :length="dataLength" :rows="LIMIT" v-model:page="page" />
+          <VPaginator
+            :allLoaded
+            :length="dataLength"
+            :rows="LIMIT"
+            v-model:page="page"
+          />
         </div>
       </div>
     </div>

@@ -8,9 +8,12 @@ const emit = defineEmits(["remove"]);
 
 const toast = useToast();
 
-const { isFetching, error, data, execute } = useFetch(`/api/admins/me/users/${userId}`, {
-  immediate: false
-})
+const { isFetching, error, data, execute } = useFetch(
+  `/api/admins/me/users/${userId}`,
+  {
+    immediate: false
+  }
+)
   .delete()
   .json();
 

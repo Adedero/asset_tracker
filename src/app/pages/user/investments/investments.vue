@@ -18,7 +18,12 @@ const { isLoading, data, error, mutate } = useSWRV<InvestmentsGetApiResponse>(
 );
 
 const totalProfits = computed(() => {
-  return data.value?.investments.reduce((acc, inv) => acc + inv.currentTotalReturns, 0) || 0;
+  return (
+    data.value?.investments.reduce(
+      (acc, inv) => acc + inv.currentTotalReturns,
+      0
+    ) || 0
+  );
 });
 </script>
 
@@ -69,7 +74,9 @@ const totalProfits = computed(() => {
             class="bg-emerald-500 dark:bg-emerald-500/40"
             header-class="text-sm lg:text-base text-white"
           >
-            <div class="mt-4 text-right text-2xl md:text-4xl font-semibold text-white">
+            <div
+              class="mt-4 text-right text-2xl md:text-4xl font-semibold text-white"
+            >
               {{ dollar.format(totalProfits) }}
             </div>
           </VCard>
@@ -80,26 +87,44 @@ const totalProfits = computed(() => {
             </div>
           </VCard>
 
-          <VCard header="Non Auto-compounded" header-class="text-sm lg:text-base">
+          <VCard
+            header="Non Auto-compounded"
+            header-class="text-sm lg:text-base"
+          >
             <div class="mt-4 text-right text-2xl md:text-4xl font-semibold">
               {{ data.investments.filter((i) => !i.autocompounded).length }}
             </div>
           </VCard>
         </div>
 
-        <VCard header="Active Investments" class="mt-2 md:h-[calc(100dvh-18em)]">
+        <VCard
+          header="Active Investments"
+          class="mt-2 md:h-[calc(100dvh-18em)]"
+        >
           <div class="overflow-y-auto md:h-[calc(100%-3rem)]">
-            <div v-if="data.investments.length > 0" class="grid md:grid-cols-2 gap-2">
+            <div
+              v-if="data.investments.length > 0"
+              class="grid md:grid-cols-2 gap-2"
+            >
               <RouterLink
                 v-for="i in data.investments"
                 :key="i.id"
-                :to="{ name: 'user-investment-item', params: { investment_id: i.id } }"
+                :to="{
+                  name: 'user-investment-item',
+                  params: { investment_id: i.id }
+                }"
               >
-                <div class="v-card border border-slate-400 dark:border-slate-600">
+                <div
+                  class="v-card border border-slate-400 dark:border-slate-600"
+                >
                   <p class="font-semibold text-lg">{{ i.investmentName }}</p>
                   <div class="flex justify-between gap-1 flex-wrap">
                     <div class="mt-1 flex items-center gap-3">
-                      <Tag severity="warn" icon="pi pi-star" :value="i.investmentTier" />
+                      <Tag
+                        severity="warn"
+                        icon="pi pi-star"
+                        :value="i.investmentTier"
+                      />
                       <Tag
                         severity="secondary"
                         icon="pi pi-calendar-clock"
@@ -115,7 +140,9 @@ const totalProfits = computed(() => {
                     </div>
                   </div>
 
-                  <div class="mt-2 flex flex-wrap items-center justify-between gap-3">
+                  <div
+                    class="mt-2 flex flex-wrap items-center justify-between gap-3"
+                  >
                     <Tag
                       severity="secondary"
                       icon="pi pi-replay"

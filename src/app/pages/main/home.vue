@@ -33,11 +33,15 @@ useHead({
               <p><span class="text-gradient-x">Trading</span> &</p>
               <p><span class="text-gradient-x">Investments</span>.</p>
             </header>
-            <p class="mt-3 text-slate-500 dark:text-slate-400 text-center lg:text-left">
+            <p
+              class="mt-3 text-slate-500 dark:text-slate-400 text-center lg:text-left"
+            >
               With our trusted regulations and experience, <br />
               you can easily & safely build your investment assets.
             </p>
-            <div class="mt-6 flex items-center justify-center lg:justify-normal gap-2">
+            <div
+              class="mt-6 flex items-center justify-center lg:justify-normal gap-2"
+            >
               <RouterLink :to="{ name: 'register' }">
                 <Button class="bg-gradient-x">Get Started</Button>
               </RouterLink>
@@ -73,10 +77,16 @@ useHead({
           <div class="mt-8 lg:mt-20 lg:col-span-5 w-full overflow-x-hidden">
             <Marquee pauseOnHover :duration="40" class="max-w-full">
               <div class="flex items-center gap-6 py-2">
-                <div v-for="stock in stocks" :key="stock.name" class="flex items-center gap-6">
+                <div
+                  v-for="stock in stocks"
+                  :key="stock.name"
+                  class="flex items-center gap-6"
+                >
                   <div>
                     <div class="flex items-center justify-between gap-3">
-                      <p class="text-[0.7rem] font-medium text-slate-600 dark:text-slate-400">
+                      <p
+                        class="text-[0.7rem] font-medium text-slate-600 dark:text-slate-400"
+                      >
                         {{ stock.name }}
                       </p>
 
@@ -87,7 +97,11 @@ useHead({
                               ? 'ic:baseline-trending-up'
                               : 'ic:baseline-trending-down'
                           "
-                          :class="stock.trending === 'up' ? 'text-green-500' : 'text-rose-500'"
+                          :class="
+                            stock.trending === 'up'
+                              ? 'text-green-500'
+                              : 'text-rose-500'
+                          "
                         />
                         <span
                           :class="`text-[0.6rem] ${stock.trending === 'up' ? 'text-green-500' : 'text-rose-500'}`"
@@ -134,7 +148,10 @@ useHead({
                   :class="`hexagon absolute z-10 top-0 left-1/2 -translate-x-1/2 -translate-y-1/2
                 flex-center px-8 py-6 ${feature.gradient} text-white drop-shadow-md dark:drop-shadow-none`"
                 >
-                  <Icon :icon="`ic:baseline-${feature.icon}`" style="font-size: 2rem" />
+                  <Icon
+                    :icon="`ic:baseline-${feature.icon}`"
+                    style="font-size: 2rem"
+                  />
                 </div>
 
                 <div
@@ -165,9 +182,10 @@ useHead({
                   Made for everyone
                 </p>
                 <p class="text-mute text-sm mt-5">
-                  We are one of the most innovative copy trading platforms in the world, transparent
-                  and offering a smooth and simplified trading experience. Our vision is to become
-                  the world&apos;s largest social trading community on the globe, offering
+                  We are one of the most innovative copy trading platforms in
+                  the world, transparent and offering a smooth and simplified
+                  trading experience. Our vision is to become the world&apos;s
+                  largest social trading community on the globe, offering
                   customer-focused investment solutions and an open environment.
                 </p>
 
@@ -200,16 +218,20 @@ useHead({
       </section>
 
       <section id="metrics">
-        <div class="bg-slate-200 dark:bg-slate-800 min-h-60 py-12 px-4 md:px-12 lg:px-28">
+        <div
+          class="bg-slate-200 dark:bg-slate-800 min-h-60 py-12 px-4 md:px-12 lg:px-28"
+        >
           <header class="text-center text-balance">
-            <p class="text-2xl md:text-3xl font-semibold text-primary-500 dark:text-white">
+            <p
+              class="text-2xl md:text-3xl font-semibold text-primary-500 dark:text-white"
+            >
               We are committed to meeting <br />
               your CFD and FX trading needs
             </p>
             <p class="mt-2 text-mute">
-              Benefit from round-the-clock trading hours (Monday to Friday), high liquidity, low
-              barriers to entry, a wide range of offerings, and opportunities to trade on world
-              events.
+              Benefit from round-the-clock trading hours (Monday to Friday),
+              high liquidity, low barriers to entry, a wide range of offerings,
+              and opportunities to trade on world events.
             </p>
           </header>
 
@@ -244,8 +266,8 @@ useHead({
               Different <span class="text-gradient-x">assets</span> to trade
             </p>
             <p class="mt-2 text-mute">
-              Invest in cash products, trade with leveraged products, or let the experts manage your
-              money.
+              Invest in cash products, trade with leveraged products, or let the
+              experts manage your money.
             </p>
           </header>
 

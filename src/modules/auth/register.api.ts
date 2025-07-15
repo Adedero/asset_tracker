@@ -7,8 +7,12 @@ import { z } from "zod";
 import prisma from "#src/lib/prisma/prisma";
 import { hash } from "bcrypt";
 import { sendTemplateEmail } from "#src/lib/email/email";
-import welcome, { WelcomeEmailTemplateOptions } from "#src/lib/email/mail-templates/welcome";
-import generic, { GenericEmailTemplateOptions } from "#src/lib/email/mail-templates/generic";
+import welcome, {
+  WelcomeEmailTemplateOptions
+} from "#src/lib/email/mail-templates/welcome";
+import generic, {
+  GenericEmailTemplateOptions
+} from "#src/lib/email/mail-templates/generic";
 import env from "#src/utils/env";
 import { format } from "date-fns";
 
@@ -30,7 +34,9 @@ export default api(
     middleware: defineValidator("body", RegisterSchema)
   },
   defineHandler(async (req) => {
-    const { name, email, password } = req.validatedBody as z.infer<typeof RegisterSchema>;
+    const { name, email, password } = req.validatedBody as z.infer<
+      typeof RegisterSchema
+    >;
 
     const existingUser = await prisma.user.findUnique({
       where: { email },

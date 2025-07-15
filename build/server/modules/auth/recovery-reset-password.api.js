@@ -15,11 +15,16 @@ const zod_1 = require("zod");
 const constants_1 = require("#src/utils/constants");
 const Schema = zod_1.z.object({
     id: zod_1.z.string({ message: "Invalid user ID" }).optional(),
-    email: zod_1.z.string({ message: "Invalid email" }).email({ message: "Invalid email" }).optional(),
-    otp: zod_1.z.string({ message: "Invalid OTP" }).length(constants_1.OTP_LENGTH, { message: "Invalid OTP" }),
-    password: zod_1.z
-        .string({ message: "Inbalid password" })
-        .min(constants_1.MIN_PASSWORD_LENGTH, { message: "Password must be at least 8 characters long" })
+    email: zod_1.z
+        .string({ message: "Invalid email" })
+        .email({ message: "Invalid email" })
+        .optional(),
+    otp: zod_1.z
+        .string({ message: "Invalid OTP" })
+        .length(constants_1.OTP_LENGTH, { message: "Invalid OTP" }),
+    password: zod_1.z.string({ message: "Inbalid password" }).min(constants_1.MIN_PASSWORD_LENGTH, {
+        message: "Password must be at least 8 characters long"
+    })
 });
 exports.default = (0, api_1.api)({
     group: "/auth",

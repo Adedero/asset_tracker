@@ -41,13 +41,29 @@ const toggle = (event: Event) => {
             class="text-[0.95em] border-none bg-transparent z-50"
           >
             <template #item="{ item, props, hasSubmenu }">
-              <RouterLink v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+              <RouterLink
+                v-if="item.route"
+                v-slot="{ href, navigate }"
+                :to="item.route"
+                custom
+              >
+                <a
+                  v-ripple
+                  :href="href"
+                  v-bind="props.action"
+                  @click="navigate"
+                >
                   <span :class="item.icon" />
                   <span>{{ item.label }}</span>
                 </a>
               </RouterLink>
-              <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+              <a
+                v-else
+                v-ripple
+                :href="item.url"
+                :target="item.target"
+                v-bind="props.action"
+              >
                 <span :class="item.icon" />
                 <span>{{ item.label }}</span>
                 <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down" />
@@ -83,13 +99,29 @@ const toggle = (event: Event) => {
           />
           <Menu ref="menu" id="overlay_menu" :model="links" :popup="true">
             <template #item="{ item, props }">
-              <RouterLink v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+              <RouterLink
+                v-if="item.route"
+                v-slot="{ href, navigate }"
+                :to="item.route"
+                custom
+              >
+                <a
+                  v-ripple
+                  :href="href"
+                  v-bind="props.action"
+                  @click="navigate"
+                >
                   <span :class="item.icon" />
                   <span>{{ item.label }}</span>
                 </a>
               </RouterLink>
-              <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+              <a
+                v-else
+                v-ripple
+                :href="item.url"
+                :target="item.target"
+                v-bind="props.action"
+              >
                 <span :class="item.icon" />
                 <span>{{ item.label }}</span>
               </a>

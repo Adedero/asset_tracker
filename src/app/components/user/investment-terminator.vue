@@ -27,7 +27,9 @@ const {
   error,
   data,
   execute: terminate
-} = useFetch(`/api/users/me/investments/${investment.id}/terminate`, { immediate: false })
+} = useFetch(`/api/users/me/investments/${investment.id}/terminate`, {
+  immediate: false
+})
   .post(() => ({ terminationReason: terminationReason.value }))
   .json<TerminateInvestmentApiResponse>();
 
@@ -47,7 +49,11 @@ const terminateInvestment = async () => {
 
   if (!data.value?.success) return;
 
-  emit("terminate", { ...investment, ...data.value.investment, investmentStatus: "TERMINATED" });
+  emit("terminate", {
+    ...investment,
+    ...data.value.investment,
+    investmentStatus: "TERMINATED"
+  });
 };
 
 const confirm = useConfirm();
@@ -89,7 +95,12 @@ const confirmTermination = () => {
       </slot>
     </button>
 
-    <Dialog v-model:visible="visible" header="Terminate Investment" modal class="max-w-96">
+    <Dialog
+      v-model:visible="visible"
+      header="Terminate Investment"
+      modal
+      class="max-w-96"
+    >
       <div class="grid gap-5">
         <p>
           You are about to terminate your investment:
@@ -100,7 +111,12 @@ const confirmTermination = () => {
           <label for="reason" class="text-sm text-mute font-medium">
             Enter the reason for terminating the investment
           </label>
-          <Textarea id="reason" v-model="terminationReason" rows="6" class="resize-none" />
+          <Textarea
+            id="reason"
+            v-model="terminationReason"
+            rows="6"
+            class="resize-none"
+          />
         </div>
         <Button
           severity="danger"

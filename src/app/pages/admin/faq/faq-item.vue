@@ -49,9 +49,12 @@ const {
   error: updateError,
   data: updateData,
   execute: updateFaq
-} = useFetch(() => (faq_id ? `/api/admins/me/faqs/${faq_id}` : "/api/admins/me/faqs"), {
-  immediate: false
-})
+} = useFetch(
+  () => (faq_id ? `/api/admins/me/faqs/${faq_id}` : "/api/admins/me/faqs"),
+  {
+    immediate: false
+  }
+)
   [faq_id ? "put" : "post"](faq)
   .json();
 
@@ -104,7 +107,12 @@ const save = async () => {
       <div class="mt-2 md:h-[calc(100dvh-9rem)]">
         <VPageLoader v-if="isFetching" />
 
-        <VErrorMessage v-else-if="error" :error should-retry @retry="getFaqItem()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="getFaqItem()"
+        />
 
         <div
           v-else-if="(faq_id && data?.faq) || (!faq_id && faq)"

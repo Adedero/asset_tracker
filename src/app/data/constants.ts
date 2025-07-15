@@ -1,13 +1,18 @@
-import { APP_NAME as applicationName, AVAILABLE_EMAILS } from "@/utils/constants";
+import {
+  APP_NAME as applicationName,
+  AVAILABLE_EMAILS
+} from "@/utils/constants";
 
 export const APP_NAME = applicationName;
 export const COPYRIGHT_YEAR = 2022;
 export const SUPPORT_EMAIL = AVAILABLE_EMAILS.Support;
 
-export const ALL_EMAILS = Object.entries(AVAILABLE_EMAILS).map(([key, value]) => ({
-  name: key,
-  address: value
-}));
+export const ALL_EMAILS = Object.entries(AVAILABLE_EMAILS).map(
+  ([key, value]) => ({
+    name: key,
+    address: value
+  })
+);
 
 export const FETCH_TIMEOUT = 30 * 1000; //30 seconds;
 export const MAX_PROFILE_IMG_SIZE = 2 * 1024 * 1024; //2MB
@@ -22,7 +27,11 @@ export const GIFT_CARD_TYPES = [
   "Nordstrom",
   "Nike"
 ];
-export const GIFT_CARD_COUNTRIES = ["Canada", "United Kingdom", "United States"];
+export const GIFT_CARD_COUNTRIES = [
+  "Canada",
+  "United Kingdom",
+  "United States"
+];
 export const MAX_CURRENCY_IMG_SIZE = 1024 * 1024; //1MB
 
 export const EMAIL_MAX_FILES = 20;

@@ -10,7 +10,10 @@ export interface InvestmentAlertData {
   investment: Investment;
 }
 
-export async function onInvestmentCreate({ user, investment }: InvestmentAlertData) {
+export async function onInvestmentCreate({
+  user,
+  investment
+}: InvestmentAlertData) {
   const subject = "New Investment";
 
   const message = (name?: string) => {
@@ -43,7 +46,10 @@ export async function onInvestmentCreate({ user, investment }: InvestmentAlertDa
         }
       }),
 
-      sendTemplateEmail({ email: user.email, subject, sections: message(user.name) }, generic),
+      sendTemplateEmail(
+        { email: user.email, subject, sections: message(user.name) },
+        generic
+      ),
 
       sendTemplateEmail(
         { email: env.get("SUPPORT_EMAIL_USER"), subject, sections: message() },
@@ -51,14 +57,21 @@ export async function onInvestmentCreate({ user, investment }: InvestmentAlertDa
       )
     ]);
   } catch (error) {
-    logger.error(`Alerts failed for investment creation: ${investment.id}`, error as Error);
+    logger.error(
+      `Alerts failed for investment creation: ${investment.id}`,
+      error as Error
+    );
   }
 }
 
-export async function onInvestmentClose({ user, investment }: InvestmentAlertData) {
+export async function onInvestmentClose({
+  user,
+  investment
+}: InvestmentAlertData) {
   const subject = "Investment Closure";
 
-  const mailReason = "This message was sent to you because an investment was closed.";
+  const mailReason =
+    "This message was sent to you because an investment was closed.";
 
   const message = (name?: string) => {
     return {
@@ -108,11 +121,17 @@ export async function onInvestmentClose({ user, investment }: InvestmentAlertDat
       )
     ]);
   } catch (error) {
-    logger.error(`Alerts failed for investment closure: ${investment.id}`, error as Error);
+    logger.error(
+      `Alerts failed for investment closure: ${investment.id}`,
+      error as Error
+    );
   }
 }
 
-export async function onInvestmentPauseToggle({ user, investment }: InvestmentAlertData) {
+export async function onInvestmentPauseToggle({
+  user,
+  investment
+}: InvestmentAlertData) {
   const conditional = (
     str1: string,
     str2: string,
@@ -121,22 +140,34 @@ export async function onInvestmentPauseToggle({ user, investment }: InvestmentAl
     return condition ? str1 : str2;
   };
 
-  const subject = conditional("Pause of Investment", "Resumption of Investment");
+  const subject = conditional(
+    "Pause of Investment",
+    "Resumption of Investment"
+  );
   const mailReason = `This message was sent because an investment was ${conditional("paused", "resumed")}`;
 
   const message = (name?: string) => {
     return {
       greeting: `Hello ${name ? name : "Admin"}!`,
       info: "The investment "
-        .concat(`${investment.investmentName} (${investment.investmentTier} Tier) `)
-        .concat(conditional(`was paused by the ${env.get("APP_NAME")} admin `, "has been resumed"))
+        .concat(
+          `${investment.investmentName} (${investment.investmentTier} Tier) `
+        )
+        .concat(
+          conditional(
+            `was paused by the ${env.get("APP_NAME")} admin `,
+            "has been resumed"
+          )
+        )
         .concat(conditional(`with reason ${investment.pausedReason}`, "")),
       details: {
         "Investment Name": investment.investmentName,
         "Investment Tier": investment.investmentTier,
         Status: conditional("Paused", "Open"),
         ...(investment.investmentStatus === "PAUSED" &&
-          !!investment.pausedReason && { "Reason for Pause": investment.pausedReason }),
+          !!investment.pausedReason && {
+            "Reason for Pause": investment.pausedReason
+          }),
         "Total Returns": `$${investment.currentTotalReturns.toLocaleString()}`
       }
     };
@@ -173,11 +204,17 @@ export async function onInvestmentPauseToggle({ user, investment }: InvestmentAl
       )
     ]);
   } catch (error) {
-    logger.error(`Alerts failed for investment pause toggle: ${investment.id}`, error as Error);
+    logger.error(
+      `Alerts failed for investment pause toggle: ${investment.id}`,
+      error as Error
+    );
   }
 }
 
-export async function onInvestmentTerminate({ user, investment }: InvestmentAlertData) {
+export async function onInvestmentTerminate({
+  user,
+  investment
+}: InvestmentAlertData) {
   const subject = "Termination of Investment";
 
   const message = (name?: string) => {
@@ -207,7 +244,10 @@ export async function onInvestmentTerminate({ user, investment }: InvestmentAler
         }
       }),
 
-      sendTemplateEmail({ email: user.email, subject, sections: message(user.name) }, generic),
+      sendTemplateEmail(
+        { email: user.email, subject, sections: message(user.name) },
+        generic
+      ),
 
       sendTemplateEmail(
         { email: env.get("SUPPORT_EMAIL_USER"), subject, sections: message() },
@@ -215,6 +255,9 @@ export async function onInvestmentTerminate({ user, investment }: InvestmentAler
       )
     ]);
   } catch (error) {
-    logger.error(`Alerts failed for investment termination: ${investment.id}`, error as Error);
+    logger.error(
+      `Alerts failed for investment termination: ${investment.id}`,
+      error as Error
+    );
   }
 }

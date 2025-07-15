@@ -16,7 +16,8 @@ import type * as Prisma from "../internal/prismaNamespace";
  * Model User
  *
  */
-export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayload>;
+export type UserModel =
+  runtime.Types.Result.DefaultSelection<Prisma.$UserPayload>;
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null;
@@ -139,7 +140,8 @@ export type UserCountAggregateInputType = {
 };
 
 export type UserAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which User to aggregate.
@@ -150,7 +152,9 @@ export type UserAggregateArgs<
    *
    * Determine the order of Users to fetch.
    */
-  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.UserOrderByWithRelationInput
+    | Prisma.UserOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -198,10 +202,13 @@ export type GetUserAggregateType<T extends UserAggregateArgs> = {
 };
 
 export type UserGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.UserWhereInput;
-  orderBy?: Prisma.UserOrderByWithAggregationInput | Prisma.UserOrderByWithAggregationInput[];
+  orderBy?:
+    | Prisma.UserOrderByWithAggregationInput
+    | Prisma.UserOrderByWithAggregationInput[];
   by: Prisma.UserScalarFieldEnum[] | Prisma.UserScalarFieldEnum;
   having?: Prisma.UserScalarWhereWithAggregatesInput;
   take?: number;
@@ -267,7 +274,10 @@ export type UserWhereInput = {
   ipAddresses?: Prisma.JsonNullableFilter<"User">;
   devices?: Prisma.JsonNullableFilter<"User">;
   isBanned?: Prisma.BoolNullableFilter<"User"> | boolean | null;
-  account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null;
+  account?: Prisma.XOR<
+    Prisma.AccountNullableScalarRelationFilter,
+    Prisma.AccountWhereInput
+  > | null;
   accountGroup?: Prisma.XOR<
     Prisma.AccountGroupNullableScalarRelationFilter,
     Prisma.AccountGroupWhereInput
@@ -275,7 +285,10 @@ export type UserWhereInput = {
   transactions?: Prisma.TransactionListRelationFilter;
   investments?: Prisma.InvestmentListRelationFilter;
   Notification?: Prisma.NotificationListRelationFilter;
-  ban?: Prisma.XOR<Prisma.BanNullableScalarRelationFilter, Prisma.BanWhereInput> | null;
+  ban?: Prisma.XOR<
+    Prisma.BanNullableScalarRelationFilter,
+    Prisma.BanWhereInput
+  > | null;
 };
 
 export type UserOrderByWithRelationInput = {
@@ -337,7 +350,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     transactions?: Prisma.TransactionListRelationFilter;
     investments?: Prisma.InvestmentListRelationFilter;
     Notification?: Prisma.NotificationListRelationFilter;
-    ban?: Prisma.XOR<Prisma.BanNullableScalarRelationFilter, Prisma.BanWhereInput> | null;
+    ban?: Prisma.XOR<
+      Prisma.BanNullableScalarRelationFilter,
+      Prisma.BanWhereInput
+    > | null;
   },
   "id" | "email"
 >;
@@ -366,18 +382,28 @@ export type UserOrderByWithAggregationInput = {
 };
 
 export type UserScalarWhereWithAggregatesInput = {
-  AND?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[];
+  AND?:
+    | Prisma.UserScalarWhereWithAggregatesInput
+    | Prisma.UserScalarWhereWithAggregatesInput[];
   OR?: Prisma.UserScalarWhereWithAggregatesInput[];
-  NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[];
+  NOT?:
+    | Prisma.UserScalarWhereWithAggregatesInput
+    | Prisma.UserScalarWhereWithAggregatesInput[];
   id?: Prisma.StringWithAggregatesFilter<"User"> | string;
   name?: Prisma.StringWithAggregatesFilter<"User"> | string;
   email?: Prisma.StringWithAggregatesFilter<"User"> | string;
   password?: Prisma.StringWithAggregatesFilter<"User"> | string;
   verified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole;
-  accountGroupId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
+  accountGroupId?:
+    | Prisma.StringNullableWithAggregatesFilter<"User">
+    | string
+    | null;
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
-  phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
+  phoneNumber?:
+    | Prisma.StringNullableWithAggregatesFilter<"User">
+    | string
+    | null;
   address?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
   country?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
   region?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
@@ -470,7 +496,10 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string;
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
-  accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accountGroupId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -534,7 +563,10 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string;
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
-  accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accountGroupId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -833,18 +865,27 @@ export type UserUpdateOneRequiredWithoutNotificationNestedInput = {
 };
 
 export type UserCreateNestedOneWithoutBanInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutBanInput, Prisma.UserUncheckedCreateWithoutBanInput>;
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutBanInput,
+    Prisma.UserUncheckedCreateWithoutBanInput
+  >;
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutBanInput;
   connect?: Prisma.UserWhereUniqueInput;
 };
 
 export type UserUpdateOneRequiredWithoutBanNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutBanInput, Prisma.UserUncheckedCreateWithoutBanInput>;
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutBanInput,
+    Prisma.UserUncheckedCreateWithoutBanInput
+  >;
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutBanInput;
   upsert?: Prisma.UserUpsertWithoutBanInput;
   connect?: Prisma.UserWhereUniqueInput;
   update?: Prisma.XOR<
-    Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBanInput, Prisma.UserUpdateWithoutBanInput>,
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutBanInput,
+      Prisma.UserUpdateWithoutBanInput
+    >,
     Prisma.UserUncheckedUpdateWithoutBanInput
   >;
 };
@@ -956,7 +997,10 @@ export type UserUncheckedUpdateWithoutAccountInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string;
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
-  accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accountGroupId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1030,7 +1074,9 @@ export type UserCreateOrConnectWithoutAccountGroupInput = {
 };
 
 export type UserCreateManyAccountGroupInputEnvelope = {
-  data: Prisma.UserCreateManyAccountGroupInput | Prisma.UserCreateManyAccountGroupInput[];
+  data:
+    | Prisma.UserCreateManyAccountGroupInput
+    | Prisma.UserCreateManyAccountGroupInput[];
 };
 
 export type UserUpsertWithWhereUniqueWithoutAccountGroupInput = {
@@ -1191,7 +1237,10 @@ export type UserUncheckedUpdateWithoutInvestmentsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string;
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
-  accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accountGroupId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1315,7 +1364,10 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string;
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
-  accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accountGroupId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1439,7 +1491,10 @@ export type UserUncheckedUpdateWithoutNotificationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string;
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
-  accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accountGroupId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1506,18 +1561,30 @@ export type UserUncheckedCreateWithoutBanInput = {
 
 export type UserCreateOrConnectWithoutBanInput = {
   where: Prisma.UserWhereUniqueInput;
-  create: Prisma.XOR<Prisma.UserCreateWithoutBanInput, Prisma.UserUncheckedCreateWithoutBanInput>;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutBanInput,
+    Prisma.UserUncheckedCreateWithoutBanInput
+  >;
 };
 
 export type UserUpsertWithoutBanInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutBanInput, Prisma.UserUncheckedUpdateWithoutBanInput>;
-  create: Prisma.XOR<Prisma.UserCreateWithoutBanInput, Prisma.UserUncheckedCreateWithoutBanInput>;
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutBanInput,
+    Prisma.UserUncheckedUpdateWithoutBanInput
+  >;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutBanInput,
+    Prisma.UserUncheckedCreateWithoutBanInput
+  >;
   where?: Prisma.UserWhereInput;
 };
 
 export type UserUpdateToOneWithWhereWithoutBanInput = {
   where?: Prisma.UserWhereInput;
-  data: Prisma.XOR<Prisma.UserUpdateWithoutBanInput, Prisma.UserUncheckedUpdateWithoutBanInput>;
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutBanInput,
+    Prisma.UserUncheckedUpdateWithoutBanInput
+  >;
 };
 
 export type UserUpdateWithoutBanInput = {
@@ -1551,7 +1618,10 @@ export type UserUncheckedUpdateWithoutBanInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string;
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
-  accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accountGroupId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1665,7 +1735,8 @@ export type UserCountOutputType = {
 };
 
 export type UserCountOutputTypeSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   transactions?: boolean | UserCountOutputTypeCountTransactionsArgs;
   investments?: boolean | UserCountOutputTypeCountInvestmentsArgs;
@@ -1676,7 +1747,8 @@ export type UserCountOutputTypeSelect<
  * UserCountOutputType without action
  */
 export type UserCountOutputTypeDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the UserCountOutputType
@@ -1688,7 +1760,8 @@ export type UserCountOutputTypeDefaultArgs<
  * UserCountOutputType without action
  */
 export type UserCountOutputTypeCountTransactionsArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.TransactionWhereInput;
 };
@@ -1697,7 +1770,8 @@ export type UserCountOutputTypeCountTransactionsArgs<
  * UserCountOutputType without action
  */
 export type UserCountOutputTypeCountInvestmentsArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.InvestmentWhereInput;
 };
@@ -1706,13 +1780,15 @@ export type UserCountOutputTypeCountInvestmentsArgs<
  * UserCountOutputType without action
  */
 export type UserCountOutputTypeCountNotificationArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.NotificationWhereInput;
 };
 
 export type UserSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1744,7 +1820,8 @@ export type UserSelect<
 >;
 
 export type UserSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1770,7 +1847,8 @@ export type UserSelectCreateManyAndReturn<
 >;
 
 export type UserSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1816,7 +1894,8 @@ export type UserSelectScalar = {
 };
 
 export type UserOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetOmit<
   | "id"
   | "name"
@@ -1838,7 +1917,8 @@ export type UserOmit<
   ExtArgs["result"]["user"]
 >;
 export type UserInclude<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   account?: boolean | Prisma.User$accountArgs<ExtArgs>;
   accountGroup?: boolean | Prisma.User$accountGroupArgs<ExtArgs>;
@@ -1849,18 +1929,21 @@ export type UserInclude<
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   accountGroup?: boolean | Prisma.User$accountGroupArgs<ExtArgs>;
 };
 export type UserIncludeUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   accountGroup?: boolean | Prisma.User$accountGroupArgs<ExtArgs>;
 };
 
 export type $UserPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   name: "User";
   objects: {
@@ -1899,20 +1982,26 @@ export type $UserPayload<
   composites: {};
 };
 
-export type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> =
-  runtime.Types.Result.GetResult<Prisma.$UserPayload, S>;
+export type UserGetPayload<
+  S extends boolean | null | undefined | UserDefaultArgs
+> = runtime.Types.Result.GetResult<Prisma.$UserPayload, S>;
 
 export type UserCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = Omit<UserFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
   select?: UserCountAggregateInputType | true;
 };
 
 export interface UserDelegate<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>["model"]["User"]; meta: { name: "User" } };
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>["model"]["User"];
+    meta: { name: "User" };
+  };
   /**
    * Find zero or one User that matches the filter.
    * @param {UserFindUniqueArgs} args - Arguments to find a User
@@ -2038,7 +2127,12 @@ export interface UserDelegate<
   findMany<T extends UserFindManyArgs>(
     args?: Prisma.SelectSubset<T, UserFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>
+    runtime.Types.Result.GetResult<
+      Prisma.$UserPayload<ExtArgs>,
+      T,
+      "findMany",
+      GlobalOmitOptions
+    >
   >;
 
   /**
@@ -2056,7 +2150,12 @@ export interface UserDelegate<
   create<T extends UserCreateArgs>(
     args: Prisma.SelectSubset<T, UserCreateArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
-    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$UserPayload<ExtArgs>,
+      T,
+      "create",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -2126,7 +2225,12 @@ export interface UserDelegate<
   delete<T extends UserDeleteArgs>(
     args: Prisma.SelectSubset<T, UserDeleteArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
-    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$UserPayload<ExtArgs>,
+      T,
+      "delete",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -2150,7 +2254,12 @@ export interface UserDelegate<
   update<T extends UserUpdateArgs>(
     args: Prisma.SelectSubset<T, UserUpdateArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
-    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$UserPayload<ExtArgs>,
+      T,
+      "update",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -2252,7 +2361,12 @@ export interface UserDelegate<
   upsert<T extends UserUpsertArgs>(
     args: Prisma.SelectSubset<T, UserUpsertArgs<ExtArgs>>
   ): Prisma.Prisma__UserClient<
-    runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$UserPayload<ExtArgs>,
+      T,
+      "upsert",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -2352,7 +2466,12 @@ export interface UserDelegate<
               ? never
               : P extends string
                 ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                : [Error, "Field ", P, ` in "having" needs to be provided in "by"`];
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`
+                  ];
           }[HavingFields]
         : "take" extends Prisma.Keys<T>
           ? "orderBy" extends Prisma.Keys<T>
@@ -2382,8 +2501,11 @@ export interface UserDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields]
   >(
-    args: Prisma.SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors
-  ): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, UserGroupByArgs, OrderByArg> &
+      InputErrors
+  ): {} extends InputErrors
+    ? GetUserGroupByPayload<T>
+    : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the User model
    */
@@ -2399,7 +2521,8 @@ export interface UserDelegate<
 export interface Prisma__UserClient<
   T,
   Null = never,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
@@ -2482,8 +2605,14 @@ export interface Prisma__UserClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -2491,7 +2620,10 @@ export interface Prisma__UserClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -2499,7 +2631,9 @@ export interface Prisma__UserClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  finally(
+    onfinally?: (() => void) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -2530,7 +2664,8 @@ export interface UserFieldRefs {
  * User findUnique
  */
 export type UserFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2554,7 +2689,8 @@ export type UserFindUniqueArgs<
  * User findUniqueOrThrow
  */
 export type UserFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2578,7 +2714,8 @@ export type UserFindUniqueOrThrowArgs<
  * User findFirst
  */
 export type UserFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2601,7 +2738,9 @@ export type UserFindFirstArgs<
    *
    * Determine the order of Users to fetch.
    */
-  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.UserOrderByWithRelationInput
+    | Prisma.UserOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -2632,7 +2771,8 @@ export type UserFindFirstArgs<
  * User findFirstOrThrow
  */
 export type UserFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2655,7 +2795,9 @@ export type UserFindFirstOrThrowArgs<
    *
    * Determine the order of Users to fetch.
    */
-  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.UserOrderByWithRelationInput
+    | Prisma.UserOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -2686,7 +2828,8 @@ export type UserFindFirstOrThrowArgs<
  * User findMany
  */
 export type UserFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2709,7 +2852,9 @@ export type UserFindManyArgs<
    *
    * Determine the order of Users to fetch.
    */
-  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.UserOrderByWithRelationInput
+    | Prisma.UserOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -2735,7 +2880,8 @@ export type UserFindManyArgs<
  * User create
  */
 export type UserCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2759,7 +2905,8 @@ export type UserCreateArgs<
  * User createMany
  */
 export type UserCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to create many Users.
@@ -2771,7 +2918,8 @@ export type UserCreateManyArgs<
  * User createManyAndReturn
  */
 export type UserCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2795,7 +2943,8 @@ export type UserCreateManyAndReturnArgs<
  * User update
  */
 export type UserUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2823,12 +2972,16 @@ export type UserUpdateArgs<
  * User updateMany
  */
 export type UserUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to update Users.
    */
-  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.UserUpdateManyMutationInput,
+    Prisma.UserUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Users to update
    */
@@ -2843,7 +2996,8 @@ export type UserUpdateManyArgs<
  * User updateManyAndReturn
  */
 export type UserUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2856,7 +3010,10 @@ export type UserUpdateManyAndReturnArgs<
   /**
    * The data used to update Users.
    */
-  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.UserUpdateManyMutationInput,
+    Prisma.UserUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Users to update
    */
@@ -2875,7 +3032,8 @@ export type UserUpdateManyAndReturnArgs<
  * User upsert
  */
 export type UserUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2907,7 +3065,8 @@ export type UserUpsertArgs<
  * User delete
  */
 export type UserDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User
@@ -2931,7 +3090,8 @@ export type UserDeleteArgs<
  * User deleteMany
  */
 export type UserDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Users to delete
@@ -2947,7 +3107,8 @@ export type UserDeleteManyArgs<
  * User.account
  */
 export type User$accountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Account
@@ -2968,7 +3129,8 @@ export type User$accountArgs<
  * User.accountGroup
  */
 export type User$accountGroupArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the AccountGroup
@@ -2989,7 +3151,8 @@ export type User$accountGroupArgs<
  * User.transactions
  */
 export type User$transactionsArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Transaction
@@ -3010,14 +3173,17 @@ export type User$transactionsArgs<
   cursor?: Prisma.TransactionWhereUniqueInput;
   take?: number;
   skip?: number;
-  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[];
+  distinct?:
+    | Prisma.TransactionScalarFieldEnum
+    | Prisma.TransactionScalarFieldEnum[];
 };
 
 /**
  * User.investments
  */
 export type User$investmentsArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -3032,18 +3198,23 @@ export type User$investmentsArgs<
    */
   include?: Prisma.InvestmentInclude<ExtArgs> | null;
   where?: Prisma.InvestmentWhereInput;
-  orderBy?: Prisma.InvestmentOrderByWithRelationInput | Prisma.InvestmentOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.InvestmentOrderByWithRelationInput
+    | Prisma.InvestmentOrderByWithRelationInput[];
   cursor?: Prisma.InvestmentWhereUniqueInput;
   take?: number;
   skip?: number;
-  distinct?: Prisma.InvestmentScalarFieldEnum | Prisma.InvestmentScalarFieldEnum[];
+  distinct?:
+    | Prisma.InvestmentScalarFieldEnum
+    | Prisma.InvestmentScalarFieldEnum[];
 };
 
 /**
  * User.Notification
  */
 export type User$NotificationArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Notification
@@ -3064,14 +3235,17 @@ export type User$NotificationArgs<
   cursor?: Prisma.NotificationWhereUniqueInput;
   take?: number;
   skip?: number;
-  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[];
+  distinct?:
+    | Prisma.NotificationScalarFieldEnum
+    | Prisma.NotificationScalarFieldEnum[];
 };
 
 /**
  * User.ban
  */
 export type User$banArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Ban
@@ -3092,7 +3266,8 @@ export type User$banArgs<
  * User without action
  */
 export type UserDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the User

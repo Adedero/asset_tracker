@@ -1,11 +1,15 @@
 import { GET_REQUEST_DATA_LIMIT } from "#src/utils/constants";
 import type { NextFunction, Request, Response } from "express";
 
-export interface ParsedQuery<T extends Record<string, unknown> = Record<string, unknown>> {
+export interface ParsedQuery<
+  T extends Record<string, unknown> = Record<string, unknown>
+> {
   sort?: Partial<Record<keyof T, "desc" | "asc">>;
   select?: Partial<Record<keyof T, boolean>>;
   exclude?: Partial<Record<keyof T, boolean>>;
-  populate?: Partial<Record<keyof T, boolean | { select: Record<string, boolean> }>>;
+  populate?: Partial<
+    Record<keyof T, boolean | { select: Record<string, boolean> }>
+  >;
   where?: Partial<T>;
   take?: number;
   skip?: number;
@@ -62,7 +66,9 @@ export default function parseRequestQuery<T extends Record<string, unknown>>(
   }
 
   if (select) {
-    const selectParams = Array.isArray(select) ? select.join(",") : select.toString();
+    const selectParams = Array.isArray(select)
+      ? select.join(",")
+      : select.toString();
     parsedQuery.select = selectParams
       .split(",")
       .reduce<Partial<Record<keyof T, boolean>>>((acc, s) => {
@@ -72,7 +78,9 @@ export default function parseRequestQuery<T extends Record<string, unknown>>(
   }
 
   if (exclude) {
-    const excludeParams = Array.isArray(exclude) ? exclude.join(",") : exclude.toString();
+    const excludeParams = Array.isArray(exclude)
+      ? exclude.join(",")
+      : exclude.toString();
     parsedQuery.exclude = excludeParams
       .split(",")
       .reduce<Partial<Record<keyof T, boolean>>>((acc, s) => {
@@ -83,29 +91,31 @@ export default function parseRequestQuery<T extends Record<string, unknown>>(
 
   if (populate) {
     const populateParams = Array.isArray(populate) ? populate : [populate];
-    parsedQuery.populate = populateParams.reduce<NonNullable<ParsedQuery<T>["populate"]>>(
-      (acc, popItem) => {
-        const [path, ...fields] = popItem.toString().split(",");
-        const key = path.trim() as keyof T;
+    parsedQuery.populate = populateParams.reduce<
+      NonNullable<ParsedQuery<T>["populate"]>
+    >((acc, popItem) => {
+      const [path, ...fields] = popItem.toString().split(",");
+      const key = path.trim() as keyof T;
 
-        acc[key] = fields.length
-          ? {
-              select: fields.reduce<Record<string, boolean>>((selAcc, f) => {
-                selAcc[f.trim()] = true;
-                return selAcc;
-              }, {})
-            }
-          : true;
+      acc[key] = fields.length
+        ? {
+            select: fields.reduce<Record<string, boolean>>((selAcc, f) => {
+              selAcc[f.trim()] = true;
+              return selAcc;
+            }, {})
+          }
+        : true;
 
-        return acc;
-      },
-      {}
-    );
+      return acc;
+    }, {});
   }
 
   if (take) {
     const parsed = Array.isArray(take) ? take[0].toString() : take.toString();
-    parsedQuery.take = Math.min(parseInt(parsed, 10) || 0, GET_REQUEST_DATA_LIMIT);
+    parsedQuery.take = Math.min(
+      parseInt(parsed, 10) || 0,
+      GET_REQUEST_DATA_LIMIT
+    );
   }
 
   if (skip) {

@@ -16,7 +16,8 @@ import type * as Prisma from "../internal/prismaNamespace";
  * Model Profit
  *
  */
-export type ProfitModel = runtime.Types.Result.DefaultSelection<Prisma.$ProfitPayload>;
+export type ProfitModel =
+  runtime.Types.Result.DefaultSelection<Prisma.$ProfitPayload>;
 
 export type AggregateProfit = {
   _count: ProfitCountAggregateOutputType | null;
@@ -117,7 +118,8 @@ export type ProfitCountAggregateInputType = {
 };
 
 export type ProfitAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Profit to aggregate.
@@ -128,7 +130,9 @@ export type ProfitAggregateArgs<
    *
    * Determine the order of Profits to fetch.
    */
-  orderBy?: Prisma.ProfitOrderByWithRelationInput | Prisma.ProfitOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.ProfitOrderByWithRelationInput
+    | Prisma.ProfitOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -188,10 +192,13 @@ export type GetProfitAggregateType<T extends ProfitAggregateArgs> = {
 };
 
 export type ProfitGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.ProfitWhereInput;
-  orderBy?: Prisma.ProfitOrderByWithAggregationInput | Prisma.ProfitOrderByWithAggregationInput[];
+  orderBy?:
+    | Prisma.ProfitOrderByWithAggregationInput
+    | Prisma.ProfitOrderByWithAggregationInput[];
   by: Prisma.ProfitScalarFieldEnum[] | Prisma.ProfitScalarFieldEnum;
   having?: Prisma.ProfitScalarWhereWithAggregatesInput;
   take?: number;
@@ -220,17 +227,18 @@ export type ProfitGroupByOutputType = {
   _max: ProfitMaxAggregateOutputType | null;
 };
 
-type GetProfitGroupByPayload<T extends ProfitGroupByArgs> = Prisma.PrismaPromise<
-  Array<
-    Prisma.PickEnumerable<ProfitGroupByOutputType, T["by"]> & {
-      [P in keyof T & keyof ProfitGroupByOutputType]: P extends "_count"
-        ? T[P] extends boolean
-          ? number
-          : Prisma.GetScalarType<T[P], ProfitGroupByOutputType[P]>
-        : Prisma.GetScalarType<T[P], ProfitGroupByOutputType[P]>;
-    }
-  >
->;
+type GetProfitGroupByPayload<T extends ProfitGroupByArgs> =
+  Prisma.PrismaPromise<
+    Array<
+      Prisma.PickEnumerable<ProfitGroupByOutputType, T["by"]> & {
+        [P in keyof T & keyof ProfitGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : Prisma.GetScalarType<T[P], ProfitGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], ProfitGroupByOutputType[P]>;
+      }
+    >
+  >;
 
 export type ProfitWhereInput = {
   AND?: Prisma.ProfitWhereInput | Prisma.ProfitWhereInput[];
@@ -242,7 +250,11 @@ export type ProfitWhereInput = {
   investmentId?: Prisma.StringNullableFilter<"Profit"> | string | null;
   amount?: Prisma.FloatFilter<"Profit"> | number;
   status?: Prisma.EnumProfitStatusFilter<"Profit"> | $Enums.ProfitStatus;
-  distributedAt?: Prisma.DateTimeNullableFilter<"Profit"> | Date | string | null;
+  distributedAt?:
+    | Prisma.DateTimeNullableFilter<"Profit">
+    | Date
+    | string
+    | null;
   createdAt?: Prisma.DateTimeFilter<"Profit"> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<"Profit"> | Date | string;
   Investment?: Prisma.XOR<
@@ -275,7 +287,11 @@ export type ProfitWhereUniqueInput = Prisma.AtLeast<
     investmentId?: Prisma.StringNullableFilter<"Profit"> | string | null;
     amount?: Prisma.FloatFilter<"Profit"> | number;
     status?: Prisma.EnumProfitStatusFilter<"Profit"> | $Enums.ProfitStatus;
-    distributedAt?: Prisma.DateTimeNullableFilter<"Profit"> | Date | string | null;
+    distributedAt?:
+      | Prisma.DateTimeNullableFilter<"Profit">
+      | Date
+      | string
+      | null;
     createdAt?: Prisma.DateTimeFilter<"Profit"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Profit"> | Date | string;
     Investment?: Prisma.XOR<
@@ -304,16 +320,32 @@ export type ProfitOrderByWithAggregationInput = {
 };
 
 export type ProfitScalarWhereWithAggregatesInput = {
-  AND?: Prisma.ProfitScalarWhereWithAggregatesInput | Prisma.ProfitScalarWhereWithAggregatesInput[];
+  AND?:
+    | Prisma.ProfitScalarWhereWithAggregatesInput
+    | Prisma.ProfitScalarWhereWithAggregatesInput[];
   OR?: Prisma.ProfitScalarWhereWithAggregatesInput[];
-  NOT?: Prisma.ProfitScalarWhereWithAggregatesInput | Prisma.ProfitScalarWhereWithAggregatesInput[];
+  NOT?:
+    | Prisma.ProfitScalarWhereWithAggregatesInput
+    | Prisma.ProfitScalarWhereWithAggregatesInput[];
   id?: Prisma.StringWithAggregatesFilter<"Profit"> | string;
   userId?: Prisma.StringWithAggregatesFilter<"Profit"> | string;
-  accountId?: Prisma.StringNullableWithAggregatesFilter<"Profit"> | string | null;
-  investmentId?: Prisma.StringNullableWithAggregatesFilter<"Profit"> | string | null;
+  accountId?:
+    | Prisma.StringNullableWithAggregatesFilter<"Profit">
+    | string
+    | null;
+  investmentId?:
+    | Prisma.StringNullableWithAggregatesFilter<"Profit">
+    | string
+    | null;
   amount?: Prisma.FloatWithAggregatesFilter<"Profit"> | number;
-  status?: Prisma.EnumProfitStatusWithAggregatesFilter<"Profit"> | $Enums.ProfitStatus;
-  distributedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Profit"> | Date | string | null;
+  status?:
+    | Prisma.EnumProfitStatusWithAggregatesFilter<"Profit">
+    | $Enums.ProfitStatus;
+  distributedAt?:
+    | Prisma.DateTimeNullableWithAggregatesFilter<"Profit">
+    | Date
+    | string
+    | null;
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Profit"> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Profit"> | Date | string;
 };
@@ -347,8 +379,14 @@ export type ProfitUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   amount?: Prisma.FloatFieldUpdateOperationsInput | number;
-  status?: Prisma.EnumProfitStatusFieldUpdateOperationsInput | $Enums.ProfitStatus;
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  status?:
+    | Prisma.EnumProfitStatusFieldUpdateOperationsInput
+    | $Enums.ProfitStatus;
+  distributedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   Investment?: Prisma.InvestmentUpdateOneWithoutProfitsNestedInput;
@@ -358,10 +396,19 @@ export type ProfitUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  investmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  investmentId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   amount?: Prisma.FloatFieldUpdateOperationsInput | number;
-  status?: Prisma.EnumProfitStatusFieldUpdateOperationsInput | $Enums.ProfitStatus;
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  status?:
+    | Prisma.EnumProfitStatusFieldUpdateOperationsInput
+    | $Enums.ProfitStatus;
+  distributedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -383,8 +430,14 @@ export type ProfitUpdateManyMutationInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   amount?: Prisma.FloatFieldUpdateOperationsInput | number;
-  status?: Prisma.EnumProfitStatusFieldUpdateOperationsInput | $Enums.ProfitStatus;
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  status?:
+    | Prisma.EnumProfitStatusFieldUpdateOperationsInput
+    | $Enums.ProfitStatus;
+  distributedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -393,10 +446,19 @@ export type ProfitUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  investmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  investmentId?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   amount?: Prisma.FloatFieldUpdateOperationsInput | number;
-  status?: Prisma.EnumProfitStatusFieldUpdateOperationsInput | $Enums.ProfitStatus;
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  status?:
+    | Prisma.EnumProfitStatusFieldUpdateOperationsInput
+    | $Enums.ProfitStatus;
+  distributedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -576,7 +638,9 @@ export type ProfitCreateOrConnectWithoutInvestmentInput = {
 };
 
 export type ProfitCreateManyInvestmentInputEnvelope = {
-  data: Prisma.ProfitCreateManyInvestmentInput | Prisma.ProfitCreateManyInvestmentInput[];
+  data:
+    | Prisma.ProfitCreateManyInvestmentInput
+    | Prisma.ProfitCreateManyInvestmentInput[];
 };
 
 export type ProfitUpsertWithWhereUniqueWithoutInvestmentInput = {
@@ -617,7 +681,11 @@ export type ProfitScalarWhereInput = {
   investmentId?: Prisma.StringNullableFilter<"Profit"> | string | null;
   amount?: Prisma.FloatFilter<"Profit"> | number;
   status?: Prisma.EnumProfitStatusFilter<"Profit"> | $Enums.ProfitStatus;
-  distributedAt?: Prisma.DateTimeNullableFilter<"Profit"> | Date | string | null;
+  distributedAt?:
+    | Prisma.DateTimeNullableFilter<"Profit">
+    | Date
+    | string
+    | null;
   createdAt?: Prisma.DateTimeFilter<"Profit"> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<"Profit"> | Date | string;
 };
@@ -638,8 +706,14 @@ export type ProfitUpdateWithoutInvestmentInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   amount?: Prisma.FloatFieldUpdateOperationsInput | number;
-  status?: Prisma.EnumProfitStatusFieldUpdateOperationsInput | $Enums.ProfitStatus;
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  status?:
+    | Prisma.EnumProfitStatusFieldUpdateOperationsInput
+    | $Enums.ProfitStatus;
+  distributedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -649,8 +723,14 @@ export type ProfitUncheckedUpdateWithoutInvestmentInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   amount?: Prisma.FloatFieldUpdateOperationsInput | number;
-  status?: Prisma.EnumProfitStatusFieldUpdateOperationsInput | $Enums.ProfitStatus;
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  status?:
+    | Prisma.EnumProfitStatusFieldUpdateOperationsInput
+    | $Enums.ProfitStatus;
+  distributedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -660,14 +740,21 @@ export type ProfitUncheckedUpdateManyWithoutInvestmentInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   amount?: Prisma.FloatFieldUpdateOperationsInput | number;
-  status?: Prisma.EnumProfitStatusFieldUpdateOperationsInput | $Enums.ProfitStatus;
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  status?:
+    | Prisma.EnumProfitStatusFieldUpdateOperationsInput
+    | $Enums.ProfitStatus;
+  distributedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 
 export type ProfitSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -685,7 +772,8 @@ export type ProfitSelect<
 >;
 
 export type ProfitSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -703,7 +791,8 @@ export type ProfitSelectCreateManyAndReturn<
 >;
 
 export type ProfitSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -733,7 +822,8 @@ export type ProfitSelectScalar = {
 };
 
 export type ProfitOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetOmit<
   | "id"
   | "userId"
@@ -747,23 +837,27 @@ export type ProfitOmit<
   ExtArgs["result"]["profit"]
 >;
 export type ProfitInclude<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   Investment?: boolean | Prisma.Profit$InvestmentArgs<ExtArgs>;
 };
 export type ProfitIncludeCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   Investment?: boolean | Prisma.Profit$InvestmentArgs<ExtArgs>;
 };
 export type ProfitIncludeUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   Investment?: boolean | Prisma.Profit$InvestmentArgs<ExtArgs>;
 };
 
 export type $ProfitPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   name: "Profit";
   objects: {
@@ -786,20 +880,26 @@ export type $ProfitPayload<
   composites: {};
 };
 
-export type ProfitGetPayload<S extends boolean | null | undefined | ProfitDefaultArgs> =
-  runtime.Types.Result.GetResult<Prisma.$ProfitPayload, S>;
+export type ProfitGetPayload<
+  S extends boolean | null | undefined | ProfitDefaultArgs
+> = runtime.Types.Result.GetResult<Prisma.$ProfitPayload, S>;
 
 export type ProfitCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = Omit<ProfitFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
   select?: ProfitCountAggregateInputType | true;
 };
 
 export interface ProfitDelegate<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>["model"]["Profit"]; meta: { name: "Profit" } };
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>["model"]["Profit"];
+    meta: { name: "Profit" };
+  };
   /**
    * Find zero or one Profit that matches the filter.
    * @param {ProfitFindUniqueArgs} args - Arguments to find a Profit
@@ -925,7 +1025,12 @@ export interface ProfitDelegate<
   findMany<T extends ProfitFindManyArgs>(
     args?: Prisma.SelectSubset<T, ProfitFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<Prisma.$ProfitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>
+    runtime.Types.Result.GetResult<
+      Prisma.$ProfitPayload<ExtArgs>,
+      T,
+      "findMany",
+      GlobalOmitOptions
+    >
   >;
 
   /**
@@ -943,7 +1048,12 @@ export interface ProfitDelegate<
   create<T extends ProfitCreateArgs>(
     args: Prisma.SelectSubset<T, ProfitCreateArgs<ExtArgs>>
   ): Prisma.Prisma__ProfitClient<
-    runtime.Types.Result.GetResult<Prisma.$ProfitPayload<ExtArgs>, T, "create", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$ProfitPayload<ExtArgs>,
+      T,
+      "create",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1013,7 +1123,12 @@ export interface ProfitDelegate<
   delete<T extends ProfitDeleteArgs>(
     args: Prisma.SelectSubset<T, ProfitDeleteArgs<ExtArgs>>
   ): Prisma.Prisma__ProfitClient<
-    runtime.Types.Result.GetResult<Prisma.$ProfitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$ProfitPayload<ExtArgs>,
+      T,
+      "delete",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1037,7 +1152,12 @@ export interface ProfitDelegate<
   update<T extends ProfitUpdateArgs>(
     args: Prisma.SelectSubset<T, ProfitUpdateArgs<ExtArgs>>
   ): Prisma.Prisma__ProfitClient<
-    runtime.Types.Result.GetResult<Prisma.$ProfitPayload<ExtArgs>, T, "update", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$ProfitPayload<ExtArgs>,
+      T,
+      "update",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1139,7 +1259,12 @@ export interface ProfitDelegate<
   upsert<T extends ProfitUpsertArgs>(
     args: Prisma.SelectSubset<T, ProfitUpsertArgs<ExtArgs>>
   ): Prisma.Prisma__ProfitClient<
-    runtime.Types.Result.GetResult<Prisma.$ProfitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$ProfitPayload<ExtArgs>,
+      T,
+      "upsert",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1239,7 +1364,12 @@ export interface ProfitDelegate<
               ? never
               : P extends string
                 ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                : [Error, "Field ", P, ` in "having" needs to be provided in "by"`];
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`
+                  ];
           }[HavingFields]
         : "take" extends Prisma.Keys<T>
           ? "orderBy" extends Prisma.Keys<T>
@@ -1269,8 +1399,11 @@ export interface ProfitDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields]
   >(
-    args: Prisma.SubsetIntersection<T, ProfitGroupByArgs, OrderByArg> & InputErrors
-  ): {} extends InputErrors ? GetProfitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, ProfitGroupByArgs, OrderByArg> &
+      InputErrors
+  ): {} extends InputErrors
+    ? GetProfitGroupByPayload<T>
+    : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the Profit model
    */
@@ -1286,7 +1419,8 @@ export interface ProfitDelegate<
 export interface Prisma__ProfitClient<
   T,
   Null = never,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
@@ -1310,8 +1444,14 @@ export interface Prisma__ProfitClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -1319,7 +1459,10 @@ export interface Prisma__ProfitClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -1327,7 +1470,9 @@ export interface Prisma__ProfitClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  finally(
+    onfinally?: (() => void) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -1350,7 +1495,8 @@ export interface ProfitFieldRefs {
  * Profit findUnique
  */
 export type ProfitFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1374,7 +1520,8 @@ export type ProfitFindUniqueArgs<
  * Profit findUniqueOrThrow
  */
 export type ProfitFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1398,7 +1545,8 @@ export type ProfitFindUniqueOrThrowArgs<
  * Profit findFirst
  */
 export type ProfitFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1421,7 +1569,9 @@ export type ProfitFindFirstArgs<
    *
    * Determine the order of Profits to fetch.
    */
-  orderBy?: Prisma.ProfitOrderByWithRelationInput | Prisma.ProfitOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.ProfitOrderByWithRelationInput
+    | Prisma.ProfitOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1452,7 +1602,8 @@ export type ProfitFindFirstArgs<
  * Profit findFirstOrThrow
  */
 export type ProfitFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1475,7 +1626,9 @@ export type ProfitFindFirstOrThrowArgs<
    *
    * Determine the order of Profits to fetch.
    */
-  orderBy?: Prisma.ProfitOrderByWithRelationInput | Prisma.ProfitOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.ProfitOrderByWithRelationInput
+    | Prisma.ProfitOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1506,7 +1659,8 @@ export type ProfitFindFirstOrThrowArgs<
  * Profit findMany
  */
 export type ProfitFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1529,7 +1683,9 @@ export type ProfitFindManyArgs<
    *
    * Determine the order of Profits to fetch.
    */
-  orderBy?: Prisma.ProfitOrderByWithRelationInput | Prisma.ProfitOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.ProfitOrderByWithRelationInput
+    | Prisma.ProfitOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1555,7 +1711,8 @@ export type ProfitFindManyArgs<
  * Profit create
  */
 export type ProfitCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1579,7 +1736,8 @@ export type ProfitCreateArgs<
  * Profit createMany
  */
 export type ProfitCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to create many Profits.
@@ -1591,7 +1749,8 @@ export type ProfitCreateManyArgs<
  * Profit createManyAndReturn
  */
 export type ProfitCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1615,7 +1774,8 @@ export type ProfitCreateManyAndReturnArgs<
  * Profit update
  */
 export type ProfitUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1643,12 +1803,16 @@ export type ProfitUpdateArgs<
  * Profit updateMany
  */
 export type ProfitUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to update Profits.
    */
-  data: Prisma.XOR<Prisma.ProfitUpdateManyMutationInput, Prisma.ProfitUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.ProfitUpdateManyMutationInput,
+    Prisma.ProfitUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Profits to update
    */
@@ -1663,7 +1827,8 @@ export type ProfitUpdateManyArgs<
  * Profit updateManyAndReturn
  */
 export type ProfitUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1676,7 +1841,10 @@ export type ProfitUpdateManyAndReturnArgs<
   /**
    * The data used to update Profits.
    */
-  data: Prisma.XOR<Prisma.ProfitUpdateManyMutationInput, Prisma.ProfitUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.ProfitUpdateManyMutationInput,
+    Prisma.ProfitUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Profits to update
    */
@@ -1695,7 +1863,8 @@ export type ProfitUpdateManyAndReturnArgs<
  * Profit upsert
  */
 export type ProfitUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1716,18 +1885,25 @@ export type ProfitUpsertArgs<
   /**
    * In case the Profit found by the `where` argument doesn't exist, create a new Profit with this data.
    */
-  create: Prisma.XOR<Prisma.ProfitCreateInput, Prisma.ProfitUncheckedCreateInput>;
+  create: Prisma.XOR<
+    Prisma.ProfitCreateInput,
+    Prisma.ProfitUncheckedCreateInput
+  >;
   /**
    * In case the Profit was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<Prisma.ProfitUpdateInput, Prisma.ProfitUncheckedUpdateInput>;
+  update: Prisma.XOR<
+    Prisma.ProfitUpdateInput,
+    Prisma.ProfitUncheckedUpdateInput
+  >;
 };
 
 /**
  * Profit delete
  */
 export type ProfitDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit
@@ -1751,7 +1927,8 @@ export type ProfitDeleteArgs<
  * Profit deleteMany
  */
 export type ProfitDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Profits to delete
@@ -1767,7 +1944,8 @@ export type ProfitDeleteManyArgs<
  * Profit.Investment
  */
 export type Profit$InvestmentArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Investment
@@ -1788,7 +1966,8 @@ export type Profit$InvestmentArgs<
  * Profit without action
  */
 export type ProfitDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Profit

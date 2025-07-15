@@ -26,7 +26,9 @@ const header = computed(() => {
   >
     <div>
       <slot name="left">
-        <p class="cursor-context-menu text-lg font-semibold text-primary-500 dark:text-primary-400">
+        <p
+          class="cursor-context-menu text-lg font-semibold text-primary-500 dark:text-primary-400"
+        >
           {{ toTitleCase(header) }}
         </p>
       </slot>

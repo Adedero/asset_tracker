@@ -16,7 +16,11 @@
  * // Get date 3 months from a specific date
  * const custom = createDateFromToday(3, 'months', new Date('2024-01-01'));
  */
-export function createDateFromToday(amount: number, timeFrame: string, baseDate = new Date()) {
+export function createDateFromToday(
+  amount: number,
+  timeFrame: string,
+  baseDate = new Date()
+) {
   // Input validation
   if (typeof amount !== "number" || isNaN(amount)) {
     throw new Error("Amount must be a valid number");
@@ -51,7 +55,9 @@ export function createDateFromToday(amount: number, timeFrame: string, baseDate 
     case "hour":
     case "day":
     case "week":
-      resultDate.setTime(resultDate.getTime() + amount * timeUnits[normalizedTimeFrame]);
+      resultDate.setTime(
+        resultDate.getTime() + amount * timeUnits[normalizedTimeFrame]
+      );
       break;
 
     case "month":
@@ -203,7 +209,8 @@ export const DateCalculator = {
    * @param {string} timeFrame
    * @returns {Date}
    */
-  fromNow: (amount: number, timeFrame: string) => createDateFromToday(amount, timeFrame),
+  fromNow: (amount: number, timeFrame: string) =>
+    createDateFromToday(amount, timeFrame),
 
   /**
    * Subtracts time from today's date
@@ -211,7 +218,8 @@ export const DateCalculator = {
    * @param {string} timeFrame
    * @returns {Date}
    */
-  ago: (amount: number, timeFrame: string) => createDateFromToday(-amount, timeFrame),
+  ago: (amount: number, timeFrame: string) =>
+    createDateFromToday(-amount, timeFrame),
 
   /**
    * Adds time to a specific date

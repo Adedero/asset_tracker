@@ -15,8 +15,14 @@ const token_1 = require("#src/utils/token");
 const bcrypt_1 = require("bcrypt");
 const zod_1 = require("zod");
 const Schema = zod_1.z.object({
-    email: zod_1.z.string({ message: "Email is required" }).email({ message: "Invalid email" }).optional(),
-    emailToVerify: zod_1.z.string().email({ message: "Invalid email to verify" }).optional(),
+    email: zod_1.z
+        .string({ message: "Email is required" })
+        .email({ message: "Invalid email" })
+        .optional(),
+    emailToVerify: zod_1.z
+        .string()
+        .email({ message: "Invalid email to verify" })
+        .optional(),
     otp: zod_1.z
         .string({ message: "Invalid OTP" })
         .length(constants_1.OTP_LENGTH, { message: "Invalid OTP" })
@@ -118,7 +124,9 @@ exports.default = (0, api_1.api)({
                 salutation: `Hello ${user.name}!`,
                 message: "Your email has been verified successfully.",
                 info: `Please, log in to your account to continue using our services.`,
-                cta: (0, button_1.default)(new URL("login", env_1.default.get("APP_URL")).href, "Login", { centered: true })
+                cta: (0, button_1.default)(new URL("login", env_1.default.get("APP_URL")).href, "Login", {
+                    centered: true
+                })
             },
             mailReason: "You received this email because you completed an email verification process."
         }, generic_1.default)

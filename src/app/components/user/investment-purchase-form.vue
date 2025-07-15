@@ -50,13 +50,18 @@ const {
   .json<InvestmentCreateApiResponse>();
 
 async function createInvestment() {
-  const autocompoundedReturnRate = Number(averageDailyReturnRate.value.split("%")[0]);
+  const autocompoundedReturnRate = Number(
+    averageDailyReturnRate.value.split("%")[0]
+  );
 
   const expectedTotalReturns = Number(
     (
       data.amount *
       (1 +
-        (data.autocompounded ? autocompoundedReturnRate : investmentTier.expectedReturnRate) / 100)
+        (data.autocompounded
+          ? autocompoundedReturnRate
+          : investmentTier.expectedReturnRate) /
+          100)
     ).toFixed(2)
   );
 
@@ -66,7 +71,9 @@ async function createInvestment() {
     investmentStatus: "OPEN",
     initialDeposit: data.amount,
     expectedReturnRate: investmentTier.expectedReturnRate,
-    autocompoundedReturnRate: data.autocompounded ? autocompoundedReturnRate : undefined,
+    autocompoundedReturnRate: data.autocompounded
+      ? autocompoundedReturnRate
+      : undefined,
     expectedTotalReturns,
     currentTotalReturns: 0,
     currentCompoundedAmount: data.autocompounded ? data.amount : undefined,
@@ -168,26 +175,40 @@ const onFormSubmit = async () => {
 
         <small
           >Minimum deposit
-          <span class="font-semibold">{{ dollar.format(investmentTier.minimumDeposit) }}</span>
+          <span class="font-semibold">{{
+            dollar.format(investmentTier.minimumDeposit)
+          }}</span>
         </small>
-        <Message v-if="walletBalance < investmentTier.minimumDeposit" severity="error" size="small">
+        <Message
+          v-if="walletBalance < investmentTier.minimumDeposit"
+          severity="error"
+          size="small"
+        >
           You do not have enough funds to complete this investment.
         </Message>
       </div>
 
       <div class="mt-2 grid gap-1">
-        <label class="text-mute text-sm font-semibold">Expected Return Rate</label>
+        <label class="text-mute text-sm font-semibold"
+          >Expected Return Rate</label
+        >
         <InputGroup v-if="investmentTier" class="w-full *:dark:bg-slate-800">
           <InputGroupAddon>
             <span class="pi pi-percentage" />
           </InputGroupAddon>
-          <InputText :value="averageDailyReturnRate" readOnly class="w-full *:dark:bg-slate-800" />
+          <InputText
+            :value="averageDailyReturnRate"
+            readOnly
+            class="w-full *:dark:bg-slate-800"
+          />
         </InputGroup>
       </div>
 
       <div class="flex items-center justify-between gap-1">
         <div class="flex items-center">
-          <label class="text-mute text-sm font-semibold">Autocompound Investment</label>
+          <label class="text-mute text-sm font-semibold"
+            >Autocompound Investment</label
+          >
           <Button
             @click="
               (event) => {
@@ -204,11 +225,15 @@ const onFormSubmit = async () => {
               <p class="text-mute font-medium">Autocompounded Investments</p>
               <div class="mt-2 text-xs">
                 <p>
-                  Autocompounded investments promise higher returns but profits are not withdrawable
-                  until the end of the investment term or when the investment is terminated.
+                  Autocompounded investments promise higher returns but profits
+                  are not withdrawable until the end of the investment term or
+                  when the investment is terminated.
                 </p>
                 <RouterLink
-                  :to="{ name: 'user-faq-item', params: { faq_item_slug: 'auto-compounding' } }"
+                  :to="{
+                    name: 'user-faq-item',
+                    params: { faq_item_slug: 'auto-compounding' }
+                  }"
                   target="_blank"
                 >
                   <Button

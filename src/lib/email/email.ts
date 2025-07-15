@@ -1,14 +1,20 @@
 import { SendMailOptions, Transporter } from "nodemailer";
 import mailTransporters from "#src/config/nodemailer.config";
 
-export default function sendEmail(options: SendMailOptions, transporter?: Transporter) {
+export default function sendEmail(
+  options: SendMailOptions,
+  transporter?: Transporter
+) {
   return new Promise<any>((resolve, reject) => {
-    (transporter || mailTransporters.support.transporter()).sendMail(options, (error, info) => {
-      if (error) {
-        return reject(error);
+    (transporter || mailTransporters.support.transporter()).sendMail(
+      options,
+      (error, info) => {
+        if (error) {
+          return reject(error);
+        }
+        resolve(info);
       }
-      resolve(info);
-    });
+    );
   });
 }
 
@@ -17,7 +23,9 @@ export interface RequiredEmailTemplateOptions {
   email: string;
 }
 
-export type EmailTemplate<T extends RequiredEmailTemplateOptions> = (options: T) => {
+export type EmailTemplate<T extends RequiredEmailTemplateOptions> = (
+  options: T
+) => {
   transporter?: keyof typeof mailTransporters;
   data: T;
   html: string;

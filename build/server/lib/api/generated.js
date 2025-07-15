@@ -45,26 +45,6 @@ exports.routes = [
     },
     {
         "group": "/admins/me",
-        "path": "/admins/me/database/backups",
-        "method": "post"
-    },
-    {
-        "group": "/admins/me",
-        "path": "/admins/me/database/backups/:filename",
-        "method": "delete"
-    },
-    {
-        "group": "/admins/me",
-        "path": "/admins/me/database/backups/:filename",
-        "method": "get"
-    },
-    {
-        "group": "/admins/me",
-        "path": "/admins/me/database/backups",
-        "method": "get"
-    },
-    {
-        "group": "/admins/me",
         "path": "/admins/me/account-groups/:account_group_id",
         "method": "delete"
     },
@@ -107,6 +87,26 @@ exports.routes = [
         "group": "/admins/me",
         "path": "/admins/me/currencies/:currency_id",
         "method": "put"
+    },
+    {
+        "group": "/admins/me",
+        "path": "/admins/me/database/backups",
+        "method": "post"
+    },
+    {
+        "group": "/admins/me",
+        "path": "/admins/me/database/backups/:filename",
+        "method": "delete"
+    },
+    {
+        "group": "/admins/me",
+        "path": "/admins/me/database/backups/:filename",
+        "method": "get"
+    },
+    {
+        "group": "/admins/me",
+        "path": "/admins/me/database/backups",
+        "method": "get"
     },
     {
         "group": "/admins/me",

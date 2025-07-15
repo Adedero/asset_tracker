@@ -24,51 +24,53 @@ export default api(
     path: "/investments{/:investment_id}",
     method: "get"
   },
-  defineHandler<InvestmentsGetApiResponse | InvestmentGetApiResponse>(async (req) => {
-    const investment_id = req.params.investment_id?.toString();
+  defineHandler<InvestmentsGetApiResponse | InvestmentGetApiResponse>(
+    async (req) => {
+      const investment_id = req.params.investment_id?.toString();
 
-    const parsedQuery: ParsedQuery<Investment> | undefined = req.parsedQuery;
+      const parsedQuery: ParsedQuery<Investment> | undefined = req.parsedQuery;
 
-    if (investment_id) {
-      const investment = await prisma.investment.findUnique({
-        where: { id: investment_id },
-        include: { user: true, ...(parsedQuery?.populate || {}) }
-      });
+      if (investment_id) {
+        const investment = await prisma.investment.findUnique({
+          where: { id: investment_id },
+          include: { user: true, ...(parsedQuery?.populate || {}) }
+        });
 
-      if (!investment) {
-        throw HttpException.notFound("Investment not found");
+        if (!investment) {
+          throw HttpException.notFound("Investment not found");
+        }
+
+        const payload: InvestmentGetApiResponse = {
+          success: true,
+          message: "Successful",
+          investment
+        };
+
+        return payload;
       }
 
-      const payload: InvestmentGetApiResponse = {
-        success: true,
-        message: "Successful",
-        investment
-      };
-
-      return payload;
-    }
-
-    const investments = await prisma.investment.findMany({
-      //@ts-ignore
-      where: { ...(parsedQuery?.where || {}) },
-      include: { user: true },
-      /*  //@ts-ignore
+      const investments = await prisma.investment.findMany({
+        //@ts-ignore
+        where: { ...(parsedQuery?.where || {}) },
+        include: { user: true },
+        /*  //@ts-ignore
       select: {
         ...(parsedQuery?.select || {}),
         ...(parsedQuery?.populate || {}),
         ...(parsedQuery?.exclude || {})
       }, */
-      orderBy: parsedQuery?.sort,
-      take: parsedQuery?.take,
-      skip: parsedQuery?.skip
-    });
+        orderBy: parsedQuery?.sort,
+        take: parsedQuery?.take,
+        skip: parsedQuery?.skip
+      });
 
-    const payload: InvestmentsGetApiResponse = {
-      success: true,
-      message: "Successful",
-      investments
-    };
+      const payload: InvestmentsGetApiResponse = {
+        success: true,
+        message: "Successful",
+        investments
+      };
 
-    return payload;
-  })
+      return payload;
+    }
+  )
 );

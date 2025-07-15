@@ -1,14 +1,33 @@
 <template>
   <div class="doughnut_chart" style="position: relative">
-    <svg :width="size" :height="size" viewBox="0 0 200 200" style="stroke-linecap: round">
+    <svg
+      :width="size"
+      :height="size"
+      viewBox="0 0 200 200"
+      style="stroke-linecap: round"
+    >
       <!-- Background circle -->
-      <path :d="dBg" fill="transparent" :stroke="backgroundStroke" :stroke-width="strokeWidth" />
+      <path
+        :d="dBg"
+        fill="transparent"
+        :stroke="backgroundStroke"
+        :stroke-width="strokeWidth"
+      />
       <!-- Move to start position, start drawing arc -->
-      <path :d="d" fill="transparent" :stroke="foregroundStroke" :stroke-width="strokeWidth" />
+      <path
+        :d="d"
+        fill="transparent"
+        :stroke="foregroundStroke"
+        :stroke-width="strokeWidth"
+      />
     </svg>
     <div v-if="visibleValue" class="value-container">
       <template v-if="passTextAsHtml">
-        <div v-if="customText.length" :style="customTextStyle" v-html="customText" />
+        <div
+          v-if="customText.length"
+          :style="customTextStyle"
+          v-html="customText"
+        />
       </template>
       <template v-else>
         <h1 v-if="percent" :class="classValue" :style="valueStyle">
@@ -78,7 +97,9 @@ const {
 const countingUpValue = ref(0);
 let delayTimer: NodeJS.Timeout | undefined = undefined;
 
-const largeArc = computed(() => ((valueCountUp ? countingUpValue.value : percent) < 50 ? 0 : 1));
+const largeArc = computed(() =>
+  (valueCountUp ? countingUpValue.value : percent) < 50 ? 0 : 1
+);
 const radians = computed(() => {
   const number = valueCountUp ? countingUpValue.value : percent;
   const degrees = (number / 100) * 360 - 180;
@@ -86,9 +107,12 @@ const radians = computed(() => {
 });
 const endX = computed(() => -Math.sin(radians.value) * radius + 100 - 0.0001);
 const endY = computed(() => Math.cos(radians.value) * radius + 100);
-const z = computed(() => ((valueCountUp ? countingUpValue.value : percent) === 100 ? "z" : ""));
+const z = computed(() =>
+  (valueCountUp ? countingUpValue.value : percent) === 100 ? "z" : ""
+);
 const dBg = computed(
-  () => `M 100 ${100 - radius} A ${radius} ${radius} 0 1 1 99.9999 ${100 - radius} z`
+  () =>
+    `M 100 ${100 - radius} A ${radius} ${radius} 0 1 1 99.9999 ${100 - radius} z`
 );
 const d = computed(
   () =>
@@ -97,7 +121,10 @@ const d = computed(
 
 const valueStyle = computed(() => ({
   color: validateColor(foregroundColor) ? foregroundColor : "#1993ff",
-  fontSize: customPercentSize && customPercentSize < 60 ? `${customPercentSize}px` : "inherit",
+  fontSize:
+    customPercentSize && customPercentSize < 60
+      ? `${customPercentSize}px`
+      : "inherit",
   margin: "0 auto"
 }));
 

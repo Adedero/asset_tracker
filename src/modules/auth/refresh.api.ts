@@ -14,17 +14,25 @@ export default api(
   defineHandler(async (req) => {
     const refreshToken = req.params.refreshToken;
 
-    const payload = jwt.verify(refreshToken, env.get("JWT_REFRESH_SECRET")) as { id: string };
+    const payload = jwt.verify(refreshToken, env.get("JWT_REFRESH_SECRET")) as {
+      id: string;
+    };
 
     const { id } = payload;
 
-    const user = await prisma.user.findUnique({ where: { id }, select: { id: true } });
+    const user = await prisma.user.findUnique({
+      where: { id },
+      select: { id: true }
+    });
 
     if (!user) {
       throw HttpException.notFound("User not found");
     }
 
-    const newAccessToken = jwt.sign({ id: user.id }, env.get("JWT_ACCESS_SECRET"));
+    const newAccessToken = jwt.sign(
+      { id: user.id },
+      env.get("JWT_ACCESS_SECRET")
+    );
 
     return {
       accessToken: newAccessToken,

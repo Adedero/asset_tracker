@@ -26,7 +26,10 @@ const { isLoading, error, data, mutate } = useSWRV<CurrencyRateApiResponse>(
 );
 
 const actualAmountInUSD = computed(() => {
-  return (store.withdrawalRequest?.amount || 0) - (data.value?.currency.withdrawalCharge || 0);
+  return (
+    (store.withdrawalRequest?.amount || 0) -
+    (data.value?.currency.withdrawalCharge || 0)
+  );
 });
 
 const amountInSelectedCurrency = computed(() => {
@@ -41,7 +44,9 @@ const {
   error: errorFetching,
   data: response,
   execute
-} = useFetch(() => "/api/users/me/transactions/withdrawal", { immediate: false })
+} = useFetch(() => "/api/users/me/transactions/withdrawal", {
+  immediate: false
+})
   .post(transaction)
   .json();
 
@@ -60,13 +65,15 @@ const completeWithdrawalRequest = async () => {
     transactionStatus: "PENDING",
     amountInUSD: store.withdrawalRequest.amount,
     charge: data.value.currency.withdrawalCharge,
-    actualAmountInUSD: store.withdrawalRequest.amount - data.value.currency.withdrawalCharge,
+    actualAmountInUSD:
+      store.withdrawalRequest.amount - data.value.currency.withdrawalCharge,
     rate: data.value.currency.rate,
     currency: data.value.currency.abbr,
     amountInCurrency: store.withdrawalRequest.amount / data.value.currency.rate,
     isWireTransfer: false,
     withdrawalWalletAddress: store.withdrawalRequest.walletAddress,
-    withdrawalWalletAddressNetwork: store.withdrawalRequest.walletAddressNetwork,
+    withdrawalWalletAddressNetwork:
+      store.withdrawalRequest.walletAddressNetwork,
     description: description.value
   };
   await execute();
@@ -102,16 +109,23 @@ onUnmounted(() => {
         :closable="false"
       >
         <div class="flex flex-col items-center justify-center text-center">
-          <span class="pi pi-check-circle text-emerald-500" style="font-size: 40px" />
+          <span
+            class="pi pi-check-circle text-emerald-500"
+            style="font-size: 40px"
+          />
           <p class="mt-4">Your withdrawal request has been received.</p>
           <p>
-            The amount will be deducted from your account balance and your wallet address will be
-            credited within 24 hours.
+            The amount will be deducted from your account balance and your
+            wallet address will be credited within 24 hours.
           </p>
         </div>
 
         <div class="mt-4">
-          <Button @click="$router.push({ name: 'user-transactions' })" label="Continue" fluid />
+          <Button
+            @click="$router.push({ name: 'user-transactions' })"
+            label="Continue"
+            fluid
+          />
         </div>
       </Dialog>
 
@@ -135,11 +149,15 @@ onUnmounted(() => {
 
           <div class="flex flex-col items-center justify-center gap-1">
             <img :src="data.currency.image || ''" width="40" />
-            <p class="text-center font-semibold">{{ data.currency.name }} Withdrawal</p>
+            <p class="text-center font-semibold">
+              {{ data.currency.name }} Withdrawal
+            </p>
 
             <div class="grid gap-3 w-full">
               <div class="grid gap-1">
-                <label class="text-mute font-semibold text-sm">Amount (USD)</label>
+                <label class="text-mute font-semibold text-sm"
+                  >Amount (USD)</label
+                >
                 <InputGroup class="w-full *:dark:bg-slate-800">
                   <InputGroupAddon>$</InputGroupAddon>
                   <InputText
@@ -151,7 +169,9 @@ onUnmounted(() => {
               </div>
 
               <div class="grid gap-1">
-                <label class="text-mute font-semibold text-sm">Charge (USD)</label>
+                <label class="text-mute font-semibold text-sm"
+                  >Charge (USD)</label
+                >
                 <InputGroup class="w-full *:dark:bg-slate-800">
                   <InputGroupAddon>$</InputGroupAddon>
                   <InputText
@@ -163,7 +183,9 @@ onUnmounted(() => {
               </div>
 
               <div class="grid gap-1">
-                <label class="text-mute font-semibold text-sm">Actual Amount (USD)</label>
+                <label class="text-mute font-semibold text-sm"
+                  >Actual Amount (USD)</label
+                >
                 <InputGroup class="w-full *:dark:bg-slate-800">
                   <InputGroupAddon>$</InputGroupAddon>
                   <InputText
@@ -179,7 +201,10 @@ onUnmounted(() => {
                 <InputGroup class="w-full *:dark:bg-slate-800">
                   <InputGroupAddon>
                     <div class="w-5 rounded-full overlow-hidden">
-                      <img :src="data.currency.image || ''" class="w-full h-full object-cover" />
+                      <img
+                        :src="data.currency.image || ''"
+                        class="w-full h-full object-cover"
+                      />
                     </div>
                   </InputGroupAddon>
                   <InputText
@@ -221,7 +246,9 @@ onUnmounted(() => {
               </div>
 
               <div class="grid gap-1">
-                <label class="text-mute font-semibold text-sm">Your Wallet Address</label>
+                <label class="text-mute font-semibold text-sm"
+                  >Your Wallet Address</label
+                >
                 <InputGroup class="w-full *:dark:bg-slate-800">
                   <InputGroupAddon>
                     <span class="pi pi-wallet" />

@@ -9,7 +9,9 @@ const http_1 = require("#src/lib/api/http");
 const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
 const zod_1 = require("zod");
 const Schema = zod_1.z.object({
-    email: zod_1.z.string({ message: "Email is required" }).email({ message: "Invalid email" })
+    email: zod_1.z
+        .string({ message: "Email is required" })
+        .email({ message: "Invalid email" })
 });
 exports.default = (0, api_1.api)({
     group: "/auth",

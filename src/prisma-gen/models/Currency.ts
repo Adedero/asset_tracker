@@ -16,7 +16,8 @@ import type * as Prisma from "../internal/prismaNamespace";
  * Model Currency
  *
  */
-export type CurrencyModel = runtime.Types.Result.DefaultSelection<Prisma.$CurrencyPayload>;
+export type CurrencyModel =
+  runtime.Types.Result.DefaultSelection<Prisma.$CurrencyPayload>;
 
 export type AggregateCurrency = {
   _count: CurrencyCountAggregateOutputType | null;
@@ -145,7 +146,8 @@ export type CurrencyCountAggregateInputType = {
 };
 
 export type CurrencyAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Currency to aggregate.
@@ -156,7 +158,9 @@ export type CurrencyAggregateArgs<
    *
    * Determine the order of Currencies to fetch.
    */
-  orderBy?: Prisma.CurrencyOrderByWithRelationInput | Prisma.CurrencyOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.CurrencyOrderByWithRelationInput
+    | Prisma.CurrencyOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -216,7 +220,8 @@ export type GetCurrencyAggregateType<T extends CurrencyAggregateArgs> = {
 };
 
 export type CurrencyGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.CurrencyWhereInput;
   orderBy?:
@@ -254,17 +259,18 @@ export type CurrencyGroupByOutputType = {
   _max: CurrencyMaxAggregateOutputType | null;
 };
 
-type GetCurrencyGroupByPayload<T extends CurrencyGroupByArgs> = Prisma.PrismaPromise<
-  Array<
-    Prisma.PickEnumerable<CurrencyGroupByOutputType, T["by"]> & {
-      [P in keyof T & keyof CurrencyGroupByOutputType]: P extends "_count"
-        ? T[P] extends boolean
-          ? number
-          : Prisma.GetScalarType<T[P], CurrencyGroupByOutputType[P]>
-        : Prisma.GetScalarType<T[P], CurrencyGroupByOutputType[P]>;
-    }
-  >
->;
+type GetCurrencyGroupByPayload<T extends CurrencyGroupByArgs> =
+  Prisma.PrismaPromise<
+    Array<
+      Prisma.PickEnumerable<CurrencyGroupByOutputType, T["by"]> & {
+        [P in keyof T & keyof CurrencyGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : Prisma.GetScalarType<T[P], CurrencyGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], CurrencyGroupByOutputType[P]>;
+      }
+    >
+  >;
 
 export type CurrencyWhereInput = {
   AND?: Prisma.CurrencyWhereInput | Prisma.CurrencyWhereInput[];
@@ -276,9 +282,16 @@ export type CurrencyWhereInput = {
   abbr?: Prisma.StringFilter<"Currency"> | string;
   image?: Prisma.StringNullableFilter<"Currency"> | string | null;
   rate?: Prisma.FloatFilter<"Currency"> | number;
-  rateUpdatedAt?: Prisma.DateTimeNullableFilter<"Currency"> | Date | string | null;
+  rateUpdatedAt?:
+    | Prisma.DateTimeNullableFilter<"Currency">
+    | Date
+    | string
+    | null;
   walletAddress?: Prisma.StringFilter<"Currency"> | string;
-  walletAddressNetwork?: Prisma.StringNullableFilter<"Currency"> | string | null;
+  walletAddressNetwork?:
+    | Prisma.StringNullableFilter<"Currency">
+    | string
+    | null;
   isAvailableForWithdrawal?: Prisma.BoolFilter<"Currency"> | boolean;
   withdrawalCharge?: Prisma.FloatFilter<"Currency"> | number;
   createdAt?: Prisma.DateTimeFilter<"Currency"> | Date | string;
@@ -312,9 +325,16 @@ export type CurrencyWhereUniqueInput = Prisma.AtLeast<
     symbol?: Prisma.StringFilter<"Currency"> | string;
     image?: Prisma.StringNullableFilter<"Currency"> | string | null;
     rate?: Prisma.FloatFilter<"Currency"> | number;
-    rateUpdatedAt?: Prisma.DateTimeNullableFilter<"Currency"> | Date | string | null;
+    rateUpdatedAt?:
+      | Prisma.DateTimeNullableFilter<"Currency">
+      | Date
+      | string
+      | null;
     walletAddress?: Prisma.StringFilter<"Currency"> | string;
-    walletAddressNetwork?: Prisma.StringNullableFilter<"Currency"> | string | null;
+    walletAddressNetwork?:
+      | Prisma.StringNullableFilter<"Currency">
+      | string
+      | null;
     isAvailableForWithdrawal?: Prisma.BoolFilter<"Currency"> | boolean;
     withdrawalCharge?: Prisma.FloatFilter<"Currency"> | number;
     createdAt?: Prisma.DateTimeFilter<"Currency"> | Date | string;
@@ -358,10 +378,19 @@ export type CurrencyScalarWhereWithAggregatesInput = {
   abbr?: Prisma.StringWithAggregatesFilter<"Currency"> | string;
   image?: Prisma.StringNullableWithAggregatesFilter<"Currency"> | string | null;
   rate?: Prisma.FloatWithAggregatesFilter<"Currency"> | number;
-  rateUpdatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Currency"> | Date | string | null;
+  rateUpdatedAt?:
+    | Prisma.DateTimeNullableWithAggregatesFilter<"Currency">
+    | Date
+    | string
+    | null;
   walletAddress?: Prisma.StringWithAggregatesFilter<"Currency"> | string;
-  walletAddressNetwork?: Prisma.StringNullableWithAggregatesFilter<"Currency"> | string | null;
-  isAvailableForWithdrawal?: Prisma.BoolWithAggregatesFilter<"Currency"> | boolean;
+  walletAddressNetwork?:
+    | Prisma.StringNullableWithAggregatesFilter<"Currency">
+    | string
+    | null;
+  isAvailableForWithdrawal?:
+    | Prisma.BoolWithAggregatesFilter<"Currency">
+    | boolean;
   withdrawalCharge?: Prisma.FloatWithAggregatesFilter<"Currency"> | number;
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Currency"> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Currency"> | Date | string;
@@ -406,9 +435,16 @@ export type CurrencyUpdateInput = {
   abbr?: Prisma.StringFieldUpdateOperationsInput | string;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   rate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  rateUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  rateUpdatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   walletAddress?: Prisma.StringFieldUpdateOperationsInput | string;
-  walletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  walletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   isAvailableForWithdrawal?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   withdrawalCharge?: Prisma.FloatFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -422,9 +458,16 @@ export type CurrencyUncheckedUpdateInput = {
   abbr?: Prisma.StringFieldUpdateOperationsInput | string;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   rate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  rateUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  rateUpdatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   walletAddress?: Prisma.StringFieldUpdateOperationsInput | string;
-  walletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  walletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   isAvailableForWithdrawal?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   withdrawalCharge?: Prisma.FloatFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -454,9 +497,16 @@ export type CurrencyUpdateManyMutationInput = {
   abbr?: Prisma.StringFieldUpdateOperationsInput | string;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   rate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  rateUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  rateUpdatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   walletAddress?: Prisma.StringFieldUpdateOperationsInput | string;
-  walletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  walletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   isAvailableForWithdrawal?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   withdrawalCharge?: Prisma.FloatFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -470,9 +520,16 @@ export type CurrencyUncheckedUpdateManyInput = {
   abbr?: Prisma.StringFieldUpdateOperationsInput | string;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   rate?: Prisma.FloatFieldUpdateOperationsInput | number;
-  rateUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  rateUpdatedAt?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
   walletAddress?: Prisma.StringFieldUpdateOperationsInput | string;
-  walletAddressNetwork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  walletAddressNetwork?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
   isAvailableForWithdrawal?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   withdrawalCharge?: Prisma.FloatFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -538,7 +595,8 @@ export type CurrencySumOrderByAggregateInput = {
 };
 
 export type CurrencySelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -559,7 +617,8 @@ export type CurrencySelect<
 >;
 
 export type CurrencySelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -580,7 +639,8 @@ export type CurrencySelectCreateManyAndReturn<
 >;
 
 export type CurrencySelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -617,7 +677,8 @@ export type CurrencySelectScalar = {
 };
 
 export type CurrencyOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetOmit<
   | "id"
   | "name"
@@ -636,7 +697,8 @@ export type CurrencyOmit<
 >;
 
 export type $CurrencyPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   name: "Currency";
   objects: {};
@@ -661,20 +723,26 @@ export type $CurrencyPayload<
   composites: {};
 };
 
-export type CurrencyGetPayload<S extends boolean | null | undefined | CurrencyDefaultArgs> =
-  runtime.Types.Result.GetResult<Prisma.$CurrencyPayload, S>;
+export type CurrencyGetPayload<
+  S extends boolean | null | undefined | CurrencyDefaultArgs
+> = runtime.Types.Result.GetResult<Prisma.$CurrencyPayload, S>;
 
 export type CurrencyCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = Omit<CurrencyFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
   select?: CurrencyCountAggregateInputType | true;
 };
 
 export interface CurrencyDelegate<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>["model"]["Currency"]; meta: { name: "Currency" } };
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>["model"]["Currency"];
+    meta: { name: "Currency" };
+  };
   /**
    * Find zero or one Currency that matches the filter.
    * @param {CurrencyFindUniqueArgs} args - Arguments to find a Currency
@@ -1139,7 +1207,12 @@ export interface CurrencyDelegate<
               ? never
               : P extends string
                 ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                : [Error, "Field ", P, ` in "having" needs to be provided in "by"`];
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`
+                  ];
           }[HavingFields]
         : "take" extends Prisma.Keys<T>
           ? "orderBy" extends Prisma.Keys<T>
@@ -1169,8 +1242,11 @@ export interface CurrencyDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields]
   >(
-    args: Prisma.SubsetIntersection<T, CurrencyGroupByArgs, OrderByArg> & InputErrors
-  ): {} extends InputErrors ? GetCurrencyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, CurrencyGroupByArgs, OrderByArg> &
+      InputErrors
+  ): {} extends InputErrors
+    ? GetCurrencyGroupByPayload<T>
+    : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the Currency model
    */
@@ -1186,7 +1262,8 @@ export interface CurrencyDelegate<
 export interface Prisma__CurrencyClient<
   T,
   Null = never,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
@@ -1197,8 +1274,14 @@ export interface Prisma__CurrencyClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -1206,7 +1289,10 @@ export interface Prisma__CurrencyClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -1214,7 +1300,9 @@ export interface Prisma__CurrencyClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  finally(
+    onfinally?: (() => void) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -1241,7 +1329,8 @@ export interface CurrencyFieldRefs {
  * Currency findUnique
  */
 export type CurrencyFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1261,7 +1350,8 @@ export type CurrencyFindUniqueArgs<
  * Currency findUniqueOrThrow
  */
 export type CurrencyFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1281,7 +1371,8 @@ export type CurrencyFindUniqueOrThrowArgs<
  * Currency findFirst
  */
 export type CurrencyFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1300,7 +1391,9 @@ export type CurrencyFindFirstArgs<
    *
    * Determine the order of Currencies to fetch.
    */
-  orderBy?: Prisma.CurrencyOrderByWithRelationInput | Prisma.CurrencyOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.CurrencyOrderByWithRelationInput
+    | Prisma.CurrencyOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1331,7 +1424,8 @@ export type CurrencyFindFirstArgs<
  * Currency findFirstOrThrow
  */
 export type CurrencyFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1350,7 +1444,9 @@ export type CurrencyFindFirstOrThrowArgs<
    *
    * Determine the order of Currencies to fetch.
    */
-  orderBy?: Prisma.CurrencyOrderByWithRelationInput | Prisma.CurrencyOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.CurrencyOrderByWithRelationInput
+    | Prisma.CurrencyOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1381,7 +1477,8 @@ export type CurrencyFindFirstOrThrowArgs<
  * Currency findMany
  */
 export type CurrencyFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1400,7 +1497,9 @@ export type CurrencyFindManyArgs<
    *
    * Determine the order of Currencies to fetch.
    */
-  orderBy?: Prisma.CurrencyOrderByWithRelationInput | Prisma.CurrencyOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.CurrencyOrderByWithRelationInput
+    | Prisma.CurrencyOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1426,7 +1525,8 @@ export type CurrencyFindManyArgs<
  * Currency create
  */
 export type CurrencyCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1439,14 +1539,18 @@ export type CurrencyCreateArgs<
   /**
    * The data needed to create a Currency.
    */
-  data: Prisma.XOR<Prisma.CurrencyCreateInput, Prisma.CurrencyUncheckedCreateInput>;
+  data: Prisma.XOR<
+    Prisma.CurrencyCreateInput,
+    Prisma.CurrencyUncheckedCreateInput
+  >;
 };
 
 /**
  * Currency createMany
  */
 export type CurrencyCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to create many Currencies.
@@ -1458,7 +1562,8 @@ export type CurrencyCreateManyArgs<
  * Currency createManyAndReturn
  */
 export type CurrencyCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1478,7 +1583,8 @@ export type CurrencyCreateManyAndReturnArgs<
  * Currency update
  */
 export type CurrencyUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1491,7 +1597,10 @@ export type CurrencyUpdateArgs<
   /**
    * The data needed to update a Currency.
    */
-  data: Prisma.XOR<Prisma.CurrencyUpdateInput, Prisma.CurrencyUncheckedUpdateInput>;
+  data: Prisma.XOR<
+    Prisma.CurrencyUpdateInput,
+    Prisma.CurrencyUncheckedUpdateInput
+  >;
   /**
    * Choose, which Currency to update.
    */
@@ -1502,12 +1611,16 @@ export type CurrencyUpdateArgs<
  * Currency updateMany
  */
 export type CurrencyUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to update Currencies.
    */
-  data: Prisma.XOR<Prisma.CurrencyUpdateManyMutationInput, Prisma.CurrencyUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.CurrencyUpdateManyMutationInput,
+    Prisma.CurrencyUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Currencies to update
    */
@@ -1522,7 +1635,8 @@ export type CurrencyUpdateManyArgs<
  * Currency updateManyAndReturn
  */
 export type CurrencyUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1535,7 +1649,10 @@ export type CurrencyUpdateManyAndReturnArgs<
   /**
    * The data used to update Currencies.
    */
-  data: Prisma.XOR<Prisma.CurrencyUpdateManyMutationInput, Prisma.CurrencyUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.CurrencyUpdateManyMutationInput,
+    Prisma.CurrencyUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Currencies to update
    */
@@ -1550,7 +1667,8 @@ export type CurrencyUpdateManyAndReturnArgs<
  * Currency upsert
  */
 export type CurrencyUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1567,18 +1685,25 @@ export type CurrencyUpsertArgs<
   /**
    * In case the Currency found by the `where` argument doesn't exist, create a new Currency with this data.
    */
-  create: Prisma.XOR<Prisma.CurrencyCreateInput, Prisma.CurrencyUncheckedCreateInput>;
+  create: Prisma.XOR<
+    Prisma.CurrencyCreateInput,
+    Prisma.CurrencyUncheckedCreateInput
+  >;
   /**
    * In case the Currency was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<Prisma.CurrencyUpdateInput, Prisma.CurrencyUncheckedUpdateInput>;
+  update: Prisma.XOR<
+    Prisma.CurrencyUpdateInput,
+    Prisma.CurrencyUncheckedUpdateInput
+  >;
 };
 
 /**
  * Currency delete
  */
 export type CurrencyDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency
@@ -1598,7 +1723,8 @@ export type CurrencyDeleteArgs<
  * Currency deleteMany
  */
 export type CurrencyDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Currencies to delete
@@ -1614,7 +1740,8 @@ export type CurrencyDeleteManyArgs<
  * Currency without action
  */
 export type CurrencyDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Currency

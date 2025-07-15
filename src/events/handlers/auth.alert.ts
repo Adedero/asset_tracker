@@ -40,6 +40,9 @@ export async function onPasswordChange({ user }: OnPasswordChangeAlertData) {
       )
     ]);
   } catch (error) {
-    logger.error(`Alerts failed for password change: ${user.id}`, error as Error);
+    logger.error(
+      `Alerts failed for password change: ${user.id}`,
+      error as Error
+    );
   }
 }

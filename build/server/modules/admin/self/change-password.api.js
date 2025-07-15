@@ -12,10 +12,14 @@ const constants_1 = require("#src/utils/constants");
 const zod_1 = require("zod");
 const Schema = zod_1.z
     .object({
-    oldPassword: zod_1.z.string({ message: "Old password is required" }).min(constants_1.MIN_PASSWORD_LENGTH, {
+    oldPassword: zod_1.z
+        .string({ message: "Old password is required" })
+        .min(constants_1.MIN_PASSWORD_LENGTH, {
         message: `Old password must contain at least ${constants_1.MIN_PASSWORD_LENGTH} characters`
     }),
-    newPassword: zod_1.z.string({ message: "New password is required" }).min(constants_1.MIN_PASSWORD_LENGTH, {
+    newPassword: zod_1.z
+        .string({ message: "New password is required" })
+        .min(constants_1.MIN_PASSWORD_LENGTH, {
         message: `New password must contain at least ${constants_1.MIN_PASSWORD_LENGTH} characters`
     }),
     newPasswordConfirm: zod_1.z

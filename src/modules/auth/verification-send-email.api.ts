@@ -15,8 +15,13 @@ import { UserWhereUniqueInput } from "#src/prisma-gen/models";
 
 const Schema = z.object({
   userId: z.string({ message: "invalid ID format" }).optional(),
-  email: z.string({ message: "Email is required" }).email({ message: "Invalid email" }),
-  emailToVerify: z.string().email({ message: "Invalid email to verify" }).optional()
+  email: z
+    .string({ message: "Email is required" })
+    .email({ message: "Invalid email" }),
+  emailToVerify: z
+    .string()
+    .email({ message: "Invalid email to verify" })
+    .optional()
 });
 
 export interface SendVerificationEmailApiResponse extends ApiResponse {
@@ -34,7 +39,9 @@ export default api(
     middleware: defineValidator("body", Schema)
   },
   defineHandler(async (req) => {
-    const { userId, email, emailToVerify } = req.validatedBody as z.infer<typeof Schema>;
+    const { userId, email, emailToVerify } = req.validatedBody as z.infer<
+      typeof Schema
+    >;
 
     let query: null | UserWhereUniqueInput = {
       email
@@ -50,7 +57,9 @@ export default api(
     });
 
     if (!user) {
-      throw HttpException.notFound("Account not found. Please register to continue.");
+      throw HttpException.notFound(
+        "Account not found. Please register to continue."
+      );
     }
 
     await prisma.token.deleteMany({ where: { userId: user.id } });
@@ -84,7 +93,8 @@ export default api(
           }),
           note: `The link and OTP expires in ${OTP_EXPIRY_TIME}.`
         },
-        mailReason: "You received this email because you requested a verification of your email."
+        mailReason:
+          "You received this email because you requested a verification of your email."
       },
       generic
     );

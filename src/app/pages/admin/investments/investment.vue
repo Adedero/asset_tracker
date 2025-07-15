@@ -23,7 +23,8 @@ const currentPercentageReturns = computed(() => {
 
   return parseFloat(
     (
-      (data.value.investment.currentTotalReturns / data.value.investment.initialDeposit) *
+      (data.value.investment.currentTotalReturns /
+        data.value.investment.initialDeposit) *
       100
     ).toFixed(2)
   );
@@ -63,7 +64,12 @@ function getSeverity(status: InvestmentStatus) {
 
       <div class="mt-2">
         <VPageLoader v-if="isLoading" />
-        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="mutate()"
+        />
 
         <div v-else-if="data">
           <div class="md:h-[calc(100dvh-8.5rem)] grid md:grid-cols-3 gap-2">
@@ -72,23 +78,39 @@ function getSeverity(status: InvestmentStatus) {
                 <VCard header="Deposit">
                   <div class="text-xl font-semibold">
                     <span>
-                      ${{ data.investment.initialDeposit.toLocaleString().split(".")[0] }}.</span
+                      ${{
+                        data.investment.initialDeposit
+                          .toLocaleString()
+                          .split(".")[0]
+                      }}.</span
                     >
                     <span class="text-sm">
-                      {{ data.investment.initialDeposit.toLocaleString().split(".")[1] ?? "00" }}
+                      {{
+                        data.investment.initialDeposit
+                          .toLocaleString()
+                          .split(".")[1] ?? "00"
+                      }}
                     </span>
                   </div>
-                  <p class="text-xs font-medium text-mute">Initial deposit amount</p>
+                  <p class="text-xs font-medium text-mute">
+                    Initial deposit amount
+                  </p>
                 </VCard>
 
                 <VCard header="Current Total Returns">
                   <div class="text-xl font-semibold">
                     <span>
-                      ${{ data.investment.currentTotalReturns.toLocaleString().split(".")[0] }}.
+                      ${{
+                        data.investment.currentTotalReturns
+                          .toLocaleString()
+                          .split(".")[0]
+                      }}.
                     </span>
                     <span class="text-sm">
                       {{
-                        data.investment.currentTotalReturns.toLocaleString().split(".")[1] ?? "00"
+                        data.investment.currentTotalReturns
+                          .toLocaleString()
+                          .split(".")[1] ?? "00"
                       }}
                     </span>
                   </div>
@@ -101,11 +123,17 @@ function getSeverity(status: InvestmentStatus) {
                   <div class="text-xl font-semibold">
                     <span>
                       ${{
-                        data.investment.lastProfitAmount?.toLocaleString().split(".")[0] ?? "0"
+                        data.investment.lastProfitAmount
+                          ?.toLocaleString()
+                          .split(".")[0] ?? "0"
                       }}.</span
                     >
                     <span class="text-sm">
-                      {{ data.investment.lastProfitAmount?.toLocaleString().split(".")[1] ?? "00" }}
+                      {{
+                        data.investment.lastProfitAmount
+                          ?.toLocaleString()
+                          .split(".")[1] ?? "00"
+                      }}
                     </span>
                   </div>
                   <p class="text-xs font-medium text-mute">
@@ -139,8 +167,12 @@ function getSeverity(status: InvestmentStatus) {
                 <VCard header="Auto-compounding">
                   <Tag
                     class="font-semibold"
-                    :severity="data.investment.autocompounded ? 'success' : 'warn'"
-                    :value="data.investment.autocompounded ? 'Enabled' : 'Disabled'"
+                    :severity="
+                      data.investment.autocompounded ? 'success' : 'warn'
+                    "
+                    :value="
+                      data.investment.autocompounded ? 'Enabled' : 'Disabled'
+                    "
                   />
                 </VCard>
               </div>
@@ -149,57 +181,85 @@ function getSeverity(status: InvestmentStatus) {
                 <Message size="small" class="text-sm" icon="pi pi-info-circle">
                   <p v-if="data.investment.autocompounded">
                     The daily returns from this investment
-                    {{ data.investment.investmentStatus === "OPEN" ? "are" : "were" }}
+                    {{
+                      data.investment.investmentStatus === "OPEN"
+                        ? "are"
+                        : "were"
+                    }}
                     withheld and
-                    {{ data.investment.investmentStatus === "OPEN" ? "will be" : "were" }}
-                    added to the client's wallet balance when the investment is closed or
-                    terminated.
+                    {{
+                      data.investment.investmentStatus === "OPEN"
+                        ? "will be"
+                        : "were"
+                    }}
+                    added to the client's wallet balance when the investment is
+                    closed or terminated.
                   </p>
 
                   <p v-else>
                     The returns from this investment
-                    {{ data.investment.investmentStatus === "OPEN" ? "are" : "were" }}
-                    added to the client's wallet balance on a daily basis until the investment was
-                    closed or terminated.
+                    {{
+                      data.investment.investmentStatus === "OPEN"
+                        ? "are"
+                        : "were"
+                    }}
+                    added to the client's wallet balance on a daily basis until
+                    the investment was closed or terminated.
                   </p>
                 </Message>
               </VCard>
 
               <VCard header="Details" class="mt-2">
                 <div class="grid gap-2">
-                  <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                  <div
+                    class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                  >
                     <div class="flex items-center">
                       <span
                         class="pi pi-dollar text-mute p-1 rounded-full"
                         style="font-size: 12px"
                       />
-                      <p class="text-mute text-sm font-semibold">Expected Total Returns</p>
+                      <p class="text-mute text-sm font-semibold">
+                        Expected Total Returns
+                      </p>
                     </div>
                     <p class="text-right font-semibold">
-                      ${{ data.investment.expectedTotalReturns.toLocaleString() }}
+                      ${{
+                        data.investment.expectedTotalReturns.toLocaleString()
+                      }}
                     </p>
                   </div>
 
-                  <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                  <div
+                    class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                  >
                     <div class="flex items-center">
                       <span
                         class="pi pi-dollar text-mute p-1 rounded-full"
                         style="font-size: 12px"
                       />
-                      <p class="text-mute text-sm font-semibold">Current Total Returns</p>
+                      <p class="text-mute text-sm font-semibold">
+                        Current Total Returns
+                      </p>
                     </div>
                     <p class="text-right font-semibold">
-                      ${{ data.investment.currentTotalReturns.toLocaleString() }}
+                      ${{
+                        data.investment.currentTotalReturns.toLocaleString()
+                      }}
                     </p>
                   </div>
 
-                  <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                  <div
+                    class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                  >
                     <div class="flex items-center">
                       <span
                         class="pi pi-calendar text-mute p-1 rounded-full"
                         style="font-size: 12px"
                       />
-                      <p class="text-mute text-sm font-semibold">Created Date</p>
+                      <p class="text-mute text-sm font-semibold">
+                        Created Date
+                      </p>
                     </div>
                     <p class="text-right font-semibold">
                       {{
@@ -212,7 +272,10 @@ function getSeverity(status: InvestmentStatus) {
                   </div>
 
                   <div
-                    v-if="data.investment.investmentStatus === 'CLOSED' && data.investment.closedAt"
+                    v-if="
+                      data.investment.investmentStatus === 'CLOSED' &&
+                      data.investment.closedAt
+                    "
                     class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
                   >
                     <div class="flex items-center">
@@ -232,7 +295,10 @@ function getSeverity(status: InvestmentStatus) {
                     </p>
                   </div>
 
-                  <div v-if="data.investment.investmentStatus === 'TERMINATED'" class="contents">
+                  <div
+                    v-if="data.investment.investmentStatus === 'TERMINATED'"
+                    class="contents"
+                  >
                     <div
                       v-if="data.investment.terminatedAt"
                       class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
@@ -242,7 +308,9 @@ function getSeverity(status: InvestmentStatus) {
                           class="pi pi-calendar text-mute p-1 rounded-full"
                           style="font-size: 12px"
                         />
-                        <p class="text-mute text-sm font-semibold">Terminated Date</p>
+                        <p class="text-mute text-sm font-semibold">
+                          Terminated Date
+                        </p>
                       </div>
                       <p class="text-right font-semibold">
                         {{
@@ -254,44 +322,64 @@ function getSeverity(status: InvestmentStatus) {
                       </p>
                     </div>
 
-                    <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                    <div
+                      class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                    >
                       <div class="flex items-center">
                         <span
                           class="pi pi-info-circle text-mute p-1 rounded-full"
                           style="font-size: 12px"
                         />
-                        <p class="text-mute text-sm font-semibold">Terminated Fee</p>
-                      </div>
-                      <p class="text-right font-semibold">
-                        {{ data.investment.terminationFeeApplied ? "Applied" : "Not applied" }}
-                      </p>
-                    </div>
-
-                    <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
-                      <div class="flex items-center">
-                        <span
-                          class="pi pi-info-circle text-mute p-1 rounded-full"
-                          style="font-size: 12px"
-                        />
-                        <p class="text-mute text-sm font-semibold">Terminated By</p>
+                        <p class="text-mute text-sm font-semibold">
+                          Terminated Fee
+                        </p>
                       </div>
                       <p class="text-right font-semibold">
                         {{
-                          toTitleCase(data.investment.terminator || "") || "No terminator indicated"
+                          data.investment.terminationFeeApplied
+                            ? "Applied"
+                            : "Not applied"
                         }}
                       </p>
                     </div>
 
-                    <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                    <div
+                      class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                    >
                       <div class="flex items-center">
                         <span
                           class="pi pi-info-circle text-mute p-1 rounded-full"
                           style="font-size: 12px"
                         />
-                        <p class="text-mute text-sm font-semibold">Termination Reason</p>
+                        <p class="text-mute text-sm font-semibold">
+                          Terminated By
+                        </p>
                       </div>
                       <p class="text-right font-semibold">
-                        {{ data.investment.terminationReason || "No reason provided" }}
+                        {{
+                          toTitleCase(data.investment.terminator || "") ||
+                          "No terminator indicated"
+                        }}
+                      </p>
+                    </div>
+
+                    <div
+                      class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                    >
+                      <div class="flex items-center">
+                        <span
+                          class="pi pi-info-circle text-mute p-1 rounded-full"
+                          style="font-size: 12px"
+                        />
+                        <p class="text-mute text-sm font-semibold">
+                          Termination Reason
+                        </p>
+                      </div>
+                      <p class="text-right font-semibold">
+                        {{
+                          data.investment.terminationReason ||
+                          "No reason provided"
+                        }}
                       </p>
                     </div>
                   </div>
@@ -301,7 +389,9 @@ function getSeverity(status: InvestmentStatus) {
 
             <div class="md:h-full md:overflow-y-auto">
               <VCard v-if="data.investment.user" header="User">
-                <div class="flex flex-col items-center justify-center gap-2 text-center">
+                <div
+                  class="flex flex-col items-center justify-center gap-2 text-center"
+                >
                   <div
                     class="w-32 aspect-square rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800"
                   >
@@ -318,8 +408,12 @@ function getSeverity(status: InvestmentStatus) {
                   </div>
 
                   <div>
-                    <p class="font-semibold md:text-lg">{{ data.investment.user.name }}</p>
-                    <p class="text-sm text-mute">{{ data.investment.user.email }}</p>
+                    <p class="font-semibold md:text-lg">
+                      {{ data.investment.user.name }}
+                    </p>
+                    <p class="text-sm text-mute">
+                      {{ data.investment.user.email }}
+                    </p>
                   </div>
 
                   <Button
@@ -337,55 +431,75 @@ function getSeverity(status: InvestmentStatus) {
               </VCard>
 
               <VCard header="Investment Plan Details" class="mt-2 grid gap-2">
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
                     <span
                       class="pi pi-info-circle text-mute p-1 rounded-full"
                       style="font-size: 12px"
                     />
-                    <p class="text-mute text-sm font-semibold">Investment Name</p>
+                    <p class="text-mute text-sm font-semibold">
+                      Investment Name
+                    </p>
                   </div>
                   <p class="text-right font-semibold">
                     {{ data.investment.investmentName }}
                   </p>
                 </div>
 
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
                     <span
                       class="pi pi-sitemap text-mute p-1 rounded-full"
                       style="font-size: 12px"
                     />
-                    <p class="text-mute text-sm font-semibold">Investment Tier</p>
+                    <p class="text-mute text-sm font-semibold">
+                      Investment Tier
+                    </p>
                   </div>
                   <p class="text-right font-semibold">
                     {{ data.investment.investmentTier }}
                   </p>
                 </div>
 
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
                     <span
                       class="pi pi-money-bill text-mute p-1 rounded-full"
                       style="font-size: 12px"
                     />
-                    <p class="text-mute text-sm font-semibold">Minimum Deposit</p>
+                    <p class="text-mute text-sm font-semibold">
+                      Minimum Deposit
+                    </p>
                   </div>
                   <p class="text-right font-semibold">
                     ${{ data.investment.minimumDeposit.toLocaleString() }}
                   </p>
                 </div>
 
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
                     <span
                       class="pi pi-percentage text-mute p-1 rounded-full"
                       style="font-size: 12px"
                     />
-                    <p class="text-mute text-sm font-semibold">Expected Return Rate</p>
+                    <p class="text-mute text-sm font-semibold">
+                      Expected Return Rate
+                    </p>
                   </div>
-                  <p class="text-xs text-mute font-medium">Non auto-compounded</p>
-                  <p class="text-right font-semibold">{{ data.investment.expectedReturnRate }}%</p>
+                  <p class="text-xs text-mute font-medium">
+                    Non auto-compounded
+                  </p>
+                  <p class="text-right font-semibold">
+                    {{ data.investment.expectedReturnRate }}%
+                  </p>
                 </div>
 
                 <div
@@ -397,15 +511,21 @@ function getSeverity(status: InvestmentStatus) {
                       class="pi pi-percentage text-mute p-1 rounded-full"
                       style="font-size: 12px"
                     />
-                    <p class="text-mute text-sm font-semibold">Expected Return Rate</p>
+                    <p class="text-mute text-sm font-semibold">
+                      Expected Return Rate
+                    </p>
                   </div>
-                  <p class="text-xs text-primary-500 font-medium">Auto-compounded</p>
+                  <p class="text-xs text-primary-500 font-medium">
+                    Auto-compounded
+                  </p>
                   <p class="text-right font-semibold">
                     {{ data.investment.autocompoundedReturnRate }}%
                   </p>
                 </div>
 
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
                     <span
                       class="pi pi-calendar-clock text-mute p-1 rounded-full"
@@ -413,13 +533,22 @@ function getSeverity(status: InvestmentStatus) {
                     />
                     <p class="text-mute text-sm font-semibold">Duration</p>
                   </div>
-                  <p class="text-right font-semibold">{{ data.investment.duration }} days</p>
+                  <p class="text-right font-semibold">
+                    {{ data.investment.duration }} days
+                  </p>
                 </div>
 
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
-                    <span class="pi pi-dollar text-mute p-1 rounded-full" style="font-size: 12px" />
-                    <p class="text-mute text-sm font-semibold">Termination Fee</p>
+                    <span
+                      class="pi pi-dollar text-mute p-1 rounded-full"
+                      style="font-size: 12px"
+                    />
+                    <p class="text-mute text-sm font-semibold">
+                      Termination Fee
+                    </p>
                   </div>
                   <p class="text-right font-semibold">
                     ${{ data.investment.terminationFee.toLocaleString() }}
@@ -435,7 +564,9 @@ function getSeverity(status: InvestmentStatus) {
                   "
                   class="grid gap-3"
                 >
-                  <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                  <div
+                    class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                  >
                     <div class="flex items-center">
                       <span
                         :class="
@@ -447,13 +578,22 @@ function getSeverity(status: InvestmentStatus) {
                         class="text-mute p-1 rounded-full"
                       />
                       <p class="text-mute text-sm font-semibold">
-                        {{ data.investment.investmentStatus === "OPEN" ? "Pause" : "Resume" }}
+                        {{
+                          data.investment.investmentStatus === "OPEN"
+                            ? "Pause"
+                            : "Resume"
+                        }}
                         Investment
                       </p>
                     </div>
-                    <div v-if="data.investment.investmentStatus === 'OPEN'" class="my-1">
+                    <div
+                      v-if="data.investment.investmentStatus === 'OPEN'"
+                      class="my-1"
+                    >
                       <Message size="small" severity="warn">
-                        <p class="text-xs">You must provide a reason for the pause.</p>
+                        <p class="text-xs">
+                          You must provide a reason for the pause.
+                        </p>
                       </Message>
                     </div>
                     <InvestmentPauseToggler
@@ -461,24 +601,35 @@ function getSeverity(status: InvestmentStatus) {
                       :investment="data.investment"
                       class="mt-2"
                     />
-                    <div v-if="data.investment.investmentStatus === 'PAUSED'" class="mt-2">
+                    <div
+                      v-if="data.investment.investmentStatus === 'PAUSED'"
+                      class="mt-2"
+                    >
                       <Message size="small">
-                        <p class="text-xs">Reason for pause: {{ data.investment.pausedReason }}</p>
+                        <p class="text-xs">
+                          Reason for pause: {{ data.investment.pausedReason }}
+                        </p>
                       </Message>
                     </div>
                   </div>
 
-                  <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                  <div
+                    class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                  >
                     <div class="flex items-center">
                       <span
                         class="pi pi-times-circle text-mute p-1 rounded-full"
                         style="font-size: 12px"
                       />
-                      <p class="text-mute text-sm font-semibold">Terminate Investment</p>
+                      <p class="text-mute text-sm font-semibold">
+                        Terminate Investment
+                      </p>
                     </div>
                     <div class="my-1">
                       <Message size="small" severity="error">
-                        <p class="text-xs">You must provide a reason for the termination.</p>
+                        <p class="text-xs">
+                          You must provide a reason for the termination.
+                        </p>
                       </Message>
                     </div>
                     <InvestmentTerminatorAdmin
@@ -489,7 +640,10 @@ function getSeverity(status: InvestmentStatus) {
                   </div>
                 </div>
 
-                <div v-else class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  v-else
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
                     <span
                       class="pi pi-times-circle text-mute p-1 rounded-full"

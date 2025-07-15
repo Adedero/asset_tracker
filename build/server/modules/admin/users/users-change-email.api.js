@@ -12,7 +12,9 @@ const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
 const env_1 = __importDefault(require("#src/utils/env"));
 const zod_1 = require("zod");
 const Schema = zod_1.z.object({
-    email: zod_1.z.string({ required_error: "Email is required" }).email({ message: "Invalid email" }),
+    email: zod_1.z
+        .string({ required_error: "Email is required" })
+        .email({ message: "Invalid email" }),
     verified: zod_1.z.boolean({ required_error: "Verified option is required" }),
     notify: zod_1.z.boolean({ required_error: "Notify option is required" })
 });

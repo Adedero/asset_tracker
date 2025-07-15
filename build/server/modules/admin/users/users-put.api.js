@@ -8,7 +8,11 @@ const handlers_1 = require("#src/lib/api/handlers");
 const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
 const zod_1 = require("zod");
 const Schema = zod_1.z.object({
-    name: zod_1.z.string().trim().min(2, { message: "Name must be at least 2 characters long" }).optional(),
+    name: zod_1.z
+        .string()
+        .trim()
+        .min(2, { message: "Name must be at least 2 characters long" })
+        .optional(),
     image: zod_1.z.string().trim().optional(),
     phoneNumber: zod_1.z.string().trim().optional(),
     address: zod_1.z.string().trim().optional(),
@@ -16,7 +20,9 @@ const Schema = zod_1.z.object({
     region: zod_1.z.string().trim().optional(),
     verified: zod_1.z.boolean().optional(),
     accountGroupId: zod_1.z.string().optional(),
-    role: zod_1.z.enum(["ADMIN", "USER"], { message: "Role must either be ADMIN or USER" }).default("USER")
+    role: zod_1.z
+        .enum(["ADMIN", "USER"], { message: "Role must either be ADMIN or USER" })
+        .default("USER")
 });
 exports.default = (0, api_1.api)({
     group: "/admins/me",

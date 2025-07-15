@@ -17,9 +17,11 @@ useHead({
 
 const route = useRoute();
 const Schema = z.object({
-  password: z.string({ message: "Password is required" }).min(MIN_PASSWORD_LENGTH, {
-    message: `Password must contain at least ${MIN_PASSWORD_LENGTH} characters`
-  })
+  password: z
+    .string({ message: "Password is required" })
+    .min(MIN_PASSWORD_LENGTH, {
+      message: `Password must contain at least ${MIN_PASSWORD_LENGTH} characters`
+    })
 });
 
 const email = ref(atob(route.query.e?.toString() || ""));
@@ -65,7 +67,10 @@ const {
     resendCount.value++;
     seconds.value =
       resendCount.value > 1
-        ? Math.min(BASE_WAIT_TIME + (resendCount.value - 1) * INCREMENT, MAX_WAIT_TIME)
+        ? Math.min(
+            BASE_WAIT_TIME + (resendCount.value - 1) * INCREMENT,
+            MAX_WAIT_TIME
+          )
         : BASE_WAIT_TIME;
     resume();
   }
@@ -106,7 +111,9 @@ onMounted(() => {
 
 <template>
   <VueLayout name="auth">
-    <div class="w-full md:w-[26rem] h-full md:p-10 md:bg-white dark:bg-transparent">
+    <div
+      class="w-full md:w-[26rem] h-full md:p-10 md:bg-white dark:bg-transparent"
+    >
       <Logo size="24" />
 
       <Stepper value="1" linear class="dark:bg-transparent">
@@ -116,7 +123,11 @@ onMounted(() => {
         </StepList>
 
         <StepPanels>
-          <StepPanel v-slot="{ activateCallback }" value="1" class="dark:bg-transparent">
+          <StepPanel
+            v-slot="{ activateCallback }"
+            value="1"
+            class="dark:bg-transparent"
+          >
             <div v-if="userId && email">
               <VErrorMessage
                 v-if="sendError"
@@ -179,7 +190,11 @@ onMounted(() => {
             </div>
           </StepPanel>
 
-          <StepPanel v-slot="{ activateCallback }" value="2" class="dark:bg-transparent">
+          <StepPanel
+            v-slot="{ activateCallback }"
+            value="2"
+            class="dark:bg-transparent"
+          >
             <VErrorMessage :error="resetError" class="mb-3" />
 
             <Form
@@ -202,7 +217,10 @@ onMounted(() => {
                     fluid
                     input-class="dark:bg-slate-800"
                   />
-                  <small v-if="$form.password?.invalid" class="font-medium text-red-500">
+                  <small
+                    v-if="$form.password?.invalid"
+                    class="font-medium text-red-500"
+                  >
                     {{ $form.password?.error?.message }}
                   </small>
                 </div>
@@ -230,7 +248,10 @@ onMounted(() => {
         class="w-80"
       >
         <div class="mt-2 flex flex-col items-center justify-center gap-2">
-          <span class="pi pi-check-circle text-green-500" style="font-size: 35px" />
+          <span
+            class="pi pi-check-circle text-green-500"
+            style="font-size: 35px"
+          />
           <Message>
             <div class="text-center">
               <p>Your password has been successfully reset.</p>

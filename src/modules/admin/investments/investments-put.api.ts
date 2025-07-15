@@ -59,7 +59,10 @@ export default api(
     }
 
     if (isPausing !== undefined) {
-      alertEmitter.emit("investment:pause-toggle", { investment, user: investment.user });
+      alertEmitter.emit("investment:pause-toggle", {
+        investment,
+        user: investment.user
+      });
     }
 
     return {

@@ -38,7 +38,9 @@ const verifyKyc = ref<boolean>(false);
 const editEmail = ref<boolean>(false);
 
 const email = ref<string>("");
-const isEmailTheSame = computed(() => !!email.value && email.value === data.value?.user.email);
+const isEmailTheSame = computed(
+  () => !!email.value && email.value === data.value?.user.email
+);
 const errorMessage = ref<string>("");
 
 const menu = useTemplateRef("menu");
@@ -61,7 +63,9 @@ const handleEmailChange = () => {
   if (isEmailTheSame.value) return;
 
   const Schema = z.object({
-    email: z.string({ message: "Email is required" }).email({ message: "Enter a valid email" })
+    email: z
+      .string({ message: "Email is required" })
+      .email({ message: "Enter a valid email" })
   });
   const result = Schema.safeParse({ email: email.value });
   if (!result.success) {
@@ -127,18 +131,33 @@ const handleKycUpdate = async (d: Partial<Account>) => {
                   />
                   <Menu ref="menu" :model="items" :popup="true" />
 
-                  <Dialog v-model:visible="editEmail" header="Change Email" modal class="w-80">
+                  <Dialog
+                    v-model:visible="editEmail"
+                    header="Change Email"
+                    modal
+                    class="w-80"
+                  >
                     <div>
                       <div class="grid gap-1">
-                        <label for="email" class="text-mute font-medium text-sm">
+                        <label
+                          for="email"
+                          class="text-mute font-medium text-sm"
+                        >
                           Enter your new email address
                         </label>
                         <small class="text-primary-500"
-                          >You will be asked to verify this email address.</small
+                          >You will be asked to verify this email
+                          address.</small
                         >
                         <InputText v-model="email" fluid />
-                        <small v-if="isEmailTheSame || errorMessage" class="text-red-500">
-                          {{ errorMessage || "Your new email is the same as your current email." }}
+                        <small
+                          v-if="isEmailTheSame || errorMessage"
+                          class="text-red-500"
+                        >
+                          {{
+                            errorMessage ||
+                            "Your new email is the same as your current email."
+                          }}
                         </small>
                       </div>
 
@@ -176,10 +195,16 @@ const handleKycUpdate = async (d: Partial<Account>) => {
                   />
                 </div>
 
-                <Icon v-else icon="ic:baseline-account-circle" style="font-size: 120px" />
+                <Icon
+                  v-else
+                  icon="ic:baseline-account-circle"
+                  style="font-size: 120px"
+                />
 
                 <div>
-                  <h1 class="font-semibold text-4xl md:5xl">{{ data.user.name }}</h1>
+                  <h1 class="font-semibold text-4xl md:5xl">
+                    {{ data.user.name }}
+                  </h1>
                   <p>{{ data.user.email }}</p>
                 </div>
               </div>
@@ -187,9 +212,14 @@ const handleKycUpdate = async (d: Partial<Account>) => {
 
             <VCard class="grid gap-2" header="Profile">
               <div class="flex flex-col gap-2 *:flex-shrink-0">
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
-                    <span class="pi pi-phone text-mute p-1 rounded-full" style="font-size: 12px" />
+                    <span
+                      class="pi pi-phone text-mute p-1 rounded-full"
+                      style="font-size: 12px"
+                    />
                     <p class="text-mute text-sm font-semibold">Phone Number</p>
                   </div>
                   <p class="text-right font-semibold">
@@ -197,9 +227,14 @@ const handleKycUpdate = async (d: Partial<Account>) => {
                   </p>
                 </div>
 
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
-                    <span class="pi pi-map text-mute p-1 rounded-full" style="font-size: 12px" />
+                    <span
+                      class="pi pi-map text-mute p-1 rounded-full"
+                      style="font-size: 12px"
+                    />
                     <p class="text-mute text-sm font-semibold">Address</p>
                   </div>
                   <p class="text-right font-semibold">
@@ -207,7 +242,9 @@ const handleKycUpdate = async (d: Partial<Account>) => {
                   </p>
                 </div>
 
-                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
                     <span
                       class="pi pi-map-marker text-mute p-1 rounded-full"
@@ -216,7 +253,8 @@ const handleKycUpdate = async (d: Partial<Account>) => {
                     <p class="text-mute text-sm font-semibold">Location</p>
                   </div>
                   <p class="text-right font-semibold">
-                    {{ data.user.region || "_____" }}, {{ data.user.country || "_____" }}
+                    {{ data.user.region || "_____" }},
+                    {{ data.user.country || "_____" }}
                   </p>
                 </div>
 
@@ -231,7 +269,9 @@ const handleKycUpdate = async (d: Partial<Account>) => {
             </VCard>
           </div>
 
-          <div class="md:col-span-3 md:row-span-6 flex flex-col gap-2 *:flex-shrink-0">
+          <div
+            class="md:col-span-3 md:row-span-6 flex flex-col gap-2 *:flex-shrink-0"
+          >
             <VCard header="Wallet Balance">
               <template #header>
                 <div class="flex items-center gap-1">
@@ -245,10 +285,18 @@ const handleKycUpdate = async (d: Partial<Account>) => {
               </template>
               <div class="mt-2">
                 <p class="text-3xl md:text-34xl font-semibold">
-                  ${{ data.user.account.walletBalance.toLocaleString().split(".")[0] ?? "00" }}
+                  ${{
+                    data.user.account.walletBalance
+                      .toLocaleString()
+                      .split(".")[0] ?? "00"
+                  }}
                 </p>
                 <p class="text-xl">
-                  .{{ data.user.account.walletBalance.toLocaleString().split(".")[1] ?? "00" }}
+                  .{{
+                    data.user.account.walletBalance
+                      .toLocaleString()
+                      .split(".")[1] ?? "00"
+                  }}
                 </p>
               </div>
               <div class="mt-3 flex items-center justify-end gap-2">
@@ -267,10 +315,17 @@ const handleKycUpdate = async (d: Partial<Account>) => {
             </VCard>
 
             <VCard header="KYC Verification">
-              <div class="p-2 border rounded-lg dark:border-white/30 dark:bg-slate-800">
+              <div
+                class="p-2 border rounded-lg dark:border-white/30 dark:bg-slate-800"
+              >
                 <div class="flex items-center">
-                  <span class="pi pi-user text-mute p-1 rounded-full" style="font-size: 12px" />
-                  <p class="text-mute text-sm font-semibold">KYC Verification Status</p>
+                  <span
+                    class="pi pi-user text-mute p-1 rounded-full"
+                    style="font-size: 12px"
+                  />
+                  <p class="text-mute text-sm font-semibold">
+                    KYC Verification Status
+                  </p>
                 </div>
 
                 <div class="mt-3 flex items-center gap-2 justify-between">
@@ -293,15 +348,25 @@ const handleKycUpdate = async (d: Partial<Account>) => {
                 </div>
               </div>
 
-              <div v-if="data.user.account.kycStatus !== 'UNVERIFIED'" class="mt-4">
-                <div class="p-2 border rounded-lg dark:border-white/30 dark:bg-slate-800">
+              <div
+                v-if="data.user.account.kycStatus !== 'UNVERIFIED'"
+                class="mt-4"
+              >
+                <div
+                  class="p-2 border rounded-lg dark:border-white/30 dark:bg-slate-800"
+                >
                   <div class="flex items-center">
-                    <span class="pi pi-user text-mute p-1 rounded-full" style="font-size: 12px" />
+                    <span
+                      class="pi pi-user text-mute p-1 rounded-full"
+                      style="font-size: 12px"
+                    />
                     <p class="text-mute text-sm font-semibold">KYC Document</p>
                   </div>
 
                   <div class="mt-3 grid gap-2">
-                    <div class="flex items-center justify-between gap-3 flex-wrap">
+                    <div
+                      class="flex items-center justify-between gap-3 flex-wrap"
+                    >
                       <p>ID Type</p>
                       <p>{{ data.user.account.kycIdType }}</p>
                     </div>
@@ -312,10 +377,17 @@ const handleKycUpdate = async (d: Partial<Account>) => {
                     >
                       <p>Verified On</p>
                       <p>
-                        {{ useDateFormat(data.user.account.kycVerifiedAt, "ddd, MMM DD, YYYY") }}
+                        {{
+                          useDateFormat(
+                            data.user.account.kycVerifiedAt,
+                            "ddd, MMM DD, YYYY"
+                          )
+                        }}
                       </p>
                     </div>
-                    <div class="flex items-center gap-2 flex-wrap justify-between">
+                    <div
+                      class="flex items-center gap-2 flex-wrap justify-between"
+                    >
                       <Button
                         @click="verifyKyc = true"
                         label="Update"
@@ -327,7 +399,12 @@ const handleKycUpdate = async (d: Partial<Account>) => {
                         :href="data.user.account.kycDocument || ''"
                         :download="`${data.user.account.id}.${data.user.account.kycDocumentExt}`"
                       >
-                        <Button label="Download" icon="pi pi-download" size="small" outlined />
+                        <Button
+                          label="Download"
+                          icon="pi pi-download"
+                          size="small"
+                          outlined
+                        />
                       </a>
                     </div>
                   </div>

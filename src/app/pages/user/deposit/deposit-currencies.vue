@@ -34,9 +34,15 @@ const initiateDeposit = () => {
   store.depositRequest = {
     amount: amount.value,
     isWireTransfer: isWireTransfer.value,
-    currencyName: isWireTransfer.value ? "WIRE_TRANSFER" : selectedCurrency.value?.name || "Dollar",
-    currencyAbbr: isWireTransfer.value ? "USD" : selectedCurrency.value?.abbr || "USD",
-    currencySymbol: isWireTransfer.value ? "$" : selectedCurrency.value?.symbol || "$"
+    currencyName: isWireTransfer.value
+      ? "WIRE_TRANSFER"
+      : selectedCurrency.value?.name || "Dollar",
+    currencyAbbr: isWireTransfer.value
+      ? "USD"
+      : selectedCurrency.value?.abbr || "USD",
+    currencySymbol: isWireTransfer.value
+      ? "$"
+      : selectedCurrency.value?.symbol || "$"
   };
   router.push({
     name: "user-deposit-initialize"
@@ -64,7 +70,9 @@ onMounted(() => {
       <Dialog
         v-model:visible="visible"
         modal
-        :header="isWireTransfer ? 'Wire Transfer' : `${selectedCurrency?.name} Deposit`"
+        :header="
+          isWireTransfer ? 'Wire Transfer' : `${selectedCurrency?.name} Deposit`
+        "
         class="md:w-96 dark:bg-slate-900"
       >
         <div class="grid gap-4">
@@ -85,7 +93,10 @@ onMounted(() => {
               />
               <InputGroupAddon>.00</InputGroupAddon>
             </InputGroup>
-            <small>Minimum deposit amount: <span class="font-semibold">$10</span></small>
+            <small
+              >Minimum deposit amount:
+              <span class="font-semibold">$10</span></small
+            >
           </div>
 
           <div class="flex items-center justify-end gap-2">
@@ -98,7 +109,11 @@ onMounted(() => {
               label="Cancel"
               class="dark:bg-slate-700 dark:border-slate-700 dark:hover:bg-slate-600"
             />
-            <Button @click="initiateDeposit" :disabled="!amount" label="Proceed" />
+            <Button
+              @click="initiateDeposit"
+              :disabled="!amount"
+              label="Proceed"
+            />
           </div>
         </div>
       </Dialog>
@@ -143,7 +158,12 @@ onMounted(() => {
               <p class="font-medium">Wire / Bank Transfer</p>
             </div>
             <Divider />
-            <Button @click="onCurrencyClick(null)" size="small" label="Deposit" fluid />
+            <Button
+              @click="onCurrencyClick(null)"
+              size="small"
+              label="Deposit"
+              fluid
+            />
           </VCard>
 
           <VCard v-for="c in data.currencies" :key="c.name" :header="c.name">
@@ -152,7 +172,12 @@ onMounted(() => {
               <p class="font-medium">{{ c.abbr }}</p>
             </div>
             <Divider />
-            <Button @click="onCurrencyClick(c)" size="small" label="Deposit" fluid />
+            <Button
+              @click="onCurrencyClick(c)"
+              size="small"
+              label="Deposit"
+              fluid
+            />
           </VCard>
         </div>
       </div>

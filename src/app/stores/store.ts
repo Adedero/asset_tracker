@@ -56,17 +56,25 @@ const useStore = defineStore("store", () => {
 
   const user = useLocalStorage<StoredUser>("user", defaultUser);
   const settings = useLocalStorage<StoredSettings>("settings", { error: null });
-  const depositRequest = useLocalStorage<DepositRequest | null>("depost-request", null, {
-    serializer: StorageSerializers.object
-  });
+  const depositRequest = useLocalStorage<DepositRequest | null>(
+    "depost-request",
+    null,
+    {
+      serializer: StorageSerializers.object
+    }
+  );
   const depositInitData = useLocalStorage<DepositInitApiResponse | null>(
     "deposit-init-data",
     null,
     { serializer: StorageSerializers.object }
   );
-  const withdrawalRequest = useLocalStorage<WithdrawalRequest | null>("withdrawal-request", null, {
-    serializer: StorageSerializers.object
-  });
+  const withdrawalRequest = useLocalStorage<WithdrawalRequest | null>(
+    "withdrawal-request",
+    null,
+    {
+      serializer: StorageSerializers.object
+    }
+  );
 
   return {
     user,

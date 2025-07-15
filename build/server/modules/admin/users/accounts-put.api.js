@@ -9,8 +9,13 @@ const prisma_1 = __importDefault(require("#src/lib/prisma/prisma"));
 const index_1 = require("#src/prisma-gen/index");
 const zod_1 = require("zod");
 const Schema = zod_1.z.object({
-    walletBalance: zod_1.z.number({ message: "Wallet balance must be a number" }).optional(),
-    kycIdType: zod_1.z.string({ message: "The KYC ID type must be a string" }).nullable().optional(),
+    walletBalance: zod_1.z
+        .number({ message: "Wallet balance must be a number" })
+        .optional(),
+    kycIdType: zod_1.z
+        .string({ message: "The KYC ID type must be a string" })
+        .nullable()
+        .optional(),
     kycDocument: zod_1.z
         .string({ message: "The KYC document type must be a string" })
         .nullable()

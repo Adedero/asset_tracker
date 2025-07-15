@@ -9,10 +9,12 @@ import {
 import { onUnmounted, ref } from "vue";
 import { useAsyncState } from "@vueuse/core";
 import { useToast } from "primevue/usetoast";
+
 export interface IFile extends File {
-  id?: string;
+  id: string;
   dataUrl?: string;
 }
+
 const toast = useToast();
 const emit = defineEmits<{
   select: [files: IFile[]];
@@ -22,26 +24,36 @@ const emit = defineEmits<{
 const id = uuid();
 const files = ref<IFile[] | null>(null);
 
-const { error, execute, state } = useAsyncState(uploadPromise, null, { immediate: false });
+const { error, execute, state } = useAsyncState(uploadPromise, null, {
+  immediate: false
+});
 
 async function uploadPromise(event: Event): Promise<IFile[] | null> {
   const target = event.target as HTMLInputElement;
-  const uploadedFiles = target?.files as File[];
+  const uploadedFiles = target?.files;
   if (!uploadedFiles) {
     throw new Error("No files selected.");
   }
 
-  files.value = Array.from(uploadedFiles);
+  files.value = Array.from(uploadedFiles).map((file) => ({
+    ...file,
+    id: uuid()
+  }));
 
   if (files.value.length > EMAIL_MAX_FILES) {
-    throw new Error(`Only a amaximum of ${EMAIL_MAX_FILES} files can be uploaded.`);
+    throw new Error(
+      `Only a amaximum of ${EMAIL_MAX_FILES} files can be uploaded.`
+    );
   }
 
   const isFormatValid = files.value.every((file) => {
     const accept = EMAIL_ATTACHMENT_ACCEPT.replace(/\s+/g, "").split(",");
     const fileType = file.type;
     const fileExtension = file.name?.split(".")?.pop()?.toLowerCase() ?? "";
-    return accept.includes(fileType) || EMAIL_FILES_ALLOWED_EXTENSIONS.includes(fileExtension);
+    return (
+      accept.includes(fileType) ||
+      EMAIL_FILES_ALLOWED_EXTENSIONS.includes(fileExtension)
+    );
   });
 
   if (!isFormatValid) {
@@ -50,7 +62,9 @@ async function uploadPromise(event: Event): Promise<IFile[] | null> {
   }
 
   const formattedSize = formatFileSize(EMAIL_MAX_FILE_SIZE);
-  const isSizeValid = files.value.every((file) => file.size <= EMAIL_MAX_FILE_SIZE);
+  const isSizeValid = files.value.every(
+    (file) => file.size <= EMAIL_MAX_FILE_SIZE
+  );
 
   if (!isSizeValid) {
     files.value = null;
@@ -58,7 +72,7 @@ async function uploadPromise(event: Event): Promise<IFile[] | null> {
   }
 
   for await (const file of files.value) {
-    file.id = uuid();
+    if (!file.id) file.id = uuid();
 
     const reader = new FileReader();
 
@@ -79,7 +93,9 @@ async function uploadPromise(event: Event): Promise<IFile[] | null> {
 async function handleSelect(event: Event) {
   await execute(0, event);
   if (error.value || !state.value) {
-    toast.add({ severity: "error", summary: "Error", detail: error.value.message });
+    const detail =
+      error.value instanceof Error ? error.value.message : String(error.value);
+    toast.add({ severity: "error", summary: "Error", detail });
     return;
   }
   emit("select", state.value!);

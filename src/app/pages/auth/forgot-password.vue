@@ -12,7 +12,9 @@ useHead({
 });
 
 const Schema = z.object({
-  email: z.string({ message: "Email is required" }).email({ message: "Invalid email" })
+  email: z
+    .string({ message: "Email is required" })
+    .email({ message: "Invalid email" })
 });
 const credentials = reactive({ email: "" });
 const resolver = ref(zodResolver(Schema));
@@ -27,7 +29,9 @@ const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
 
 <template>
   <VueLayout name="auth">
-    <div class="w-full md:w-[26rem] h-full md:p-10 md:bg-white dark:bg-transparent">
+    <div
+      class="w-full md:w-[26rem] h-full md:p-10 md:bg-white dark:bg-transparent"
+    >
       <Logo size="24" />
 
       <header class="mt-8">
@@ -55,7 +59,9 @@ const onFormSubmit = ({ valid, values }: FormSubmitEvent) => {
         class="mt-1 flex flex-col gap-6 w-full"
       >
         <div class="flex flex-col gap-1">
-          <label for="email" class="text-mute text-sm">Enter your email address</label>
+          <label for="email" class="text-mute text-sm"
+            >Enter your email address</label
+          >
           <InputText id="email" name="email" type="email" fluid />
           <small v-if="$form.email?.invalid" class="font-medium text-red-500">
             {{ $form.email?.error?.message }}

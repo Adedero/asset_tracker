@@ -39,7 +39,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     previewFeatures: [],
-    sourceFilePath: "C:\\Users\\cosmo\\Documents\\asset_tracker\\prisma\\schema.prisma",
+    sourceFilePath:
+      "C:\\Users\\cosmo\\Documents\\asset_tracker\\prisma\\schema.prisma",
     isCustomOutput: true
   },
   relativePath: "../../prisma",
@@ -58,7 +59,8 @@ const config: runtime.GetPrismaClientConfig = {
   },
   inlineSchema:
     'generator client {\n  provider      = "prisma-client"\n  output        = "../src/prisma-gen"\n  moduleFormat  = "cjs"\n  binaryTargets = ["native", "debian-openssl-1.0.x"]\n}\n\ngenerator json {\n  provider = "prisma-json-types-generator"\n}\n\ndatasource db {\n  provider = "sqlite"\n  url      = env("DATABASE_URL")\n}\n\nenum UserRole {\n  ADMIN\n  USER\n}\n\nmodel User {\n  id             String         @id @default(uuid())\n  name           String\n  email          String         @unique\n  password       String\n  verified       Boolean        @default(false)\n  role           UserRole       @default(USER)\n  account        Account?\n  accountGroup   AccountGroup?  @relation(fields: [accountGroupId], references: [id], onDelete: NoAction)\n  transactions   Transaction[]\n  investments    Investment[]\n  accountGroupId String?\n  image          String?\n  phoneNumber    String?\n  address        String?\n  country        String?\n  region         String?\n  createdAt      DateTime       @default(now())\n  updatedAt      DateTime       @updatedAt\n  Notification   Notification[]\n  /// [IpAddresses]\n  ipAddresses    Json?\n  devices        Json?\n  isBanned       Boolean?       @default(false)\n  ban            Ban?\n\n  @@index([email])\n}\n\nenum KycStatus {\n  UNVERIFIED\n  PENDING\n  VERIFIED\n}\n\nmodel Account {\n  id             String    @id @default(uuid())\n  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId         String    @unique\n  walletBalance  Float     @default(0)\n  kycIdType      String?\n  kycDocument    String?\n  kycDocumentExt String?\n  kycStatus      KycStatus @default(UNVERIFIED)\n  kycSubmittedAt DateTime?\n  kycVerifiedAt  DateTime?\n  createdAt      DateTime  @default(now())\n  updatedAt      DateTime  @updatedAt\n\n  @@index([userId])\n}\n\nmodel AccountGroup {\n  id          String   @id @default(uuid())\n  users       User[]\n  name        String   @unique\n  /// [AccountGroupCurrencyData[]]\n  currencies  Json\n  description String?\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Token {\n  id        String   @id @default(uuid())\n  userId    String   @unique\n  value     String   @unique\n  expiresIn DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([userId])\n}\n\nmodel InvestmentPlan {\n  id        String   @id @default(uuid())\n  name      String\n  slug      String   @unique\n  image     String?\n  /// [InvestmentTier[]]\n  tiers     Json?\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nenum InvestmentStatus {\n  OPEN\n  PAUSED\n  CLOSED\n  TERMINATED\n}\n\nmodel Investment {\n  id                          String           @id @default(uuid())\n  user                        User             @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId                      String\n  profits                     Profit[]\n  autocompounded              Boolean\n  investmentStatus            InvestmentStatus @default(OPEN)\n  initialDeposit              Float\n  expectedReturnRate          Float\n  autocompoundedReturnRate    Float?\n  expectedTotalReturns        Float\n  currentTotalReturns         Float            @default(0)\n  currentCompoundedAmount     Float?\n  investmentName              String\n  investmentTier              String\n  minimumDeposit              Float\n  duration                    Int\n  terminationFee              Float            @default(0)\n  daysCompleted               Int              @default(0)\n  lastProfitDistributedAt     DateTime?\n  lastProfitAmount            Float?\n  hasTransferedProfitToWallet Boolean?\n  closedAt                    DateTime?\n  pausedAt                    DateTime?\n  pausedReason                String?\n  terminatedAt                DateTime?\n  terminator                  String?\n  terminationReason           String?\n  terminationFeeApplied       Boolean          @default(false)\n  createdAt                   DateTime         @default(now())\n  updatedAt                   DateTime         @updatedAt\n}\n\nenum ProfitStatus {\n  FROZEN\n  DISTRIBUTED\n  PENDING\n}\n\nmodel Profit {\n  id            String       @id @default(uuid())\n  userId        String\n  accountId     String?\n  Investment    Investment?  @relation(fields: [investmentId], references: [id], onDelete: Cascade)\n  investmentId  String?\n  amount        Float\n  status        ProfitStatus @default(FROZEN)\n  distributedAt DateTime?\n  createdAt     DateTime     @default(now())\n  updatedAt     DateTime     @updatedAt\n}\n\nenum TransactionType {\n  DEPOSIT\n  WITHDRAWAL\n  INVESTMENT\n  PROFIT\n}\n\nenum TransactionStatus {\n  PENDING\n  SUCCESSFUL\n  FAILED\n}\n\nmodel Transaction {\n  id                             String            @id @default(uuid())\n  user                           User              @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId                         String\n  investmentId                   String?\n  transactionType                TransactionType\n  transactionStatus              TransactionStatus\n  amountInUSD                    Float\n  charge                         Float             @default(0)\n  actualAmountInUSD              Float\n  rate                           Float             @default(1)\n  currency                       String            @default("USD")\n  amountInCurrency               Float\n  isWireTransfer                 Boolean           @default(false)\n  isGiftCard                     Boolean?          @default(false)\n  /// [GiftCardData]\n  giftCardData                   Json?\n  wireTransferEmail              String?\n  depositWalletAddress           String?\n  depositWalletAddressNetwork    String?\n  withdrawalWalletAddress        String?\n  withdrawalWalletAddressNetwork String?\n  approvedAt                     DateTime?\n  failedAt                       DateTime?\n  failReason                     String?\n  description                    String?\n  createdAt                      DateTime          @default(now())\n  updatedAt                      DateTime          @updatedAt\n\n  @@index([transactionStatus, isWireTransfer])\n}\n\nmodel Currency {\n  id                       String    @id @default(uuid())\n  name                     String\n  symbol                   String\n  abbr                     String    @unique\n  image                    String?\n  rate                     Float\n  rateUpdatedAt            DateTime?\n  walletAddress            String\n  walletAddressNetwork     String?\n  isAvailableForWithdrawal Boolean   @default(true)\n  withdrawalCharge         Float     @default(0)\n  createdAt                DateTime  @default(now())\n  updatedAt                DateTime  @updatedAt\n}\n\nmodel Notification {\n  id          String   @id @default(uuid())\n  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId      String\n  title       String\n  description String\n  isRead      Boolean  @default(false)\n  icon        String?\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Faq {\n  id          String   @id @default(uuid())\n  slug        String   @unique\n  title       String\n  description String\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Ban {\n  id                   String    @id @default(uuid())\n  user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId               String    @unique\n  reason               String?\n  bannedBy             String\n  areInvestmentsFrozen Boolean   @default(false)\n  createdAt            DateTime  @default(now())\n  updatedAt            DateTime  @updatedAt\n  expiresAt            DateTime?\n  active               Boolean   @default(true)\n  /// [IpAddresses]\n  ipAddresses          Json?\n\n  @@index([userId])\n}\n',
-  inlineSchemaHash: "7bcc1c985ca25d18f3f38be4b60228f124c48e21b8b5630d00a99a3328797d83",
+  inlineSchemaHash:
+    "7bcc1c985ca25d18f3f38be4b60228f124c48e21b8b5630d00a99a3328797d83",
   copyEngine: true,
   runtimeDataModel: {
     models: {},
@@ -97,9 +99,11 @@ export interface PrismaClientConstructor {
    */
 
   new <
-    ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
+    ClientOptions extends
+      Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
     U = LogOptions<ClientOptions>,
-    ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+    ExtArgs extends
+      runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
   >(
     options?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>
   ): PrismaClient<ClientOptions, U, ExtArgs>;
@@ -122,13 +126,16 @@ export interface PrismaClientConstructor {
 export interface PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
   U = LogOptions<ClientOptions>,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>["other"] };
 
   $on<V extends U>(
     eventType: V,
-    callback: (event: V extends "query" ? Prisma.QueryEvent : Prisma.LogEvent) => void
+    callback: (
+      event: V extends "query" ? Prisma.QueryEvent : Prisma.LogEvent
+    ) => void
   ): PrismaClient;
 
   /**
@@ -172,7 +179,10 @@ export interface PrismaClient<
    *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
+  $executeRawUnsafe<T = unknown>(
+    query: string,
+    ...values: any[]
+  ): Prisma.PrismaPromise<number>;
 
   /**
    * Performs a prepared raw query and returns the `SELECT` data.
@@ -198,7 +208,10 @@ export interface PrismaClient<
    *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
+  $queryRawUnsafe<T = unknown>(
+    query: string,
+    ...values: any[]
+  ): Prisma.PrismaPromise<T>;
 
   /**
    * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
@@ -219,7 +232,9 @@ export interface PrismaClient<
   ): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>;
 
   $transaction<R>(
-    fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => runtime.Types.Utils.JsPromise<R>,
+    fn: (
+      prisma: Omit<PrismaClient, runtime.ITXClientDenyList>
+    ) => runtime.Types.Utils.JsPromise<R>,
     options?: {
       maxWait?: number;
       timeout?: number;

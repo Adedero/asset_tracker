@@ -16,7 +16,8 @@ import type * as Prisma from "../internal/prismaNamespace";
  * Model Faq
  *
  */
-export type FaqModel = runtime.Types.Result.DefaultSelection<Prisma.$FaqPayload>;
+export type FaqModel =
+  runtime.Types.Result.DefaultSelection<Prisma.$FaqPayload>;
 
 export type AggregateFaq = {
   _count: FaqCountAggregateOutputType | null;
@@ -81,7 +82,8 @@ export type FaqCountAggregateInputType = {
 };
 
 export type FaqAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Faq to aggregate.
@@ -92,7 +94,9 @@ export type FaqAggregateArgs<
    *
    * Determine the order of Faqs to fetch.
    */
-  orderBy?: Prisma.FaqOrderByWithRelationInput | Prisma.FaqOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.FaqOrderByWithRelationInput
+    | Prisma.FaqOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -140,10 +144,13 @@ export type GetFaqAggregateType<T extends FaqAggregateArgs> = {
 };
 
 export type FaqGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.FaqWhereInput;
-  orderBy?: Prisma.FaqOrderByWithAggregationInput | Prisma.FaqOrderByWithAggregationInput[];
+  orderBy?:
+    | Prisma.FaqOrderByWithAggregationInput
+    | Prisma.FaqOrderByWithAggregationInput[];
   by: Prisma.FaqScalarFieldEnum[] | Prisma.FaqScalarFieldEnum;
   having?: Prisma.FaqScalarWhereWithAggregatesInput;
   take?: number;
@@ -226,9 +233,13 @@ export type FaqOrderByWithAggregationInput = {
 };
 
 export type FaqScalarWhereWithAggregatesInput = {
-  AND?: Prisma.FaqScalarWhereWithAggregatesInput | Prisma.FaqScalarWhereWithAggregatesInput[];
+  AND?:
+    | Prisma.FaqScalarWhereWithAggregatesInput
+    | Prisma.FaqScalarWhereWithAggregatesInput[];
   OR?: Prisma.FaqScalarWhereWithAggregatesInput[];
-  NOT?: Prisma.FaqScalarWhereWithAggregatesInput | Prisma.FaqScalarWhereWithAggregatesInput[];
+  NOT?:
+    | Prisma.FaqScalarWhereWithAggregatesInput
+    | Prisma.FaqScalarWhereWithAggregatesInput[];
   id?: Prisma.StringWithAggregatesFilter<"Faq"> | string;
   slug?: Prisma.StringWithAggregatesFilter<"Faq"> | string;
   title?: Prisma.StringWithAggregatesFilter<"Faq"> | string;
@@ -328,7 +339,8 @@ export type FaqMinOrderByAggregateInput = {
 };
 
 export type FaqSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -342,7 +354,8 @@ export type FaqSelect<
 >;
 
 export type FaqSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -356,7 +369,8 @@ export type FaqSelectCreateManyAndReturn<
 >;
 
 export type FaqSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -379,14 +393,16 @@ export type FaqSelectScalar = {
 };
 
 export type FaqOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetOmit<
   "id" | "slug" | "title" | "description" | "createdAt" | "updatedAt",
   ExtArgs["result"]["faq"]
 >;
 
 export type $FaqPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   name: "Faq";
   objects: {};
@@ -404,20 +420,26 @@ export type $FaqPayload<
   composites: {};
 };
 
-export type FaqGetPayload<S extends boolean | null | undefined | FaqDefaultArgs> =
-  runtime.Types.Result.GetResult<Prisma.$FaqPayload, S>;
+export type FaqGetPayload<
+  S extends boolean | null | undefined | FaqDefaultArgs
+> = runtime.Types.Result.GetResult<Prisma.$FaqPayload, S>;
 
 export type FaqCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = Omit<FaqFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
   select?: FaqCountAggregateInputType | true;
 };
 
 export interface FaqDelegate<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>["model"]["Faq"]; meta: { name: "Faq" } };
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>["model"]["Faq"];
+    meta: { name: "Faq" };
+  };
   /**
    * Find zero or one Faq that matches the filter.
    * @param {FaqFindUniqueArgs} args - Arguments to find a Faq
@@ -543,7 +565,12 @@ export interface FaqDelegate<
   findMany<T extends FaqFindManyArgs>(
     args?: Prisma.SelectSubset<T, FaqFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<Prisma.$FaqPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>
+    runtime.Types.Result.GetResult<
+      Prisma.$FaqPayload<ExtArgs>,
+      T,
+      "findMany",
+      GlobalOmitOptions
+    >
   >;
 
   /**
@@ -561,7 +588,12 @@ export interface FaqDelegate<
   create<T extends FaqCreateArgs>(
     args: Prisma.SelectSubset<T, FaqCreateArgs<ExtArgs>>
   ): Prisma.Prisma__FaqClient<
-    runtime.Types.Result.GetResult<Prisma.$FaqPayload<ExtArgs>, T, "create", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$FaqPayload<ExtArgs>,
+      T,
+      "create",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -631,7 +663,12 @@ export interface FaqDelegate<
   delete<T extends FaqDeleteArgs>(
     args: Prisma.SelectSubset<T, FaqDeleteArgs<ExtArgs>>
   ): Prisma.Prisma__FaqClient<
-    runtime.Types.Result.GetResult<Prisma.$FaqPayload<ExtArgs>, T, "delete", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$FaqPayload<ExtArgs>,
+      T,
+      "delete",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -655,7 +692,12 @@ export interface FaqDelegate<
   update<T extends FaqUpdateArgs>(
     args: Prisma.SelectSubset<T, FaqUpdateArgs<ExtArgs>>
   ): Prisma.Prisma__FaqClient<
-    runtime.Types.Result.GetResult<Prisma.$FaqPayload<ExtArgs>, T, "update", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$FaqPayload<ExtArgs>,
+      T,
+      "update",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -757,7 +799,12 @@ export interface FaqDelegate<
   upsert<T extends FaqUpsertArgs>(
     args: Prisma.SelectSubset<T, FaqUpsertArgs<ExtArgs>>
   ): Prisma.Prisma__FaqClient<
-    runtime.Types.Result.GetResult<Prisma.$FaqPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$FaqPayload<ExtArgs>,
+      T,
+      "upsert",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -857,7 +904,12 @@ export interface FaqDelegate<
               ? never
               : P extends string
                 ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                : [Error, "Field ", P, ` in "having" needs to be provided in "by"`];
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`
+                  ];
           }[HavingFields]
         : "take" extends Prisma.Keys<T>
           ? "orderBy" extends Prisma.Keys<T>
@@ -888,7 +940,9 @@ export interface FaqDelegate<
                 }[OrderFields]
   >(
     args: Prisma.SubsetIntersection<T, FaqGroupByArgs, OrderByArg> & InputErrors
-  ): {} extends InputErrors ? GetFaqGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+  ): {} extends InputErrors
+    ? GetFaqGroupByPayload<T>
+    : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the Faq model
    */
@@ -904,7 +958,8 @@ export interface FaqDelegate<
 export interface Prisma__FaqClient<
   T,
   Null = never,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
@@ -915,8 +970,14 @@ export interface Prisma__FaqClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -924,7 +985,10 @@ export interface Prisma__FaqClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -932,7 +996,9 @@ export interface Prisma__FaqClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  finally(
+    onfinally?: (() => void) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -952,7 +1018,8 @@ export interface FaqFieldRefs {
  * Faq findUnique
  */
 export type FaqFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -972,7 +1039,8 @@ export type FaqFindUniqueArgs<
  * Faq findUniqueOrThrow
  */
 export type FaqFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -992,7 +1060,8 @@ export type FaqFindUniqueOrThrowArgs<
  * Faq findFirst
  */
 export type FaqFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -1011,7 +1080,9 @@ export type FaqFindFirstArgs<
    *
    * Determine the order of Faqs to fetch.
    */
-  orderBy?: Prisma.FaqOrderByWithRelationInput | Prisma.FaqOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.FaqOrderByWithRelationInput
+    | Prisma.FaqOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1042,7 +1113,8 @@ export type FaqFindFirstArgs<
  * Faq findFirstOrThrow
  */
 export type FaqFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -1061,7 +1133,9 @@ export type FaqFindFirstOrThrowArgs<
    *
    * Determine the order of Faqs to fetch.
    */
-  orderBy?: Prisma.FaqOrderByWithRelationInput | Prisma.FaqOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.FaqOrderByWithRelationInput
+    | Prisma.FaqOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1092,7 +1166,8 @@ export type FaqFindFirstOrThrowArgs<
  * Faq findMany
  */
 export type FaqFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -1111,7 +1186,9 @@ export type FaqFindManyArgs<
    *
    * Determine the order of Faqs to fetch.
    */
-  orderBy?: Prisma.FaqOrderByWithRelationInput | Prisma.FaqOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.FaqOrderByWithRelationInput
+    | Prisma.FaqOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1137,7 +1214,8 @@ export type FaqFindManyArgs<
  * Faq create
  */
 export type FaqCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -1157,7 +1235,8 @@ export type FaqCreateArgs<
  * Faq createMany
  */
 export type FaqCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to create many Faqs.
@@ -1169,7 +1248,8 @@ export type FaqCreateManyArgs<
  * Faq createManyAndReturn
  */
 export type FaqCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -1189,7 +1269,8 @@ export type FaqCreateManyAndReturnArgs<
  * Faq update
  */
 export type FaqUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -1213,12 +1294,16 @@ export type FaqUpdateArgs<
  * Faq updateMany
  */
 export type FaqUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to update Faqs.
    */
-  data: Prisma.XOR<Prisma.FaqUpdateManyMutationInput, Prisma.FaqUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.FaqUpdateManyMutationInput,
+    Prisma.FaqUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Faqs to update
    */
@@ -1233,7 +1318,8 @@ export type FaqUpdateManyArgs<
  * Faq updateManyAndReturn
  */
 export type FaqUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -1246,7 +1332,10 @@ export type FaqUpdateManyAndReturnArgs<
   /**
    * The data used to update Faqs.
    */
-  data: Prisma.XOR<Prisma.FaqUpdateManyMutationInput, Prisma.FaqUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.FaqUpdateManyMutationInput,
+    Prisma.FaqUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Faqs to update
    */
@@ -1261,7 +1350,8 @@ export type FaqUpdateManyAndReturnArgs<
  * Faq upsert
  */
 export type FaqUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -1289,7 +1379,8 @@ export type FaqUpsertArgs<
  * Faq delete
  */
 export type FaqDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq
@@ -1309,7 +1400,8 @@ export type FaqDeleteArgs<
  * Faq deleteMany
  */
 export type FaqDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Faqs to delete
@@ -1325,7 +1417,8 @@ export type FaqDeleteManyArgs<
  * Faq without action
  */
 export type FaqDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Faq

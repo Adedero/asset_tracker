@@ -8,7 +8,11 @@ const { image, size = "40px" } = defineProps<Props>();
 
 <template>
   <div>
-    <div v-if="image" :style="{ height: size, width: size }" class="rounded-full overflow-hidden">
+    <div
+      v-if="image"
+      :style="{ height: size, width: size }"
+      class="rounded-full overflow-hidden"
+    >
       <img :src="image" class="w-full h-full object-cover" />
     </div>
 
@@ -21,7 +25,11 @@ const { image, size = "40px" } = defineProps<Props>();
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
       <g id="SVGRepo_iconCarrier">
         <path
           fill-rule="evenodd"

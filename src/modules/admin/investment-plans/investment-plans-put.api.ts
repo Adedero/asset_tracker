@@ -58,7 +58,9 @@ export default api(
     });
 
     if (existingInvestmentPlan) {
-      throw HttpException.badRequest("And investment plan with this name or slug already exists");
+      throw HttpException.badRequest(
+        "And investment plan with this name or slug already exists"
+      );
     }
 
     const investmentPlan = await prisma.investmentPlan.update({

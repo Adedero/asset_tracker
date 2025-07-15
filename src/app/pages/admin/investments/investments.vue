@@ -19,12 +19,21 @@ const router = useRouter();
 const { user_id } = router.currentRoute.value.query as { user_id: string };
 
 type StatusOptions = "ALL" | InvestmentStatus;
-const statusOptions = ref<StatusOptions[]>(["ALL", "OPEN", "CLOSED", "PAUSED", "TERMINATED"]);
+const statusOptions = ref<StatusOptions[]>([
+  "ALL",
+  "OPEN",
+  "CLOSED",
+  "PAUSED",
+  "TERMINATED"
+]);
 
 const status = ref<StatusOptions>("OPEN");
 
 const tier = ref<string>("ALL");
-const tierOptions = ref<Array<string>>(["ALL", ...tiers.map((tier) => tier.toUpperCase())]);
+const tierOptions = ref<Array<string>>([
+  "ALL",
+  ...tiers.map((tier) => tier.toUpperCase())
+]);
 
 const searchParams = computed(() => {
   const params = new URLSearchParams();
@@ -32,8 +41,10 @@ const searchParams = computed(() => {
   params.set("skip", skip.value.toString());
   params.set("sort", "createdAt,DESC");
   if (user_id) params.set("where", `userId,${user_id}`);
-  if (status.value !== "ALL") params.append("where", `investmentStatus,${status.value}`);
-  if (tier.value !== "ALL") params.append("where", `investmentTier,${toTitleCase(tier.value)}`);
+  if (status.value !== "ALL")
+    params.append("where", `investmentStatus,${status.value}`);
+  if (tier.value !== "ALL")
+    params.append("where", `investmentTier,${toTitleCase(tier.value)}`);
   return params.toString();
 });
 
@@ -66,12 +77,22 @@ function getSeverity(status: InvestmentStatus) {
           <div class="flex items-end gap-1 flex-wrap">
             <div class="flex gap-1 flex-col">
               <label class="text-xs text-mute font-semibold">Status</label>
-              <Select v-model="status" :options="statusOptions" size="small" class="py-0" />
+              <Select
+                v-model="status"
+                :options="statusOptions"
+                size="small"
+                class="py-0"
+              />
             </div>
 
             <div class="flex gap-1 flex-col">
               <label class="text-xs text-mute font-semibold">Tier</label>
-              <Select v-model="tier" :options="tierOptions" size="small" class="py-0" />
+              <Select
+                v-model="tier"
+                :options="tierOptions"
+                size="small"
+                class="py-0"
+              />
             </div>
           </div>
         </div>
@@ -80,7 +101,13 @@ function getSeverity(status: InvestmentStatus) {
       <div class="mt-2 md:h-[calc(100dvh-10rem)]">
         <VPageLoader v-if="isLoading" />
 
-        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" closable />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="mutate()"
+          closable
+        />
 
         <div v-else-if="data" class="h-full w-full">
           <div class="w-full overflow-auto md:max-h-[calc(100dvh-16rem)]">
@@ -100,7 +127,9 @@ function getSeverity(status: InvestmentStatus) {
               "
             >
               <Column header="S/N" style="min-width: 4rem">
-                <template #body="{ index }"> {{ index + 1 + skip }}&rpar; </template>
+                <template #body="{ index }">
+                  {{ index + 1 + skip }}&rpar;
+                </template>
               </Column>
 
               <Column field="investmentName" header="Investment" />
@@ -120,7 +149,9 @@ function getSeverity(status: InvestmentStatus) {
               <Column field="user.name" header="User" />
 
               <Column field="amount" header="Amount">
-                <template #body="{ data }"> ${{ data.initialDeposit.toLocaleString() }} </template>
+                <template #body="{ data }">
+                  ${{ data.initialDeposit.toLocaleString() }}
+                </template>
               </Column>
 
               <Column field="duration" header="Duration (days)" />
@@ -129,13 +160,23 @@ function getSeverity(status: InvestmentStatus) {
 
               <Column header="Created On">
                 <template #body="{ data }">
-                  {{ useDateFormat(new Date(data.createdAt), "ddd, DD MMM, YYYY hh:mm aa") }}
+                  {{
+                    useDateFormat(
+                      new Date(data.createdAt),
+                      "ddd, DD MMM, YYYY hh:mm aa"
+                    )
+                  }}
                 </template>
               </Column>
             </DataTable>
           </div>
 
-          <VPaginator :allLoaded :length="dataLength" :rows="LIMIT" v-model:page="page" />
+          <VPaginator
+            :allLoaded
+            :length="dataLength"
+            :rows="LIMIT"
+            v-model:page="page"
+          />
         </div>
       </div>
     </div>

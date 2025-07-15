@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AccountGetApiResponse } from "@/modules/admin/self/account-get.api";
+import type { AccountGetApiResponse } from "@/modules/admin/self/account-get.api";
 import useStore from "@/app/stores/store";
 import { ref } from "vue";
 import countries from "country-json/src/country-by-name.json";
@@ -51,7 +51,9 @@ const handleSelect = (files: IFile[]) => {
   data.value.image = files[0].dataUrl || "";
 };
 
-const { isFetching, error, execute } = useFetch(() => "/api/admins/me", { immediate: false })
+const { isFetching, error, execute } = useFetch(() => "/api/admins/me", {
+  immediate: false
+})
   .put(data)
   .json();
 
@@ -81,7 +83,12 @@ const removeImage = () => {
 
 <template>
   <div>
-    <Dialog v-model:visible="visible" header="Edit Details" modal class="w-full max-w-96">
+    <Dialog
+      v-model:visible="visible"
+      header="Edit Details"
+      modal
+      class="w-full max-w-96"
+    >
       <div v-if="user">
         <div class="grid gap-4">
           <div class="flex flex-col gap-2 items-center">
@@ -97,7 +104,11 @@ const removeImage = () => {
               <Icon icon="ic:baseline-account-circle" style="font-size: 96px" />
             </div>
 
-            <Button v-if="user.image" label="Remove image" @click="removeImage" />
+            <Button
+              v-if="user.image"
+              label="Remove image"
+              @click="removeImage"
+            />
 
             <VFileUploader
               v-else
@@ -116,22 +127,30 @@ const removeImage = () => {
           </div>
 
           <div class="grid gap-2">
-            <label for="name" class="text-mute text-sm font- medium">Name</label>
+            <label for="name" class="text-mute text-sm font- medium"
+              >Name</label
+            >
             <InputText id="name" v-model="data.name" />
           </div>
 
           <div class="grid gap-2">
-            <label for="phone-number" class="text-mute text-sm font- medium">Phone Number</label>
+            <label for="phone-number" class="text-mute text-sm font- medium"
+              >Phone Number</label
+            >
             <InputText id="phone-number" v-model="data.phoneNumber" />
           </div>
 
           <div class="grid gap-2">
-            <label for="name" class="text-mute text-sm font- medium">House Address</label>
+            <label for="name" class="text-mute text-sm font- medium"
+              >House Address</label
+            >
             <InputText id="address" v-model="data.address" />
           </div>
 
           <div class="grid gap-2">
-            <label for="country" class="text-mute text-sm font- medium">Country</label>
+            <label for="country" class="text-mute text-sm font- medium"
+              >Country</label
+            >
             <Select
               v-model="selectedCountry"
               :options="countries"
@@ -143,7 +162,9 @@ const removeImage = () => {
           </div>
 
           <div class="grid gap-2">
-            <label for="region" class="text-mute text-sm font- medium">State/Region</label>
+            <label for="region" class="text-mute text-sm font- medium"
+              >State/Region</label
+            >
             <InputText id="name" v-model="data.region" />
           </div>
 

@@ -16,7 +16,8 @@ import type * as Prisma from "../internal/prismaNamespace";
  * Model Token
  *
  */
-export type TokenModel = runtime.Types.Result.DefaultSelection<Prisma.$TokenPayload>;
+export type TokenModel =
+  runtime.Types.Result.DefaultSelection<Prisma.$TokenPayload>;
 
 export type AggregateToken = {
   _count: TokenCountAggregateOutputType | null;
@@ -81,7 +82,8 @@ export type TokenCountAggregateInputType = {
 };
 
 export type TokenAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Token to aggregate.
@@ -92,7 +94,9 @@ export type TokenAggregateArgs<
    *
    * Determine the order of Tokens to fetch.
    */
-  orderBy?: Prisma.TokenOrderByWithRelationInput | Prisma.TokenOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.TokenOrderByWithRelationInput
+    | Prisma.TokenOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -140,10 +144,13 @@ export type GetTokenAggregateType<T extends TokenAggregateArgs> = {
 };
 
 export type TokenGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.TokenWhereInput;
-  orderBy?: Prisma.TokenOrderByWithAggregationInput | Prisma.TokenOrderByWithAggregationInput[];
+  orderBy?:
+    | Prisma.TokenOrderByWithAggregationInput
+    | Prisma.TokenOrderByWithAggregationInput[];
   by: Prisma.TokenScalarFieldEnum[] | Prisma.TokenScalarFieldEnum;
   having?: Prisma.TokenScalarWhereWithAggregatesInput;
   take?: number;
@@ -226,9 +233,13 @@ export type TokenOrderByWithAggregationInput = {
 };
 
 export type TokenScalarWhereWithAggregatesInput = {
-  AND?: Prisma.TokenScalarWhereWithAggregatesInput | Prisma.TokenScalarWhereWithAggregatesInput[];
+  AND?:
+    | Prisma.TokenScalarWhereWithAggregatesInput
+    | Prisma.TokenScalarWhereWithAggregatesInput[];
   OR?: Prisma.TokenScalarWhereWithAggregatesInput[];
-  NOT?: Prisma.TokenScalarWhereWithAggregatesInput | Prisma.TokenScalarWhereWithAggregatesInput[];
+  NOT?:
+    | Prisma.TokenScalarWhereWithAggregatesInput
+    | Prisma.TokenScalarWhereWithAggregatesInput[];
   id?: Prisma.StringWithAggregatesFilter<"Token"> | string;
   userId?: Prisma.StringWithAggregatesFilter<"Token"> | string;
   value?: Prisma.StringWithAggregatesFilter<"Token"> | string;
@@ -328,7 +339,8 @@ export type TokenMinOrderByAggregateInput = {
 };
 
 export type TokenSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -342,7 +354,8 @@ export type TokenSelect<
 >;
 
 export type TokenSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -356,7 +369,8 @@ export type TokenSelectCreateManyAndReturn<
 >;
 
 export type TokenSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -379,14 +393,16 @@ export type TokenSelectScalar = {
 };
 
 export type TokenOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetOmit<
   "id" | "userId" | "value" | "expiresIn" | "createdAt" | "updatedAt",
   ExtArgs["result"]["token"]
 >;
 
 export type $TokenPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   name: "Token";
   objects: {};
@@ -404,20 +420,26 @@ export type $TokenPayload<
   composites: {};
 };
 
-export type TokenGetPayload<S extends boolean | null | undefined | TokenDefaultArgs> =
-  runtime.Types.Result.GetResult<Prisma.$TokenPayload, S>;
+export type TokenGetPayload<
+  S extends boolean | null | undefined | TokenDefaultArgs
+> = runtime.Types.Result.GetResult<Prisma.$TokenPayload, S>;
 
 export type TokenCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = Omit<TokenFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
   select?: TokenCountAggregateInputType | true;
 };
 
 export interface TokenDelegate<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>["model"]["Token"]; meta: { name: "Token" } };
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>["model"]["Token"];
+    meta: { name: "Token" };
+  };
   /**
    * Find zero or one Token that matches the filter.
    * @param {TokenFindUniqueArgs} args - Arguments to find a Token
@@ -543,7 +565,12 @@ export interface TokenDelegate<
   findMany<T extends TokenFindManyArgs>(
     args?: Prisma.SelectSubset<T, TokenFindManyArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>
+    runtime.Types.Result.GetResult<
+      Prisma.$TokenPayload<ExtArgs>,
+      T,
+      "findMany",
+      GlobalOmitOptions
+    >
   >;
 
   /**
@@ -561,7 +588,12 @@ export interface TokenDelegate<
   create<T extends TokenCreateArgs>(
     args: Prisma.SelectSubset<T, TokenCreateArgs<ExtArgs>>
   ): Prisma.Prisma__TokenClient<
-    runtime.Types.Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$TokenPayload<ExtArgs>,
+      T,
+      "create",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -631,7 +663,12 @@ export interface TokenDelegate<
   delete<T extends TokenDeleteArgs>(
     args: Prisma.SelectSubset<T, TokenDeleteArgs<ExtArgs>>
   ): Prisma.Prisma__TokenClient<
-    runtime.Types.Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$TokenPayload<ExtArgs>,
+      T,
+      "delete",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -655,7 +692,12 @@ export interface TokenDelegate<
   update<T extends TokenUpdateArgs>(
     args: Prisma.SelectSubset<T, TokenUpdateArgs<ExtArgs>>
   ): Prisma.Prisma__TokenClient<
-    runtime.Types.Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$TokenPayload<ExtArgs>,
+      T,
+      "update",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -757,7 +799,12 @@ export interface TokenDelegate<
   upsert<T extends TokenUpsertArgs>(
     args: Prisma.SelectSubset<T, TokenUpsertArgs<ExtArgs>>
   ): Prisma.Prisma__TokenClient<
-    runtime.Types.Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>,
+    runtime.Types.Result.GetResult<
+      Prisma.$TokenPayload<ExtArgs>,
+      T,
+      "upsert",
+      GlobalOmitOptions
+    >,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -857,7 +904,12 @@ export interface TokenDelegate<
               ? never
               : P extends string
                 ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                : [Error, "Field ", P, ` in "having" needs to be provided in "by"`];
+                : [
+                    Error,
+                    "Field ",
+                    P,
+                    ` in "having" needs to be provided in "by"`
+                  ];
           }[HavingFields]
         : "take" extends Prisma.Keys<T>
           ? "orderBy" extends Prisma.Keys<T>
@@ -887,8 +939,11 @@ export interface TokenDelegate<
                     : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
                 }[OrderFields]
   >(
-    args: Prisma.SubsetIntersection<T, TokenGroupByArgs, OrderByArg> & InputErrors
-  ): {} extends InputErrors ? GetTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, TokenGroupByArgs, OrderByArg> &
+      InputErrors
+  ): {} extends InputErrors
+    ? GetTokenGroupByPayload<T>
+    : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the Token model
    */
@@ -904,7 +959,8 @@ export interface TokenDelegate<
 export interface Prisma__TokenClient<
   T,
   Null = never,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   GlobalOmitOptions = {}
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
@@ -915,8 +971,14 @@ export interface Prisma__TokenClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+    onfulfilled?:
+      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+      | undefined
+      | null,
+    onrejected?:
+      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -924,7 +986,10 @@ export interface Prisma__TokenClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null
+    onrejected?:
+      | ((reason: any) => TResult | PromiseLike<TResult>)
+      | undefined
+      | null
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -932,7 +997,9 @@ export interface Prisma__TokenClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+  finally(
+    onfinally?: (() => void) | undefined | null
+  ): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -952,7 +1019,8 @@ export interface TokenFieldRefs {
  * Token findUnique
  */
 export type TokenFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -972,7 +1040,8 @@ export type TokenFindUniqueArgs<
  * Token findUniqueOrThrow
  */
 export type TokenFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -992,7 +1061,8 @@ export type TokenFindUniqueOrThrowArgs<
  * Token findFirst
  */
 export type TokenFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -1011,7 +1081,9 @@ export type TokenFindFirstArgs<
    *
    * Determine the order of Tokens to fetch.
    */
-  orderBy?: Prisma.TokenOrderByWithRelationInput | Prisma.TokenOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.TokenOrderByWithRelationInput
+    | Prisma.TokenOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1042,7 +1114,8 @@ export type TokenFindFirstArgs<
  * Token findFirstOrThrow
  */
 export type TokenFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -1061,7 +1134,9 @@ export type TokenFindFirstOrThrowArgs<
    *
    * Determine the order of Tokens to fetch.
    */
-  orderBy?: Prisma.TokenOrderByWithRelationInput | Prisma.TokenOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.TokenOrderByWithRelationInput
+    | Prisma.TokenOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1092,7 +1167,8 @@ export type TokenFindFirstOrThrowArgs<
  * Token findMany
  */
 export type TokenFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -1111,7 +1187,9 @@ export type TokenFindManyArgs<
    *
    * Determine the order of Tokens to fetch.
    */
-  orderBy?: Prisma.TokenOrderByWithRelationInput | Prisma.TokenOrderByWithRelationInput[];
+  orderBy?:
+    | Prisma.TokenOrderByWithRelationInput
+    | Prisma.TokenOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1137,7 +1215,8 @@ export type TokenFindManyArgs<
  * Token create
  */
 export type TokenCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -1157,7 +1236,8 @@ export type TokenCreateArgs<
  * Token createMany
  */
 export type TokenCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to create many Tokens.
@@ -1169,7 +1249,8 @@ export type TokenCreateManyArgs<
  * Token createManyAndReturn
  */
 export type TokenCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -1189,7 +1270,8 @@ export type TokenCreateManyAndReturnArgs<
  * Token update
  */
 export type TokenUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -1213,12 +1295,16 @@ export type TokenUpdateArgs<
  * Token updateMany
  */
 export type TokenUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * The data used to update Tokens.
    */
-  data: Prisma.XOR<Prisma.TokenUpdateManyMutationInput, Prisma.TokenUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.TokenUpdateManyMutationInput,
+    Prisma.TokenUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Tokens to update
    */
@@ -1233,7 +1319,8 @@ export type TokenUpdateManyArgs<
  * Token updateManyAndReturn
  */
 export type TokenUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -1246,7 +1333,10 @@ export type TokenUpdateManyAndReturnArgs<
   /**
    * The data used to update Tokens.
    */
-  data: Prisma.XOR<Prisma.TokenUpdateManyMutationInput, Prisma.TokenUncheckedUpdateManyInput>;
+  data: Prisma.XOR<
+    Prisma.TokenUpdateManyMutationInput,
+    Prisma.TokenUncheckedUpdateManyInput
+  >;
   /**
    * Filter which Tokens to update
    */
@@ -1261,7 +1351,8 @@ export type TokenUpdateManyAndReturnArgs<
  * Token upsert
  */
 export type TokenUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -1289,7 +1380,8 @@ export type TokenUpsertArgs<
  * Token delete
  */
 export type TokenDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token
@@ -1309,7 +1401,8 @@ export type TokenDeleteArgs<
  * Token deleteMany
  */
 export type TokenDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Filter which Tokens to delete
@@ -1325,7 +1418,8 @@ export type TokenDeleteManyArgs<
  * Token without action
  */
 export type TokenDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   /**
    * Select specific fields to fetch from the Token

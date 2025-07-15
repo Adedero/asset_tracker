@@ -17,7 +17,9 @@ export async function getExchangeRate<T extends string[]>(
   const api = env.get<string>("FREE_CURRENCY_API");
   const apikey = env.get<string>("FREE_CURRENCY_API_KEY");
   if (!api || !apikey) {
-    throw new Error("Free Currency API URL or API key is not set in environment variables.");
+    throw new Error(
+      "Free Currency API URL or API key is not set in environment variables."
+    );
   }
   const url = new URL(api);
   url.searchParams.set("apikey", apikey);
@@ -28,6 +30,8 @@ export async function getExchangeRate<T extends string[]>(
     return response.data as FreeCurrencyApiResponse<T>;
   } catch (error) {
     logger.error("Failed to fetch exchange rates", error);
-    throw new Error(`Failed to fetch exchange rates: ${(error as Error).message}`);
+    throw new Error(
+      `Failed to fetch exchange rates: ${(error as Error).message}`
+    );
   }
 }

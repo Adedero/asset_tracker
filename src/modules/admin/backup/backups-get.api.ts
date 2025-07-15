@@ -8,14 +8,14 @@ export interface BackupsGetApiResponse extends ApiResponse {
   files: {
     filename: string;
     createdAt: Date;
-  };
+  }[];
 }
 export default api(
   {
     group: "/admins/me",
     path: "/database/backups"
   },
-  defineHandler(async () => {
+  defineHandler<BackupsGetApiResponse>(async () => {
     const backupDir = path.resolve("database/backups");
 
     if (!fs.existsSync(backupDir)) {

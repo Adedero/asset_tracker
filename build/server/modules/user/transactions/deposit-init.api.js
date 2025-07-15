@@ -12,7 +12,9 @@ const zod_1 = require("zod");
 const get_updated_currency_data_js_1 = __importDefault(require("../currencies/get-updated-currency-data.js"));
 const Schema = zod_1.z.object({
     symbol: zod_1.z.string({ message: "Currency symbol is required" }).toUpperCase(),
-    amount: zod_1.z.string({ message: "Invalid amount" }).transform((amt) => Number(amt))
+    amount: zod_1.z
+        .string({ message: "Invalid amount" })
+        .transform((amt) => Number(amt))
 });
 exports.default = (0, api_1.api)({
     group: "/users/me",
@@ -65,7 +67,9 @@ exports.default = (0, api_1.api)({
     }
     const selectedCurrency = user.accountGroup?.currencies.find((curr) => curr.id === currency?.id);
     const depositAccountWalletAddress = selectedCurrency?.walletAddress || currency.walletAddress;
-    const depositAccountWalletAddressNetwork = selectedCurrency?.walletAddressNetwork || currency.walletAddressNetwork || undefined;
+    const depositAccountWalletAddressNetwork = selectedCurrency?.walletAddressNetwork ||
+        currency.walletAddressNetwork ||
+        undefined;
     const updatedCurrency = await (0, get_updated_currency_data_js_1.default)(currency);
     const result = amount / updatedCurrency.rate;
     const payload = {

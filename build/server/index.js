@@ -83,13 +83,17 @@ async function main() {
     else {
         app.use((0, helmet_1.default)());
         app.use("/", (0, sirv_1.default)(node_path_1.default.resolve("build/client"), { single: true }));
-        app.use(fallback.default(node_path_1.default.resolve("build/client/index.html"), { root: node_path_1.default.resolve("build/client") }));
+        app.use(fallback.default(node_path_1.default.resolve("build/client/index.html"), {
+            root: node_path_1.default.resolve("build/client")
+        }));
     }
     app.get("/api/{*all}", (req, res) => {
         res.status(404).json({ success: false, message: "not found" });
     });
     app.get("/{*all}", (req, res) => {
-        const HTML_PATH = isProduction ? "build/client/index.html" : "src/app/index.html";
+        const HTML_PATH = isProduction
+            ? "build/client/index.html"
+            : "src/app/index.html";
         res.sendFile(node_path_1.default.resolve(HTML_PATH));
     });
     app.use(error_handler_1.default);

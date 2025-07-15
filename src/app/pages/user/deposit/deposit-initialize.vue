@@ -22,7 +22,10 @@ const api = ref<string | null>(
 );
 
 //Get deposit init data
-const { isLoading, error, data, mutate } = useSWRV<DepositInitApiResponse>(api.value, $fetch);
+const { isLoading, error, data, mutate } = useSWRV<DepositInitApiResponse>(
+  api.value,
+  $fetch
+);
 
 const transaction = ref<Partial<Transaction>>({});
 //Proceed with wire transfer deposit
@@ -31,7 +34,9 @@ const {
   error: transactionError,
   data: result,
   execute
-} = useFetch("/api/users/me/transactions/deposit", { immediate: false }).post(transaction).json();
+} = useFetch("/api/users/me/transactions/deposit", { immediate: false })
+  .post(transaction)
+  .json();
 
 const proceedWithDeposit = async () => {
   if (!data.value) return;
@@ -73,12 +78,22 @@ onUnmounted(() => {
     <div class="h-full">
       <VNavbar />
 
-      <Dialog v-model:visible="visible" modal :closable="false" header="Wire Transfer" class="w-80">
+      <Dialog
+        v-model:visible="visible"
+        modal
+        :closable="false"
+        header="Wire Transfer"
+        class="w-80"
+      >
         <div class="flex-col-center gap-1">
-          <Icon icon="ic:baseline-check-circle" style="font-size: 50px" class="text-emerald-500" />
+          <Icon
+            icon="ic:baseline-check-circle"
+            style="font-size: 50px"
+            class="text-emerald-500"
+          />
           <p class="text-center">
-            Your deposit request has been submitted and the details of the wire transfer will be
-            sent to your email address shortly
+            Your deposit request has been submitted and the details of the wire
+            transfer will be sent to your email address shortly
           </p>
           <RouterLink :to="{ name: 'user-transactions' }" class="mt-2 w-full">
             <Button label="Continue" fluid />
@@ -95,7 +110,9 @@ onUnmounted(() => {
 
         <VCard v-else-if="data" class="w-full max-w-[28rem] md:!p-6">
           <div class="text-center">
-            <p class="text-2xl font-semibold">{{ dollar.format(data.user.walletBalance) }}</p>
+            <p class="text-2xl font-semibold">
+              {{ dollar.format(data.user.walletBalance) }}
+            </p>
             <p>Account Balance</p>
           </div>
 
@@ -103,7 +120,9 @@ onUnmounted(() => {
 
           <div class="mt-2 grid gap-y-3 gap-x-2 md:grid-cols-2">
             <div class="grid gap-1 md:col-span-2">
-              <label class="text-sm font-semibold text-mute">Deposit Amount in USD</label>
+              <label class="text-sm font-semibold text-mute"
+                >Deposit Amount in USD</label
+              >
               <InputGroup class="w-full *:dark:bg-slate-800">
                 <InputGroupAddon>$</InputGroupAddon>
                 <InputText
@@ -131,20 +150,34 @@ onUnmounted(() => {
               <label class="text-sm font-semibold text-mute">Charges</label>
               <InputGroup class="w-full *:dark:bg-slate-800">
                 <InputGroupAddon>$</InputGroupAddon>
-                <InputText value="0" readonly class="w-full *:dark:bg-slate-800" />
+                <InputText
+                  value="0"
+                  readonly
+                  class="w-full *:dark:bg-slate-800"
+                />
               </InputGroup>
             </div>
 
             <div class="grid gap-1 md:col-span-2">
               <label class="text-sm font-semibold text-mute">
                 Amount in
-                {{ data.request.isWireTransfer ? "USD" : data.currency?.abbr }}</label
+                {{
+                  data.request.isWireTransfer ? "USD" : data.currency?.abbr
+                }}</label
               >
               <InputGroup class="w-full *:dark:bg-slate-800">
                 <InputGroupAddon>
-                  {{ data.request.isWireTransfer ? "$" : (data.currency?.symbol ?? "$") }}
+                  {{
+                    data.request.isWireTransfer
+                      ? "$"
+                      : (data.currency?.symbol ?? "$")
+                  }}
                 </InputGroupAddon>
-                <InputText :value="data.result" readonly class="w-full *:dark:bg-slate-800" />
+                <InputText
+                  :value="data.result"
+                  readonly
+                  class="w-full *:dark:bg-slate-800"
+                />
               </InputGroup>
             </div>
           </div>
@@ -156,7 +189,11 @@ onUnmounted(() => {
               severity="secondary"
               class="dark:bg-slate-700"
             />
-            <Button :loading="isFetching" @click="proceedWithDeposit" label="Proceed" />
+            <Button
+              :loading="isFetching"
+              @click="proceedWithDeposit"
+              label="Proceed"
+            />
           </div>
         </VCard>
       </div>

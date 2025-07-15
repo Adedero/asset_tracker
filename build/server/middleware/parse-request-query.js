@@ -41,7 +41,9 @@ function parseRequestQuery(req, res, next) {
         parsedQuery.sort = sortObj;
     }
     if (select) {
-        const selectParams = Array.isArray(select) ? select.join(",") : select.toString();
+        const selectParams = Array.isArray(select)
+            ? select.join(",")
+            : select.toString();
         parsedQuery.select = selectParams
             .split(",")
             .reduce((acc, s) => {
@@ -50,7 +52,9 @@ function parseRequestQuery(req, res, next) {
         }, {});
     }
     if (exclude) {
-        const excludeParams = Array.isArray(exclude) ? exclude.join(",") : exclude.toString();
+        const excludeParams = Array.isArray(exclude)
+            ? exclude.join(",")
+            : exclude.toString();
         parsedQuery.exclude = excludeParams
             .split(",")
             .reduce((acc, s) => {

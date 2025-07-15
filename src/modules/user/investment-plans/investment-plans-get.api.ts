@@ -24,7 +24,8 @@ export default api(
   defineHandler(async (req) => {
     const investment_plan_id = req.params.investment_plan_id?.toString();
 
-    const parsedQuery: ParsedQuery<InvestmentPlan> | undefined = req.parsedQuery;
+    const parsedQuery: ParsedQuery<InvestmentPlan> | undefined =
+      req.parsedQuery;
 
     if (investment_plan_id) {
       const investmentPlan = await prisma.investmentPlan.findUnique({

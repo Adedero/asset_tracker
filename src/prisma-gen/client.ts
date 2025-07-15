@@ -33,7 +33,8 @@ export const PrismaClient = $Class.getPrismaClientClass(__dirname);
 export type PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
   Log = $Class.LogOptions<ClientOptions>,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = $Class.PrismaClient<ClientOptions, Log, ExtArgs>;
 export { Prisma };
 
@@ -43,7 +44,10 @@ path.join(process.cwd(), "src/prisma-gen/query_engine-windows.dll.node");
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-debian-openssl-1.0.x.so.node");
-path.join(process.cwd(), "src/prisma-gen/libquery_engine-debian-openssl-1.0.x.so.node");
+path.join(
+  process.cwd(),
+  "src/prisma-gen/libquery_engine-debian-openssl-1.0.x.so.node"
+);
 
 /**
  * Model User
