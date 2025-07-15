@@ -15,6 +15,12 @@ export interface IFile extends File {
   dataUrl?: string;
 }
 
+export interface IFile {
+  id: string,
+  dataUrl: string,
+  fileData: File
+}
+
 const toast = useToast();
 const emit = defineEmits<{
   select: [files: IFile[]];
@@ -50,6 +56,8 @@ async function uploadPromise(event: Event): Promise<IFile[] | null> {
     const accept = EMAIL_ATTACHMENT_ACCEPT.replace(/\s+/g, "").split(",");
     const fileType = file.type;
     const fileExtension = file.name?.split(".")?.pop()?.toLowerCase() ?? "";
+
+    console.log(fileType, fileExtension)
     return (
       accept.includes(fileType) ||
       EMAIL_FILES_ALLOWED_EXTENSIONS.includes(fileExtension)
