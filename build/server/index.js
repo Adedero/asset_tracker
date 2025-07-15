@@ -81,7 +81,7 @@ async function main() {
     }
     else {
         //app.use(helmet());
-        app.use("/app", (0, sirv_1.default)(node_path_1.default.resolve("build/client"), { single: true }));
+        app.use("/client", (0, sirv_1.default)(node_path_1.default.resolve("build/client"), { single: true }));
         app.use(fallback.default(node_path_1.default.resolve("build/client/index.html"), {
             root: node_path_1.default.resolve("build/client")
         }));

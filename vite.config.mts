@@ -16,7 +16,7 @@ export default defineConfig({
     }),
     tailwindcss()
   ],
-  base: "/app",
+  base: "/client",
   root: path.resolve("src/app"),
   resolve: {
     alias: {

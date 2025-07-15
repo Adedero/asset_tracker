@@ -45,6 +45,26 @@ exports.routes = [
     },
     {
         "group": "/admins/me",
+        "path": "/admins/me/database/backups",
+        "method": "post"
+    },
+    {
+        "group": "/admins/me",
+        "path": "/admins/me/database/backups/:filename",
+        "method": "delete"
+    },
+    {
+        "group": "/admins/me",
+        "path": "/admins/me/database/backups/:filename",
+        "method": "get"
+    },
+    {
+        "group": "/admins/me",
+        "path": "/admins/me/database/backups",
+        "method": "get"
+    },
+    {
+        "group": "/admins/me",
         "path": "/admins/me/account-groups/:account_group_id",
         "method": "delete"
     },
@@ -67,26 +87,6 @@ exports.routes = [
         "group": "/admins/me",
         "path": "/admins/me/account-groups/:account_group_id",
         "method": "put"
-    },
-    {
-        "group": "/admins/me",
-        "path": "/admins/me/database/backups",
-        "method": "post"
-    },
-    {
-        "group": "/admins/me",
-        "path": "/admins/me/database/backups/:filename",
-        "method": "delete"
-    },
-    {
-        "group": "/admins/me",
-        "path": "/admins/me/database/backups/:filename",
-        "method": "get"
-    },
-    {
-        "group": "/admins/me",
-        "path": "/admins/me/database/backups",
-        "method": "get"
     },
     {
         "group": "/admins/me",
@@ -285,16 +285,6 @@ exports.routes = [
     },
     {
         "group": "/users/me",
-        "path": "/users/me/notifications{/:notification_id}",
-        "method": "delete"
-    },
-    {
-        "group": "/users/me",
-        "path": "/users/me/notifications{/:notification_id}",
-        "method": "get"
-    },
-    {
-        "group": "/users/me",
         "path": "/users/me/investments/count",
         "method": "get"
     },
@@ -317,6 +307,16 @@ exports.routes = [
         "group": "/users/me",
         "path": "/users/me/investments/:investment_id/terminate",
         "method": "post"
+    },
+    {
+        "group": "/users/me",
+        "path": "/users/me/notifications{/:notification_id}",
+        "method": "delete"
+    },
+    {
+        "group": "/users/me",
+        "path": "/users/me/notifications{/:notification_id}",
+        "method": "get"
     },
     {
         "group": "/users/me",
