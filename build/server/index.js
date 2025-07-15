@@ -58,7 +58,6 @@ async function main() {
     app.use(express_1.default.json({ limit: "10mb" }));
     app.use(express_1.default.urlencoded({ extended: true }));
     app.use((0, compression_1.default)());
-    app.use(express_1.default.static("public"));
     profit_distribution_cron_1.profitDistributionJob.start();
     await (0, route_gen_1.generateRoutes)(app, {
         globalPrefix: "/api",
@@ -69,6 +68,7 @@ async function main() {
         }
     });
     if (!isProduction) {
+        app.use(express_1.default.static("public"));
         const { createServer } = await Promise.resolve().then(() => __importStar(require("vite")));
         const viteServer = await createServer({
             configFile: node_path_1.default.resolve("vite.config.mts"),
@@ -81,7 +81,7 @@ async function main() {
     }
     else {
         //app.use(helmet());
-        app.use("/client", (0, sirv_1.default)(node_path_1.default.resolve("build/client"), { single: true }));
+        app.use("/", (0, sirv_1.default)(node_path_1.default.resolve("build/client"), { single: true }));
         app.use(fallback.default(node_path_1.default.resolve("build/client/index.html"), {
             root: node_path_1.default.resolve("build/client")
         }));

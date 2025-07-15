@@ -23,7 +23,6 @@ async function main() {
   app.use(express.json({ limit: "10mb" }));
   app.use(express.urlencoded({ extended: true }));
   app.use(compression());
-  app.use(express.static("public"));
 
   profitDistributionJob.start();
 
@@ -37,6 +36,8 @@ async function main() {
   });
 
   if (!isProduction) {
+    app.use(express.static("public"));
+    
     const { createServer } = await import("vite");
 
     const viteServer = await createServer({
@@ -51,7 +52,7 @@ async function main() {
     app.use(viteServer.middlewares);
   } else {
     //app.use(helmet());
-    app.use("/client", sirv(path.resolve("build/client"), { single: true }));
+    app.use("/", sirv(path.resolve("build/client"), { single: true }));
     app.use(
       fallback.default(path.resolve("build/client/index.html"), {
         root: path.resolve("build/client")
