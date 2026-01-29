@@ -3,7 +3,7 @@ const fs = require("node:fs");
 
 function main() {
   const dir = path.resolve("src/prisma-gen");
-  const targetDir = path.resolve("build/server/prisma-gen");
+  const targetDir = path.resolve("prisma");
 
   if (!fs.existsSync(dir)) {
     return;

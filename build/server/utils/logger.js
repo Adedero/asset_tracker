@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const winston_1 = __importDefault(require("winston"));
-require("winston-daily-rotate-file");
+const winston_daily_rotate_file_1 = __importDefault(require("winston-daily-rotate-file"));
 class Logger {
     static instance;
     logger;
@@ -34,7 +34,7 @@ class Logger {
                     }), winston_1.default.format.colorize({ all: true }))
                 }),
                 process.env.NODE_ENV === "production" &&
-                    new winston_1.default.transports.DailyRotateFile({
+                    new winston_daily_rotate_file_1.default({
                         filename: path_1.default.join(this.logsDir, "site-%DATE%.log"),
                         datePattern: "YYYY-MM-DD",
                         zippedArchive: true,

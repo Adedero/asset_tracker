@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import winston from "winston";
-import "winston-daily-rotate-file";
+import DailyRotateFile from "winston-daily-rotate-file";
 
 class Logger {
   private static instance: Logger;
@@ -41,7 +41,7 @@ class Logger {
         }),
 
         process.env.NODE_ENV === "production" &&
-          new winston.transports.DailyRotateFile({
+          new DailyRotateFile({
             filename: path.join(this.logsDir, "site-%DATE%.log"),
             datePattern: "YYYY-MM-DD",
             zippedArchive: true,
