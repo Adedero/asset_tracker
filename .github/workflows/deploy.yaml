@@ -1,0 +1,44 @@
+name: Deploy to Namecheap Node Hosting
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -e
+
+            cd ~/domains/myassetstracker
+
+            echo "Pulling latest code..."
+            git reset --hard HEAD
+            git clean -fd
+            git pull origin main
+
+            echo "Installing dependencies..."
+            npm ci
+
+            echo "Building app..."
+            npm run build
+
+            echo "Restarting Node app..."
+            touch tmp/restart.txt
+
+# Server IP:	67.223.118.30
+# Username:	myasezip
+# SSH port:	21098
