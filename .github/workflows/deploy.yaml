@@ -34,6 +34,7 @@ jobs:
             npm ci --include=dev
             # Alternative if npm ci still skips: npm install --production=false
             # Prisma shit
+            npx prism generate
             npx prisma migrate deploy
             
             
