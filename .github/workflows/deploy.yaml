@@ -33,9 +33,10 @@ jobs:
             rm -rf node_modules
             npm ci --include=dev
             # Alternative if npm ci still skips: npm install --production=false
+            # Prisma shit
+            npx prisma generate
             
             echo "Building app..."
             npm run build
             
-            echo "Restarting Node app..."
-            touch tmp/restart.txt
+            echo "Done..."
