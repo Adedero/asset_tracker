@@ -22,24 +22,20 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             set -e
-
             cd ~/domains/myassetstracker
-
             echo "Pulling latest code..."
             git reset --hard HEAD
-            git clean -fd
+            git clean -fdx
             git pull origin main
-
-            echo "Installing dependencies..."
-            source /home/myasezip/nodevenv/domains/myassetstracker/22/bin/activate && cd /home/myasezip/domains/myassetstracker
-            npm ci
-
+            
+            echo "Installing dependencies (force devDeps)..."
+            source /home/***/nodevenv/domains/myassetstracker/22/bin/activate && cd /home/***/domains/myassetstracker
+            rm -rf node_modules
+            npm ci --include=dev
+            # Alternative if npm ci still skips: npm install --production=false
+            
             echo "Building app..."
             npm run build
-
+            
             echo "Restarting Node app..."
             touch tmp/restart.txt
-
-# Server IP:	67.223.118.30
-# Username:	myasezip
-# SSH port:	21098
