@@ -31,7 +31,7 @@ routes.json
 
 # SQLite Database
 #database
-prisma/migrations
+#prisma/migrations
 
 #Prisma
 src/lib/prisma
