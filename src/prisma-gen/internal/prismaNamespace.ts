@@ -1438,6 +1438,7 @@ export const UserScalarFieldEnum = {
   address: 'address',
   country: 'country',
   region: 'region',
+  lastLogin: 'lastLogin',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   ipAddresses: 'ipAddresses',

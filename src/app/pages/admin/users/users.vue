@@ -186,6 +186,12 @@ const onDone = async (payload: User) => {
                     {{ data.accountGroup?.name }}
                   </template>
                 </Column>
+                
+                <Column header="Last Login">
+                  <template #body="{ data }">
+                    {{ data.lastLogin ? data.lastLogin.toLocaleString() : 'Never' }}
+                  </template>
+                </Column>
 
                 <Column>
                   <template #body="{ data }">

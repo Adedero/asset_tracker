@@ -533,10 +533,6 @@ export type EnumKycStatusFieldUpdateOperationsInput = {
   set?: $Enums.KycStatus
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type AccountCreateWithoutUserInput = {
   id?: string
   walletBalance?: number

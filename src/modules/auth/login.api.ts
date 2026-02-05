@@ -80,6 +80,13 @@ export default api(
       }
     );
 
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        lastLogin: new Date()
+      }
+    });
+
     const response: LoginApiRespone = {
       success: true,
       message: "Login successful",

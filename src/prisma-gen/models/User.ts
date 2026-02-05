@@ -39,6 +39,7 @@ export type UserMinAggregateOutputType = {
   address: string | null
   country: string | null
   region: string | null
+  lastLogin: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   isBanned: boolean | null
@@ -58,6 +59,7 @@ export type UserMaxAggregateOutputType = {
   address: string | null
   country: string | null
   region: string | null
+  lastLogin: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   isBanned: boolean | null
@@ -77,6 +79,7 @@ export type UserCountAggregateOutputType = {
   address: number
   country: number
   region: number
+  lastLogin: number
   createdAt: number
   updatedAt: number
   ipAddresses: number
@@ -100,6 +103,7 @@ export type UserMinAggregateInputType = {
   address?: true
   country?: true
   region?: true
+  lastLogin?: true
   createdAt?: true
   updatedAt?: true
   isBanned?: true
@@ -119,6 +123,7 @@ export type UserMaxAggregateInputType = {
   address?: true
   country?: true
   region?: true
+  lastLogin?: true
   createdAt?: true
   updatedAt?: true
   isBanned?: true
@@ -138,6 +143,7 @@ export type UserCountAggregateInputType = {
   address?: true
   country?: true
   region?: true
+  lastLogin?: true
   createdAt?: true
   updatedAt?: true
   ipAddresses?: true
@@ -232,6 +238,7 @@ export type UserGroupByOutputType = {
   address: string | null
   country: string | null
   region: string | null
+  lastLogin: Date | null
   createdAt: Date
   updatedAt: Date
   ipAddresses: PrismaJson.IpAddresses | null
@@ -274,6 +281,7 @@ export type UserWhereInput = {
   address?: Prisma.StringNullableFilter<"User"> | string | null
   country?: Prisma.StringNullableFilter<"User"> | string | null
   region?: Prisma.StringNullableFilter<"User"> | string | null
+  lastLogin?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   ipAddresses?: Prisma.JsonNullableFilter<"User">
@@ -302,6 +310,7 @@ export type UserOrderByWithRelationInput = {
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   region?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastLogin?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   ipAddresses?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -333,6 +342,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   address?: Prisma.StringNullableFilter<"User"> | string | null
   country?: Prisma.StringNullableFilter<"User"> | string | null
   region?: Prisma.StringNullableFilter<"User"> | string | null
+  lastLogin?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   ipAddresses?: Prisma.JsonNullableFilter<"User">
@@ -361,6 +371,7 @@ export type UserOrderByWithAggregationInput = {
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   region?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastLogin?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   ipAddresses?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -388,6 +399,7 @@ export type UserScalarWhereWithAggregatesInput = {
   address?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   country?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   region?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  lastLogin?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   ipAddresses?: Prisma.JsonNullableWithAggregatesFilter<"User">
@@ -407,6 +419,7 @@ export type UserCreateInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -435,6 +448,7 @@ export type UserUncheckedCreateInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -459,6 +473,7 @@ export type UserUpdateInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -487,6 +502,7 @@ export type UserUncheckedUpdateInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -513,6 +529,7 @@ export type UserCreateManyInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -532,6 +549,7 @@ export type UserUpdateManyMutationInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -553,6 +571,7 @@ export type UserUncheckedUpdateManyInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -574,6 +593,7 @@ export type UserCountOrderByAggregateInput = {
   address?: Prisma.SortOrder
   country?: Prisma.SortOrder
   region?: Prisma.SortOrder
+  lastLogin?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   ipAddresses?: Prisma.SortOrder
@@ -595,6 +615,7 @@ export type UserMaxOrderByAggregateInput = {
   address?: Prisma.SortOrder
   country?: Prisma.SortOrder
   region?: Prisma.SortOrder
+  lastLogin?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
@@ -614,6 +635,7 @@ export type UserMinOrderByAggregateInput = {
   address?: Prisma.SortOrder
   country?: Prisma.SortOrder
   region?: Prisma.SortOrder
+  lastLogin?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
@@ -648,6 +670,10 @@ export type EnumUserRoleFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -824,6 +850,7 @@ export type UserCreateWithoutAccountInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -851,6 +878,7 @@ export type UserUncheckedCreateWithoutAccountInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -890,6 +918,7 @@ export type UserUpdateWithoutAccountInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -917,6 +946,7 @@ export type UserUncheckedUpdateWithoutAccountInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -940,6 +970,7 @@ export type UserCreateWithoutAccountGroupInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -966,6 +997,7 @@ export type UserUncheckedCreateWithoutAccountGroupInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1020,6 +1052,7 @@ export type UserScalarWhereInput = {
   address?: Prisma.StringNullableFilter<"User"> | string | null
   country?: Prisma.StringNullableFilter<"User"> | string | null
   region?: Prisma.StringNullableFilter<"User"> | string | null
+  lastLogin?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   ipAddresses?: Prisma.JsonNullableFilter<"User">
@@ -1039,6 +1072,7 @@ export type UserCreateWithoutInvestmentsInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1066,6 +1100,7 @@ export type UserUncheckedCreateWithoutInvestmentsInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1105,6 +1140,7 @@ export type UserUpdateWithoutInvestmentsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1132,6 +1168,7 @@ export type UserUncheckedUpdateWithoutInvestmentsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1155,6 +1192,7 @@ export type UserCreateWithoutTransactionsInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1182,6 +1220,7 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1221,6 +1260,7 @@ export type UserUpdateWithoutTransactionsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1248,6 +1288,7 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1271,6 +1312,7 @@ export type UserCreateWithoutNotificationInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1298,6 +1340,7 @@ export type UserUncheckedCreateWithoutNotificationInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1337,6 +1380,7 @@ export type UserUpdateWithoutNotificationInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1364,6 +1408,7 @@ export type UserUncheckedUpdateWithoutNotificationInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1387,6 +1432,7 @@ export type UserCreateWithoutBanInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1414,6 +1460,7 @@ export type UserUncheckedCreateWithoutBanInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1453,6 +1500,7 @@ export type UserUpdateWithoutBanInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1480,6 +1528,7 @@ export type UserUncheckedUpdateWithoutBanInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1503,6 +1552,7 @@ export type UserCreateWithoutTierInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1529,6 +1579,7 @@ export type UserUncheckedCreateWithoutTierInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1579,6 +1630,7 @@ export type UserCreateManyAccountGroupInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1598,6 +1650,7 @@ export type UserUpdateWithoutAccountGroupInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1624,6 +1677,7 @@ export type UserUncheckedUpdateWithoutAccountGroupInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1649,6 +1703,7 @@ export type UserUncheckedUpdateManyWithoutAccountGroupInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1669,6 +1724,7 @@ export type UserCreateManyTierInput = {
   address?: string | null
   country?: string | null
   region?: string | null
+  lastLogin?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1688,6 +1744,7 @@ export type UserUpdateWithoutTierInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1714,6 +1771,7 @@ export type UserUncheckedUpdateWithoutTierInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
@@ -1739,6 +1797,7 @@ export type UserUncheckedUpdateManyWithoutTierInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ipAddresses?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1809,6 +1868,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   address?: boolean
   country?: boolean
   region?: boolean
+  lastLogin?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   ipAddresses?: boolean
@@ -1838,6 +1898,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   address?: boolean
   country?: boolean
   region?: boolean
+  lastLogin?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   ipAddresses?: boolean
@@ -1861,6 +1922,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   address?: boolean
   country?: boolean
   region?: boolean
+  lastLogin?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   ipAddresses?: boolean
@@ -1884,6 +1946,7 @@ export type UserSelectScalar = {
   address?: boolean
   country?: boolean
   region?: boolean
+  lastLogin?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   ipAddresses?: boolean
@@ -1891,7 +1954,7 @@ export type UserSelectScalar = {
   isBanned?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "verified" | "role" | "accountGroupId" | "tierId" | "image" | "phoneNumber" | "address" | "country" | "region" | "createdAt" | "updatedAt" | "ipAddresses" | "devices" | "isBanned", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "verified" | "role" | "accountGroupId" | "tierId" | "image" | "phoneNumber" | "address" | "country" | "region" | "lastLogin" | "createdAt" | "updatedAt" | "ipAddresses" | "devices" | "isBanned", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   account?: boolean | Prisma.User$accountArgs<ExtArgs>
   accountGroup?: boolean | Prisma.User$accountGroupArgs<ExtArgs>
@@ -1936,6 +1999,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     address: string | null
     country: string | null
     region: string | null
+    lastLogin: Date | null
     createdAt: Date
     updatedAt: Date
     /**
@@ -2387,6 +2451,7 @@ export interface UserFieldRefs {
   readonly address: Prisma.FieldRef<"User", 'String'>
   readonly country: Prisma.FieldRef<"User", 'String'>
   readonly region: Prisma.FieldRef<"User", 'String'>
+  readonly lastLogin: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly ipAddresses: Prisma.FieldRef<"User", 'Json'>
