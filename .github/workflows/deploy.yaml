@@ -25,7 +25,6 @@ jobs:
             cd ~/domains/myassetstracker
             echo "Pulling latest code..."
             git reset --hard HEAD
-            git clean -fdx
             git pull origin main
             
             echo "Installing dependencies (force devDeps)..."
