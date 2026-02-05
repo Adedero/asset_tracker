@@ -3,7 +3,7 @@ import { AccountGroupPageApiResponse } from "@/modules/admin/account-groups/acco
 import { useFetch } from "@/app/composables/use-fetch";
 import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { CurrenciesGetApiResponse } from "#src/modules/user/currencies/currencies-get.api";
+import { CurrenciesGetApiResponse } from "@/modules/user/currencies/currencies-get.api";
 import { SelectChangeEvent, useToast } from "primevue";
 
 const router = useRouter();

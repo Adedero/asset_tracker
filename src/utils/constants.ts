@@ -22,6 +22,6 @@ export const MIN_ACCOUNT_BALANCE = 25;
 export const APP_NAME = "My Assets Tracker";
 
 export const AVAILABLE_EMAILS = {
-  Finance: "finance@myassetstracker.com",
-  Support: "support@myassetstracker.com"
+  Finance: "finance@myassetstracker.live",
+  Support: "support@myassetstracker.live"
 };

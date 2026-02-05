@@ -6,7 +6,7 @@ import { useToast } from "primevue/usetoast";
 import { useFetch } from "@/app/composables/use-fetch";
 import { DepositGiftCardInitApiResponse } from "@/modules/user/transactions/deposit-giftcard-init.api";
 import { dollar } from "@/app/utils/helpers";
-import { Transaction } from "#src/prisma-gen/index";
+import { Transaction } from "@/prisma-gen/index";
 
 const toast = useToast();
 

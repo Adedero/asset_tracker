@@ -51,7 +51,7 @@ const updatedUser = ref<UserUpdateData>({
   region: user?.region || "",
   verified: user?.verified || false,
   role: user?.role || role || "USER",
-  accountGroupId: user?.accountGroupId || undefined
+  accountGroupId: user?.accountGroupId || null
 });
 
 const result =

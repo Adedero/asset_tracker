@@ -36,14 +36,15 @@ export default api(
     if (!accountGroup) {
       throw HttpException.notFound("Account group not found");
     }
+  
 
-    const payload: AccountGroupPageApiResponse = {
+    const payload = {
       success: true,
       message: "Successful",
       accountGroup,
       currencies
     };
 
-    return payload;
+    return payload as AccountGroupPageApiResponse;
   })
 );

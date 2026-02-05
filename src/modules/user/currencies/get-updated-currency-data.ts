@@ -7,9 +7,7 @@ import prisma from "#src/lib/prisma/prisma";
 const COINLAYER_API = env.get("COINLAYER_API");
 const COINLAYER_API_KEY = env.get("COINLAYER_API_KEY");
 
-export default async function getUpdatedCurrencyData(
-  currency: Currency
-): Promise<Currency> {
+export default async function (currency: Currency): Promise<Currency> {
   const ONE_DAY_AGO = new Date().getTime() - 24 * 60 * 60 * 1000;
   const updatedAt = currency.rateUpdatedAt
     ? new Date(currency.rateUpdatedAt).getTime()

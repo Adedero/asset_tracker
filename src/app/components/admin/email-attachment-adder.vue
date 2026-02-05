@@ -16,9 +16,9 @@ import { useToast } from "primevue/usetoast";
 }*/
 
 export interface IFile {
-  id: string,
-  dataUrl: string,
-  fileData: File
+  id: string;
+  dataUrl: string;
+  fileData: File;
 }
 
 const toast = useToast();
@@ -42,7 +42,6 @@ async function uploadPromise(event: Event): Promise<IFile[] | null> {
     throw new Error("No files selected.");
   }
 
-
   files.value = Array.from(uploadedFiles).map((file) => ({
     fileData: file,
     id: uuid(),
@@ -58,7 +57,8 @@ async function uploadPromise(event: Event): Promise<IFile[] | null> {
   const isFormatValid = files.value.every((file) => {
     const accept = EMAIL_ATTACHMENT_ACCEPT.replace(/\s+/g, "").split(",");
     const fileType = file.fileData.type;
-    const fileExtension = file.fileData.name?.split(".")?.pop()?.toLowerCase() ?? "";
+    const fileExtension =
+      file.fileData.name?.split(".")?.pop()?.toLowerCase() ?? "";
 
     return (
       accept.includes(fileType) ||

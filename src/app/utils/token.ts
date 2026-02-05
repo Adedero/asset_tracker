@@ -10,19 +10,19 @@ export async function getAccessToken(options: {
 
   if (!accessToken || !refreshToken) return null;
 
-  const accessTokenExp = await getTokenExpirationDate(accessToken);
+  const accessTokenExp = getTokenExpirationDate(accessToken);
   if (!isTokenExpired(accessTokenExp)) {
-    //console.log("Access token not expired: forwarding request...");
+    // console.log("Access token not expired: forwarding request...");
     return accessToken;
   }
 
-  const refreshTokenExp = await getTokenExpirationDate(refreshToken);
+  const refreshTokenExp = getTokenExpirationDate(refreshToken);
   if (isTokenExpired(refreshTokenExp)) {
-    //console.log("Refresh token expired!");
+    // console.log("Refresh token expired!");
     return null;
   }
 
-  //console.log("Access token expired: getting new access token...");
+  // console.log("Access token expired: getting new access token...");
   const { data, error } = await useFetch(`/api/auth/refresh/${refreshToken}`, {
     timeout: FETCH_TIMEOUT,
     updateDataOnError: true,
@@ -38,19 +38,21 @@ export async function getAccessToken(options: {
     .json<{ success: boolean; accessToken: string }>();
 
   if (error?.value || !data?.value?.success || !data?.value?.accessToken) {
-    //console.log("Failed to get new access token!");
+    // console.log("Failed to get new access token!");
     return null;
   }
 
-  //console.log("New access token retrieved");
+  // console.log("New access token retrieved");
   return data.value.accessToken;
 }
 
-async function getTokenExpirationDate(token: string): Promise<number | null> {
+function getTokenExpirationDate(token: string): number | null {
   try {
-    const { exp } = jwtDecode<{ exp?: number }>(token);
-    return exp ? exp * 1000 : null; // Convert to ms
-  } catch {
+    const result = jwtDecode(token);
+    const exp = result.exp ? result.exp * 1000 : null;
+    return exp;
+  } catch (err) {
+    console.error("Error decoding jwt", err);
     return null;
   }
 }

@@ -15,11 +15,11 @@ export default api(
   },
   defineHandler<ApiResponse>(async (req) => {
     const data = req.validatedBody as EmailData;
-
+    
     const transporter = Object.values(mailTransporters)
       .find(({ config }) => config.auth?.user === data.from.address)
       ?.transporter();
-
+    
     if (!transporter) {
       throw HttpException.badRequest(
         "The sender email provided is not authenticated. Please, use a different address"

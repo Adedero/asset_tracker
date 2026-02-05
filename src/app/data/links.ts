@@ -82,6 +82,11 @@ export const adminLinks = [
     route: { name: "admin-account-groups" }
   },
   {
+    label: "Tiers",
+    icon: "pi pi-star",
+    route: { name: "admin-tiers" }
+  },
+  {
     label: "Investments",
     icon: "pi pi-chart-line",
     route: { name: "admin-investments" }

@@ -1,7 +1,7 @@
 generator client {
-  provider     = "prisma-client"
-  output       = "../src/prisma-gen"
-  moduleFormat = "cjs"
+  provider      = "prisma-client"
+  output        = "../src/prisma-gen"
+  moduleFormat  = "cjs"
   binaryTargets = ["native", "debian-openssl-1.0.x"]
 }
 
@@ -28,9 +28,11 @@ model User {
   role           UserRole       @default(USER)
   account        Account?
   accountGroup   AccountGroup?  @relation(fields: [accountGroupId], references: [id], onDelete: NoAction)
+  tier           Tier?          @relation(fields: [tierId], references: [id], onDelete: NoAction)
   transactions   Transaction[]
   investments    Investment[]
   accountGroupId String?
+  tierId         String?
   image          String?
   phoneNumber    String?
   address        String?
@@ -260,4 +262,13 @@ model Ban {
   ipAddresses          Json?
 
   @@index([userId])
+}
+
+model Tier {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  users       User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

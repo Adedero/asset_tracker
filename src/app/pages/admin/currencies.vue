@@ -97,7 +97,10 @@ const onCurrencyDelete = async (id: string) => {
             <Column header="Withdrawal Allowed">
               <template #body="{ data }">
                 <div class="flex items-center justify-center">
-                  <Badge :severity="data.isAvailableForWithdrawal ? '' : 'danger'" :value="data.isAvailableForWithdrawal ? 'Yes' : 'No'" />
+                  <Badge
+                    :severity="data.isAvailableForWithdrawal ? '' : 'danger'"
+                    :value="data.isAvailableForWithdrawal ? 'Yes' : 'No'"
+                  />
                 </div>
               </template>
             </Column>

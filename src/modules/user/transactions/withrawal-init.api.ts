@@ -5,6 +5,7 @@ import prisma from "#src/lib/prisma/prisma";
 import { HttpException } from "#src/lib/api/http";
 import { ApiResponse } from "#src/types/api-response";
 import { Currency } from "#src/prisma-gen/index";
+import getUpdatedCurrencyData from "../currencies/get-updated-currency-data";
 
 //Initi data and currencies
 const Schema = z.object({

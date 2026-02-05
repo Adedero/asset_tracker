@@ -29,12 +29,12 @@ jobs:
             git pull origin main
             
             echo "Installing dependencies (force devDeps)..."
-            source /home/***/nodevenv/domains/myassetstracker/22/bin/activate && cd /home/***/domains/myassetstracker
+            source /home/myasezip/nodevenv/domains/myassetstracker/22/bin/activate && cd /home/myasezip/domains/myassetstracker
             rm -rf node_modules
             npm ci --include=dev
             # Alternative if npm ci still skips: npm install --production=false
             # Prisma shit
-            npx prisma generate
+            # npx prisma generate
             npx prisma migrate deploy
             
             
@@ -42,6 +42,6 @@ jobs:
             npm run build
             
             echo "Restart application..."
-            touch /home/myasezip/domains/myassetstracker/tmp/restart.txt
+            touch ~/home/myasezip/domains/myassetstracker/tmp/restart.txt
             
             echo "Done..."

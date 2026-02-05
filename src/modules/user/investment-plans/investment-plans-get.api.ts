@@ -3,9 +3,9 @@ import { defineHandler } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
 import prisma from "#src/lib/prisma/prisma";
 import { ParsedQuery } from "#src/middleware/parse-request-query";
+import requireKyc from "#src/middleware/require-kyc";
 import { InvestmentPlan } from "#src/prisma-gen/index";
 import { ApiResponse } from "#src/types/api-response";
-import { JsonValue } from "@prisma/client/runtime/library";
 
 export interface InvestmentPlanApiResponse extends ApiResponse {
   plan: InvestmentPlan;
@@ -19,7 +19,8 @@ export default api(
   {
     group: "/users/me",
     path: "/investment-plans{/:investment_plan_id}",
-    method: "get"
+    method: "get",
+    middleware: [requireKyc]
   },
   defineHandler(async (req) => {
     const investment_plan_id = req.params.investment_plan_id?.toString();

@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import { $fetch, useFetch } from "@/app/composables/use-fetch";
 import useSWRV from "swrv";
 import useStore from "@/app/stores/store";
-import { DepositInitApiResponse } from "#src/modules/user/transactions/deposit-init.api";
+import { DepositInitApiResponse } from "@/modules/user/transactions/deposit-init.api";
 import { dollar } from "@/app/utils/helpers";
 import { Icon } from "@iconify/vue";
 import { Transaction } from "@/prisma-gen";

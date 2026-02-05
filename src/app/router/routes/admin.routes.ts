@@ -1,3 +1,5 @@
+import path from "node:path/win32";
+
 const adminRoutes = [
   {
     path: "",
@@ -114,7 +116,12 @@ const adminRoutes = [
     path: "database",
     name: "admin-database",
     component: () => import("@/app/pages/admin/database.vue")
-  }
+  },
+  {
+    path: "tiers",
+    name: "admin-tiers",
+    component: () => import("@/app/pages/admin/tiers/tiers.vue")
+  },
 ];
 
 export default adminRoutes;

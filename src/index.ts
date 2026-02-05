@@ -13,6 +13,7 @@ import parseRequestQuery from "#src/middleware/parse-request-query";
 import { profitDistributionJob } from "#src/cron/profit-distribution.cron";
 //@ts-ignore
 import * as fallback from "express-history-api-fallback";
+import prisma from "./lib/prisma/prisma";
 
 const PORT = env.get("PORT", 8000);
 const app = express();
@@ -42,17 +43,13 @@ async function main() {
 
     const viteServer = await createServer({
       configFile: path.resolve("vite.config.mts"),
-      server: { middlewareMode: true },
-      root: path.resolve("src/app/"),
-      forceOptimizeDeps: true
+      server: { middlewareMode: true }
     });
-
-    await viteServer.restart(true);
 
     app.use(viteServer.middlewares);
   } else {
     //app.use(helmet());
-    app.use("/app", sirv(path.resolve("build/client"), { single: true }));
+    app.use("/", sirv(path.resolve("build/client"), { single: true }));
     app.use(
       fallback.default(path.resolve("build/client/index.html"), {
         root: path.resolve("build/client")

@@ -10,6 +10,7 @@
     "build:clear": "node ./bin/clear-build.js",
     "build:post": "node ./bin/post-build.js",
     "format": "prettier --write ./src",
+    "prisma:format": "npx prisma format prisma/schema.prisma",
     "start": "npm run build && npm run server",
     "server": "node --watch build/server/index.js"
   },

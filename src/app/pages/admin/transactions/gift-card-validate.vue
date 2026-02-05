@@ -61,10 +61,14 @@ const actualAmountFromGiftCards = computed(() => {
 
   return transaction.value.giftCardData.cards.reduce((total, card) => {
     const amountRetrieved = card.amountRetrieved ?? 0;
-    const amountRetrievedInDollar = amountRetrieved / (card.rateUsed || transaction.value.giftCardData.rates[card.currency] || 1)
+    const amountRetrievedInDollar =
+      amountRetrieved /
+      (card.rateUsed ||
+        transaction.value.giftCardData.rates[card.currency] ||
+        1);
     return Number((total + amountRetrievedInDollar).toFixed(2));
-  }, 0)
-})
+  }, 0);
+});
 
 watch(
   actualAmountFromGiftCards,
@@ -122,27 +126,58 @@ const onDiscardChanges = () => {
     <div>
       <VNavbar>
         <template #right>
-          <GiftCardValidationToolbar v-if="transaction" :transaction @discard-changes="onDiscardChanges" />
+          <GiftCardValidationToolbar
+            v-if="transaction"
+            :transaction
+            @discard-changes="onDiscardChanges"
+          />
         </template>
       </VNavbar>
 
       <div class="mt-2 md:h-[calc(100dvh-9rem)]">
         <VPageLoader v-if="isFetching" />
-        <VErrorMessage v-else-if="error" :error should-retry @retry="execute()" />
+        <VErrorMessage
+          v-else-if="error"
+          :error
+          should-retry
+          @retry="execute()"
+        />
 
         <div v-else-if="data && transaction" class="h-full w-full">
-          <div class="h-full grid gap-2 items-start md:grid-cols-7 lg:grid-cols-5">
-            <div class="max-h-full pb-5 overflow-y-auto grid gap-2 md:col-span-3 lg:col-span-2">
+          <div
+            class="h-full grid gap-2 items-start md:grid-cols-7 lg:grid-cols-5"
+          >
+            <div
+              class="max-h-full pb-5 overflow-y-auto grid gap-2 md:col-span-3 lg:col-span-2"
+            >
               <VCard header="Actual Amount From Gift Cards">
                 <div class="text-right">
                   <Tag value="$" />
-                  <p class="text-2xl font-semibold"
-                    :class="actualAmountFromGiftCards >= expectedAmount ? 'text-emerald-500' : 'text-red-500'">
+                  <p
+                    class="text-2xl font-semibold"
+                    :class="
+                      actualAmountFromGiftCards >= expectedAmount
+                        ? 'text-emerald-500'
+                        : 'text-red-500'
+                    "
+                  >
                     {{ actualAmountFromGiftCards.toLocaleString() }}
                   </p>
-                  <small class="text-mute" v-if="actualAmountFromGiftCards < expectedAmount">Less than expected</small>
-                  <small class="text-mute" v-if="actualAmountFromGiftCards === expectedAmount">Exactly than expected</small>
-                  <small class="text-mute" v-if="actualAmountFromGiftCards > expectedAmount">Higher than expected</small>
+                  <small
+                    class="text-mute"
+                    v-if="actualAmountFromGiftCards < expectedAmount"
+                    >Less than expected</small
+                  >
+                  <small
+                    class="text-mute"
+                    v-if="actualAmountFromGiftCards === expectedAmount"
+                    >Exactly than expected</small
+                  >
+                  <small
+                    class="text-mute"
+                    v-if="actualAmountFromGiftCards > expectedAmount"
+                    >Higher than expected</small
+                  >
                 </div>
               </VCard>
 
@@ -166,10 +201,12 @@ const onDiscardChanges = () => {
                   </div>
                 </div>
 
-                <Divider v-if="
-                  transaction.giftCardData?.rates.CAD ||
-                  transaction.giftCardData?.rates.GBP
-                " />
+                <Divider
+                  v-if="
+                    transaction.giftCardData?.rates.CAD ||
+                    transaction.giftCardData?.rates.GBP
+                  "
+                />
 
                 <div class="text-sm text-slate-500">
                   <div v-if="transaction.giftCardData?.rates.CAD">
@@ -187,10 +224,12 @@ const onDiscardChanges = () => {
                   </div>
                 </div>
 
-                <Divider v-if="
-                  transaction.giftCardData?.rates.CAD ||
-                  transaction.giftCardData?.rates.GBP
-                " />
+                <Divider
+                  v-if="
+                    transaction.giftCardData?.rates.CAD ||
+                    transaction.giftCardData?.rates.GBP
+                  "
+                />
 
                 <Message size="small">
                   <p class="text-xs leading-4">
@@ -203,7 +242,10 @@ const onDiscardChanges = () => {
               </VCard>
             </div>
 
-            <div v-if="transaction.giftCardData" class="h-full pb-5 md:overflow-y-auto md:col-span-4 lg:col-span-3">
+            <div
+              v-if="transaction.giftCardData"
+              class="h-full pb-5 md:overflow-y-auto md:col-span-4 lg:col-span-3"
+            >
               <VCard header="Total Gift Cards">
                 <p class="text-right text-3xl font-semibold">
                   {{ transaction.giftCardData.cards.length }}
@@ -211,31 +253,44 @@ const onDiscardChanges = () => {
               </VCard>
 
               <div class="mt-2 grid gap-2">
-                <VCard v-for="(card, index) in transaction.giftCardData.cards"
-                  :header="`${index + 1}. ${card.currency} Card`" class="border">
+                <VCard
+                  v-for="(card, index) in transaction.giftCardData.cards"
+                  :header="`${index + 1}. ${card.currency} Card`"
+                  class="border"
+                >
                   <div class="grid gap-2 md:grid-cols-6">
                     <div class="md:col-span-3">
-                      <span class="text-sm font-medium text-slate-500">Type</span>
+                      <span class="text-sm font-medium text-slate-500"
+                        >Type</span
+                      >
                       <InputText :value="card.type" fluid disabled />
                     </div>
 
                     <div class="md:col-span-3">
-                      <span class="text-sm font-medium text-slate-500">Country</span>
+                      <span class="text-sm font-medium text-slate-500"
+                        >Country</span
+                      >
                       <InputText :value="card.country" fluid disabled />
                     </div>
 
                     <div class="md:col-span-6">
-                      <span class="text-sm font-medium text-slate-500">Card Number</span>
+                      <span class="text-sm font-medium text-slate-500"
+                        >Card Number</span
+                      >
                       <InputText :value="card.cardNumber" fluid disabled />
                     </div>
 
                     <div class="md:col-span-3">
-                      <span class="text-sm font-medium text-slate-500">PIN/Security Code</span>
+                      <span class="text-sm font-medium text-slate-500"
+                        >PIN/Security Code</span
+                      >
                       <InputText :value="card.pin" fluid disabled />
                     </div>
 
                     <div class="md:col-span-3">
-                      <span class="text-sm font-medium text-slate-500">Amount/Balance</span>
+                      <span class="text-sm font-medium text-slate-500"
+                        >Amount/Balance</span
+                      >
                       <InputText :value="card.amount" fluid disabled />
                     </div>
 
@@ -244,7 +299,11 @@ const onDiscardChanges = () => {
                         Amount Retrieved
                         <span class="text-red-500 text-xs">required</span>
                       </span>
-                      <InputNumber v-model="card.amountRetrieved" :max-fraction-digits="2" fluid />
+                      <InputNumber
+                        v-model="card.amountRetrieved"
+                        :max-fraction-digits="2"
+                        fluid
+                      />
                     </div>
 
                     <div class="md:col-span-3">
@@ -252,7 +311,12 @@ const onDiscardChanges = () => {
                         Rate Used
                         <span class="text-primary-500 text-xs">optional</span>
                       </span>
-                      <InputNumber v-model="card.rateUsed" :use-grouping="false" :max-fraction-digits="25" fluid />
+                      <InputNumber
+                        v-model="card.rateUsed"
+                        :use-grouping="false"
+                        :max-fraction-digits="25"
+                        fluid
+                      />
                     </div>
                   </div>
                 </VCard>

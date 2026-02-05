@@ -30,7 +30,7 @@ routes.json
 
 
 # SQLite Database
-#database
+database/main.db
 #prisma/migrations
 
 #Prisma

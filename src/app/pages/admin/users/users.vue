@@ -189,7 +189,10 @@ const onDone = async (payload: User) => {
 
                 <Column>
                   <template #body="{ data }">
-                    <div v-if="store.user.id !== data.id" class="flex items-center gap-2">
+                    <div
+                      v-if="store.user.id !== data.id"
+                      class="flex items-center gap-2"
+                    >
                       <Button
                         @click="
                           $router.push({

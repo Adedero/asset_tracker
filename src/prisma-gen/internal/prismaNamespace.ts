@@ -405,7 +405,8 @@ export const ModelName = {
   Currency: 'Currency',
   Notification: 'Notification',
   Faq: 'Faq',
-  Ban: 'Ban'
+  Ban: 'Ban',
+  Tier: 'Tier'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -421,7 +422,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "accountGroup" | "token" | "investmentPlan" | "investment" | "profit" | "transaction" | "currency" | "notification" | "faq" | "ban"
+    modelProps: "user" | "account" | "accountGroup" | "token" | "investmentPlan" | "investment" | "profit" | "transaction" | "currency" | "notification" | "faq" | "ban" | "tier"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1313,6 +1314,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Tier: {
+      payload: Prisma.$TierPayload<ExtArgs>
+      fields: Prisma.TierFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TierFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TierFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
+        }
+        findFirst: {
+          args: Prisma.TierFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TierFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
+        }
+        findMany: {
+          args: Prisma.TierFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>[]
+        }
+        create: {
+          args: Prisma.TierCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
+        }
+        createMany: {
+          args: Prisma.TierCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TierCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>[]
+        }
+        delete: {
+          args: Prisma.TierDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
+        }
+        update: {
+          args: Prisma.TierUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
+        }
+        deleteMany: {
+          args: Prisma.TierDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TierUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TierUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>[]
+        }
+        upsert: {
+          args: Prisma.TierUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
+        }
+        aggregate: {
+          args: Prisma.TierAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTier>
+        }
+        groupBy: {
+          args: Prisma.TierGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TierGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TierCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TierCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1357,6 +1432,7 @@ export const UserScalarFieldEnum = {
   verified: 'verified',
   role: 'role',
   accountGroupId: 'accountGroupId',
+  tierId: 'tierId',
   image: 'image',
   phoneNumber: 'phoneNumber',
   address: 'address',
@@ -1565,6 +1641,17 @@ export const BanScalarFieldEnum = {
 } as const
 
 export type BanScalarFieldEnum = (typeof BanScalarFieldEnum)[keyof typeof BanScalarFieldEnum]
+
+
+export const TierScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TierScalarFieldEnum = (typeof TierScalarFieldEnum)[keyof typeof TierScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1798,6 +1885,7 @@ export type GlobalOmitConfig = {
   notification?: Prisma.NotificationOmit
   faq?: Prisma.FaqOmit
   ban?: Prisma.BanOmit
+  tier?: Prisma.TierOmit
 }
 
 /* Types for Logging */

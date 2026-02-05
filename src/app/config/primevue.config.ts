@@ -1,8 +1,8 @@
-import Lara from "@primeuix/themes/lara";
+import Aura from "@primeuix/themes/aura";
 import { definePreset } from "@primeuix/themes";
 
 export default function primeVueConfig() {
-  const preset = definePreset(Lara, {
+  const preset = definePreset(Aura, {
     semantic: {
       primary: {
         50: "#EEF3FB",

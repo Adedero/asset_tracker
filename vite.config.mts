@@ -16,7 +16,7 @@ export default defineConfig({
     }),
     tailwindcss()
   ],
-  base: "/app",
+  base: "/",
   root: path.resolve("src/app"),
   resolve: {
     alias: {
@@ -35,6 +35,6 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    force: true
+    //force: true
   }
 });

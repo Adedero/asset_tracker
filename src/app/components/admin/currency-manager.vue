@@ -50,7 +50,7 @@ const {
   immediate: false
 })
   .put(updatedCurrency)
-    .json<CurrencyUpdateApiResponse>();
+  .json<CurrencyUpdateApiResponse>();
 
 const manageCurrency = async () => {
   if (currency) {
