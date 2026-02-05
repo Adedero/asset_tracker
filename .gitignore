@@ -11,7 +11,7 @@ logs
 *.log
 
 # Temporary and generated directories
-tmp
+# tmp
 
 # Misc
 .DS_Store
@@ -30,7 +30,7 @@ routes.json
 
 
 # SQLite Database
-database/main.db
+database
 #prisma/migrations
 
 #Prisma
