@@ -42,6 +42,6 @@ jobs:
             npm run build
             
             echo "Restart application..."
-            touch ~/home/myasezip/domains/myassetstracker/tmp/restart.txt
+            touch ./tmp/restart.txt
             
             echo "Done..."

@@ -7,7 +7,7 @@ import { ApiResponse } from "#src/types/api-response";
 import { MIN_DEPOSIT_AMOUNT, MAX_DEPOSIT_AMOUNT } from "#src/utils/constants";
 import { z } from "zod";
 import getUpdatedCurrencyData from "../currencies/get-updated-currency-data.js";
-import requireKyc from "#src/middleware/require-kyc.js";
+import requireKyc from "#src/middleware/require-kyc";
 
 const Schema = z.object({
   symbol: z.string({ message: "Currency symbol is required" }).toUpperCase(),

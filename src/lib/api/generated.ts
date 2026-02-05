@@ -90,26 +90,6 @@ export const routes = [
   },
   {
     "group": "/admins/me",
-    "path": "/admins/me/faqs{/:faq_id}",
-    "method": "delete"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/faqs{/:faq_id}",
-    "method": "get"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/faqs",
-    "method": "post"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/faqs/:faq_id_or_slug",
-    "method": "put"
-  },
-  {
-    "group": "/admins/me",
     "path": "/admins/me/currencies/:currency_id",
     "method": "delete"
   },
@@ -126,6 +106,26 @@ export const routes = [
   {
     "group": "/admins/me",
     "path": "/admins/me/currencies/:currency_id",
+    "method": "put"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/faqs{/:faq_id}",
+    "method": "delete"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/faqs{/:faq_id}",
+    "method": "get"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/faqs",
+    "method": "post"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/faqs/:faq_id_or_slug",
     "method": "put"
   },
   {
@@ -195,6 +195,21 @@ export const routes = [
   },
   {
     "group": "/admins/me",
+    "path": "/admins/me/transactions/:transaction_id/approve",
+    "method": "put"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/transactions/:transaction_id/fail",
+    "method": "put"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/transactions{/:transaction_id}",
+    "method": "get"
+  },
+  {
+    "group": "/admins/me",
     "path": "/admins/me/tiers/:tier_id",
     "method": "delete"
   },
@@ -217,21 +232,6 @@ export const routes = [
     "group": "/admins/me",
     "path": "/admins/me/tiers/:tier_id",
     "method": "put"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/transactions/:transaction_id/approve",
-    "method": "put"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/transactions/:transaction_id/fail",
-    "method": "put"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/transactions{/:transaction_id}",
-    "method": "get"
   },
   {
     "group": "/admins/me",
@@ -300,12 +300,17 @@ export const routes = [
   },
   {
     "group": "/users/me",
-    "path": "/users/me/investment-plans{/:investment_plan_id}",
+    "path": "/users/me/faq{/:faq_id_slug}",
     "method": "get"
   },
   {
     "group": "/users/me",
-    "path": "/users/me/faq{/:faq_id_slug}",
+    "path": "/users/me/notifications{/:notification_id}",
+    "method": "delete"
+  },
+  {
+    "group": "/users/me",
+    "path": "/users/me/notifications{/:notification_id}",
     "method": "get"
   },
   {
@@ -335,12 +340,7 @@ export const routes = [
   },
   {
     "group": "/users/me",
-    "path": "/users/me/notifications{/:notification_id}",
-    "method": "delete"
-  },
-  {
-    "group": "/users/me",
-    "path": "/users/me/notifications{/:notification_id}",
+    "path": "/users/me/investment-plans{/:investment_plan_id}",
     "method": "get"
   },
   {
