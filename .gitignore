@@ -11,7 +11,7 @@ logs
 *.log
 
 # Temporary and generated directories
-tmp
+# tmp
 
 # Misc
 .DS_Store

@@ -283,7 +283,7 @@ watch(selectedTier, (value) => {
             show-clear
             class="w-full"
           />
-          <p class="mt-1 text-mute text-xs">Assign this user to a defined group.</p>
+          <p class="mt-1 text-mute text-xs">Assign this user to a defined tier.</p>
         </div>
 
         <div>
