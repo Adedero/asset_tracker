@@ -3,19 +3,20 @@ import { defineHandler } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
 import prisma from "#src/lib/prisma/prisma";
 import { ParsedQuery } from "#src/middleware/parse-request-query";
-import { Account, User } from "#src/prisma-gen/index";
+import { Account, User, UserTier } from "#src/prisma-gen/index";
 import { ApiResponse } from "#src/types/api-response";
 
-type AccountWithUser = Account & {
+type AccountWithUserAndTier = Account & {
   user: User;
+  tier: UserTier | null;
 };
 
 export interface AccountsGetApiResponse extends ApiResponse {
-  accounts: AccountWithUser[];
+  accounts: AccountWithUserAndTier[];
 }
 
 export interface AccountGetApiResponse extends ApiResponse {
-  account: AccountWithUser;
+  account: AccountWithUserAndTier;
 }
 
 export default api(
@@ -31,7 +32,7 @@ export default api(
     if (account_id) {
       const account = await prisma.account.findUnique({
         where: { id: account_id },
-        include: { user: true }
+        include: { user: true, tier: true }
       });
 
       if (!account) {
@@ -50,7 +51,7 @@ export default api(
     const accounts = await prisma.account.findMany({
       //@ts-ignore
       where: { ...(parsedQuery?.where || {}) },
-      include: { user: true },
+      include: { user: true, tier: true },
       orderBy: parsedQuery?.sort,
       take: parsedQuery?.take,
       skip: parsedQuery?.skip

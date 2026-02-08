@@ -6,11 +6,10 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const { isLoading, error, data, mutate } =
-  useSWRV<InvestmentPlansGetApiResponse>(
-    "/api/admins/me/investment-plans",
-    $fetch
-  );
+const { isLoading, error, data, mutate } = useSWRV<InvestmentPlansGetApiResponse>(
+  "/api/admins/me/investment-plans",
+  $fetch
+);
 
 const onInvestmentPlanDelete = async (id: string) => {
   if (!data.value) return;
@@ -43,36 +42,17 @@ const onInvestmentPlanDelete = async (id: string) => {
 
       <div class="mt-2 md:h-[calc(100dvh-9rem)]">
         <VPageLoader v-if="isLoading" />
-        <VErrorMessage
-          v-else-if="error"
-          :error
-          should-retry
-          @retry="mutate()"
-        />
+        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" />
 
-        <div
-          v-else-if="data?.investmentPlans"
-          class="h-full w-full overflow-y-auto"
-        >
-          <div
-            class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3"
-          >
-            <VCard
-              v-for="plan in data?.investmentPlans"
-              :key="plan.id"
-              :header="plan.name"
-            >
+        <div v-else-if="data?.investmentPlans" class="h-full w-full overflow-y-auto">
+          <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3">
+            <VCard v-for="plan in data?.investmentPlans" :key="plan.id" :header="plan.name">
               <div class="grid">
                 <div class="h-36 w-full overflow-hidden rounded-lg">
-                  <img
-                    :src="plan.image || ''"
-                    class="w-full h-full object-cover"
-                  />
+                  <img :src="plan.image || ''" class="w-full h-full object-cover" />
                 </div>
 
-                <div
-                  class="mt-2 flex items-center gap-1 justify-center flex-wrap"
-                >
+                <div class="mt-2 flex items-center gap-1 justify-center flex-wrap">
                   <p
                     v-for="(tier, index) in plan.tiers"
                     :key="tier.name"
@@ -85,6 +65,31 @@ const onInvestmentPlanDelete = async (id: string) => {
                     />
                   </p>
                 </div>
+
+                <Divider />
+
+                <div class="text-center">
+                  <p class="text-xs font-medium">User who can view this plan:</p>
+                  <div class="mt-1">
+                    <div
+                      v-if="plan.userTiers && plan.userTiers.length > 0"
+                      class="flex items-center gap-2 flex-wrap justify-center"
+                    >
+                      <Badge
+                        v-for="tier in plan.userTiers"
+                        :key="tier.id"
+                        :value="tier.name"
+                        severity="secondary"
+                      />
+                    </div>
+
+                    <div v-if="!plan.userTiers || plan.userTiers.length === 0">
+                      <Badge value="All users" severity="secondary" />
+                    </div>
+                  </div>
+                </div>
+
+                <Divider />
 
                 <div class="mt-2 grid grid-cols-2 gap-2 w-full">
                   <Button
@@ -99,10 +104,7 @@ const onInvestmentPlanDelete = async (id: string) => {
                     size="small"
                     fluid
                   />
-                  <InvestmentPlanDeleter
-                    :id="plan.id"
-                    @delete="onInvestmentPlanDelete"
-                  />
+                  <InvestmentPlanDeleter :id="plan.id" @delete="onInvestmentPlanDelete" />
                 </div>
               </div>
             </VCard>

@@ -30,7 +30,8 @@ const Schema = z.object({
       }),
       { message: "Investment tiers must be an array" }
     )
-    .optional()
+    .optional(),
+  userTiers: z.array(z.object({ id: z.string().uuid() })).default([])
 });
 
 export interface InvestmentPlanUpdateApiResponse extends ApiResponse {
@@ -58,14 +59,17 @@ export default api(
     });
 
     if (existingInvestmentPlan) {
-      throw HttpException.badRequest(
-        "And investment plan with this name or slug already exists"
-      );
+      throw HttpException.badRequest("And investment plan with this name or slug already exists");
     }
 
     const investmentPlan = await prisma.investmentPlan.update({
       where: { id: investment_plan_id },
-      data
+      data: {
+        ...data,
+        userTiers: {
+          set: data.userTiers.map((tier) => ({ id: tier.id }))
+        }
+      }
     });
     return {
       statusCode: 201,

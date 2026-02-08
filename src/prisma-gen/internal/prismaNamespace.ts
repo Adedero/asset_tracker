@@ -395,6 +395,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
+  UserTier: 'UserTier',
   Account: 'Account',
   AccountGroup: 'AccountGroup',
   Token: 'Token',
@@ -405,8 +406,7 @@ export const ModelName = {
   Currency: 'Currency',
   Notification: 'Notification',
   Faq: 'Faq',
-  Ban: 'Ban',
-  Tier: 'Tier'
+  Ban: 'Ban'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -422,7 +422,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "accountGroup" | "token" | "investmentPlan" | "investment" | "profit" | "transaction" | "currency" | "notification" | "faq" | "ban" | "tier"
+    modelProps: "user" | "userTier" | "account" | "accountGroup" | "token" | "investmentPlan" | "investment" | "profit" | "transaction" | "currency" | "notification" | "faq" | "ban"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -497,6 +497,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserTier: {
+      payload: Prisma.$UserTierPayload<ExtArgs>
+      fields: Prisma.UserTierFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserTierFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserTierFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload>
+        }
+        findFirst: {
+          args: Prisma.UserTierFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserTierFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload>
+        }
+        findMany: {
+          args: Prisma.UserTierFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload>[]
+        }
+        create: {
+          args: Prisma.UserTierCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload>
+        }
+        createMany: {
+          args: Prisma.UserTierCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserTierCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload>[]
+        }
+        delete: {
+          args: Prisma.UserTierDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload>
+        }
+        update: {
+          args: Prisma.UserTierUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserTierDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserTierUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserTierUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserTierUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTierPayload>
+        }
+        aggregate: {
+          args: Prisma.UserTierAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserTier>
+        }
+        groupBy: {
+          args: Prisma.UserTierGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserTierGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserTierCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserTierCountAggregateOutputType> | number
         }
       }
     }
@@ -1314,80 +1388,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Tier: {
-      payload: Prisma.$TierPayload<ExtArgs>
-      fields: Prisma.TierFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.TierFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.TierFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
-        }
-        findFirst: {
-          args: Prisma.TierFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.TierFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
-        }
-        findMany: {
-          args: Prisma.TierFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>[]
-        }
-        create: {
-          args: Prisma.TierCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
-        }
-        createMany: {
-          args: Prisma.TierCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.TierCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>[]
-        }
-        delete: {
-          args: Prisma.TierDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
-        }
-        update: {
-          args: Prisma.TierUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
-        }
-        deleteMany: {
-          args: Prisma.TierDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.TierUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.TierUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>[]
-        }
-        upsert: {
-          args: Prisma.TierUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TierPayload>
-        }
-        aggregate: {
-          args: Prisma.TierAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateTier>
-        }
-        groupBy: {
-          args: Prisma.TierGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TierGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.TierCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TierCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -1432,7 +1432,6 @@ export const UserScalarFieldEnum = {
   verified: 'verified',
   role: 'role',
   accountGroupId: 'accountGroupId',
-  tierId: 'tierId',
   image: 'image',
   phoneNumber: 'phoneNumber',
   address: 'address',
@@ -1449,9 +1448,21 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const UserTierScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserTierScalarFieldEnum = (typeof UserTierScalarFieldEnum)[keyof typeof UserTierScalarFieldEnum]
+
+
 export const AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  tierId: 'tierId',
   walletBalance: 'walletBalance',
   kycIdType: 'kycIdType',
   kycDocument: 'kycDocument',
@@ -1642,17 +1653,6 @@ export const BanScalarFieldEnum = {
 } as const
 
 export type BanScalarFieldEnum = (typeof BanScalarFieldEnum)[keyof typeof BanScalarFieldEnum]
-
-
-export const TierScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type TierScalarFieldEnum = (typeof TierScalarFieldEnum)[keyof typeof TierScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1875,6 +1875,7 @@ export interface PrismaClientOptions {
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  userTier?: Prisma.UserTierOmit
   account?: Prisma.AccountOmit
   accountGroup?: Prisma.AccountGroupOmit
   token?: Prisma.TokenOmit
@@ -1886,7 +1887,6 @@ export type GlobalOmitConfig = {
   notification?: Prisma.NotificationOmit
   faq?: Prisma.FaqOmit
   ban?: Prisma.BanOmit
-  tier?: Prisma.TierOmit
 }
 
 /* Types for Logging */

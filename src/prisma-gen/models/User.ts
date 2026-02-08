@@ -33,7 +33,6 @@ export type UserMinAggregateOutputType = {
   verified: boolean | null
   role: $Enums.UserRole | null
   accountGroupId: string | null
-  tierId: string | null
   image: string | null
   phoneNumber: string | null
   address: string | null
@@ -53,7 +52,6 @@ export type UserMaxAggregateOutputType = {
   verified: boolean | null
   role: $Enums.UserRole | null
   accountGroupId: string | null
-  tierId: string | null
   image: string | null
   phoneNumber: string | null
   address: string | null
@@ -73,7 +71,6 @@ export type UserCountAggregateOutputType = {
   verified: number
   role: number
   accountGroupId: number
-  tierId: number
   image: number
   phoneNumber: number
   address: number
@@ -97,7 +94,6 @@ export type UserMinAggregateInputType = {
   verified?: true
   role?: true
   accountGroupId?: true
-  tierId?: true
   image?: true
   phoneNumber?: true
   address?: true
@@ -117,7 +113,6 @@ export type UserMaxAggregateInputType = {
   verified?: true
   role?: true
   accountGroupId?: true
-  tierId?: true
   image?: true
   phoneNumber?: true
   address?: true
@@ -137,7 +132,6 @@ export type UserCountAggregateInputType = {
   verified?: true
   role?: true
   accountGroupId?: true
-  tierId?: true
   image?: true
   phoneNumber?: true
   address?: true
@@ -232,7 +226,6 @@ export type UserGroupByOutputType = {
   verified: boolean
   role: $Enums.UserRole
   accountGroupId: string | null
-  tierId: string | null
   image: string | null
   phoneNumber: string | null
   address: string | null
@@ -275,7 +268,6 @@ export type UserWhereInput = {
   verified?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   accountGroupId?: Prisma.StringNullableFilter<"User"> | string | null
-  tierId?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   address?: Prisma.StringNullableFilter<"User"> | string | null
@@ -289,7 +281,6 @@ export type UserWhereInput = {
   isBanned?: Prisma.BoolNullableFilter<"User"> | boolean | null
   account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   accountGroup?: Prisma.XOR<Prisma.AccountGroupNullableScalarRelationFilter, Prisma.AccountGroupWhereInput> | null
-  tier?: Prisma.XOR<Prisma.TierNullableScalarRelationFilter, Prisma.TierWhereInput> | null
   transactions?: Prisma.TransactionListRelationFilter
   investments?: Prisma.InvestmentListRelationFilter
   Notification?: Prisma.NotificationListRelationFilter
@@ -304,7 +295,6 @@ export type UserOrderByWithRelationInput = {
   verified?: Prisma.SortOrder
   role?: Prisma.SortOrder
   accountGroupId?: Prisma.SortOrderInput | Prisma.SortOrder
-  tierId?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -318,7 +308,6 @@ export type UserOrderByWithRelationInput = {
   isBanned?: Prisma.SortOrderInput | Prisma.SortOrder
   account?: Prisma.AccountOrderByWithRelationInput
   accountGroup?: Prisma.AccountGroupOrderByWithRelationInput
-  tier?: Prisma.TierOrderByWithRelationInput
   transactions?: Prisma.TransactionOrderByRelationAggregateInput
   investments?: Prisma.InvestmentOrderByRelationAggregateInput
   Notification?: Prisma.NotificationOrderByRelationAggregateInput
@@ -336,7 +325,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   verified?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   accountGroupId?: Prisma.StringNullableFilter<"User"> | string | null
-  tierId?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   address?: Prisma.StringNullableFilter<"User"> | string | null
@@ -350,7 +338,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isBanned?: Prisma.BoolNullableFilter<"User"> | boolean | null
   account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   accountGroup?: Prisma.XOR<Prisma.AccountGroupNullableScalarRelationFilter, Prisma.AccountGroupWhereInput> | null
-  tier?: Prisma.XOR<Prisma.TierNullableScalarRelationFilter, Prisma.TierWhereInput> | null
   transactions?: Prisma.TransactionListRelationFilter
   investments?: Prisma.InvestmentListRelationFilter
   Notification?: Prisma.NotificationListRelationFilter
@@ -365,7 +352,6 @@ export type UserOrderByWithAggregationInput = {
   verified?: Prisma.SortOrder
   role?: Prisma.SortOrder
   accountGroupId?: Prisma.SortOrderInput | Prisma.SortOrder
-  tierId?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -393,7 +379,6 @@ export type UserScalarWhereWithAggregatesInput = {
   verified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   accountGroupId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  tierId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -427,7 +412,6 @@ export type UserCreateInput = {
   isBanned?: boolean | null
   account?: Prisma.AccountCreateNestedOneWithoutUserInput
   accountGroup?: Prisma.AccountGroupCreateNestedOneWithoutUsersInput
-  tier?: Prisma.TierCreateNestedOneWithoutUsersInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   investments?: Prisma.InvestmentCreateNestedManyWithoutUserInput
   Notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
@@ -442,7 +426,6 @@ export type UserUncheckedCreateInput = {
   verified?: boolean
   role?: $Enums.UserRole
   accountGroupId?: string | null
-  tierId?: string | null
   image?: string | null
   phoneNumber?: string | null
   address?: string | null
@@ -481,7 +464,6 @@ export type UserUpdateInput = {
   isBanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   account?: Prisma.AccountUpdateOneWithoutUserNestedInput
   accountGroup?: Prisma.AccountGroupUpdateOneWithoutUsersNestedInput
-  tier?: Prisma.TierUpdateOneWithoutUsersNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   investments?: Prisma.InvestmentUpdateManyWithoutUserNestedInput
   Notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
@@ -496,7 +478,6 @@ export type UserUncheckedUpdateInput = {
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -523,7 +504,6 @@ export type UserCreateManyInput = {
   verified?: boolean
   role?: $Enums.UserRole
   accountGroupId?: string | null
-  tierId?: string | null
   image?: string | null
   phoneNumber?: string | null
   address?: string | null
@@ -565,7 +545,6 @@ export type UserUncheckedUpdateManyInput = {
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -587,7 +566,6 @@ export type UserCountOrderByAggregateInput = {
   verified?: Prisma.SortOrder
   role?: Prisma.SortOrder
   accountGroupId?: Prisma.SortOrder
-  tierId?: Prisma.SortOrder
   image?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   address?: Prisma.SortOrder
@@ -609,7 +587,6 @@ export type UserMaxOrderByAggregateInput = {
   verified?: Prisma.SortOrder
   role?: Prisma.SortOrder
   accountGroupId?: Prisma.SortOrder
-  tierId?: Prisma.SortOrder
   image?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   address?: Prisma.SortOrder
@@ -629,7 +606,6 @@ export type UserMinOrderByAggregateInput = {
   verified?: Prisma.SortOrder
   role?: Prisma.SortOrder
   accountGroupId?: Prisma.SortOrder
-  tierId?: Prisma.SortOrder
   image?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   address?: Prisma.SortOrder
@@ -796,48 +772,6 @@ export type UserUpdateOneRequiredWithoutBanNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBanInput, Prisma.UserUpdateWithoutBanInput>, Prisma.UserUncheckedUpdateWithoutBanInput>
 }
 
-export type UserCreateNestedManyWithoutTierInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutTierInput, Prisma.UserUncheckedCreateWithoutTierInput> | Prisma.UserCreateWithoutTierInput[] | Prisma.UserUncheckedCreateWithoutTierInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTierInput | Prisma.UserCreateOrConnectWithoutTierInput[]
-  createMany?: Prisma.UserCreateManyTierInputEnvelope
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-}
-
-export type UserUncheckedCreateNestedManyWithoutTierInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutTierInput, Prisma.UserUncheckedCreateWithoutTierInput> | Prisma.UserCreateWithoutTierInput[] | Prisma.UserUncheckedCreateWithoutTierInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTierInput | Prisma.UserCreateOrConnectWithoutTierInput[]
-  createMany?: Prisma.UserCreateManyTierInputEnvelope
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-}
-
-export type UserUpdateManyWithoutTierNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutTierInput, Prisma.UserUncheckedCreateWithoutTierInput> | Prisma.UserCreateWithoutTierInput[] | Prisma.UserUncheckedCreateWithoutTierInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTierInput | Prisma.UserCreateOrConnectWithoutTierInput[]
-  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutTierInput | Prisma.UserUpsertWithWhereUniqueWithoutTierInput[]
-  createMany?: Prisma.UserCreateManyTierInputEnvelope
-  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  update?: Prisma.UserUpdateWithWhereUniqueWithoutTierInput | Prisma.UserUpdateWithWhereUniqueWithoutTierInput[]
-  updateMany?: Prisma.UserUpdateManyWithWhereWithoutTierInput | Prisma.UserUpdateManyWithWhereWithoutTierInput[]
-  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
-}
-
-export type UserUncheckedUpdateManyWithoutTierNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutTierInput, Prisma.UserUncheckedCreateWithoutTierInput> | Prisma.UserCreateWithoutTierInput[] | Prisma.UserUncheckedCreateWithoutTierInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTierInput | Prisma.UserCreateOrConnectWithoutTierInput[]
-  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutTierInput | Prisma.UserUpsertWithWhereUniqueWithoutTierInput[]
-  createMany?: Prisma.UserCreateManyTierInputEnvelope
-  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  update?: Prisma.UserUpdateWithWhereUniqueWithoutTierInput | Prisma.UserUpdateWithWhereUniqueWithoutTierInput[]
-  updateMany?: Prisma.UserUpdateManyWithWhereWithoutTierInput | Prisma.UserUpdateManyWithWhereWithoutTierInput[]
-  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
-}
-
 export type UserCreateWithoutAccountInput = {
   id?: string
   name: string
@@ -857,7 +791,6 @@ export type UserCreateWithoutAccountInput = {
   devices?: unknown | Prisma.NullableJsonNullValueInput
   isBanned?: boolean | null
   accountGroup?: Prisma.AccountGroupCreateNestedOneWithoutUsersInput
-  tier?: Prisma.TierCreateNestedOneWithoutUsersInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   investments?: Prisma.InvestmentCreateNestedManyWithoutUserInput
   Notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
@@ -872,7 +805,6 @@ export type UserUncheckedCreateWithoutAccountInput = {
   verified?: boolean
   role?: $Enums.UserRole
   accountGroupId?: string | null
-  tierId?: string | null
   image?: string | null
   phoneNumber?: string | null
   address?: string | null
@@ -925,7 +857,6 @@ export type UserUpdateWithoutAccountInput = {
   devices?: unknown | Prisma.NullableJsonNullValueInput
   isBanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   accountGroup?: Prisma.AccountGroupUpdateOneWithoutUsersNestedInput
-  tier?: Prisma.TierUpdateOneWithoutUsersNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   investments?: Prisma.InvestmentUpdateManyWithoutUserNestedInput
   Notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
@@ -940,7 +871,6 @@ export type UserUncheckedUpdateWithoutAccountInput = {
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -977,7 +907,6 @@ export type UserCreateWithoutAccountGroupInput = {
   devices?: unknown | Prisma.NullableJsonNullValueInput
   isBanned?: boolean | null
   account?: Prisma.AccountCreateNestedOneWithoutUserInput
-  tier?: Prisma.TierCreateNestedOneWithoutUsersInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   investments?: Prisma.InvestmentCreateNestedManyWithoutUserInput
   Notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
@@ -991,7 +920,6 @@ export type UserUncheckedCreateWithoutAccountGroupInput = {
   password: string
   verified?: boolean
   role?: $Enums.UserRole
-  tierId?: string | null
   image?: string | null
   phoneNumber?: string | null
   address?: string | null
@@ -1046,7 +974,6 @@ export type UserScalarWhereInput = {
   verified?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   accountGroupId?: Prisma.StringNullableFilter<"User"> | string | null
-  tierId?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   address?: Prisma.StringNullableFilter<"User"> | string | null
@@ -1080,7 +1007,6 @@ export type UserCreateWithoutInvestmentsInput = {
   isBanned?: boolean | null
   account?: Prisma.AccountCreateNestedOneWithoutUserInput
   accountGroup?: Prisma.AccountGroupCreateNestedOneWithoutUsersInput
-  tier?: Prisma.TierCreateNestedOneWithoutUsersInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   Notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
   ban?: Prisma.BanCreateNestedOneWithoutUserInput
@@ -1094,7 +1020,6 @@ export type UserUncheckedCreateWithoutInvestmentsInput = {
   verified?: boolean
   role?: $Enums.UserRole
   accountGroupId?: string | null
-  tierId?: string | null
   image?: string | null
   phoneNumber?: string | null
   address?: string | null
@@ -1148,7 +1073,6 @@ export type UserUpdateWithoutInvestmentsInput = {
   isBanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   account?: Prisma.AccountUpdateOneWithoutUserNestedInput
   accountGroup?: Prisma.AccountGroupUpdateOneWithoutUsersNestedInput
-  tier?: Prisma.TierUpdateOneWithoutUsersNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   Notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   ban?: Prisma.BanUpdateOneWithoutUserNestedInput
@@ -1162,7 +1086,6 @@ export type UserUncheckedUpdateWithoutInvestmentsInput = {
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1200,7 +1123,6 @@ export type UserCreateWithoutTransactionsInput = {
   isBanned?: boolean | null
   account?: Prisma.AccountCreateNestedOneWithoutUserInput
   accountGroup?: Prisma.AccountGroupCreateNestedOneWithoutUsersInput
-  tier?: Prisma.TierCreateNestedOneWithoutUsersInput
   investments?: Prisma.InvestmentCreateNestedManyWithoutUserInput
   Notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
   ban?: Prisma.BanCreateNestedOneWithoutUserInput
@@ -1214,7 +1136,6 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   verified?: boolean
   role?: $Enums.UserRole
   accountGroupId?: string | null
-  tierId?: string | null
   image?: string | null
   phoneNumber?: string | null
   address?: string | null
@@ -1268,7 +1189,6 @@ export type UserUpdateWithoutTransactionsInput = {
   isBanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   account?: Prisma.AccountUpdateOneWithoutUserNestedInput
   accountGroup?: Prisma.AccountGroupUpdateOneWithoutUsersNestedInput
-  tier?: Prisma.TierUpdateOneWithoutUsersNestedInput
   investments?: Prisma.InvestmentUpdateManyWithoutUserNestedInput
   Notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   ban?: Prisma.BanUpdateOneWithoutUserNestedInput
@@ -1282,7 +1202,6 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1320,7 +1239,6 @@ export type UserCreateWithoutNotificationInput = {
   isBanned?: boolean | null
   account?: Prisma.AccountCreateNestedOneWithoutUserInput
   accountGroup?: Prisma.AccountGroupCreateNestedOneWithoutUsersInput
-  tier?: Prisma.TierCreateNestedOneWithoutUsersInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   investments?: Prisma.InvestmentCreateNestedManyWithoutUserInput
   ban?: Prisma.BanCreateNestedOneWithoutUserInput
@@ -1334,7 +1252,6 @@ export type UserUncheckedCreateWithoutNotificationInput = {
   verified?: boolean
   role?: $Enums.UserRole
   accountGroupId?: string | null
-  tierId?: string | null
   image?: string | null
   phoneNumber?: string | null
   address?: string | null
@@ -1388,7 +1305,6 @@ export type UserUpdateWithoutNotificationInput = {
   isBanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   account?: Prisma.AccountUpdateOneWithoutUserNestedInput
   accountGroup?: Prisma.AccountGroupUpdateOneWithoutUsersNestedInput
-  tier?: Prisma.TierUpdateOneWithoutUsersNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   investments?: Prisma.InvestmentUpdateManyWithoutUserNestedInput
   ban?: Prisma.BanUpdateOneWithoutUserNestedInput
@@ -1402,7 +1318,6 @@ export type UserUncheckedUpdateWithoutNotificationInput = {
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1440,7 +1355,6 @@ export type UserCreateWithoutBanInput = {
   isBanned?: boolean | null
   account?: Prisma.AccountCreateNestedOneWithoutUserInput
   accountGroup?: Prisma.AccountGroupCreateNestedOneWithoutUsersInput
-  tier?: Prisma.TierCreateNestedOneWithoutUsersInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   investments?: Prisma.InvestmentCreateNestedManyWithoutUserInput
   Notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
@@ -1454,7 +1368,6 @@ export type UserUncheckedCreateWithoutBanInput = {
   verified?: boolean
   role?: $Enums.UserRole
   accountGroupId?: string | null
-  tierId?: string | null
   image?: string | null
   phoneNumber?: string | null
   address?: string | null
@@ -1508,7 +1421,6 @@ export type UserUpdateWithoutBanInput = {
   isBanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   account?: Prisma.AccountUpdateOneWithoutUserNestedInput
   accountGroup?: Prisma.AccountGroupUpdateOneWithoutUsersNestedInput
-  tier?: Prisma.TierUpdateOneWithoutUsersNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   investments?: Prisma.InvestmentUpdateManyWithoutUserNestedInput
   Notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
@@ -1522,7 +1434,6 @@ export type UserUncheckedUpdateWithoutBanInput = {
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1540,83 +1451,6 @@ export type UserUncheckedUpdateWithoutBanInput = {
   Notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutTierInput = {
-  id?: string
-  name: string
-  email: string
-  password: string
-  verified?: boolean
-  role?: $Enums.UserRole
-  image?: string | null
-  phoneNumber?: string | null
-  address?: string | null
-  country?: string | null
-  region?: string | null
-  lastLogin?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
-  devices?: unknown | Prisma.NullableJsonNullValueInput
-  isBanned?: boolean | null
-  account?: Prisma.AccountCreateNestedOneWithoutUserInput
-  accountGroup?: Prisma.AccountGroupCreateNestedOneWithoutUsersInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
-  investments?: Prisma.InvestmentCreateNestedManyWithoutUserInput
-  Notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  ban?: Prisma.BanCreateNestedOneWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutTierInput = {
-  id?: string
-  name: string
-  email: string
-  password: string
-  verified?: boolean
-  role?: $Enums.UserRole
-  accountGroupId?: string | null
-  image?: string | null
-  phoneNumber?: string | null
-  address?: string | null
-  country?: string | null
-  region?: string | null
-  lastLogin?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
-  devices?: unknown | Prisma.NullableJsonNullValueInput
-  isBanned?: boolean | null
-  account?: Prisma.AccountUncheckedCreateNestedOneWithoutUserInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
-  investments?: Prisma.InvestmentUncheckedCreateNestedManyWithoutUserInput
-  Notification?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  ban?: Prisma.BanUncheckedCreateNestedOneWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutTierInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutTierInput, Prisma.UserUncheckedCreateWithoutTierInput>
-}
-
-export type UserCreateManyTierInputEnvelope = {
-  data: Prisma.UserCreateManyTierInput | Prisma.UserCreateManyTierInput[]
-}
-
-export type UserUpsertWithWhereUniqueWithoutTierInput = {
-  where: Prisma.UserWhereUniqueInput
-  update: Prisma.XOR<Prisma.UserUpdateWithoutTierInput, Prisma.UserUncheckedUpdateWithoutTierInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutTierInput, Prisma.UserUncheckedCreateWithoutTierInput>
-}
-
-export type UserUpdateWithWhereUniqueWithoutTierInput = {
-  where: Prisma.UserWhereUniqueInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutTierInput, Prisma.UserUncheckedUpdateWithoutTierInput>
-}
-
-export type UserUpdateManyWithWhereWithoutTierInput = {
-  where: Prisma.UserScalarWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutTierInput>
-}
-
 export type UserCreateManyAccountGroupInput = {
   id?: string
   name: string
@@ -1624,7 +1458,6 @@ export type UserCreateManyAccountGroupInput = {
   password: string
   verified?: boolean
   role?: $Enums.UserRole
-  tierId?: string | null
   image?: string | null
   phoneNumber?: string | null
   address?: string | null
@@ -1657,7 +1490,6 @@ export type UserUpdateWithoutAccountGroupInput = {
   devices?: unknown | Prisma.NullableJsonNullValueInput
   isBanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   account?: Prisma.AccountUpdateOneWithoutUserNestedInput
-  tier?: Prisma.TierUpdateOneWithoutUsersNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   investments?: Prisma.InvestmentUpdateManyWithoutUserNestedInput
   Notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
@@ -1671,7 +1503,6 @@ export type UserUncheckedUpdateWithoutAccountGroupInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1697,101 +1528,6 @@ export type UserUncheckedUpdateManyWithoutAccountGroupInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ipAddresses?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  devices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  isBanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-}
-
-export type UserCreateManyTierInput = {
-  id?: string
-  name: string
-  email: string
-  password: string
-  verified?: boolean
-  role?: $Enums.UserRole
-  accountGroupId?: string | null
-  image?: string | null
-  phoneNumber?: string | null
-  address?: string | null
-  country?: string | null
-  region?: string | null
-  lastLogin?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
-  devices?: unknown | Prisma.NullableJsonNullValueInput
-  isBanned?: boolean | null
-}
-
-export type UserUpdateWithoutTierInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
-  devices?: unknown | Prisma.NullableJsonNullValueInput
-  isBanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  account?: Prisma.AccountUpdateOneWithoutUserNestedInput
-  accountGroup?: Prisma.AccountGroupUpdateOneWithoutUsersNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
-  investments?: Prisma.InvestmentUpdateManyWithoutUserNestedInput
-  Notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  ban?: Prisma.BanUpdateOneWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutTierInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ipAddresses?: PrismaJson.IpAddresses | Prisma.NullableJsonNullValueInput
-  devices?: unknown | Prisma.NullableJsonNullValueInput
-  isBanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  account?: Prisma.AccountUncheckedUpdateOneWithoutUserNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
-  investments?: Prisma.InvestmentUncheckedUpdateManyWithoutUserNestedInput
-  Notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  ban?: Prisma.BanUncheckedUpdateOneWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateManyWithoutTierInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  accountGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1862,7 +1598,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   verified?: boolean
   role?: boolean
   accountGroupId?: boolean
-  tierId?: boolean
   image?: boolean
   phoneNumber?: boolean
   address?: boolean
@@ -1876,7 +1611,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isBanned?: boolean
   account?: boolean | Prisma.User$accountArgs<ExtArgs>
   accountGroup?: boolean | Prisma.User$accountGroupArgs<ExtArgs>
-  tier?: boolean | Prisma.User$tierArgs<ExtArgs>
   transactions?: boolean | Prisma.User$transactionsArgs<ExtArgs>
   investments?: boolean | Prisma.User$investmentsArgs<ExtArgs>
   Notification?: boolean | Prisma.User$NotificationArgs<ExtArgs>
@@ -1892,7 +1626,6 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   verified?: boolean
   role?: boolean
   accountGroupId?: boolean
-  tierId?: boolean
   image?: boolean
   phoneNumber?: boolean
   address?: boolean
@@ -1905,7 +1638,6 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   devices?: boolean
   isBanned?: boolean
   accountGroup?: boolean | Prisma.User$accountGroupArgs<ExtArgs>
-  tier?: boolean | Prisma.User$tierArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1916,7 +1648,6 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   verified?: boolean
   role?: boolean
   accountGroupId?: boolean
-  tierId?: boolean
   image?: boolean
   phoneNumber?: boolean
   address?: boolean
@@ -1929,7 +1660,6 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   devices?: boolean
   isBanned?: boolean
   accountGroup?: boolean | Prisma.User$accountGroupArgs<ExtArgs>
-  tier?: boolean | Prisma.User$tierArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1940,7 +1670,6 @@ export type UserSelectScalar = {
   verified?: boolean
   role?: boolean
   accountGroupId?: boolean
-  tierId?: boolean
   image?: boolean
   phoneNumber?: boolean
   address?: boolean
@@ -1954,11 +1683,10 @@ export type UserSelectScalar = {
   isBanned?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "verified" | "role" | "accountGroupId" | "tierId" | "image" | "phoneNumber" | "address" | "country" | "region" | "lastLogin" | "createdAt" | "updatedAt" | "ipAddresses" | "devices" | "isBanned", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "verified" | "role" | "accountGroupId" | "image" | "phoneNumber" | "address" | "country" | "region" | "lastLogin" | "createdAt" | "updatedAt" | "ipAddresses" | "devices" | "isBanned", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   account?: boolean | Prisma.User$accountArgs<ExtArgs>
   accountGroup?: boolean | Prisma.User$accountGroupArgs<ExtArgs>
-  tier?: boolean | Prisma.User$tierArgs<ExtArgs>
   transactions?: boolean | Prisma.User$transactionsArgs<ExtArgs>
   investments?: boolean | Prisma.User$investmentsArgs<ExtArgs>
   Notification?: boolean | Prisma.User$NotificationArgs<ExtArgs>
@@ -1967,11 +1695,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accountGroup?: boolean | Prisma.User$accountGroupArgs<ExtArgs>
-  tier?: boolean | Prisma.User$tierArgs<ExtArgs>
 }
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accountGroup?: boolean | Prisma.User$accountGroupArgs<ExtArgs>
-  tier?: boolean | Prisma.User$tierArgs<ExtArgs>
 }
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1979,7 +1705,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     account: Prisma.$AccountPayload<ExtArgs> | null
     accountGroup: Prisma.$AccountGroupPayload<ExtArgs> | null
-    tier: Prisma.$TierPayload<ExtArgs> | null
     transactions: Prisma.$TransactionPayload<ExtArgs>[]
     investments: Prisma.$InvestmentPayload<ExtArgs>[]
     Notification: Prisma.$NotificationPayload<ExtArgs>[]
@@ -1993,7 +1718,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     verified: boolean
     role: $Enums.UserRole
     accountGroupId: string | null
-    tierId: string | null
     image: string | null
     phoneNumber: string | null
     address: string | null
@@ -2404,7 +2128,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   account<T extends Prisma.User$accountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   accountGroup<T extends Prisma.User$accountGroupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountGroupArgs<ExtArgs>>): Prisma.Prisma__AccountGroupClient<runtime.Types.Result.GetResult<Prisma.$AccountGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  tier<T extends Prisma.User$tierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tierArgs<ExtArgs>>): Prisma.Prisma__TierClient<runtime.Types.Result.GetResult<Prisma.$TierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   transactions<T extends Prisma.User$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   investments<T extends Prisma.User$investmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$investmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvestmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Notification<T extends Prisma.User$NotificationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$NotificationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2445,7 +2168,6 @@ export interface UserFieldRefs {
   readonly verified: Prisma.FieldRef<"User", 'Boolean'>
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
   readonly accountGroupId: Prisma.FieldRef<"User", 'String'>
-  readonly tierId: Prisma.FieldRef<"User", 'String'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly phoneNumber: Prisma.FieldRef<"User", 'String'>
   readonly address: Prisma.FieldRef<"User", 'String'>
@@ -2886,25 +2608,6 @@ export type User$accountGroupArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   include?: Prisma.AccountGroupInclude<ExtArgs> | null
   where?: Prisma.AccountGroupWhereInput
-}
-
-/**
- * User.tier
- */
-export type User$tierArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Tier
-   */
-  select?: Prisma.TierSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Tier
-   */
-  omit?: Prisma.TierOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TierInclude<ExtArgs> | null
-  where?: Prisma.TierWhereInput
 }
 
 /**

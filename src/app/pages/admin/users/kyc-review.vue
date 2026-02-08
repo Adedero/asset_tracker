@@ -3,16 +3,15 @@ import { AccountGetApiResponse } from "@/modules/admin/users/accounts-get.api";
 import { $fetch, useFetch } from "@/app/composables/use-fetch";
 import { toTitleCase } from "@/app/utils/helpers";
 import { useDateFormat } from "@vueuse/core";
-import { useConfirm, useToast } from "primevue";
+import { useToast } from "primevue";
 import useSWRV from "swrv";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { AccountUpdateApiResponse } from "@/modules/admin/users/accounts-put.api";
-import { Account } from "@/prisma-gen";
+import { Account, UserTier } from "@/prisma-gen";
 import { Icon } from "@iconify/vue";
 
 const router = useRouter();
-const confirm = useConfirm();
 const toast = useToast();
 
 const account_id = router.currentRoute.value.params.account_id?.toString();
@@ -22,16 +21,22 @@ const { isLoading, error, data, mutate } = useSWRV<AccountGetApiResponse>(
   $fetch
 );
 
-const account = ref<Partial<Account>>({});
+const account = ref<Partial<Account & { userTier: string | null }>>({ userTier: null });
 
 const {
   isFetching: isUpdating,
   error: updatingError,
   data: updateData,
   execute: updateAccount
-} = useFetch(`/api/admins/me/accounts/${account_id}`)
-  .put(account)
-  .json<AccountUpdateApiResponse>();
+} = useFetch(`/api/admins/me/accounts/${account_id}`).put(account).json<AccountUpdateApiResponse>();
+
+// KYC Verification Modal
+const visible = ref(false);
+const userTier = ref<UserTier | null>(null);
+
+watch(data, (newValue) => {
+  userTier.value = newValue?.account?.tier || null;
+});
 
 async function updateKycStatus() {
   if (!data.value?.account) return;
@@ -45,10 +50,13 @@ async function updateKycStatus() {
     kycDocumentExt: isVerifying ? account.value.kycDocumentExt : null,
     kycStatus: isVerifying ? "VERIFIED" : "UNVERIFIED",
     kycSubmittedAt: isVerifying ? account.value.kycSubmittedAt : null,
-    kycVerifiedAt: isVerifying ? new Date() : null
+    kycVerifiedAt: isVerifying ? new Date() : null,
+    tierId: userTier.value?.id || null
   };
 
-  await updateAccount();
+  await updateAccount().finally(() => {
+    visible.value = false;
+  });
 
   if (updatingError.value || !updateData.value?.account) {
     toast.add({
@@ -77,48 +85,19 @@ async function updateKycStatus() {
     })
   );
 }
-
-const confirmUpdate = () => {
-  confirm.require({
-    header: "Update KYC Status",
-    message: "Are you sure you want to proceed?",
-    rejectProps: {
-      label: "Cancel",
-      severity: "secondary",
-      icon: "pi pi-times"
-    },
-    acceptProps: {
-      label: "Proceed",
-      icon: "pi pi-check"
-    },
-    accept: () => {
-      updateKycStatus();
-    }
-  });
-};
 </script>
 
 <template>
   <VueLayout name="admin">
     <div>
       <VCard class="py-2 px-4">
-        <div class="text-lg text-primary-500 font-semibold">
-          KYC Verification Status
-        </div>
+        <div class="text-lg text-primary-500 font-semibold">KYC Verification Status</div>
       </VCard>
       <div class="mt-2">
         <VPageLoader v-if="isLoading" />
-        <VErrorMessage
-          v-else-if="error"
-          :error
-          should-retry
-          @retry="mutate()"
-        />
+        <VErrorMessage v-else-if="error" :error should-retry @retry="mutate()" />
 
-        <div
-          v-else-if="data"
-          class="md:h-[calc(100dvh-8.5rem)] grid md:grid-cols-3 gap-2"
-        >
+        <div v-else-if="data" class="md:h-[calc(100dvh-8.5rem)] grid md:grid-cols-3 gap-2">
           <div class="md:col-span-2 md:h-full md:overflow-y-auto">
             <VCard header="KYC Details">
               <template #header>
@@ -127,12 +106,8 @@ const confirmUpdate = () => {
 
                   <Button
                     v-if="data.account.kycStatus !== 'UNVERIFIED'"
-                    :label="
-                      data.account.kycStatus === 'PENDING'
-                        ? 'Verify'
-                        : 'Discard'
-                    "
-                    @click="confirmUpdate"
+                    :label="data.account.kycStatus === 'PENDING' ? 'Verify' : 'Discard'"
+                    @click="visible = true"
                     :loading="isUpdating"
                     :icon="
                       data.account.kycStatus === 'PENDING'
@@ -142,10 +117,10 @@ const confirmUpdate = () => {
                   />
                 </div>
               </template>
+
               <div class="mt-4 grid gap-2">
-                <div
-                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
-                >
+                <!-- KYC Status -->
+                <div class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800">
                   <div class="flex items-center">
                     <span
                       class="pi pi-check-circle text-mute p-1 rounded-full"
@@ -158,10 +133,8 @@ const confirmUpdate = () => {
                   </p>
                 </div>
 
-                <div
-                  v-if="data.account.kycStatus !== 'UNVERIFIED'"
-                  class="contents"
-                >
+                <!-- If ID document has been submitted by user -->
+                <div v-if="data.account.kycStatus !== 'UNVERIFIED'" class="contents">
                   <div
                     v-if="data.account.kycIdType"
                     class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
@@ -183,25 +156,15 @@ const confirmUpdate = () => {
                     class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
                   >
                     <div class="flex items-center">
-                      <span
-                        class="pi pi-file text-mute p-1 rounded-full"
-                        style="font-size: 12px"
-                      />
-                      <p class="text-mute text-sm font-semibold">
-                        Submitted Document
-                      </p>
+                      <span class="pi pi-file text-mute p-1 rounded-full" style="font-size: 12px" />
+                      <p class="text-mute text-sm font-semibold">Submitted Document</p>
                     </div>
                     <div class="flex justify-end">
                       <a
                         :href="data.account.kycDocument"
                         :download="`${data.account.id}.${data.account.kycDocumentExt}`"
                       >
-                        <Button
-                          label="Download"
-                          icon="pi pi-download"
-                          size="small"
-                          outlined
-                        />
+                        <Button label="Download" icon="pi pi-download" size="small" outlined />
                       </a>
                     </div>
                   </div>
@@ -215,9 +178,7 @@ const confirmUpdate = () => {
                         class="pi pi-calendar-clock text-mute p-1 rounded-full"
                         style="font-size: 12px"
                       />
-                      <p class="text-mute text-sm font-semibold">
-                        Submission Date
-                      </p>
+                      <p class="text-mute text-sm font-semibold">Submission Date</p>
                     </div>
                     <p class="text-right font-semibold">
                       {{
@@ -238,9 +199,7 @@ const confirmUpdate = () => {
                         class="pi pi-calendar-clock text-mute p-1 rounded-full"
                         style="font-size: 12px"
                       />
-                      <p class="text-mute text-sm font-semibold">
-                        Verified Date
-                      </p>
+                      <p class="text-mute text-sm font-semibold">Verified Date</p>
                     </div>
                     <p class="text-right font-semibold">
                       {{
@@ -256,11 +215,10 @@ const confirmUpdate = () => {
             </VCard>
           </div>
 
+          <!-- User Profile right side -->
           <div class="md:h-full md:overflow-y-auto">
             <VCard v-if="data.account.user" header="User">
-              <div
-                class="flex flex-col items-center justify-center gap-2 text-center"
-              >
+              <div class="flex flex-col items-center justify-center gap-2 text-center">
                 <div
                   class="w-32 aspect-square rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800"
                 >
@@ -299,6 +257,54 @@ const confirmUpdate = () => {
           </div>
         </div>
       </div>
+
+      <!-- KYC Verification Modal -->
+      <Dialog
+        v-model:visible="visible"
+        modal
+        header="Update KYC Status"
+        :style="{ width: '25rem' }"
+      >
+        <div v-if="data?.account?.kycStatus === 'PENDING'">
+          <span class="text-muted-color text-sm">
+            You are about to approve the KYC status of {{ data?.account?.user?.name }} to
+            <Badge value="Verified" severity="success" />
+          </span>
+
+          <div class="mt-2 grid gap-4">
+            <div class="grid gap-1">
+              <label class="text-sm font-semibold">Select Tier <small>(optional)</small></label>
+              <div class="flex items-center gap-2">
+                <UserTiersSelect v-model="userTier" placeholder="Select user tier" class="grow" />
+                <Button
+                  size="small"
+                  icon="pi pi-times-circle"
+                  variant="outlined"
+                  class="shrink-0"
+                  @click="userTier = null"
+                />
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 justify-end">
+              <Button label="Cancel" severity="secondary" @click="visible = false" />
+              <Button label="Approve" @click="updateKycStatus" />
+            </div>
+          </div>
+        </div>
+
+        <div v-else-if="data?.account?.kycStatus === 'VERIFIED'">
+          <span class="text-muted-color text-sm">
+            You are about to reject the KYC status of {{ data?.account?.user?.name }} to
+            <Badge value="Unverified" severity="danger" />
+          </span>
+
+          <div class="mt-4 flex items-center gap-2 justify-end">
+            <Button label="Cancel" severity="secondary" @click="visible = false" />
+            <Button label="Proceed" severity="warn" @click="updateKycStatus" />
+          </div>
+        </div>
+      </Dialog>
     </div>
   </VueLayout>
 </template>

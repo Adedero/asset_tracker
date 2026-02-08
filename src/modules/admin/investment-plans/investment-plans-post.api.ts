@@ -2,7 +2,7 @@ import { api } from "#src/lib/api/api";
 import { defineHandler, defineValidator } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
 import prisma from "#src/lib/prisma/prisma";
-import { InvestmentPlan } from "#src/prisma-gen";
+import { InvestmentPlan, UserTier } from "#src/prisma-gen";
 import { ApiResponse } from "#src/types/api-response";
 import { z } from "zod";
 
@@ -28,11 +28,12 @@ const Schema = z.object({
         .min(0, { message: "Termination fee must be 0 or greater" })
     }),
     { message: "Investment tiers must be an array" }
-  )
+  ),
+  userTiers: z.array(z.object({ id: z.string().uuid() })).default([])
 });
 
 export interface InvestmentPlanCreateApiResponse extends ApiResponse {
-  investmentPlan: InvestmentPlan;
+  investmentPlan: InvestmentPlan & { userTiers: UserTier[] };
 }
 
 export default api(
@@ -52,14 +53,21 @@ export default api(
     });
 
     if (existingInvestmentPlan) {
-      throw HttpException.badRequest(
-        "And investment plan with this name or slug already exists"
-      );
+      throw HttpException.badRequest("And investment plan with this name or slug already exists");
     }
 
     const investmentPlan = await prisma.investmentPlan.create({
-      data
+      data: {
+        ...data,
+        userTiers: {
+          connect: data.userTiers.map((tier) => ({ id: tier.id }))
+        }
+      },
+      include: {
+        userTiers: true
+      }
     });
+
     return {
       statusCode: 201,
       success: true,

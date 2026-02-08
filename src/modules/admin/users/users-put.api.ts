@@ -4,21 +4,16 @@ import prisma from "#src/lib/prisma/prisma";
 import { z } from "zod";
 
 const Schema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, { message: "Name must be at least 2 characters long" })
-    .optional(),
+  name: z.string().trim().min(2, { message: "Name must be at least 2 characters long" }).optional(),
   image: z.string().trim().optional(),
   phoneNumber: z.string().trim().optional(),
   address: z.string().trim().optional(),
   country: z.string().trim().optional(),
   region: z.string().trim().optional(),
   verified: z.boolean().optional(),
-  accountGroupId: z.string().optional(),
-  role: z
-    .enum(["ADMIN", "USER"], { message: "Role must either be ADMIN or USER" })
-    .default("USER")
+  accountGroupId: z.string().uuid().nullish(),
+  tierId: z.string().uuid().nullish(),
+  role: z.enum(["ADMIN", "USER"], { message: "Role must either be ADMIN or USER" }).default("USER")
 });
 
 export default api(
@@ -30,10 +25,29 @@ export default api(
   },
   defineHandler(async (req) => {
     const data = req.validatedBody as z.infer<typeof Schema>;
+    const tierId = data.tierId;
+    delete data.tierId;
+
     const userId = req.params.user_id;
     const user = await prisma.user.update({
       where: { id: userId },
-      data
+      data: {
+        ...data,
+        account: {
+          update: {
+            tierId: tierId || null
+          }
+        }
+      },
+      include: {
+        account: {
+          include: {
+            tier: true
+          }
+        },
+        ban: true,
+        accountGroup: true
+      }
     });
     return {
       success: true,

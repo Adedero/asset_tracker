@@ -7,9 +7,9 @@ import { useFetch } from "../../composables/use-fetch";
 import { TierCreateApiResponse } from "@/modules/admin/tiers/tiers-post.api";
 import { TierUpdateApiResponse } from "@/modules/admin/tiers/update-tier.api";
 import { useToast } from "primevue";
-import { Tier } from "@/prisma-gen";
+import { UserTier } from "@/prisma-gen";
 
-const { tier = null } = defineProps<{ tier: Tier | null }>();
+const { tier = null } = defineProps<{ tier: UserTier | null }>();
 
 const visible = defineModel<boolean>("visible", { default: false });
 
@@ -25,7 +25,7 @@ const isEditing = computed(() => tier !== null);
 const resolver = ref(zodResolver(tierSchema));
 const state = ref<TierSchema>({ name: "", description: "" });
 
-function initState(value: Tier | null) {
+function initState(value: UserTier | null) {
   return {
     name: isEditing.value ? (value?.name ?? "") : "",
     description: isEditing.value ? (value?.description ?? "") : ""

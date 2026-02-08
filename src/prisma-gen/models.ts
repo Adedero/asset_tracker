@@ -8,6 +8,7 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
+export type * from './models/UserTier'
 export type * from './models/Account'
 export type * from './models/AccountGroup'
 export type * from './models/Token'
@@ -19,5 +20,4 @@ export type * from './models/Currency'
 export type * from './models/Notification'
 export type * from './models/Faq'
 export type * from './models/Ban'
-export type * from './models/Tier'
 export type * from './commonInputTypes'

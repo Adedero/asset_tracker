@@ -82,7 +82,7 @@ export const adminLinks = [
     route: { name: "admin-account-groups" }
   },
   {
-    label: "Tiers",
+    label: "User Tiers",
     icon: "pi pi-star",
     route: { name: "admin-tiers" }
   },

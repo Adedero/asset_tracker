@@ -5,10 +5,7 @@ import { MIN_PASSWORD_LENGTH } from "#src/utils/constants";
 import { z } from "zod";
 
 const Schema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, { message: "Name must be at least 2 characters long" }),
+  name: z.string().trim().min(2, { message: "Name must be at least 2 characters long" }),
   email: z.string().email({ message: "Invalid email address" }).trim(),
   password: z.string().min(MIN_PASSWORD_LENGTH, {
     message: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long`
@@ -18,7 +15,9 @@ const Schema = z.object({
   address: z.string().trim().optional(),
   country: z.string().trim().optional(),
   region: z.string().trim().optional(),
-  verified: z.boolean().optional()
+  verified: z.boolean().optional(),
+  accountGroupId: z.string().uuid().nullish(),
+  tierId: z.string().uuid().nullish()
 });
 
 export default api(
@@ -30,14 +29,27 @@ export default api(
   },
   defineHandler(async (req) => {
     const data = req.validatedBody as z.infer<typeof Schema>;
+    const tierId = data.tierId;
+    delete data.tierId;
+
     const user = await prisma.user.create({
       data: {
         ...data,
         account: {
           create: {
+            tierId: tierId || null,
             walletBalance: 0
           }
         }
+      },
+      include: {
+        account: {
+          include: {
+            tier: true
+          }
+        },
+        ban: true,
+        accountGroup: true
       }
     });
     return {

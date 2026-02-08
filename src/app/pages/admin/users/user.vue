@@ -319,6 +319,28 @@ const onDeleteUser = () => {
 
             <VCard header="Account" class="mt-2">
               <div class="flex flex-col gap-2 *:flex-shrink-0">
+                <!-- Account Tier -->
+                <div
+                  class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
+                >
+                  <div class="flex items-center">
+                    <span
+                      class="pi pi-star text-mute p-1 rounded-full"
+                      style="font-size: 12px"
+                    />
+                    <p class="text-mute text-sm font-semibold">Tier</p>
+                  </div>
+
+                  <div
+                    class="text-sm mt-2 flex flex-wrap gap-2 justify-between"
+                  >
+                    <p>Tier Name</p>
+                    <p class="font-semibold">
+                      {{ data.user.account?.tier?.name || "No tier" }}
+                    </p>
+                  </div>
+                </div>
+                <!-- Account Group -->
                 <div
                   class="v-card !p-2 border dark:border-white/30 dark:bg-slate-800"
                 >

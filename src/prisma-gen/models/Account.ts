@@ -38,6 +38,7 @@ export type AccountSumAggregateOutputType = {
 export type AccountMinAggregateOutputType = {
   id: string | null
   userId: string | null
+  tierId: string | null
   walletBalance: number | null
   kycIdType: string | null
   kycDocument: string | null
@@ -52,6 +53,7 @@ export type AccountMinAggregateOutputType = {
 export type AccountMaxAggregateOutputType = {
   id: string | null
   userId: string | null
+  tierId: string | null
   walletBalance: number | null
   kycIdType: string | null
   kycDocument: string | null
@@ -66,6 +68,7 @@ export type AccountMaxAggregateOutputType = {
 export type AccountCountAggregateOutputType = {
   id: number
   userId: number
+  tierId: number
   walletBalance: number
   kycIdType: number
   kycDocument: number
@@ -90,6 +93,7 @@ export type AccountSumAggregateInputType = {
 export type AccountMinAggregateInputType = {
   id?: true
   userId?: true
+  tierId?: true
   walletBalance?: true
   kycIdType?: true
   kycDocument?: true
@@ -104,6 +108,7 @@ export type AccountMinAggregateInputType = {
 export type AccountMaxAggregateInputType = {
   id?: true
   userId?: true
+  tierId?: true
   walletBalance?: true
   kycIdType?: true
   kycDocument?: true
@@ -118,6 +123,7 @@ export type AccountMaxAggregateInputType = {
 export type AccountCountAggregateInputType = {
   id?: true
   userId?: true
+  tierId?: true
   walletBalance?: true
   kycIdType?: true
   kycDocument?: true
@@ -219,6 +225,7 @@ export type AccountGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type AccountGroupByOutputType = {
   id: string
   userId: string
+  tierId: string | null
   walletBalance: number
   kycIdType: string | null
   kycDocument: string | null
@@ -256,6 +263,7 @@ export type AccountWhereInput = {
   NOT?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   id?: Prisma.StringFilter<"Account"> | string
   userId?: Prisma.StringFilter<"Account"> | string
+  tierId?: Prisma.StringNullableFilter<"Account"> | string | null
   walletBalance?: Prisma.FloatFilter<"Account"> | number
   kycIdType?: Prisma.StringNullableFilter<"Account"> | string | null
   kycDocument?: Prisma.StringNullableFilter<"Account"> | string | null
@@ -266,11 +274,13 @@ export type AccountWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  tier?: Prisma.XOR<Prisma.UserTierNullableScalarRelationFilter, Prisma.UserTierWhereInput> | null
 }
 
 export type AccountOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  tierId?: Prisma.SortOrderInput | Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
   kycIdType?: Prisma.SortOrderInput | Prisma.SortOrder
   kycDocument?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -281,6 +291,7 @@ export type AccountOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  tier?: Prisma.UserTierOrderByWithRelationInput
 }
 
 export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -289,6 +300,7 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   OR?: Prisma.AccountWhereInput[]
   NOT?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
+  tierId?: Prisma.StringNullableFilter<"Account"> | string | null
   walletBalance?: Prisma.FloatFilter<"Account"> | number
   kycIdType?: Prisma.StringNullableFilter<"Account"> | string | null
   kycDocument?: Prisma.StringNullableFilter<"Account"> | string | null
@@ -299,11 +311,13 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  tier?: Prisma.XOR<Prisma.UserTierNullableScalarRelationFilter, Prisma.UserTierWhereInput> | null
 }, "id" | "userId">
 
 export type AccountOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  tierId?: Prisma.SortOrderInput | Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
   kycIdType?: Prisma.SortOrderInput | Prisma.SortOrder
   kycDocument?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -326,6 +340,7 @@ export type AccountScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AccountScalarWhereWithAggregatesInput | Prisma.AccountScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Account"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Account"> | string
+  tierId?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   walletBalance?: Prisma.FloatWithAggregatesFilter<"Account"> | number
   kycIdType?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   kycDocument?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
@@ -349,11 +364,13 @@ export type AccountCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutAccountInput
+  tier?: Prisma.UserTierCreateNestedOneWithoutAccountsInput
 }
 
 export type AccountUncheckedCreateInput = {
   id?: string
   userId: string
+  tierId?: string | null
   walletBalance?: number
   kycIdType?: string | null
   kycDocument?: string | null
@@ -377,11 +394,13 @@ export type AccountUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutAccountNestedInput
+  tier?: Prisma.UserTierUpdateOneWithoutAccountsNestedInput
 }
 
 export type AccountUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
   kycIdType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kycDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -396,6 +415,7 @@ export type AccountUncheckedUpdateInput = {
 export type AccountCreateManyInput = {
   id?: string
   userId: string
+  tierId?: string | null
   walletBalance?: number
   kycIdType?: string | null
   kycDocument?: string | null
@@ -423,6 +443,7 @@ export type AccountUpdateManyMutationInput = {
 export type AccountUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
   kycIdType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kycDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -439,9 +460,20 @@ export type AccountNullableScalarRelationFilter = {
   isNot?: Prisma.AccountWhereInput | null
 }
 
+export type AccountListRelationFilter = {
+  every?: Prisma.AccountWhereInput
+  some?: Prisma.AccountWhereInput
+  none?: Prisma.AccountWhereInput
+}
+
+export type AccountOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type AccountCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  tierId?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
   kycIdType?: Prisma.SortOrder
   kycDocument?: Prisma.SortOrder
@@ -460,6 +492,7 @@ export type AccountAvgOrderByAggregateInput = {
 export type AccountMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  tierId?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
   kycIdType?: Prisma.SortOrder
   kycDocument?: Prisma.SortOrder
@@ -474,6 +507,7 @@ export type AccountMaxOrderByAggregateInput = {
 export type AccountMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  tierId?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
   kycIdType?: Prisma.SortOrder
   kycDocument?: Prisma.SortOrder
@@ -521,6 +555,48 @@ export type AccountUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutUserInput, Prisma.AccountUpdateWithoutUserInput>, Prisma.AccountUncheckedUpdateWithoutUserInput>
 }
 
+export type AccountCreateNestedManyWithoutTierInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutTierInput, Prisma.AccountUncheckedCreateWithoutTierInput> | Prisma.AccountCreateWithoutTierInput[] | Prisma.AccountUncheckedCreateWithoutTierInput[]
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutTierInput | Prisma.AccountCreateOrConnectWithoutTierInput[]
+  createMany?: Prisma.AccountCreateManyTierInputEnvelope
+  connect?: Prisma.AccountWhereUniqueInput | Prisma.AccountWhereUniqueInput[]
+}
+
+export type AccountUncheckedCreateNestedManyWithoutTierInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutTierInput, Prisma.AccountUncheckedCreateWithoutTierInput> | Prisma.AccountCreateWithoutTierInput[] | Prisma.AccountUncheckedCreateWithoutTierInput[]
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutTierInput | Prisma.AccountCreateOrConnectWithoutTierInput[]
+  createMany?: Prisma.AccountCreateManyTierInputEnvelope
+  connect?: Prisma.AccountWhereUniqueInput | Prisma.AccountWhereUniqueInput[]
+}
+
+export type AccountUpdateManyWithoutTierNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutTierInput, Prisma.AccountUncheckedCreateWithoutTierInput> | Prisma.AccountCreateWithoutTierInput[] | Prisma.AccountUncheckedCreateWithoutTierInput[]
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutTierInput | Prisma.AccountCreateOrConnectWithoutTierInput[]
+  upsert?: Prisma.AccountUpsertWithWhereUniqueWithoutTierInput | Prisma.AccountUpsertWithWhereUniqueWithoutTierInput[]
+  createMany?: Prisma.AccountCreateManyTierInputEnvelope
+  set?: Prisma.AccountWhereUniqueInput | Prisma.AccountWhereUniqueInput[]
+  disconnect?: Prisma.AccountWhereUniqueInput | Prisma.AccountWhereUniqueInput[]
+  delete?: Prisma.AccountWhereUniqueInput | Prisma.AccountWhereUniqueInput[]
+  connect?: Prisma.AccountWhereUniqueInput | Prisma.AccountWhereUniqueInput[]
+  update?: Prisma.AccountUpdateWithWhereUniqueWithoutTierInput | Prisma.AccountUpdateWithWhereUniqueWithoutTierInput[]
+  updateMany?: Prisma.AccountUpdateManyWithWhereWithoutTierInput | Prisma.AccountUpdateManyWithWhereWithoutTierInput[]
+  deleteMany?: Prisma.AccountScalarWhereInput | Prisma.AccountScalarWhereInput[]
+}
+
+export type AccountUncheckedUpdateManyWithoutTierNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutTierInput, Prisma.AccountUncheckedCreateWithoutTierInput> | Prisma.AccountCreateWithoutTierInput[] | Prisma.AccountUncheckedCreateWithoutTierInput[]
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutTierInput | Prisma.AccountCreateOrConnectWithoutTierInput[]
+  upsert?: Prisma.AccountUpsertWithWhereUniqueWithoutTierInput | Prisma.AccountUpsertWithWhereUniqueWithoutTierInput[]
+  createMany?: Prisma.AccountCreateManyTierInputEnvelope
+  set?: Prisma.AccountWhereUniqueInput | Prisma.AccountWhereUniqueInput[]
+  disconnect?: Prisma.AccountWhereUniqueInput | Prisma.AccountWhereUniqueInput[]
+  delete?: Prisma.AccountWhereUniqueInput | Prisma.AccountWhereUniqueInput[]
+  connect?: Prisma.AccountWhereUniqueInput | Prisma.AccountWhereUniqueInput[]
+  update?: Prisma.AccountUpdateWithWhereUniqueWithoutTierInput | Prisma.AccountUpdateWithWhereUniqueWithoutTierInput[]
+  updateMany?: Prisma.AccountUpdateManyWithWhereWithoutTierInput | Prisma.AccountUpdateManyWithWhereWithoutTierInput[]
+  deleteMany?: Prisma.AccountScalarWhereInput | Prisma.AccountScalarWhereInput[]
+}
+
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -544,10 +620,12 @@ export type AccountCreateWithoutUserInput = {
   kycVerifiedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tier?: Prisma.UserTierCreateNestedOneWithoutAccountsInput
 }
 
 export type AccountUncheckedCreateWithoutUserInput = {
   id?: string
+  tierId?: string | null
   walletBalance?: number
   kycIdType?: string | null
   kycDocument?: string | null
@@ -586,10 +664,139 @@ export type AccountUpdateWithoutUserInput = {
   kycVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tier?: Prisma.UserTierUpdateOneWithoutAccountsNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  kycIdType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kycDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kycDocumentExt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kycStatus?: Prisma.EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+  kycSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kycVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AccountCreateWithoutTierInput = {
+  id?: string
+  walletBalance?: number
+  kycIdType?: string | null
+  kycDocument?: string | null
+  kycDocumentExt?: string | null
+  kycStatus?: $Enums.KycStatus
+  kycSubmittedAt?: Date | string | null
+  kycVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutTierInput = {
+  id?: string
+  userId: string
+  walletBalance?: number
+  kycIdType?: string | null
+  kycDocument?: string | null
+  kycDocumentExt?: string | null
+  kycStatus?: $Enums.KycStatus
+  kycSubmittedAt?: Date | string | null
+  kycVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AccountCreateOrConnectWithoutTierInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutTierInput, Prisma.AccountUncheckedCreateWithoutTierInput>
+}
+
+export type AccountCreateManyTierInputEnvelope = {
+  data: Prisma.AccountCreateManyTierInput | Prisma.AccountCreateManyTierInput[]
+}
+
+export type AccountUpsertWithWhereUniqueWithoutTierInput = {
+  where: Prisma.AccountWhereUniqueInput
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutTierInput, Prisma.AccountUncheckedUpdateWithoutTierInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutTierInput, Prisma.AccountUncheckedCreateWithoutTierInput>
+}
+
+export type AccountUpdateWithWhereUniqueWithoutTierInput = {
+  where: Prisma.AccountWhereUniqueInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutTierInput, Prisma.AccountUncheckedUpdateWithoutTierInput>
+}
+
+export type AccountUpdateManyWithWhereWithoutTierInput = {
+  where: Prisma.AccountScalarWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateManyMutationInput, Prisma.AccountUncheckedUpdateManyWithoutTierInput>
+}
+
+export type AccountScalarWhereInput = {
+  AND?: Prisma.AccountScalarWhereInput | Prisma.AccountScalarWhereInput[]
+  OR?: Prisma.AccountScalarWhereInput[]
+  NOT?: Prisma.AccountScalarWhereInput | Prisma.AccountScalarWhereInput[]
+  id?: Prisma.StringFilter<"Account"> | string
+  userId?: Prisma.StringFilter<"Account"> | string
+  tierId?: Prisma.StringNullableFilter<"Account"> | string | null
+  walletBalance?: Prisma.FloatFilter<"Account"> | number
+  kycIdType?: Prisma.StringNullableFilter<"Account"> | string | null
+  kycDocument?: Prisma.StringNullableFilter<"Account"> | string | null
+  kycDocumentExt?: Prisma.StringNullableFilter<"Account"> | string | null
+  kycStatus?: Prisma.EnumKycStatusFilter<"Account"> | $Enums.KycStatus
+  kycSubmittedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  kycVerifiedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
+}
+
+export type AccountCreateManyTierInput = {
+  id?: string
+  userId: string
+  walletBalance?: number
+  kycIdType?: string | null
+  kycDocument?: string | null
+  kycDocumentExt?: string | null
+  kycStatus?: $Enums.KycStatus
+  kycSubmittedAt?: Date | string | null
+  kycVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AccountUpdateWithoutTierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  kycIdType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kycDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kycDocumentExt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kycStatus?: Prisma.EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+  kycSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kycVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutTierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  kycIdType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kycDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kycDocumentExt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kycStatus?: Prisma.EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+  kycSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kycVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AccountUncheckedUpdateManyWithoutTierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
   kycIdType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kycDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -606,6 +813,7 @@ export type AccountUncheckedUpdateWithoutUserInput = {
 export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  tierId?: boolean
   walletBalance?: boolean
   kycIdType?: boolean
   kycDocument?: boolean
@@ -616,11 +824,13 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tier?: boolean | Prisma.Account$tierArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  tierId?: boolean
   walletBalance?: boolean
   kycIdType?: boolean
   kycDocument?: boolean
@@ -631,11 +841,13 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tier?: boolean | Prisma.Account$tierArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  tierId?: boolean
   walletBalance?: boolean
   kycIdType?: boolean
   kycDocument?: boolean
@@ -646,11 +858,13 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tier?: boolean | Prisma.Account$tierArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectScalar = {
   id?: boolean
   userId?: boolean
+  tierId?: boolean
   walletBalance?: boolean
   kycIdType?: boolean
   kycDocument?: boolean
@@ -662,25 +876,30 @@ export type AccountSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "walletBalance" | "kycIdType" | "kycDocument" | "kycDocumentExt" | "kycStatus" | "kycSubmittedAt" | "kycVerifiedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tierId" | "walletBalance" | "kycIdType" | "kycDocument" | "kycDocumentExt" | "kycStatus" | "kycSubmittedAt" | "kycVerifiedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tier?: boolean | Prisma.Account$tierArgs<ExtArgs>
 }
 export type AccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tier?: boolean | Prisma.Account$tierArgs<ExtArgs>
 }
 export type AccountIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tier?: boolean | Prisma.Account$tierArgs<ExtArgs>
 }
 
 export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Account"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    tier: Prisma.$UserTierPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
+    tierId: string | null
     walletBalance: number
     kycIdType: string | null
     kycDocument: string | null
@@ -1085,6 +1304,7 @@ readonly fields: AccountFieldRefs;
 export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tier<T extends Prisma.Account$tierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$tierArgs<ExtArgs>>): Prisma.Prisma__UserTierClient<runtime.Types.Result.GetResult<Prisma.$UserTierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1116,6 +1336,7 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
 export interface AccountFieldRefs {
   readonly id: Prisma.FieldRef<"Account", 'String'>
   readonly userId: Prisma.FieldRef<"Account", 'String'>
+  readonly tierId: Prisma.FieldRef<"Account", 'String'>
   readonly walletBalance: Prisma.FieldRef<"Account", 'Float'>
   readonly kycIdType: Prisma.FieldRef<"Account", 'String'>
   readonly kycDocument: Prisma.FieldRef<"Account", 'String'>
@@ -1516,6 +1737,25 @@ export type AccountDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Accounts to delete.
    */
   limit?: number
+}
+
+/**
+ * Account.tier
+ */
+export type Account$tierArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserTier
+   */
+  select?: Prisma.UserTierSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserTier
+   */
+  omit?: Prisma.UserTierOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserTierInclude<ExtArgs> | null
+  where?: Prisma.UserTierWhereInput
 }
 
 /**

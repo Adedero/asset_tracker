@@ -28,11 +28,10 @@ model User {
   role           UserRole       @default(USER)
   account        Account?
   accountGroup   AccountGroup?  @relation(fields: [accountGroupId], references: [id], onDelete: NoAction)
-  tier           Tier?          @relation(fields: [tierId], references: [id], onDelete: NoAction)
+
   transactions   Transaction[]
   investments    Investment[]
   accountGroupId String?
-  tierId         String?
   image          String?
   phoneNumber    String?
   address        String?
@@ -51,6 +50,16 @@ model User {
   @@index([email])
 }
 
+model UserTier {
+  id              String           @id @default(uuid())
+  name            String           @unique
+  description     String?
+  accounts           Account[]
+  investmentPlans InvestmentPlan[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
 enum KycStatus {
   UNVERIFIED
   PENDING
@@ -61,6 +70,8 @@ model Account {
   id             String    @id @default(uuid())
   user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String    @unique
+  tier           UserTier?      @relation(fields: [tierId], references: [id], onDelete: NoAction)
+  tierId         String?
   walletBalance  Float     @default(0)
   kycIdType      String?
   kycDocument    String?
@@ -97,14 +108,15 @@ model Token {
 }
 
 model InvestmentPlan {
-  id        String   @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
-  slug      String   @unique
+  slug      String     @unique
   image     String?
   /// [InvestmentTier[]]
   tiers     Json?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  userTiers UserTier[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 enum InvestmentStatus {
@@ -263,13 +275,4 @@ model Ban {
   ipAddresses          Json?
 
   @@index([userId])
-}
-
-model Tier {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  description String?
-  users       User[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 }

@@ -3,17 +3,26 @@ import { defineHandler } from "#src/lib/api/handlers";
 import { HttpException } from "#src/lib/api/http";
 import prisma from "#src/lib/prisma/prisma";
 import { ParsedQuery } from "#src/middleware/parse-request-query";
-import { Ban, Account, User, AccountGroup } from "#src/prisma-gen/index";
+import { Ban, Account, User, AccountGroup, UserTier } from "#src/prisma-gen/index";
 import { ApiResponse } from "#src/types/api-response";
 
-export interface UsersGetApiResponse extends ApiResponse {
-  users: Array<User & { accountGroup: { name: string; id: string } | null }>;
+export type IUser = User &
+  AccountWithTier & {
+    accountGroup: { name: string; id: string } | null;
+  };
+
+interface AccountWithTier extends Account {
+  tier: UserTier | null;
 }
 
 export interface UserWithAccountAndBan extends User {
-  account: Account | null;
+  account: AccountWithTier | null;
   ban: Ban | null;
   accountGroup: AccountGroup | null;
+}
+
+export interface UsersGetApiResponse extends ApiResponse {
+  users: IUser[];
 }
 
 export interface UserGetApiResponse extends ApiResponse {
@@ -35,7 +44,11 @@ export default api(
       const user = await prisma.user.findUnique({
         where: { id: user_id },
         include: {
-          account: true,
+          account: {
+            include: {
+              tier: true
+            }
+          },
           ban: true,
           accountGroup: true,
           ...(parsedQuery?.populate || {})
@@ -61,6 +74,11 @@ export default api(
       include: {
         accountGroup: {
           select: { name: true, id: true }
+        },
+        account: {
+          include: {
+            tier: true
+          }
         }
       },
       /*  //@ts-ignore

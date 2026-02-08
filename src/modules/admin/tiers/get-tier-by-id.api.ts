@@ -11,7 +11,7 @@ export default api(
   },
   defineHandler(async (req) => {
     const tierId = req.params.tier_id;
-    const tier = await prisma.tier.findUnique({
+    const tier = await prisma.userTier.findUnique({
       where: { id: tierId }
     });
 

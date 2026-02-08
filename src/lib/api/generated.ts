@@ -150,11 +150,6 @@ export const routes = [
   },
   {
     "group": "/admins/me",
-    "path": "/admins/me/dashboard",
-    "method": "get"
-  },
-  {
-    "group": "/admins/me",
     "path": "/admins/me/investments{/:investment_id}",
     "method": "get"
   },
@@ -167,6 +162,11 @@ export const routes = [
     "group": "/admins/me",
     "path": "/admins/me/investments/:investment_id/terminate",
     "method": "post"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/dashboard",
+    "method": "get"
   },
   {
     "group": "/admins/me",
@@ -192,6 +192,31 @@ export const routes = [
     "group": "/admins/me",
     "path": "/admins/me/send-mail",
     "method": "post"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/tiers/:tier_id",
+    "method": "delete"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/tiers",
+    "method": "get"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/tiers/:tier_id",
+    "method": "get"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/tiers",
+    "method": "post"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/tiers/:tier_id",
+    "method": "put"
   },
   {
     "group": "/admins/me",
@@ -259,31 +284,6 @@ export const routes = [
     "method": "put"
   },
   {
-    "group": "/admins/me",
-    "path": "/admins/me/tiers/:tier_id",
-    "method": "delete"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/tiers",
-    "method": "get"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/tiers/:tier_id",
-    "method": "get"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/tiers",
-    "method": "post"
-  },
-  {
-    "group": "/admins/me",
-    "path": "/admins/me/tiers/:tier_id",
-    "method": "put"
-  },
-  {
     "group": "/users/me",
     "path": "/users/me/contact",
     "method": "post"
@@ -300,12 +300,12 @@ export const routes = [
   },
   {
     "group": "/users/me",
-    "path": "/users/me/investment-plans{/:investment_plan_id}",
+    "path": "/users/me/faq{/:faq_id_slug}",
     "method": "get"
   },
   {
     "group": "/users/me",
-    "path": "/users/me/faq{/:faq_id_slug}",
+    "path": "/users/me/investment-plans{/:investment_plan_id}",
     "method": "get"
   },
   {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useFetch } from "@/app/composables/use-fetch";
 import { computed, ref, watch } from "vue";
-import { AccountGroup, type User } from "@/prisma-gen";
+import { AccountGroup, UserTier, type User } from "@/prisma-gen";
 import { useToast } from "primevue";
 import countries from "country-json/src/country-by-name.json";
 import { type SafeParseReturnType, z } from "zod";
@@ -9,7 +9,6 @@ import { IFile } from "../ui/VFileUploader.vue";
 import { Icon } from "@iconify/vue";
 import LoginSchema from "@/shared/schemas/login.schema";
 import { v4 as uuid } from "uuid";
-import { AccountGroupsGetApiResponse } from "@/modules/admin/account-groups/account-groups-get.api";
 
 const { user, role = "USER" } = defineProps<{
   user?: Partial<User>;
@@ -37,7 +36,9 @@ export type UserUpdateData = Pick<
   | "country"
   | "region"
   | "accountGroupId"
->;
+> & {
+  tierId: string | null;
+};
 
 const updatedUser = ref<UserUpdateData>({
   id: user?.id || uuid(),
@@ -51,15 +52,13 @@ const updatedUser = ref<UserUpdateData>({
   region: user?.region || "",
   verified: user?.verified || false,
   role: user?.role || role || "USER",
-  accountGroupId: user?.accountGroupId || null
+  accountGroupId: user?.accountGroupId || null,
+  tierId: user?.account?.tier?.id || null
 });
 
 const result =
   ref<
-    SafeParseReturnType<
-      { email: string; password: string },
-      { email: string; password: string }
-    >
+    SafeParseReturnType<{ email: string; password: string }, { email: string; password: string }>
   >();
 
 const url = ref("/api/admins/me/users");
@@ -125,8 +124,7 @@ const disabled = computed(
     !updatedUser.value.name ||
     !updatedUser.value.email ||
     !updatedUser.value.role ||
-    (!user &&
-      (!updatedUser.value.password || updatedUser.value.password.length < 8))
+    (!user && (!updatedUser.value.password || updatedUser.value.password.length < 8))
 );
 
 const cancel = () => {
@@ -142,7 +140,8 @@ const cancel = () => {
     region: user?.region || "",
     verified: user?.verified || false,
     role: user?.role || role || "USER",
-    accountGroupId: user?.accountGroupId || null
+    accountGroupId: user?.accountGroupId || null,
+    tierId: user?.account?.tier?.id || null
   };
 };
 
@@ -155,36 +154,15 @@ const verificationInfo = computed(() => {
   return "If set as 'verified', the user will not receive an email to verify their account.";
 });
 
-const accountGroups = ref<AccountGroupsGetApiResponse["accountGroups"]>();
-const selectedGroup =
-  ref<AccountGroupsGetApiResponse["accountGroups"][number]>();
-
+const selectedGroup = ref<AccountGroup | null>(null);
 watch(selectedGroup, (value) => {
-  if (value) {
-    updatedUser.value.accountGroupId = value.id;
-  } else {
-    //@ts-expect-error assigning undefined
-    updatedUser.value.accountGroupId = undefined;
-  }
+  updatedUser.value.accountGroupId = value?.id || null;
 });
-//Getting account groups
-const {
-  isFetching: loadingGroups,
-  data: groupData,
-  error: groupError,
-  execute: getGroups
-} = useFetch("/api/admins/me/account-groups", { immediate: false })
-  .get()
-  .json<AccountGroupsGetApiResponse>();
 
-const onShow = async () => {
-  await getGroups();
-  if (groupError.value || !groupData.value) return;
-  accountGroups.value = groupData.value.accountGroups;
-  selectedGroup.value = accountGroups.value.find(
-    (group) => user?.accountGroupId && user.accountGroupId === group.id
-  );
-};
+const selectedTier = ref<UserTier | null>(null);
+watch(selectedTier, (value) => {
+  updatedUser.value.tierId = value?.id || null;
+});
 </script>
 
 <template>
@@ -201,7 +179,6 @@ const onShow = async () => {
       :header="user ? 'Edit User' : 'New User'"
       class="w-80 md:w-96"
       @hide="cancel"
-      @show="onShow"
     >
       <div class="grid gap-4">
         <div class="flex flex-col items-center justify-center gap-1">
@@ -235,9 +212,7 @@ const onShow = async () => {
               size="small"
               accept="image/*"
               :max-file-size="1 * 1024 * 1024"
-              @select="
-                (files: IFile[]) => (updatedUser.image = files[0].dataUrl || '')
-              "
+              @select="(files: IFile[]) => (updatedUser.image = files[0].dataUrl || '')"
               @upload="manageUser"
               @cancel="updatedUser.image = user?.image || ''"
               class="w-full"
@@ -283,44 +258,44 @@ const onShow = async () => {
           <p class="text-xs text-red-500">
             {{ result?.error?.flatten()?.fieldErrors.password?.[0] }}
           </p>
-          <p class="text-xs text-mute">
-            Password is automatically set to '00000000' (8 zeros)
-          </p>
+          <p class="text-xs text-mute">Password is automatically set to '00000000' (8 zeros)</p>
         </div>
 
         <div class="grid">
           <label class="text-mute text-sm font-medium">
             Account Verification Status <span class="text-red-500">*</span>
           </label>
-          <ToggleButton
-            v-model="updatedUser.verified"
-            onLabel="Verified"
-            offLabel="Not Verified"
-          />
+          <ToggleButton v-model="updatedUser.verified" onLabel="Verified" offLabel="Not Verified" />
           <p v-if="user" class="text-xs text-mute">
             {{ verificationInfo }}
           </p>
           <p v-else class="text-xs text-mute">
-            If set as 'verified', the user will not receive an email to verify
-            their account.
+            If set as 'verified', the user will not receive an email to verify their account.
           </p>
         </div>
 
         <div>
-          <label class="text-mute text-sm font-medium">
-            Account Group <span class="text-red-500">*</span>
-          </label>
-          <Select
-            :loading="loadingGroups"
-            v-model="selectedGroup"
-            :options="accountGroups"
-            option-label="name"
-            placeholder="Select a group"
+          <label class="text-mute text-sm font-medium"> User Tier </label>
+          <UserTiersSelect
+            v-model="selectedTier"
+            :tier-id="updatedUser.tierId"
+            placeholder="Select a tier"
+            show-clear
             class="w-full"
           />
-          <p class="mt-1 text-mute text-xs">
-            Assign this user to a defined group.
-          </p>
+          <p class="mt-1 text-mute text-xs">Assign this user to a defined group.</p>
+        </div>
+
+        <div>
+          <label class="text-mute text-sm font-medium"> Account Group </label>
+          <UserAccountGroupsSelect
+            v-model="selectedGroup"
+            :account-group-id="updatedUser.accountGroupId"
+            placeholder="Select a group"
+            show-clear
+            class="w-full"
+          />
+          <p class="mt-1 text-mute text-xs">Assign this user to a defined group.</p>
         </div>
 
         <div>
@@ -333,12 +308,9 @@ const onShow = async () => {
             placeholder="Select a role"
             class="w-full"
           />
-          <p
-            v-if="user && user.role !== updatedUser.role"
-            class="mt-1 text-red-500 text-xs"
-          >
-            Role changed from {{ user.role }} to {{ updatedUser.role }}. Be sure
-            of this action before proceeding.
+          <p v-if="user && user.role !== updatedUser.role" class="mt-1 text-red-500 text-xs">
+            Role changed from {{ user.role }} to {{ updatedUser.role }}. Be sure of this action
+            before proceeding.
           </p>
         </div>
 
@@ -354,17 +326,13 @@ const onShow = async () => {
         <div>
           <label class="text-mute text-sm font-medium">Country</label>
           <Select
-            :default-value="
-              updatedUser.country ? { country: updatedUser.country } : undefined
-            "
+            :default-value="updatedUser.country ? { country: updatedUser.country } : undefined"
             :options="countries"
             editable
             option-label="country"
             fluid
             show-clear
-            @value-change="
-              (value) => (updatedUser.country = value?.country ?? '')
-            "
+            @value-change="(value) => (updatedUser.country = value?.country ?? '')"
           />
         </div>
 

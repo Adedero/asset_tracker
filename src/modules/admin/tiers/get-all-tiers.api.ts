@@ -2,12 +2,12 @@ import { api } from "#src/lib/api/api";
 import { defineHandler } from "#src/lib/api/handlers";
 import prisma from "#src/lib/prisma/prisma";
 import { ParsedQuery } from "#src/middleware/parse-request-query";
-import { Tier } from "#src/prisma-gen";
+import { UserTier } from "#src/prisma-gen";
 
 export type GetAllTiersApi = {
   success: boolean;
   message: string;
-  tiers: Tier[];
+  tiers: UserTier[];
 };
 
 export default api(
@@ -17,9 +17,9 @@ export default api(
     path: "/tiers"
   },
   defineHandler<GetAllTiersApi>(async (req) => {
-    const parsedQuery: ParsedQuery<Tier> | undefined = req.parsedQuery;
+    const parsedQuery: ParsedQuery<UserTier> | undefined = req.parsedQuery;
 
-    const tiers = await prisma.tier.findMany({
+    const tiers = await prisma.userTier.findMany({
       take: parsedQuery?.take,
       skip: parsedQuery?.skip,
       orderBy: parsedQuery?.sort

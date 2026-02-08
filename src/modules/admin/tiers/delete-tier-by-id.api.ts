@@ -1,12 +1,12 @@
 import { api } from "#src/lib/api/api";
 import { defineHandler } from "#src/lib/api/handlers";
 import prisma from "#src/lib/prisma/prisma";
-import { Tier } from "#src/prisma-gen";
+import { UserTier } from "#src/prisma-gen";
 
 export type DeleteTierByIdApi = {
   success: boolean;
   message: string;
-  tier: Tier;
+  tier: UserTier;
 };
 
 export default api(
@@ -17,7 +17,7 @@ export default api(
   },
   defineHandler<DeleteTierByIdApi>(async (req) => {
     const { tier_id } = req.params;
-    const tier = await prisma.tier.delete({
+    const tier = await prisma.userTier.delete({
       where: { id: tier_id }
     });
     return {

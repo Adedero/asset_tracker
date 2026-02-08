@@ -5,7 +5,7 @@ import { useConfirm, useToast } from "primevue";
 import { ref } from "vue";
 import { TierCreateApiResponse } from "@/modules/admin/tiers/tiers-post.api";
 import { useDateFormat } from "@vueuse/core";
-import type { Tier } from "@/prisma-gen";
+import type { UserTier } from "@/prisma-gen";
 import type { DeleteTierByIdApi } from "@/modules/admin/tiers/delete-tier-by-id.api";
 import type { GetAllTiersApi } from "@/modules/admin/tiers/get-all-tiers.api";
 import { TierUpdateApiResponse } from "@/modules/admin/tiers/update-tier.api";
@@ -22,7 +22,7 @@ const {
 
 // Creating a new tier
 const visible = ref(false);
-const selectedTier = ref<Tier | null>(null);
+const selectedTier = ref<UserTier | null>(null);
 
 function initTierCreate() {
   visible.value = true;
@@ -40,7 +40,7 @@ const onCreateTier = (payload: TierCreateApiResponse) => {
 };
 
 // Editing a tier
-function selectTier(tier: Tier) {
+function selectTier(tier: UserTier) {
   selectedTier.value = tier;
   visible.value = true;
 }
@@ -67,7 +67,7 @@ const {
   .delete()
   .json<DeleteTierByIdApi>();
 
-async function deleteTier(tier: Tier & { isDeleting: boolean }) {
+async function deleteTier(tier: UserTier & { isDeleting: boolean }) {
   tierId.value = tier.id;
   tier.isDeleting = true;
 
@@ -102,7 +102,7 @@ async function deleteTier(tier: Tier & { isDeleting: boolean }) {
   tier.isDeleting = false;
 }
 
-const confirmDelete = (tier: Tier & { isDeleting: boolean }) => {
+const confirmDelete = (tier: UserTier & { isDeleting: boolean }) => {
   confirm.require({
     header: "Delete tier",
     message: "Are you sure you want to delete this tier?",

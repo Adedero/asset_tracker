@@ -6,13 +6,8 @@ import { ApiResponse } from "#src/types/api-response";
 import { z } from "zod";
 
 const Schema = z.object({
-  walletBalance: z
-    .number({ message: "Wallet balance must be a number" })
-    .optional(),
-  kycIdType: z
-    .string({ message: "The KYC ID type must be a string" })
-    .nullable()
-    .optional(),
+  walletBalance: z.number({ message: "Wallet balance must be a number" }).optional(),
+  kycIdType: z.string({ message: "The KYC ID type must be a string" }).nullable().optional(),
   kycDocument: z
     .string({ message: "The KYC document type must be a string" })
     .nullable()
@@ -33,7 +28,8 @@ const Schema = z.object({
   kycVerifiedAt: z.coerce
     .date({ message: "The KYC verified at must be a date" })
     .nullable()
-    .optional()
+    .optional(),
+  tierId: z.string({ message: "Invalid user tier" }).uuid().optional().nullable()
 });
 
 export type AccountUpdateApiResponse = ApiResponse & {

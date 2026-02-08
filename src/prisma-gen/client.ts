@@ -49,6 +49,11 @@ path.join(process.cwd(), "src/prisma-gen/libquery_engine-debian-openssl-1.0.x.so
  */
 export type User = Prisma.UserModel
 /**
+ * Model UserTier
+ * 
+ */
+export type UserTier = Prisma.UserTierModel
+/**
  * Model Account
  * 
  */
@@ -103,11 +108,6 @@ export type Faq = Prisma.FaqModel
  * 
  */
 export type Ban = Prisma.BanModel
-/**
- * Model Tier
- * 
- */
-export type Tier = Prisma.TierModel
 
 export type UserRole = $Enums.UserRole
 export const UserRole = $Enums.UserRole

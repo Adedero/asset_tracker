@@ -195,6 +195,7 @@ export type InvestmentPlanWhereInput = {
   tiers?: Prisma.JsonNullableFilter<"InvestmentPlan">
   createdAt?: Prisma.DateTimeFilter<"InvestmentPlan"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"InvestmentPlan"> | Date | string
+  userTiers?: Prisma.UserTierListRelationFilter
 }
 
 export type InvestmentPlanOrderByWithRelationInput = {
@@ -205,6 +206,7 @@ export type InvestmentPlanOrderByWithRelationInput = {
   tiers?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userTiers?: Prisma.UserTierOrderByRelationAggregateInput
 }
 
 export type InvestmentPlanWhereUniqueInput = Prisma.AtLeast<{
@@ -218,6 +220,7 @@ export type InvestmentPlanWhereUniqueInput = Prisma.AtLeast<{
   tiers?: Prisma.JsonNullableFilter<"InvestmentPlan">
   createdAt?: Prisma.DateTimeFilter<"InvestmentPlan"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"InvestmentPlan"> | Date | string
+  userTiers?: Prisma.UserTierListRelationFilter
 }, "id" | "slug">
 
 export type InvestmentPlanOrderByWithAggregationInput = {
@@ -254,6 +257,7 @@ export type InvestmentPlanCreateInput = {
   tiers?: PrismaJson.InvestmentTier[] | Prisma.NullableJsonNullValueInput
   createdAt?: Date | string
   updatedAt?: Date | string
+  userTiers?: Prisma.UserTierCreateNestedManyWithoutInvestmentPlansInput
 }
 
 export type InvestmentPlanUncheckedCreateInput = {
@@ -264,6 +268,7 @@ export type InvestmentPlanUncheckedCreateInput = {
   tiers?: PrismaJson.InvestmentTier[] | Prisma.NullableJsonNullValueInput
   createdAt?: Date | string
   updatedAt?: Date | string
+  userTiers?: Prisma.UserTierUncheckedCreateNestedManyWithoutInvestmentPlansInput
 }
 
 export type InvestmentPlanUpdateInput = {
@@ -274,6 +279,7 @@ export type InvestmentPlanUpdateInput = {
   tiers?: PrismaJson.InvestmentTier[] | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userTiers?: Prisma.UserTierUpdateManyWithoutInvestmentPlansNestedInput
 }
 
 export type InvestmentPlanUncheckedUpdateInput = {
@@ -284,6 +290,7 @@ export type InvestmentPlanUncheckedUpdateInput = {
   tiers?: PrismaJson.InvestmentTier[] | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userTiers?: Prisma.UserTierUncheckedUpdateManyWithoutInvestmentPlansNestedInput
 }
 
 export type InvestmentPlanCreateManyInput = {
@@ -316,6 +323,16 @@ export type InvestmentPlanUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type InvestmentPlanListRelationFilter = {
+  every?: Prisma.InvestmentPlanWhereInput
+  some?: Prisma.InvestmentPlanWhereInput
+  none?: Prisma.InvestmentPlanWhereInput
+}
+
+export type InvestmentPlanOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type InvestmentPlanCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -344,6 +361,157 @@ export type InvestmentPlanMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type InvestmentPlanCreateNestedManyWithoutUserTiersInput = {
+  create?: Prisma.XOR<Prisma.InvestmentPlanCreateWithoutUserTiersInput, Prisma.InvestmentPlanUncheckedCreateWithoutUserTiersInput> | Prisma.InvestmentPlanCreateWithoutUserTiersInput[] | Prisma.InvestmentPlanUncheckedCreateWithoutUserTiersInput[]
+  connectOrCreate?: Prisma.InvestmentPlanCreateOrConnectWithoutUserTiersInput | Prisma.InvestmentPlanCreateOrConnectWithoutUserTiersInput[]
+  connect?: Prisma.InvestmentPlanWhereUniqueInput | Prisma.InvestmentPlanWhereUniqueInput[]
+}
+
+export type InvestmentPlanUncheckedCreateNestedManyWithoutUserTiersInput = {
+  create?: Prisma.XOR<Prisma.InvestmentPlanCreateWithoutUserTiersInput, Prisma.InvestmentPlanUncheckedCreateWithoutUserTiersInput> | Prisma.InvestmentPlanCreateWithoutUserTiersInput[] | Prisma.InvestmentPlanUncheckedCreateWithoutUserTiersInput[]
+  connectOrCreate?: Prisma.InvestmentPlanCreateOrConnectWithoutUserTiersInput | Prisma.InvestmentPlanCreateOrConnectWithoutUserTiersInput[]
+  connect?: Prisma.InvestmentPlanWhereUniqueInput | Prisma.InvestmentPlanWhereUniqueInput[]
+}
+
+export type InvestmentPlanUpdateManyWithoutUserTiersNestedInput = {
+  create?: Prisma.XOR<Prisma.InvestmentPlanCreateWithoutUserTiersInput, Prisma.InvestmentPlanUncheckedCreateWithoutUserTiersInput> | Prisma.InvestmentPlanCreateWithoutUserTiersInput[] | Prisma.InvestmentPlanUncheckedCreateWithoutUserTiersInput[]
+  connectOrCreate?: Prisma.InvestmentPlanCreateOrConnectWithoutUserTiersInput | Prisma.InvestmentPlanCreateOrConnectWithoutUserTiersInput[]
+  upsert?: Prisma.InvestmentPlanUpsertWithWhereUniqueWithoutUserTiersInput | Prisma.InvestmentPlanUpsertWithWhereUniqueWithoutUserTiersInput[]
+  set?: Prisma.InvestmentPlanWhereUniqueInput | Prisma.InvestmentPlanWhereUniqueInput[]
+  disconnect?: Prisma.InvestmentPlanWhereUniqueInput | Prisma.InvestmentPlanWhereUniqueInput[]
+  delete?: Prisma.InvestmentPlanWhereUniqueInput | Prisma.InvestmentPlanWhereUniqueInput[]
+  connect?: Prisma.InvestmentPlanWhereUniqueInput | Prisma.InvestmentPlanWhereUniqueInput[]
+  update?: Prisma.InvestmentPlanUpdateWithWhereUniqueWithoutUserTiersInput | Prisma.InvestmentPlanUpdateWithWhereUniqueWithoutUserTiersInput[]
+  updateMany?: Prisma.InvestmentPlanUpdateManyWithWhereWithoutUserTiersInput | Prisma.InvestmentPlanUpdateManyWithWhereWithoutUserTiersInput[]
+  deleteMany?: Prisma.InvestmentPlanScalarWhereInput | Prisma.InvestmentPlanScalarWhereInput[]
+}
+
+export type InvestmentPlanUncheckedUpdateManyWithoutUserTiersNestedInput = {
+  create?: Prisma.XOR<Prisma.InvestmentPlanCreateWithoutUserTiersInput, Prisma.InvestmentPlanUncheckedCreateWithoutUserTiersInput> | Prisma.InvestmentPlanCreateWithoutUserTiersInput[] | Prisma.InvestmentPlanUncheckedCreateWithoutUserTiersInput[]
+  connectOrCreate?: Prisma.InvestmentPlanCreateOrConnectWithoutUserTiersInput | Prisma.InvestmentPlanCreateOrConnectWithoutUserTiersInput[]
+  upsert?: Prisma.InvestmentPlanUpsertWithWhereUniqueWithoutUserTiersInput | Prisma.InvestmentPlanUpsertWithWhereUniqueWithoutUserTiersInput[]
+  set?: Prisma.InvestmentPlanWhereUniqueInput | Prisma.InvestmentPlanWhereUniqueInput[]
+  disconnect?: Prisma.InvestmentPlanWhereUniqueInput | Prisma.InvestmentPlanWhereUniqueInput[]
+  delete?: Prisma.InvestmentPlanWhereUniqueInput | Prisma.InvestmentPlanWhereUniqueInput[]
+  connect?: Prisma.InvestmentPlanWhereUniqueInput | Prisma.InvestmentPlanWhereUniqueInput[]
+  update?: Prisma.InvestmentPlanUpdateWithWhereUniqueWithoutUserTiersInput | Prisma.InvestmentPlanUpdateWithWhereUniqueWithoutUserTiersInput[]
+  updateMany?: Prisma.InvestmentPlanUpdateManyWithWhereWithoutUserTiersInput | Prisma.InvestmentPlanUpdateManyWithWhereWithoutUserTiersInput[]
+  deleteMany?: Prisma.InvestmentPlanScalarWhereInput | Prisma.InvestmentPlanScalarWhereInput[]
+}
+
+export type InvestmentPlanCreateWithoutUserTiersInput = {
+  id?: string
+  name: string
+  slug: string
+  image?: string | null
+  tiers?: PrismaJson.InvestmentTier[] | Prisma.NullableJsonNullValueInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type InvestmentPlanUncheckedCreateWithoutUserTiersInput = {
+  id?: string
+  name: string
+  slug: string
+  image?: string | null
+  tiers?: PrismaJson.InvestmentTier[] | Prisma.NullableJsonNullValueInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type InvestmentPlanCreateOrConnectWithoutUserTiersInput = {
+  where: Prisma.InvestmentPlanWhereUniqueInput
+  create: Prisma.XOR<Prisma.InvestmentPlanCreateWithoutUserTiersInput, Prisma.InvestmentPlanUncheckedCreateWithoutUserTiersInput>
+}
+
+export type InvestmentPlanUpsertWithWhereUniqueWithoutUserTiersInput = {
+  where: Prisma.InvestmentPlanWhereUniqueInput
+  update: Prisma.XOR<Prisma.InvestmentPlanUpdateWithoutUserTiersInput, Prisma.InvestmentPlanUncheckedUpdateWithoutUserTiersInput>
+  create: Prisma.XOR<Prisma.InvestmentPlanCreateWithoutUserTiersInput, Prisma.InvestmentPlanUncheckedCreateWithoutUserTiersInput>
+}
+
+export type InvestmentPlanUpdateWithWhereUniqueWithoutUserTiersInput = {
+  where: Prisma.InvestmentPlanWhereUniqueInput
+  data: Prisma.XOR<Prisma.InvestmentPlanUpdateWithoutUserTiersInput, Prisma.InvestmentPlanUncheckedUpdateWithoutUserTiersInput>
+}
+
+export type InvestmentPlanUpdateManyWithWhereWithoutUserTiersInput = {
+  where: Prisma.InvestmentPlanScalarWhereInput
+  data: Prisma.XOR<Prisma.InvestmentPlanUpdateManyMutationInput, Prisma.InvestmentPlanUncheckedUpdateManyWithoutUserTiersInput>
+}
+
+export type InvestmentPlanScalarWhereInput = {
+  AND?: Prisma.InvestmentPlanScalarWhereInput | Prisma.InvestmentPlanScalarWhereInput[]
+  OR?: Prisma.InvestmentPlanScalarWhereInput[]
+  NOT?: Prisma.InvestmentPlanScalarWhereInput | Prisma.InvestmentPlanScalarWhereInput[]
+  id?: Prisma.StringFilter<"InvestmentPlan"> | string
+  name?: Prisma.StringFilter<"InvestmentPlan"> | string
+  slug?: Prisma.StringFilter<"InvestmentPlan"> | string
+  image?: Prisma.StringNullableFilter<"InvestmentPlan"> | string | null
+  tiers?: Prisma.JsonNullableFilter<"InvestmentPlan">
+  createdAt?: Prisma.DateTimeFilter<"InvestmentPlan"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"InvestmentPlan"> | Date | string
+}
+
+export type InvestmentPlanUpdateWithoutUserTiersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiers?: PrismaJson.InvestmentTier[] | Prisma.NullableJsonNullValueInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InvestmentPlanUncheckedUpdateWithoutUserTiersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiers?: PrismaJson.InvestmentTier[] | Prisma.NullableJsonNullValueInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InvestmentPlanUncheckedUpdateManyWithoutUserTiersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiers?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type InvestmentPlanCountOutputType
+ */
+
+export type InvestmentPlanCountOutputType = {
+  userTiers: number
+}
+
+export type InvestmentPlanCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  userTiers?: boolean | InvestmentPlanCountOutputTypeCountUserTiersArgs
+}
+
+/**
+ * InvestmentPlanCountOutputType without action
+ */
+export type InvestmentPlanCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InvestmentPlanCountOutputType
+   */
+  select?: Prisma.InvestmentPlanCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * InvestmentPlanCountOutputType without action
+ */
+export type InvestmentPlanCountOutputTypeCountUserTiersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserTierWhereInput
+}
 
 
 export type InvestmentPlanSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -354,6 +522,8 @@ export type InvestmentPlanSelect<ExtArgs extends runtime.Types.Extensions.Intern
   tiers?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userTiers?: boolean | Prisma.InvestmentPlan$userTiersArgs<ExtArgs>
+  _count?: boolean | Prisma.InvestmentPlanCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["investmentPlan"]>
 
 export type InvestmentPlanSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -387,10 +557,18 @@ export type InvestmentPlanSelectScalar = {
 }
 
 export type InvestmentPlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "image" | "tiers" | "createdAt" | "updatedAt", ExtArgs["result"]["investmentPlan"]>
+export type InvestmentPlanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  userTiers?: boolean | Prisma.InvestmentPlan$userTiersArgs<ExtArgs>
+  _count?: boolean | Prisma.InvestmentPlanCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type InvestmentPlanIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type InvestmentPlanIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $InvestmentPlanPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "InvestmentPlan"
-  objects: {}
+  objects: {
+    userTiers: Prisma.$UserTierPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
@@ -796,6 +974,7 @@ readonly fields: InvestmentPlanFieldRefs;
  */
 export interface Prisma__InvestmentPlanClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  userTiers<T extends Prisma.InvestmentPlan$userTiersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InvestmentPlan$userTiersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserTierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -849,6 +1028,10 @@ export type InvestmentPlanFindUniqueArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.InvestmentPlanOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvestmentPlanInclude<ExtArgs> | null
+  /**
    * Filter, which InvestmentPlan to fetch.
    */
   where: Prisma.InvestmentPlanWhereUniqueInput
@@ -867,6 +1050,10 @@ export type InvestmentPlanFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Ex
    */
   omit?: Prisma.InvestmentPlanOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvestmentPlanInclude<ExtArgs> | null
+  /**
    * Filter, which InvestmentPlan to fetch.
    */
   where: Prisma.InvestmentPlanWhereUniqueInput
@@ -884,6 +1071,10 @@ export type InvestmentPlanFindFirstArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the InvestmentPlan
    */
   omit?: Prisma.InvestmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvestmentPlanInclude<ExtArgs> | null
   /**
    * Filter, which InvestmentPlan to fetch.
    */
@@ -933,6 +1124,10 @@ export type InvestmentPlanFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.InvestmentPlanOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvestmentPlanInclude<ExtArgs> | null
+  /**
    * Filter, which InvestmentPlan to fetch.
    */
   where?: Prisma.InvestmentPlanWhereInput
@@ -981,6 +1176,10 @@ export type InvestmentPlanFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.InvestmentPlanOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvestmentPlanInclude<ExtArgs> | null
+  /**
    * Filter, which InvestmentPlans to fetch.
    */
   where?: Prisma.InvestmentPlanWhereInput
@@ -1023,6 +1222,10 @@ export type InvestmentPlanCreateArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the InvestmentPlan
    */
   omit?: Prisma.InvestmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvestmentPlanInclude<ExtArgs> | null
   /**
    * The data needed to create a InvestmentPlan.
    */
@@ -1069,6 +1272,10 @@ export type InvestmentPlanUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the InvestmentPlan
    */
   omit?: Prisma.InvestmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvestmentPlanInclude<ExtArgs> | null
   /**
    * The data needed to update a InvestmentPlan.
    */
@@ -1136,6 +1343,10 @@ export type InvestmentPlanUpsertArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.InvestmentPlanOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvestmentPlanInclude<ExtArgs> | null
+  /**
    * The filter to search for the InvestmentPlan to update in case it exists.
    */
   where: Prisma.InvestmentPlanWhereUniqueInput
@@ -1162,6 +1373,10 @@ export type InvestmentPlanDeleteArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.InvestmentPlanOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvestmentPlanInclude<ExtArgs> | null
+  /**
    * Filter which InvestmentPlan to delete.
    */
   where: Prisma.InvestmentPlanWhereUniqueInput
@@ -1182,6 +1397,30 @@ export type InvestmentPlanDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * InvestmentPlan.userTiers
+ */
+export type InvestmentPlan$userTiersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserTier
+   */
+  select?: Prisma.UserTierSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserTier
+   */
+  omit?: Prisma.UserTierOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserTierInclude<ExtArgs> | null
+  where?: Prisma.UserTierWhereInput
+  orderBy?: Prisma.UserTierOrderByWithRelationInput | Prisma.UserTierOrderByWithRelationInput[]
+  cursor?: Prisma.UserTierWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserTierScalarFieldEnum | Prisma.UserTierScalarFieldEnum[]
+}
+
+/**
  * InvestmentPlan without action
  */
 export type InvestmentPlanDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1193,4 +1432,8 @@ export type InvestmentPlanDefaultArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the InvestmentPlan
    */
   omit?: Prisma.InvestmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvestmentPlanInclude<ExtArgs> | null
 }

@@ -25,12 +25,42 @@ export default api(
   defineHandler(async (req) => {
     const investment_plan_id = req.params.investment_plan_id?.toString();
 
-    const parsedQuery: ParsedQuery<InvestmentPlan> | undefined =
-      req.parsedQuery;
+    const parsedQuery: ParsedQuery<InvestmentPlan> | undefined = req.parsedQuery;
+
+    const userTier =
+      (
+        await prisma.account.findUnique({
+          where: { userId: req.user!.id },
+          select: { tier: { select: { id: true } } }
+        })
+      )?.tier?.id || null;
 
     if (investment_plan_id) {
-      const investmentPlan = await prisma.investmentPlan.findUnique({
-        where: { id: investment_plan_id }
+      const investmentPlan = await prisma.investmentPlan.findFirst({
+        where: {
+          id: investment_plan_id,
+          OR: [
+            // Unrestricted
+            {
+              userTiers: {
+                none: {}
+              }
+            },
+
+            // Restricted but includes user's tier
+            ...(userTier
+              ? [
+                  {
+                    userTiers: {
+                      some: {
+                        id: userTier
+                      }
+                    }
+                  }
+                ]
+              : [])
+          ]
+        }
       });
 
       if (!investmentPlan) {
@@ -46,7 +76,29 @@ export default api(
       return payload;
     }
 
-    const investmentPlans = await prisma.investmentPlan.findMany();
+    const investmentPlans = await prisma.investmentPlan.findMany({
+      where: {
+        OR: [
+          {
+            userTiers: {
+              none: {}
+            }
+          },
+
+          ...(userTier
+            ? [
+                {
+                  userTiers: {
+                    some: {
+                      id: userTier
+                    }
+                  }
+                }
+              ]
+            : [])
+        ]
+      }
+    });
 
     const payload: InvestmentPlansApiResponse = {
       success: true,

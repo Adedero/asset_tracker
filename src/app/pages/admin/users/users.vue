@@ -119,7 +119,7 @@ const onDone = async (payload: User) => {
                 :loading="isLoading"
                 :value="data.users"
                 size="small"
-                class="text-sm"
+                class="text-sm text-nowrap"
               >
                 <Column header="S/N">
                   <template #body="{ index }">
@@ -184,6 +184,12 @@ const onDone = async (payload: User) => {
                 <Column header="Account Group">
                   <template #body="{ data }">
                     {{ data.accountGroup?.name }}
+                  </template>
+                </Column>
+                
+                <Column header="Tier">
+                  <template #body="{ data }">
+                    {{ data.account?.tier?.name }}
                   </template>
                 </Column>
                 
