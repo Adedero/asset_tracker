@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, /* onUnmounted, */ ref } from "vue";
+import { computed, onBeforeUnmount, /* onUnmounted, */ ref, useTemplateRef } from "vue";
 
 interface Props {
   accept?: string;
@@ -39,9 +39,16 @@ export interface IFile extends File {
   dataUrl?: string;
 }
 
+const fileInput = useTemplateRef("fileInput");
+
 const files = ref<IFile[] | null>(null);
 
 const uploadError = ref<{ error?: boolean; message?: string }>({});
+
+const handleChoose = () => {
+  if (loading || disabled) return;
+  fileInput.value?.click();
+};
 
 const handleSelect = async (event: Event) => {
   uploadError.value = {};
@@ -92,9 +99,7 @@ const handleSelect = async (event: Event) => {
       files.value = null;
       uploadError.value = {
         error: true,
-        message:
-          invalidFileSizeMessage ||
-          `File size exceeds the ${formattedSize} limit.`
+        message: invalidFileSizeMessage || `File size exceeds the ${formattedSize} limit.`
       };
       return;
     }
@@ -170,12 +175,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="flex flex-col items-center justify-center *:flex-shrink-0">
-    <Message
-      v-show="uploadError.error"
-      severity="error"
-      closable
-      class="w-full mb-2"
-    >
+    <Message v-show="uploadError.error" severity="error" closable class="w-full mb-2">
       {{ uploadError.message }}
     </Message>
 
@@ -186,16 +186,16 @@ onBeforeUnmount(() => {
       fluid
       style="padding: 0; width: 100%"
       :loading
+      :disabled="loading || disabled"
       :size
+      @click="handleChoose"
     >
       <template #default>
-        <label
-          :for="inputId"
-          class="font-semibold flex items-center justify-center gap-2 cursor-pointer w-full p-2"
-        >
-          <span class="pi pi-upload"></span>
+        <div class="font-semibold flex items-center justify-center gap-2 cursor-pointer w-full p-2">
+          <span v-if="loading" class="pi pi-spinner animate-spin"></span>
+          <span v-else class="pi pi-upload"></span>
           <span>{{ chooseLabel }}</span>
-        </label>
+        </div>
       </template>
     </Button>
 
@@ -225,9 +225,7 @@ onBeforeUnmount(() => {
               '!p-1': size === 'small'
             }"
           >
-            <span
-              :class="loading ? 'pi pi-spinner pi-spin' : 'pi pi-plus'"
-            ></span>
+            <span :class="loading ? 'pi pi-spinner pi-spin' : 'pi pi-plus'"></span>
             <span>{{ uploadLabel }}</span>
           </div>
         </template>
@@ -241,6 +239,7 @@ onBeforeUnmount(() => {
       {{ uploadText }}
     </p>
     <input
+      ref="fileInput"
       :id="inputId"
       @input="handleSelect"
       @cancel="handleCancel"

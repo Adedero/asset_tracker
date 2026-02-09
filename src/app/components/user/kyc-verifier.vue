@@ -55,38 +55,23 @@ const handleUpload = async (files: IFile[]) => {
 </script>
 
 <template>
-  <Dialog
-    v-model:visible="visible"
-    header="KYC Verification"
-    modal
-    class="w-full max-w-96"
-  >
+  <Dialog v-model:visible="visible" header="KYC Verification" modal class="w-full max-w-96">
     <div class="grid gap-4">
       <Message size="small" class="mt-2">
-        For a quicker verification process, please make sure the name on your ID
-        matches your name on {{ APP_NAME }}.
+        For a quicker verification process, please make sure the name on your ID matches your name
+        on {{ APP_NAME }}.
       </Message>
 
       <VErrorMessage :error="error" class="my-3" />
 
       <div class="grid gap-2">
-        <label for="id-type" class="text-mute text-sm font-medium"
-          >ID Type</label
-        >
-        <Select
-          label-id="id-type"
-          v-model="selectedIdType"
-          :options="idTypes"
-        />
+        <label for="id-type" class="text-mute text-sm font-medium">ID Type</label>
+        <Select label-id="id-type" v-model="selectedIdType" :options="idTypes" />
       </div>
 
       <div class="grid gap-2">
-        <label for="kyc-document" class="text-mute text-sm font-medium"
-          >Upload Document</label
-        >
-        <small class="text-primary-500"
-          >Uploaded file must be 2 MB or less</small
-        >
+        <label for="kyc-document" class="text-mute text-sm font-medium">Upload Document</label>
+        <small class="text-primary-500"> Uploaded file must be 2 MB or less </small>
         <VFileUploader
           input-id="kyc-document"
           :max-file-size="2 * 1024 * 1024"

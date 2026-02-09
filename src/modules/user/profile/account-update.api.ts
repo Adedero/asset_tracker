@@ -2,6 +2,7 @@ import { api } from "#src/lib/api/api";
 import { defineHandler, defineValidator } from "#src/lib/api/handlers";
 import prisma from "#src/lib/prisma/prisma";
 import { KycStatus } from "#src/prisma-gen/index";
+import { sleep } from "#src/utils/sleep";
 import { z } from "zod";
 
 const Schema = z.object({
@@ -22,6 +23,7 @@ export default api(
     middleware: defineValidator("body", Schema)
   },
   defineHandler(async (req) => {
+    await sleep(10_000);
     const data = req.validatedBody as z.infer<typeof Schema>;
     const userId = req.user!.id;
 
