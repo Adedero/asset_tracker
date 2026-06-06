@@ -37,7 +37,7 @@ export async function onDepositCreate({ user, transaction }: DepositAlertData) {
         Status: transaction.transactionStatus
       },
       note: transaction.isWireTransfer
-        ? "The deposit request has been submitted and the details of the wire transfer will emailed shortly."
+        ? "The deposit request has been submitted and the details of the wire transfer will be emailed shortly."
         : "The deposit request will be processed within 24 hours.",
       footer: "This email was sent because a deposit request was initiated."
     };

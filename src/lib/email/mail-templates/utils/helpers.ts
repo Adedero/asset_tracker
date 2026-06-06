@@ -1,8 +1,7 @@
 import env from "#src/utils/env";
 
 export function render(data?: any): string {
-  const styles = `font-family="Verdana"`;
-  const paragraph = (content: string) => `<p${styles}>${content}</p>`;
+  const paragraph = (content: string) => `<p style="font-family: Verdana">${content}</p>`;
 
   if (!data) return "";
 
@@ -29,7 +28,11 @@ export function render(data?: any): string {
         ) {
           return paragraph(`${key}: ${String(value)}`);
         } else {
-          return paragraph(`${key}: ${render(value)}`);
+          // render the key as a label, then the nested content below it
+          return `<div style="margin-top: 0.5rem">
+            <p style="font-weight: 600">${key}</p>
+            <div style="padding-left: 0.75rem">${render(value)}</div>
+          </div>`;
         }
       })
       .join("");
