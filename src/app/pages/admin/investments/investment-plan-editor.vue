@@ -102,6 +102,7 @@ const {
   .json();
 
 const savePlan = async () => {
+  if (disabled.value) return;
   if (duplicateError.value) {
     toast.add({
       severity: "warn",
@@ -237,7 +238,8 @@ const removeTier = (tier: NonNullable<InvestmentPlan["tiers"]>[number]) => {
                   @cancel="plan.image = initialImage ?? ''"
                   class="w-full"
                   :loading="isFetching"
-                  :disabled="isFetching || disabled"
+                  :disabled="isFetching"
+                  :upload-disabled="disabled"
                 />
               </div>
 

@@ -190,11 +190,6 @@ export const routes = [
   },
   {
     "group": "/admins/me",
-    "path": "/admins/me/send-mail",
-    "method": "post"
-  },
-  {
-    "group": "/admins/me",
     "path": "/admins/me/tiers/:tier_id",
     "method": "delete"
   },
@@ -217,6 +212,11 @@ export const routes = [
     "group": "/admins/me",
     "path": "/admins/me/tiers/:tier_id",
     "method": "put"
+  },
+  {
+    "group": "/admins/me",
+    "path": "/admins/me/send-mail",
+    "method": "post"
   },
   {
     "group": "/admins/me",

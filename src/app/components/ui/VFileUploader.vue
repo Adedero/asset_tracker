@@ -14,6 +14,7 @@ interface Props {
   loading?: boolean;
   inputId?: string;
   disabled?: boolean;
+  uploadDisabled?: boolean;
   size?: "small" | "large";
 }
 
@@ -30,6 +31,7 @@ const {
   loading = false,
   inputId = "v-file-uploader",
   disabled = false,
+  uploadDisabled = false,
   size
 } = defineProps<Props>();
 
@@ -214,7 +216,7 @@ onBeforeUnmount(() => {
         :severity="buttonType"
         style="padding: 0; width: 100%"
         :loading
-        :disabled="loading || disabled"
+        :disabled="loading || uploadDisabled"
         :size
       >
         <template #default>
